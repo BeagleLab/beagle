@@ -1,5 +1,5 @@
 {
-	"name": "Inject sidebar",
+	"name": "Beagle",
 	"manifest_version": 2,
 	"description": "Inject a sidebar on the current tab when the page action is clicked",
 	"version": "0.2",
