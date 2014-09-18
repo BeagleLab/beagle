@@ -1,0 +1,10 @@
+.beagle-sidebar {
+  position:fixed;
+  top:0px;
+  right:0px;
+  width:30%;
+  height:100%;
+  background:white;
+  box-shadow:0 0 1em black;
+  z-index:999999;
+}

@@ -13,7 +13,7 @@
 	"content_scripts": [
 		{
 			"matches": ["<all_urls>"],
-			"js": ["script.js"]
+			"js": ["bundle.js"]
 		}
 	],
 	"icons": {
