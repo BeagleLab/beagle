@@ -1,0 +1,27 @@
+{
+  "name": "beagle",
+  "version": "0.0.0",
+  "description": "Navigating research",
+  "main": "main.js",
+  "dependencies": {
+    "brfs": "^1.2.0",
+    "fs": "^0.0.2",
+    "uniq": "^1.0.1",
+    "path": "^0.4.9",
+    "browserify": "^5.11.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/RichardLitt/beagle.git"
+  },
+  "author": "Richard Littauer <richard.littauer@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/RichardLitt/beagle/issues"
+  },
+  "homepage": "https://github.com/RichardLitt/beagle"
+}
