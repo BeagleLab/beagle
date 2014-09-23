@@ -1,31 +1,53 @@
 var fs = require('fs');
 
-/*Handle requests from background.html*/
+// Init
+var sidebarOpen = false;
+
+// TODO Include other beagle-* modules here, using alternative manifest
+
+// TODO Enable Static Assets to go to other Views besides SideBar
+function buildSidebarStaticAssets(){
+    
+    // Init
+    var sidebar = document.createElement('div');
+    sidebar.id = "beagle-sidebar";
+
+    // TODO Concat CSS files
+    // Add in CSS
+    sidebar.innerHTML = '<style>' + 
+    fs.readFileSync(__dirname + '/main.css', 'utf8') + '</style>';
+
+    // TODO Concat HTML files
+    // Add in HTML
+    sidebar.innerHTML += fs.readFileSync(__dirname + '/sidebar.html', 'utf8');
+
+    return sidebar;
+}
+
+// Handle requests from background.html
 function handleRequest(
-  //The object data with the request params
+  // The object data with the request params
   request, 
-  //These last two ones isn't important for this example, if you want know more about it visit: http://code.google.com/chrome/extensions/messaging.html
+  // These last two ones isn't important for this example.
+  // If you want know more about it visit: 
+  // http://code.google.com/chrome/extensions/messaging.html
   sender, sendResponse
   ) {
-  if (request.callFunction == "toggleSidebar")
+  if (request.callFunction == "toggleSidebar") {
     toggleSidebar();
+  }
 }
+
 chrome.extension.onRequest.addListener(handleRequest);
 
-/*Small function wich create a sidebar(just to illustrate my point)*/
-var sidebarOpen = false;
+// TODO Stop destroying the sidebar - hide it instead.
 function toggleSidebar() {
-  if(sidebarOpen) {
-    var el = document.getElementById('mySidebar');
+  if (sidebarOpen) {
+    var el = document.getElementById('beagle-sidebar');
     el.parentNode.removeChild(el);
     sidebarOpen = false;
-  }
-  else {
-    var sidebar = document.createElement('div');
-    sidebar.innerHTML = '<style>' + 
-      fs.readFileSync(__dirname + '/main.css', 'utf8') + '</style>';
-    sidebar.innerHTML += fs.readFileSync(__dirname + '/sidebar.html', 'utf8');
-    sidebar.id = "mySidebar";
+  } else {
+    var sidebar = buildSidebarStaticAssets();
     document.body.appendChild(sidebar);
     sidebarOpen = true;
   }
