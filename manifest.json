@@ -23,8 +23,5 @@
 	},
 	"permissions": [
 		"tabs"
-	],
-  "web_accessible_resources": [
-  	"injectedScript.js"
-  ]
+	]
 }
