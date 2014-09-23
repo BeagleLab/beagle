@@ -1,4 +1,3 @@
-
 var fs = require('fs');
 
 /*Handle requests from background.html*/

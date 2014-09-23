@@ -7,8 +7,8 @@
 		"page": "background.html"
 	},
 	"page_action": {
-		"default_icon": "icon.png",
-		"default_title": "Inject sidebar"
+		"default_icon": "images/icon48.png",
+		"default_title": "Beagle"
 	},
 	"content_scripts": [
 		{
