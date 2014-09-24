@@ -1,5 +1,6 @@
 var fs = require('fs');
 var _ = require('underscore');
+var test = require('beagle-test');
 
 // Init
 var sidebarOpen = false;
@@ -15,17 +16,22 @@ function buildStaticAssets(modules){
     // These are stored locally, for now, in node_modules
     // module.naturalGutenberg = require(modules.dependencies[0]);
 
+    console.log('Now adding:', test.module);
+
     // console.log(naturalGutenberg['austen-emma']);
     // Grab CSS and HTML files from required modules
 
     // TODO Concat CSS files
     // Add in CSS
     sidebar.innerHTML = '<style>' + 
-    fs.readFileSync(__dirname + '/main.css', 'utf8') + '</style>';
+    fs.readFileSync(__dirname + '/main.css', 'utf8') + 
+    test.load().css + 
+    '</style>';
 
     // TODO Concat HTML files
     // Add in HTML
-    sidebar.innerHTML += fs.readFileSync(__dirname + '/sidebar.html', 'utf8');
+    // sidebar.innerHTML += fs.readFileSync(__dirname + '/sidebar.html', 'utf8');
+    sidebar.innerHTML += test.load().html;
 
     return sidebar;
 }

@@ -1,6 +1,7 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 
 var _ = require('underscore');
+var test = require('beagle-test');
 
 // Init
 var sidebarOpen = false;
@@ -16,17 +17,22 @@ function buildStaticAssets(modules){
     // These are stored locally, for now, in node_modules
     // module.naturalGutenberg = require(modules.dependencies[0]);
 
+    console.log('Now adding:', test.module);
+
     // console.log(naturalGutenberg['austen-emma']);
     // Grab CSS and HTML files from required modules
 
     // TODO Concat CSS files
     // Add in CSS
     sidebar.innerHTML = '<style>' + 
-    ".beagle-sidebar {\n  background:white;\n  box-shadow:0 0 1em black;\n  color: #000;\n  height:100%;\n  position:fixed;\n  right:0px;\n  top:0px;\n  width:30%;\n  z-index:999999;\n}\n" + '</style>';
+    ".beagle-sidebar {\n  background:white;\n  box-shadow:0 0 1em black;\n  color: #000;\n  height:100%;\n  position:fixed;\n  right:0px;\n  top:0px;\n  width:30%;\n  z-index:999999;\n}\n" + 
+    test.load().css + 
+    '</style>';
 
     // TODO Concat HTML files
     // Add in HTML
-    sidebar.innerHTML += "<div class=\"beagle-sidebar\">\n    <h1>Hello</h1>\n    World!\n</div>";
+    // sidebar.innerHTML += fs.readFileSync(__dirname + '/sidebar.html', 'utf8');
+    sidebar.innerHTML += test.load().html;
 
     return sidebar;
 }
@@ -86,7 +92,18 @@ function buildView(modules) {
     sidebarOpen = true;
   }
 }
-},{"underscore":2}],2:[function(require,module,exports){
+},{"beagle-test":2,"underscore":3}],2:[function(require,module,exports){
+function load() {
+  var beagleExport = {
+    'module': 'beagle-test',
+    'html': '<div class="beagle-sidebar"><h1>hello</h1>world!<br /> <i>Brought to you by modularity</i></div>',
+    'css': '.beagle-sidebar { color: green }'
+  };
+  return beagleExport;
+}
+
+exports.load = load;
+},{}],3:[function(require,module,exports){
 //     Underscore.js 1.7.0
 //     http://underscorejs.org
 //     (c) 2009-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
