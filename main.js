@@ -1,16 +1,22 @@
 var fs = require('fs');
+var _ = require('underscore');
 
 // Init
 var sidebarOpen = false;
 
-// TODO Include other beagle-* modules here, using alternative manifest
-
 // TODO Enable Static Assets to go to other Views besides SideBar
-function buildStaticAssets(){
+function buildStaticAssets(modules){
     
     // Init
     var sidebar = document.createElement('div');
     sidebar.id = "beagle-sidebar";
+
+    // Read required modules
+    // These are stored locally, for now, in node_modules
+    // module.naturalGutenberg = require(modules.dependencies[0]);
+
+    // console.log(naturalGutenberg['austen-emma']);
+    // Grab CSS and HTML files from required modules
 
     // TODO Concat CSS files
     // Add in CSS
@@ -24,6 +30,11 @@ function buildStaticAssets(){
     return sidebar;
 }
 
+// This function will write a manifest to local storage
+function setManifest(modules) {
+   
+ }
+
 // Handle requests from background.html
 function handleRequest(
   // The object data with the request params
@@ -34,22 +45,42 @@ function handleRequest(
   sender, sendResponse
   ) {
   if (request.callFunction == "toggleSidebar") {
-    // A param should be able to go here with extra modules
-    // Which can be added to the required list. 
-    buildView();
+    // If the extension has specified new modules to load
+    var newModules = request.modules ? request.modules : null ;
+    
+    //Get the current list of used modules
+    chrome.storage.sync.get('modules', function(result){
+
+      var modules = result;
+
+      // If there are new modules, append them
+      if (newModules) {
+
+        modules.dependencies = (modules.dependencies) ? modules.dependencies : [];
+
+        _.each(newModules, function(module) {
+          modules.dependencies.push(module);
+        });
+
+        // If there is a change, set it.
+        chrome.storage.sync.set(modules);
+      }
+
+      // Continue building out the view 
+      buildView(modules);
+    });
   }
 }
 
 chrome.extension.onRequest.addListener(handleRequest);
 
-// TODO Stop destroying the sidebar - hide it instead.
-function buildView() {
+function buildView(modules) {
   if (sidebarOpen) {
     var el = document.getElementById('beagle-sidebar');
     el.parentNode.removeChild(el);
     sidebarOpen = false;
   } else {
-    var sidebar = buildStaticAssets();
+    var sidebar = buildStaticAssets(modules);
     document.body.appendChild(sidebar);
     sidebarOpen = true;
   }

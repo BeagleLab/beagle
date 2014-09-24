@@ -15,7 +15,12 @@ console.log( 'Background.html starting!' );
 				//Selected tab id
 				tab.id,
 				//Params inside a object data
-				{callFunction: "toggleSidebar"}, 
+				{
+					callFunction: "toggleSidebar",
+					modules: [
+						'natural-gutenberg'
+					]
+				}, 
 				//Optional callback function
 				function(response) {
 					console.log(response);
