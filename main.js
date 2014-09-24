@@ -6,7 +6,7 @@ var sidebarOpen = false;
 // TODO Include other beagle-* modules here, using alternative manifest
 
 // TODO Enable Static Assets to go to other Views besides SideBar
-function buildSidebarStaticAssets(){
+function buildStaticAssets(){
     
     // Init
     var sidebar = document.createElement('div');
@@ -34,20 +34,22 @@ function handleRequest(
   sender, sendResponse
   ) {
   if (request.callFunction == "toggleSidebar") {
-    toggleSidebar();
+    // A param should be able to go here with extra modules
+    // Which can be added to the required list. 
+    buildView();
   }
 }
 
 chrome.extension.onRequest.addListener(handleRequest);
 
 // TODO Stop destroying the sidebar - hide it instead.
-function toggleSidebar() {
+function buildView() {
   if (sidebarOpen) {
     var el = document.getElementById('beagle-sidebar');
     el.parentNode.removeChild(el);
     sidebarOpen = false;
   } else {
-    var sidebar = buildSidebarStaticAssets();
+    var sidebar = buildStaticAssets();
     document.body.appendChild(sidebar);
     sidebarOpen = true;
   }
