@@ -1,7 +1,14 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 
 var _ = require('underscore');
-var test = require('beagle-test');
+
+// Optional modules required by the user
+var test = require('beagle-hello');
+
+// The order of these will matter for loading HTML and CSS
+// Eventually, it may be necessary to add overrides, at which point
+// this should become an object.
+var subModules = [test];
 
 // Init
 var sidebarOpen = false;
@@ -13,34 +20,29 @@ function buildStaticAssets(modules){
     var sidebar = document.createElement('div');
     sidebar.id = "beagle-sidebar";
 
-    // Read required modules
-    // These are stored locally, for now, in node_modules
-    // module.naturalGutenberg = require(modules.dependencies[0]);
+    // Start the CSS and HTML objects
+    var concatCSS = document.createElement('style');
+    // Get the global CSS
+    concatCSS.innerHTML = ".beagle-sidebar {\n  background:white;\n  box-shadow:0 0 1em black;\n  color: #000;\n  height:100%;\n  position:fixed;\n  right:0px;\n  top:0px;\n  width:30%;\n  z-index:999999;\n  padding: 20px;\n}\n";
+    var concatHTML = document.createElement('div');
+    // Yes, this is the same name. May be best to rename.
+    concatHTML.className = 'beagle-sidebar';
+    
+    // If needed later. No Global HTML at the moment.
+    // fs.readFileSync(__dirname + '/sidebar.html', 'utf8');
 
-    console.log('Now adding:', test.module);
+    // Read in required modules
+    _.each(subModules, function(module) {
+      // Grab CSS and HTML files from required modules
+      concatCSS.innerHTML += module.css;
+      concatHTML.innerHTML += module.html;
+    });
 
-    // console.log(naturalGutenberg['austen-emma']);
-    // Grab CSS and HTML files from required modules
-
-    // TODO Concat CSS files
-    // Add in CSS
-    sidebar.innerHTML = '<style>' + 
-    ".beagle-sidebar {\n  background:white;\n  box-shadow:0 0 1em black;\n  color: #000;\n  height:100%;\n  position:fixed;\n  right:0px;\n  top:0px;\n  width:30%;\n  z-index:999999;\n}\n" + 
-    test.load().css + 
-    '</style>';
-
-    // TODO Concat HTML files
-    // Add in HTML
-    // sidebar.innerHTML += fs.readFileSync(__dirname + '/sidebar.html', 'utf8');
-    sidebar.innerHTML += test.load().html;
+    sidebar.appendChild(concatCSS);
+    sidebar.appendChild(concatHTML);
 
     return sidebar;
 }
-
-// This function will write a manifest to local storage
-function setManifest(modules) {
-   
- }
 
 // Handle requests from background.html
 function handleRequest(
@@ -92,17 +94,20 @@ function buildView(modules) {
     sidebarOpen = true;
   }
 }
-},{"beagle-test":2,"underscore":3}],2:[function(require,module,exports){
-function load() {
-  var beagleExport = {
-    'module': 'beagle-test',
-    'html': '<div class="beagle-sidebar"><h1>hello</h1>world!<br /> <i>Brought to you by modularity</i></div>',
-    'css': '.beagle-sidebar { color: green }'
-  };
-  return beagleExport;
+},{"beagle-hello":2,"underscore":3}],2:[function(require,module,exports){
+function test () {
+  var darwinQuote = 'It is easy to specify the individual objects of ' +
+    'admiration in these grand scenes; but it is not possible to give an ' + 
+    'adequate idea of the higher feelings of wonder, astonishment, and ' + 
+    'devotion, which fill and elevate the mind. Charles Darwin';
+  console.log('\n' + darwinQuote + '\n');
 }
 
-exports.load = load;
+exports.moduleName = 'beagle-hello'; // Should eventually be manifest-like object
+exports.test = test;
+exports.html = '<h1>hello world!</h1><br />' + 
+  '<p><i>From module beagle-hello.</i></p>';
+exports.css = '.beagle-sidebar { color: green }';
 },{}],3:[function(require,module,exports){
 //     Underscore.js 1.7.0
 //     http://underscorejs.org

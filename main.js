@@ -1,6 +1,14 @@
 var fs = require('fs');
 var _ = require('underscore');
 
+// Optional modules required by the user
+var test = require('beagle-hello');
+
+// The order of these will matter for loading HTML and CSS
+// Eventually, it may be necessary to add overrides, at which point
+// this should become an object.
+var subModules = [test];
+
 // Init
 var sidebarOpen = false;
 
@@ -11,27 +19,29 @@ function buildStaticAssets(modules){
     var sidebar = document.createElement('div');
     sidebar.id = "beagle-sidebar";
 
-    // Grab CSS and HTML files from required modules
+    // Start the CSS and HTML objects
+    var concatCSS = document.createElement('style');
+    // Get the global CSS
+    concatCSS.innerHTML = fs.readFileSync(__dirname + '/main.css', 'utf8');
+    var concatHTML = document.createElement('div');
+    // Yes, this is the same name. May be best to rename.
+    concatHTML.className = 'beagle-sidebar';
+    
+    // If needed later. No Global HTML at the moment.
+    // fs.readFileSync(__dirname + '/sidebar.html', 'utf8');
 
-    // TODO Concat CSS files
-    // Add in CSS
-    sidebar.innerHTML = '<style>' + 
-    fs.readFileSync(__dirname + '/main.css', 'utf8') + 
-    test.load().css + 
-    '</style>';
+    // Read in required modules
+    _.each(subModules, function(module) {
+      // Grab CSS and HTML files from required modules
+      concatCSS.innerHTML += module.css;
+      concatHTML.innerHTML += module.html;
+    });
 
-    // TODO Concat HTML files
-    // Add in HTML
-    // sidebar.innerHTML += fs.readFileSync(__dirname + '/sidebar.html', 'utf8');
-    sidebar.innerHTML += test.load().html;
+    sidebar.appendChild(concatCSS);
+    sidebar.appendChild(concatHTML);
 
     return sidebar;
 }
-
-// This function will write a manifest to local storage
-function setManifest(modules) {
-   
- }
 
 // Handle requests from background.html
 function handleRequest(
