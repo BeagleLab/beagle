@@ -1,6 +1,5 @@
 var fs = require('fs');
 var _ = require('underscore');
-var test = require('beagle-test');
 
 // Init
 var sidebarOpen = false;
@@ -12,13 +11,6 @@ function buildStaticAssets(modules){
     var sidebar = document.createElement('div');
     sidebar.id = "beagle-sidebar";
 
-    // Read required modules
-    // These are stored locally, for now, in node_modules
-    // module.naturalGutenberg = require(modules.dependencies[0]);
-
-    console.log('Now adding:', test.module);
-
-    // console.log(naturalGutenberg['austen-emma']);
     // Grab CSS and HTML files from required modules
 
     // TODO Concat CSS files
