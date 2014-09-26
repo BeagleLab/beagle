@@ -13,6 +13,7 @@ var subModules = [test];
 // Init
 var sidebarOpen = false;
 
+
 // TODO Enable Static Assets to go to other Views besides SideBar
 function buildStaticAssets(modules){
     
@@ -22,7 +23,12 @@ function buildStaticAssets(modules){
 
     // Start the CSS and HTML objects
     var concatCSS = document.createElement('style');
+    
     // Get the global CSS
+    // May be better for this to be async. For now, there are no checs;
+    // it loads or not. The encoding ensures string return, not buffer.
+    // Using path.join(__dirname, './main.css', ...) will be more portable,
+    // but doesn't work in Chrome for some reason.
     concatCSS.innerHTML = ".beagle-sidebar {\n  background:white;\n  box-shadow:0 0 1em black;\n  color: #000;\n  height:100%;\n  position:fixed;\n  right:0px;\n  top:0px;\n  width:30%;\n  z-index:999999;\n  padding: 20px;\n}\n";
     var concatHTML = document.createElement('div');
     // Yes, this is the same name. May be best to rename.
@@ -38,6 +44,7 @@ function buildStaticAssets(modules){
       concatHTML.innerHTML += module.html;
     });
 
+    // Mung it all together
     sidebar.appendChild(concatCSS);
     sidebar.appendChild(concatHTML);
 
