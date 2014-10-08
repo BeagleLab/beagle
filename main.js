@@ -3,6 +3,14 @@ var _ = require('underscore');
 
 // Optional modules required by the user
 var test = require('beagle-hello');
+var pdfjs = require('beagle-pdf');
+
+console.log('hello', pdfjs);
+
+
+pdfjs.getDocument('node_modules/beagle-pdf/example.pdf').then(function (pdf) {
+  console.log(pdf.getPage(1));
+});
 
 // The order of these will matter for loading HTML and CSS
 // Eventually, it may be necessary to add overrides, at which point
