@@ -125,4 +125,4 @@ function buildView(modules, textInput) {
   }
 }
 
-chrome.extension.onRequest.addListener(handleRequest);
+chrome.runtime.onMessage.addListener(handleRequest);

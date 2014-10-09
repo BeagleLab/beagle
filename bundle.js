@@ -47,8 +47,6 @@ function buildStaticAssets(modules, textInput){
       });
     }
 
-    console.log('Up to here', textInput);
-
     if (textInput !== null) {
       concatHTML.innerHTML += textInput;
     }
@@ -128,9 +126,9 @@ function buildView(modules, textInput) {
   }
 }
 
-chrome.extension.onRequest.addListener(handleRequest);
+chrome.runtime.onMessage.addListener(handleRequest);
 
-},{"beagle-hello":2,"beagle-pdf":3,"underscore":6}],2:[function(require,module,exports){
+},{"beagle-hello":2,"beagle-pdf":3,"underscore":5}],2:[function(require,module,exports){
 function test () {
   var darwinQuote = 'It is easy to specify the individual objects of ' +
     'admiration in these grand scenes; but it is not possible to give an ' + 
@@ -145,11 +143,11 @@ exports.html = '<h1>hello world!</h1><br />' +
   '<p><i>From module beagle-hello.</i></p>';
 exports.css = '.beagle-sidebar { color: green }';
 },{}],3:[function(require,module,exports){
-var pdfjs = require('pdfjs-dist-for-node');
+var pdfjs = require('pdfjs-dist-for-node/build/pdf.combined.js');
 
 exports.pdfjs = pdfjs;
 
-},{"pdfjs-dist-for-node":5}],4:[function(require,module,exports){
+},{"pdfjs-dist-for-node/build/pdf.combined.js":4}],4:[function(require,module,exports){
 /* -*- Mode: Java; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*- */
 /* vim: set shiftwidth=2 tabstop=2 autoindent cindent expandtab: */
 /* Copyright 2012 Mozilla Foundation
@@ -44939,8 +44937,6 @@ if (!PDFJS.workerSrc && typeof document !== 'undefined') {
 }
 
 },{}],5:[function(require,module,exports){
-module.exports = require('./build/pdf.combined.js')
-},{"./build/pdf.combined.js":4}],6:[function(require,module,exports){
 //     Underscore.js 1.7.0
 //     http://underscorejs.org
 //     (c) 2009-2014 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors

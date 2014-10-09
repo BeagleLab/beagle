@@ -11,7 +11,7 @@ console.log( 'Background.html starting!' );
 	/*Send request to current tab when page action is clicked*/
 	chrome.pageAction.onClicked.addListener(function(tab) {
 		chrome.tabs.getSelected(null, function(tab) {
-			chrome.tabs.sendRequest(
+			chrome.tabs.sendMessage(
 				//Selected tab id
 				tab.id,
 				//Params inside a object data
