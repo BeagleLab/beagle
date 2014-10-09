@@ -3,14 +3,7 @@ var _ = require('underscore');
 
 // Optional modules required by the user
 var test = require('beagle-hello');
-var pdfjs = require('beagle-pdf');
-
-console.log('hello', pdfjs);
-
-
-pdfjs.getDocument('node_modules/beagle-pdf/example.pdf').then(function (pdf) {
-  console.log(pdf.getPage(1));
-});
+var PDFJS = require('beagle-pdf');
 
 // The order of these will matter for loading HTML and CSS
 // Eventually, it may be necessary to add overrides, at which point
@@ -22,7 +15,7 @@ var sidebarOpen = false;
 
 
 // TODO Enable Static Assets to go to other Views besides SideBar
-function buildStaticAssets(modules){
+function buildStaticAssets(modules, textInput){
     
     // Init
     var sidebar = document.createElement('div');
@@ -45,11 +38,17 @@ function buildStaticAssets(modules){
     // fs.readFileSync(__dirname + '/sidebar.html', 'utf8');
 
     // Read in required modules
-    _.each(subModules, function(module) {
-      // Grab CSS and HTML files from required modules
-      concatCSS.innerHTML += module.css;
-      concatHTML.innerHTML += module.html;
-    });
+    if (subModules != null) {
+      _.each(subModules, function(module) {
+        // Grab CSS and HTML files from required modules
+        concatCSS.innerHTML += module.css;
+        concatHTML.innerHTML += module.html;
+      });
+    }
+
+    if (textInput !== null) {
+      concatHTML.innerHTML += textInput;
+    }
 
     // Mung it all together
     sidebar.appendChild(concatCSS);
@@ -89,22 +88,41 @@ function handleRequest(
         chrome.storage.sync.set(modules);
       }
 
+      PDFJS.pdfjs.getDocument('example.pdf').then(function(pdf) {
+        pdf.getPage(1).then(function(page) {
+          page.getTextContent().then(function(textContent) {
+            console.log(textContent);
+            var aggregate = textContent.items[0].str;
+            // Commented out due to lack of need, currently
+            // var aggregate = '';
+            // _.each(textContent.items, function(item){
+            //   if (item.str !== '')
+            //     aggregate += item.str + ' ';
+            // });
+            console.log(aggregate);
+            buildView(modules, aggregate);
+          });
+        });
+      }, function(err){
+        buildView(modules);
+      });
+
       // Continue building out the view 
-      buildView(modules);
     });
   }
 }
 
-chrome.extension.onRequest.addListener(handleRequest);
-
-function buildView(modules) {
+function buildView(modules, textInput) {
   if (sidebarOpen) {
     var el = document.getElementById('beagle-sidebar');
     el.parentNode.removeChild(el);
     sidebarOpen = false;
   } else {
-    var sidebar = buildStaticAssets(modules);
+    textInput = (textInput !== undefined) ? textInput : null;
+    var sidebar = buildStaticAssets(modules, textInput);
     document.body.appendChild(sidebar);
     sidebarOpen = true;
   }
 }
+
+chrome.extension.onRequest.addListener(handleRequest);
