@@ -89,20 +89,22 @@ function handleRequest(
       }
 
       PDFJS.pdfjs.getDocument('example.pdf').then(function(pdf) {
-        pdf.getPage(1).then(function(page) {
-          page.getTextContent().then(function(textContent) {
-            console.log(textContent);
-            var aggregate = textContent.items[0].str;
-            // Commented out due to lack of need, currently
-            // var aggregate = '';
-            // _.each(textContent.items, function(item){
-            //   if (item.str !== '')
-            //     aggregate += item.str + ' ';
-            // });
+        numPages = pdf.numPages;
+        var aggregate = '';
+        for (i = 0; i <= numPages; i++) {
+          pdf.getPage(i).then(function(page) {   
+            page.getTextContent().then(function(textContent) {
+              console.log(textContent);
+        //     var aggregate = textContent.items[0].str;
+            _.each(textContent.items, function(item){
+              if (item.str !== '')
+                aggregate += item.str + ' ';
+            });
             console.log(aggregate);
-            buildView(modules, aggregate);
+              buildView(modules, aggregate);
+            });
           });
-        });
+        }
       }, function(err){
         buildView(modules);
       });
