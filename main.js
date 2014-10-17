@@ -4,7 +4,7 @@ var _ = require('underscore');
 // Optional modules required by the user
 var test = require('beagle-hello');
 var PDFJS = require('beagle-pdf');
-var altmetric = require('beagle-altmetric');
+var altmetrics = require('beagle-altmetric');
 var Handlebars = require('handlebars');
 
 // The order of these will matter for loading HTML and CSS
@@ -109,7 +109,7 @@ function handleRequest(
                 var myRe = /doi\:([a-zA-Z0-9./]*[\d]*6)/g;
                 var match = myRe.exec(item.str);
                 if (match && !response) {
-                  buildView(modules, altmetric.getDataFromDoi(match[1]));
+                  buildView(modules, altmetrics.getDataFromDoi(match[1]));
                   response = true;
                 }
               });
