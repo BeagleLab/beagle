@@ -4,6 +4,8 @@ var _ = require('underscore');
 // Optional modules required by the user
 var test = require('beagle-hello');
 var PDFJS = require('beagle-pdf');
+var altmetric = require('beagle-altmetric');
+var Handlebars = require('handlebars');
 
 // The order of these will matter for loading HTML and CSS
 // Eventually, it may be necessary to add overrides, at which point
@@ -38,7 +40,7 @@ function buildStaticAssets(modules, textInput){
     // fs.readFileSync(__dirname + '/sidebar.html', 'utf8');
 
     // Read in required modules
-    if (subModules != null) {
+    if (subModules !== null) {
       _.each(subModules, function(module) {
         // Grab CSS and HTML files from required modules
         concatCSS.innerHTML += module.css;
@@ -46,8 +48,13 @@ function buildStaticAssets(modules, textInput){
       });
     }
 
+    var source = "<h3>Publication</h3><ul>  <li>{{title}}</li>  <li>{{journal}}</li>  <li>{{doi}}</li></ul><h3>Graph</h3><p>Tweets: {{cited_by_tweeters_count}}</p><h3>Tags</h3>{{#each subjects}}<p>{{subject}}</p>{{/each}}<h3>{{#posts}}{{{link_to Post}}}{{/posts}}</h3>";
+    var template = Handlebars.compile(source);
+
+    console.log('Textinput', textInput);
+
     if (textInput !== null) {
-      concatHTML.innerHTML += textInput;
+      concatHTML.innerHTML += template(textInput);
     }
 
     // Mung it all together
@@ -88,20 +95,24 @@ function handleRequest(
         chrome.storage.sync.set(modules);
       }
 
-      PDFJS.pdfjs.getDocument('example.pdf').then(function(pdf) {
+      PDFJS.pdfjs.getDocument(window.location.href).then(function(pdf) {
+        console.log(pdf);
+        pdf.getMetadata().then(function(data){
+          console.log('Metadata:', data);
+        });
         numPages = pdf.numPages;
-        var aggregate = '';
+        var response = null, pageInfo;
         for (i = 0; i <= numPages; i++) {
           pdf.getPage(i).then(function(page) {   
             page.getTextContent().then(function(textContent) {
-              console.log(textContent);
-        //     var aggregate = textContent.items[0].str;
-            _.each(textContent.items, function(item){
-              if (item.str !== '')
-                aggregate += item.str + ' ';
-            });
-            console.log(aggregate);
-              buildView(modules, aggregate);
+              _.each(textContent.items, function(item){
+                var myRe = /doi\:([a-zA-Z0-9./]*[\d]*6)/g;
+                var match = myRe.exec(item.str);
+                if (match && !response) {
+                  buildView(modules, altmetric.getDataFromDoi(match[1]));
+                  response = true;
+                }
+              });
             });
           });
         }
