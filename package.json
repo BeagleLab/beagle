@@ -4,14 +4,14 @@
   "description": "Navigating research",
   "main": "main.js",
   "dependencies": {
-    "beagle-hello": "0.0.2",
     "beagle-pdf": "0.0.0",
     "brfs": "^1.2.0",
     "browserify": "^5.11.2",
     "fs": "^0.0.2",
     "path": "^0.4.9",
     "underscore": "^1.7.0",
-    "uniq": "^1.0.1"
+    "uniq": "^1.0.1",
+    "beagle-altmetrics": "0.0.2"
   },
   "devDependencies": {},
   "scripts": {

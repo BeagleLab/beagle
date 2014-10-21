@@ -1,25 +1,24 @@
 var fs = require('fs');
 var _ = require('underscore');
+var Handlebars = require('handlebars');
+
+// Non-optional modules
+var PDFJS = require('beagle-pdf');
 
 // Optional modules required by the user
-var test = require('beagle-hello');
-var PDFJS = require('beagle-pdf');
-var altmetrics = require('beagle-altmetric');
-var Handlebars = require('handlebars');
+var altmetrics = require('beagle-altmetrics');
 
 // The order of these will matter for loading HTML and CSS
 // Eventually, it may be necessary to add overrides, at which point
 // this should become an object.
-var subModules = [test];
+var subModules = [];
 
 // Init
 var sidebarOpen = false;
 
-
 // TODO Enable Static Assets to go to other Views besides SideBar
 function buildStaticAssets(modules, textInput){
     
-    // Init
     var sidebar = document.createElement('div');
     sidebar.id = "beagle-sidebar";
 
@@ -51,8 +50,7 @@ function buildStaticAssets(modules, textInput){
     var source = "<h3>Publication</h3><ul>  <li>{{title}}</li>  <li>{{journal}}</li>  <li>{{doi}}</li></ul><h3>Graph</h3><p>Tweets: {{cited_by_tweeters_count}}</p><h3>Tags</h3>{{#each subjects}}<p>{{subject}}</p>{{/each}}<h3>{{#posts}}{{{link_to Post}}}{{/posts}}</h3>";
     var template = Handlebars.compile(source);
 
-    console.log('Textinput', textInput);
-
+    // Ideally, this would actually be part of the submodule conversation, above. 
     if (textInput !== null) {
       concatHTML.innerHTML += template(textInput);
     }
@@ -95,22 +93,43 @@ function handleRequest(
         chrome.storage.sync.set(modules);
       }
 
+      console.log(window);
+
+      // TODO Separate this so that it is more modular
       PDFJS.pdfjs.getDocument(window.location.href).then(function(pdf) {
-        console.log(pdf);
-        pdf.getMetadata().then(function(data){
-          console.log('Metadata:', data);
-        });
+        
+        // May not be useful at the moment.
+        // pdf.getMetadata().then(function(data){
+        //   console.log('Metadata:', data);
+        // });
+
         numPages = pdf.numPages;
-        var response = null, pageInfo;
+        // Define vars where they won't be redefined in each loop in if statements
+        var response, pageInfo, doi, match;
+        // The most robust RegExp for doi matching I could find and edit for javascript
+        var myRe = new RegExp('doi\\:(10[.][0-9]{4,}(?:[.][0-9]+)*/(?:(?!["&\'<>])\\S)+)(\\.[a-zA-Z]{1}[0-9]{3})', 'g');
         for (i = 0; i <= numPages; i++) {
           pdf.getPage(i).then(function(page) {   
             page.getTextContent().then(function(textContent) {
               _.each(textContent.items, function(item){
-                var myRe = /doi\:([a-zA-Z0-9./]*[\d]*6)/g;
-                var match = myRe.exec(item.str);
+                // TODO match[2] tracks .t001, .g001, etc. Capture these, they may be relevant
+                // to research. 
+                match = myRe.exec(item.str);
                 if (match && !response) {
-                  buildView(modules, altmetrics.getDataFromDoi(match[1]));
-                  response = true;
+                  if (!doi) {
+                    // Only call once, for now. TODO Multiple DOIs
+                    doi = match[1]; 
+                    altmetrics.getDataFromDoi(match[1], function(err, data){
+                      if (err !== null) {
+                        console.error(err);
+                        // What does process do?
+                        process.exit(-1); 
+                      }
+
+                      buildView(modules, data);
+                    });
+                    response = true;
+                  }
                 }
               });
             });
