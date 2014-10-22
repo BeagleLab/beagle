@@ -6,11 +6,18 @@ Navigating the sea of publications
 ##Installation
 
 1. Git clone this repository.
-2. Run `browserify -t brfs ./main.js > bundle.js`.
-2. Open Chrome Settings > Extensions.
-2. Click 'Load Unpacked Extension'.
-3. Select the repository folder.
-4. Click on the icon in the search bar on any page.
+2. In order to enable this in chrome, you need to open Chrome Settings > Extensions. Click 'Load Unpacked Extension', then select the folder you downloaded in the first step.
+3. Load a pdf in Chrome to maximise usage, or just click on the icon in the search bar on any page.
+
+### Developer Installation
+
+You will need to install [node](http://nodejs.org/). This will come with npm preinstalled. Once you have cloned the folder, following the first step above, run `npm install`. 
+
+When you have edited `main.js` or any dependency of it, run:
+
+`browserify -t brfs ./main.js > bundle.js`
+
+This will ensure that everything is compiled into bundle.js. You may need to run `npm install browserify` first. Go to the Chrome Extensions page, and refresh it. Refresh the page your .pdf or browser is loaded on before clicking the Beagle icon, as well. Everything should be all set.
 
 ## Module Plan
 
