@@ -4,6 +4,7 @@ var Handlebars = require('handlebars');
 
 // Non-optional modules
 var PDFJS = require('beagle-pdf');
+var style = require('../beagle-style');
 
 // Optional modules required by the user
 var altmetrics = require('beagle-altmetrics');
@@ -11,7 +12,7 @@ var altmetrics = require('beagle-altmetrics');
 // The order of these will matter for loading HTML and CSS
 // Eventually, it may be necessary to add overrides, at which point
 // this should become an object.
-var subModules = [];
+var subModules = [style];
 
 var sidebarOpen = false;
 
@@ -41,8 +42,8 @@ function buildStaticAssets(modules, textInput){
     if (subModules !== null) {
       _.each(subModules, function(module) {
         // Grab CSS and HTML files from required modules
-        concatCSS.innerHTML += module.css;
-        concatHTML.innerHTML += module.html;
+        concatCSS.innerHTML += (module.css) ? module.css : '';
+        concatHTML.innerHTML += (module.html) ? module.html : '';
       });
     }
 
