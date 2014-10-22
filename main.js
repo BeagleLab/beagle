@@ -13,7 +13,6 @@ var altmetrics = require('beagle-altmetrics');
 // this should become an object.
 var subModules = [];
 
-// Init
 var sidebarOpen = false;
 
 // TODO Enable Static Assets to go to other Views besides SideBar
