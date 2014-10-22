@@ -1,0 +1,4 @@
+#!/bin/sh
+
+browserify -t brfs ./main.js > bundle.js
+echo 'Bundled up!'
