@@ -21,6 +21,8 @@ function buildStaticAssets(modules, textInput){
     
     var sidebar = document.createElement('div');
     sidebar.id = "beagle-sidebar";
+    sidebar.innerHTML = '<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet" /><link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet" />';
+
 
     // Start the CSS and HTML objects
     var concatCSS = document.createElement('style');
@@ -33,7 +35,12 @@ function buildStaticAssets(modules, textInput){
     concatCSS.innerHTML = fs.readFileSync(__dirname + '/main.css', 'utf8');
     var concatHTML = document.createElement('div');
     // Yes, this is the same name. May be best to rename.
-    concatHTML.className = 'beagle-sidebar';
+    var outerPane = document.createElement('div');
+    outerPane.className = 'scinav';
+    outerPane.innerHTML += '<div class="pane-bg glass"></div>';
+    
+    concatHTML.className = 'pane';
+    concatHTML.innerHTML += '<h2 style="text-align: center;">Beagle</h2>'
     
     // If needed later. No Global HTML at the moment.
     // fs.readFileSync(__dirname + '/sidebar.html', 'utf8');
@@ -47,7 +54,7 @@ function buildStaticAssets(modules, textInput){
       });
     }
 
-    var source = "<h3>Publication</h3><ul>  <li>{{title}}</li>  <li>{{journal}}</li>  <li>{{doi}}</li></ul><h3>Graph</h3><p>Tweets: {{cited_by_tweeters_count}}</p><h3>Tags</h3>{{#each subjects}}<p>{{subject}}</p>{{/each}}<h3>{{#posts}}{{{link_to Post}}}{{/posts}}</h3>";
+    var source = "<h6>Publication</h6><ul><li id='title'>{{title}}</li>  <li>{{journal}}</li>  <li>{{doi}}</li></ul><h6>Graph</h6><a  class='alert alert-info' data-placement='top' title='' data-original-title='View citations'><i class='fa fa-share-alt'></i>Tweets: {{cited_by_tweeters_count}}</a><h6>Tags</h6>{{#each subjects}}<p>{{subject}}</p>{{/each}}<h3>{{#posts}}{{{link_to Post}}}{{/posts}}</h3>";
     var template = Handlebars.compile(source);
 
     // Ideally, this would actually be part of the submodule conversation, above. 
@@ -57,7 +64,8 @@ function buildStaticAssets(modules, textInput){
 
     // Mung it all together
     sidebar.appendChild(concatCSS);
-    sidebar.appendChild(concatHTML);
+    outerPane.appendChild(concatHTML);
+    sidebar.appendChild(outerPane);
 
     return sidebar;
 }
@@ -125,6 +133,8 @@ function handleRequest(
                           // What does process do?
                           process.exit(-1); 
                         }
+
+                        console.log(data);
 
                         buildView(modules, data);
                       });

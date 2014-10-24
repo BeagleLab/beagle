@@ -2,7 +2,7 @@
 
 
 exports.moduleName = 'beagle-style'; // Should eventually be manifest-like object
-exports.css = ".bs-docs-header{background-color:#06B8C7;background-image:-webkit-linear-gradient(top,#057A75 0,#058199 100%);background-image:linear-gradient(to bottom,#057A75 0,#058199 100%);color:#BFE3E2}.bs-docs-header a{color:#fff;text-decoration:underline}.paper-example{position:relative;height:680px;width:720px}.paper-example img#paper{width:100%}.scinav{position:absolute;top:0;right:0;bottom:0;width:350px}.scinav .red{background-color:red}.scinav .yellow{background-color:#ff0}.scinav .cyan{background-color:#0ff}.scinav .green{background-color:green}.scinav .gray{color:#bbb}.scinav .margin{position:absolute;top:55px;right:0;bottom:0;width:10px;background-color:rgba(100,100,100,.1)}.scinav .margin .margin-highlight{opacity:.4;position:absolute;height:20px;width:10px}.scinav .margin .tooltip{min-width:200px}.scinav .pane,.scinav .pane-bg{position:absolute;top:55px;right:10px;bottom:0;width:150px;padding:10px;font-size:11px}.scinav .pane .sep,.scinav .pane-bg .sep{border-bottom:1px solid #fff;height:0;margin:10px 0;width:100%}.scinav .pane ul,.scinav .pane-bg ul{padding-left:10px}.scinav .pane #other-btns a,.scinav .pane #other-btns button,.scinav .pane-bg #other-btns a,.scinav .pane-bg #other-btns button{padding:3px 6px}.scinav .pane .alert,.scinav .pane-bg .alert{padding:5px;margin-bottom:5px}.scinav .pane .btn-toolbar button.btn,.scinav .pane-bg .btn-toolbar button.btn{padding:5px 10px}.scinav .pane a.alert,.scinav .pane button.alert,.scinav .pane-bg a.alert,.scinav .pane-bg button.alert{display:block;text-align:left;width:135px}.scinav .pane a.alert i,.scinav .pane button.alert i,.scinav .pane-bg a.alert i,.scinav .pane-bg button.alert i{margin:0 3px;text-align:center;width:10px}.scinav .pane a.btn,.scinav .pane button.btn,.scinav .pane-bg a.btn,.scinav .pane-bg button.btn{font-size:11px}.scinav .subpanel,.scinav .subpanel-bg{position:absolute;top:105px;right:160px;bottom:100px;width:400px}.glass{background:#0ff;background:rgba(250,255,255,.85);filter:blur(4px);-o-filter:blur(4px);-ms-filter:blur(4px);-moz-filter:blur(4px);-webkit-filter:blur(4px)}ul.no-bullet{list-style-type:none;padding-left:0}.hidden{display:none}.profile .profile-image{width:140px}.profile .profile-header-info{width:210px;float:right}.profile .profile-header-info h3{margin-top:0}.profile .publications{margin-top:30px}.text-highlights{position:relative;top:0;left:0;right:0;bottom:0}.text-highlights .text-highlight{opacity:.4;position:absolute;height:20px;width:20px}#tags a.alert{display:inline-block;text-align:left;font-size:11px;padding:5px;margin-bottom:5px}#tags a.alert i{margin:0 3px;text-align:center;width:10px}";
+exports.css = ".bs-docs-header{background-color:#06B8C7;background-image:-webkit-linear-gradient(top,#057A75 0,#058199 100%);background-image:linear-gradient(to bottom,#057A75 0,#058199 100%);color:#BFE3E2}.bs-docs-header a{color:#fff;text-decoration:underline}.paper-example{position:relative;height:680px;width:720px}.paper-example img#paper{width:100%}.scinav{position:absolute;top:0;right:0;bottom:0;width:300px}.scinav .red{background-color:red}.scinav .yellow{background-color:#ff0}.scinav .cyan{background-color:#0ff}.scinav .green{background-color:green}.scinav .gray{color:#bbb}.scinav .margin{position:absolute;top:55px;right:0;bottom:0;width:10px;background-color:rgba(100,100,100,.1)}.scinav .margin .margin-highlight{opacity:.4;position:absolute;height:20px;width:10px}.scinav .margin .tooltip{min-width:200px}.scinav .pane,.scinav .pane-bg{position:absolute;top:0;right:10px;bottom:0;width:100%;padding:10px;font-size:11px}.scinav .pane .sep,.scinav .pane-bg .sep{border-bottom:1px solid #fff;height:0;margin:10px 0;width:100%}.scinav .pane ul,.scinav .pane-bg ul{padding-left:10px}.scinav .pane #other-btns a,.scinav .pane #other-btns button,.scinav .pane-bg #other-btns a,.scinav .pane-bg #other-btns button{padding:3px 6px}.scinav .pane .alert,.scinav .pane-bg .alert{padding:5px;margin-bottom:5px}.scinav .pane .btn-toolbar button.btn,.scinav .pane-bg .btn-toolbar button.btn{padding:5px 10px}.scinav .pane a.alert,.scinav .pane button.alert,.scinav .pane-bg a.alert,.scinav .pane-bg button.alert{display:block;text-align:left;width:135px}.scinav .pane a.alert i,.scinav .pane button.alert i,.scinav .pane-bg a.alert i,.scinav .pane-bg button.alert i{margin:0 3px;text-align:center;width:10px}.scinav .pane a.btn,.scinav .pane button.btn,.scinav .pane-bg a.btn,.scinav .pane-bg button.btn{font-size:11px}.scinav .subpanel,.scinav .subpanel-bg{position:absolute;top:105px;right:160px;bottom:100px;width:400px}.glass{background:#0ff;background:rgba(250,255,255,.85);filter:blur(4px);-o-filter:blur(4px);-ms-filter:blur(4px);-moz-filter:blur(4px);-webkit-filter:blur(4px)}ul.no-bullet{list-style-type:none;padding-left:0}.hidden{display:none}.profile .profile-image{width:140px}.profile .profile-header-info{width:210px;float:right}.profile .profile-header-info h3{margin-top:0}.profile .publications{margin-top:30px}.text-highlights{position:relative;top:0;left:0;right:0;bottom:0}.text-highlights .text-highlight{opacity:.4;position:absolute;height:20px;width:20px}#tags a.alert{display:inline-block;text-align:left;font-size:11px;padding:5px;margin-bottom:5px}#tags a.alert i{margin:0 3px;text-align:center;width:10px}";
 },{}],2:[function(require,module,exports){
 (function (process){
 
@@ -28,6 +28,8 @@ function buildStaticAssets(modules, textInput){
     
     var sidebar = document.createElement('div');
     sidebar.id = "beagle-sidebar";
+    sidebar.innerHTML = '<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet" /><link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet" />';
+
 
     // Start the CSS and HTML objects
     var concatCSS = document.createElement('style');
@@ -37,10 +39,15 @@ function buildStaticAssets(modules, textInput){
     // it loads or not. The encoding ensures string return, not buffer.
     // Using path.join(__dirname, './main.css', ...) will be more portable,
     // but doesn't work in Chrome for some reason.
-    concatCSS.innerHTML = ".beagle-sidebar {\n  background:white;\n  box-shadow:0 0 1em black;\n  color: #000;\n  height:100%;\n  position:fixed;\n  right:0px;\n  top:0px;\n  width:30%;\n  z-index:999999;\n  padding: 20px;\n}\n";
+    concatCSS.innerHTML = ".beagle-sidebar {\n  background:white;\n  box-shadow:0 0 1em black;\n  color: #000;\n  height:100%;\n  position:fixed;\n  right:0px;\n  top:0px;\n  width: 20%;\n  z-index:999999;\n  padding: 20px;\n}\n";
     var concatHTML = document.createElement('div');
     // Yes, this is the same name. May be best to rename.
-    concatHTML.className = 'beagle-sidebar';
+    var outerPane = document.createElement('div');
+    outerPane.className = 'scinav';
+    outerPane.innerHTML += '<div class="pane-bg glass"></div>';
+    
+    concatHTML.className = 'pane';
+    concatHTML.innerHTML += '<h2 style="text-align: center;">Beagle</h2>'
     
     // If needed later. No Global HTML at the moment.
     // fs.readFileSync(__dirname + '/sidebar.html', 'utf8');
@@ -54,7 +61,7 @@ function buildStaticAssets(modules, textInput){
       });
     }
 
-    var source = "<h3>Publication</h3><ul>  <li>{{title}}</li>  <li>{{journal}}</li>  <li>{{doi}}</li></ul><h3>Graph</h3><p>Tweets: {{cited_by_tweeters_count}}</p><h3>Tags</h3>{{#each subjects}}<p>{{subject}}</p>{{/each}}<h3>{{#posts}}{{{link_to Post}}}{{/posts}}</h3>";
+    var source = "<h6>Publication</h6><ul><li id='title'>{{title}}</li>  <li>{{journal}}</li>  <li>{{doi}}</li></ul><h6>Graph</h6><a  class='alert alert-info' data-placement='top' title='' data-original-title='View citations'><i class='fa fa-share-alt'></i>Tweets: {{cited_by_tweeters_count}}</a><h6>Tags</h6>{{#each subjects}}<p>{{subject}}</p>{{/each}}<h3>{{#posts}}{{{link_to Post}}}{{/posts}}</h3>";
     var template = Handlebars.compile(source);
 
     // Ideally, this would actually be part of the submodule conversation, above. 
@@ -64,7 +71,8 @@ function buildStaticAssets(modules, textInput){
 
     // Mung it all together
     sidebar.appendChild(concatCSS);
-    sidebar.appendChild(concatHTML);
+    outerPane.appendChild(concatHTML);
+    sidebar.appendChild(outerPane);
 
     return sidebar;
 }
@@ -132,6 +140,8 @@ function handleRequest(
                           // What does process do?
                           process.exit(-1); 
                         }
+
+                        console.log(data);
 
                         buildView(modules, data);
                       });
