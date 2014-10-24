@@ -23,7 +23,6 @@ function buildStaticAssets(modules, textInput){
     sidebar.id = "beagle-sidebar";
     sidebar.innerHTML = '<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet" /><link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet" />';
 
-
     // Start the CSS and HTML objects
     var concatCSS = document.createElement('style');
     
@@ -40,7 +39,7 @@ function buildStaticAssets(modules, textInput){
     outerPane.innerHTML += '<div class="pane-bg glass"></div>';
     
     concatHTML.className = 'pane';
-    concatHTML.innerHTML += '<h2 style="text-align: center;">Beagle</h2>'
+    concatHTML.innerHTML += '<h2 style="text-align: center;">Beagle</h2>';
     
     // If needed later. No Global HTML at the moment.
     // fs.readFileSync(__dirname + '/sidebar.html', 'utf8');
