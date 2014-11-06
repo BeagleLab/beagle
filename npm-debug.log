@@ -1,0 +1,201 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'node', '/usr/local/bin/npm', 'install' ]
+2 info using npm@2.0.0-alpha-5
+3 info using node@v0.10.30
+4 verbose node symlink /usr/local/bin/node
+5 verbose readDependencies using package.json deps
+6 verbose install where, deps [ '/Users/richard/src/beaglelabs/beagle',
+6 verbose install   [ 'beagle-pdf',
+6 verbose install     'brfs',
+6 verbose install     'browserify',
+6 verbose install     'fs',
+6 verbose install     'path',
+6 verbose install     'underscore',
+6 verbose install     'uniq',
+6 verbose install     'beagle-altmetrics',
+6 verbose install     'react-async',
+6 verbose install     'react-bootstrap',
+6 verbose install     'react-router',
+6 verbose install     'del',
+6 verbose install     'gulp',
+6 verbose install     'gulp-concat',
+6 verbose install     'gulp-connect',
+6 verbose install     'gulp-cssmin',
+6 verbose install     'gulp-if',
+6 verbose install     'gulp-imagemin',
+6 verbose install     'gulp-react',
+6 verbose install     'gulp-sass',
+6 verbose install     'gulp-sourcemaps',
+6 verbose install     'gulp-uglify',
+6 verbose install     'react',
+6 verbose install     'react-tools',
+6 verbose install     'reactify',
+6 verbose install     'vinyl-source-stream' ] ]
+7 info preinstall beagle@0.0.0
+8 warn package.json fs@0.0.2 fs is also the name of a node core module.
+9 warn package.json fs@0.0.2 No description
+10 warn package.json fs@0.0.2 No repository field.
+11 warn package.json path@0.4.9 path is also the name of a node core module.
+12 warn package.json url@0.10.1 url is also the name of a node core module.
+13 verbose readDependencies using package.json deps
+14 verbose already installed skipping beagle-altmetrics@0.0.2 /Users/richard/src/beaglelabs/beagle
+15 verbose already installed skipping react-async@^1.0.2 /Users/richard/src/beaglelabs/beagle
+16 verbose already installed skipping react-bootstrap@^0.12.0 /Users/richard/src/beaglelabs/beagle
+17 verbose already installed skipping react-router@^0.7.0 /Users/richard/src/beaglelabs/beagle
+18 verbose already installed skipping del@^0.1.3 /Users/richard/src/beaglelabs/beagle
+19 verbose already installed skipping gulp@^3.8.8 /Users/richard/src/beaglelabs/beagle
+20 verbose already installed skipping gulp-concat@^2.4.1 /Users/richard/src/beaglelabs/beagle
+21 verbose already installed skipping gulp-connect@^2.0.6 /Users/richard/src/beaglelabs/beagle
+22 verbose already installed skipping gulp-cssmin@^0.1.6 /Users/richard/src/beaglelabs/beagle
+23 verbose already installed skipping gulp-if@^1.2.4 /Users/richard/src/beaglelabs/beagle
+24 verbose already installed skipping gulp-imagemin@^1.0.1 /Users/richard/src/beaglelabs/beagle
+25 verbose already installed skipping gulp-react@^1.0.2 /Users/richard/src/beaglelabs/beagle
+26 verbose already installed skipping gulp-sass@^1.1.0 /Users/richard/src/beaglelabs/beagle
+27 verbose already installed skipping gulp-sourcemaps@^1.2.2 /Users/richard/src/beaglelabs/beagle
+28 verbose already installed skipping gulp-uglify@^1.0.1 /Users/richard/src/beaglelabs/beagle
+29 verbose already installed skipping react@^0.11.2 /Users/richard/src/beaglelabs/beagle
+30 verbose already installed skipping react-tools@^0.11.2 /Users/richard/src/beaglelabs/beagle
+31 verbose already installed skipping reactify@^0.14.0 /Users/richard/src/beaglelabs/beagle
+32 verbose already installed skipping vinyl-source-stream@^1.0.0 /Users/richard/src/beaglelabs/beagle
+33 verbose already installed skipping beagle-pdf@0.0.0 /Users/richard/src/beaglelabs/beagle
+34 verbose already installed skipping brfs@^1.2.0 /Users/richard/src/beaglelabs/beagle
+35 verbose already installed skipping browserify@^4.1.8 /Users/richard/src/beaglelabs/beagle
+36 verbose already installed skipping fs@^0.0.2 /Users/richard/src/beaglelabs/beagle
+37 verbose already installed skipping path@^0.4.9 /Users/richard/src/beaglelabs/beagle
+38 verbose already installed skipping underscore@^1.7.0 /Users/richard/src/beaglelabs/beagle
+39 verbose already installed skipping uniq@^1.0.1 /Users/richard/src/beaglelabs/beagle
+40 silly resolved []
+41 info build /Users/richard/src/beaglelabs/beagle
+42 verbose linkStuff [ false, false, false, '/Users/richard/src/beaglelabs' ]
+43 info linkStuff beagle@0.0.0
+44 verbose linkBins beagle@0.0.0
+45 verbose linkMans beagle@0.0.0
+46 verbose rebuildBundles beagle@0.0.0
+47 verbose rebuildBundles [ '.DS_Store',
+47 verbose rebuildBundles   '.bin',
+47 verbose rebuildBundles   'beagle-altmetrics',
+47 verbose rebuildBundles   'beagle-pdf',
+47 verbose rebuildBundles   'brfs',
+47 verbose rebuildBundles   'browserify',
+47 verbose rebuildBundles   'browserify-handlebars',
+47 verbose rebuildBundles   'bundle.js',
+47 verbose rebuildBundles   'del',
+47 verbose rebuildBundles   'fs',
+47 verbose rebuildBundles   'gulp',
+47 verbose rebuildBundles   'gulp-concat',
+47 verbose rebuildBundles   'gulp-connect',
+47 verbose rebuildBundles   'gulp-cssmin',
+47 verbose rebuildBundles   'gulp-if',
+47 verbose rebuildBundles   'gulp-imagemin',
+47 verbose rebuildBundles   'gulp-less',
+47 verbose rebuildBundles   'gulp-react',
+47 verbose rebuildBundles   'gulp-sass',
+47 verbose rebuildBundles   'gulp-sourcemaps',
+47 verbose rebuildBundles   'gulp-uglify',
+47 verbose rebuildBundles   'handlebars',
+47 verbose rebuildBundles   'natural-gutenberg',
+47 verbose rebuildBundles   'path',
+47 verbose rebuildBundles   'react',
+47 verbose rebuildBundles   'react-async',
+47 verbose rebuildBundles   'react-bootstrap',
+47 verbose rebuildBundles   'react-router',
+47 verbose rebuildBundles   'react-tools',
+47 verbose rebuildBundles   'reactify',
+47 verbose rebuildBundles   'underscore',
+47 verbose rebuildBundles   'uniq',
+47 verbose rebuildBundles   'url',
+47 verbose rebuildBundles   'vinyl-source-stream' ]
+48 verbose rebuild bundle /Users/richard/src/beaglelabs/beagle/node_modules/browserify-handlebars
+49 info build /Users/richard/src/beaglelabs/beagle/node_modules/browserify-handlebars
+50 info preinstall browserify-handlebars@0.2.0
+51 verbose linkStuff [ false,
+51 verbose linkStuff   false,
+51 verbose linkStuff   false,
+51 verbose linkStuff   '/Users/richard/src/beaglelabs/beagle/node_modules' ]
+52 info linkStuff browserify-handlebars@0.2.0
+53 verbose linkBins browserify-handlebars@0.2.0
+54 verbose linkMans browserify-handlebars@0.2.0
+55 verbose rebuildBundles browserify-handlebars@0.2.0
+56 verbose rebuildBundles [ 'through' ]
+57 info install browserify-handlebars@0.2.0
+58 info postinstall browserify-handlebars@0.2.0
+59 verbose rebuild bundle /Users/richard/src/beaglelabs/beagle/node_modules/bundle.js
+60 verbose rebuild bundle /Users/richard/src/beaglelabs/beagle/node_modules/gulp-less
+61 info build /Users/richard/src/beaglelabs/beagle/node_modules/gulp-less
+62 info preinstall gulp-less@1.3.6
+63 verbose linkStuff [ false,
+63 verbose linkStuff   false,
+63 verbose linkStuff   false,
+63 verbose linkStuff   '/Users/richard/src/beaglelabs/beagle/node_modules' ]
+64 info linkStuff gulp-less@1.3.6
+65 verbose linkBins gulp-less@1.3.6
+66 verbose linkMans gulp-less@1.3.6
+67 verbose rebuildBundles gulp-less@1.3.6
+68 verbose rebuildBundles [ '.bin',
+68 verbose rebuildBundles   'convert-source-map',
+68 verbose rebuildBundles   'gulp-util',
+68 verbose rebuildBundles   'less',
+68 verbose rebuildBundles   'lodash.defaults',
+68 verbose rebuildBundles   'through2',
+68 verbose rebuildBundles   'vinyl-sourcemaps-apply' ]
+69 info install gulp-less@1.3.6
+70 info postinstall gulp-less@1.3.6
+71 verbose rebuild bundle /Users/richard/src/beaglelabs/beagle/node_modules/handlebars
+72 info build /Users/richard/src/beaglelabs/beagle/node_modules/handlebars
+73 info preinstall handlebars@2.0.0
+74 verbose linkStuff [ false,
+74 verbose linkStuff   false,
+74 verbose linkStuff   false,
+74 verbose linkStuff   '/Users/richard/src/beaglelabs/beagle/node_modules' ]
+75 info linkStuff handlebars@2.0.0
+76 verbose linkBins handlebars@2.0.0
+77 verbose link bins [ { handlebars: 'bin/handlebars' },
+77 verbose link bins   '/Users/richard/src/beaglelabs/beagle/node_modules/.bin',
+77 verbose link bins   false ]
+78 verbose linkMans handlebars@2.0.0
+79 verbose rebuildBundles handlebars@2.0.0
+80 verbose rebuildBundles [ '.bin', 'optimist', 'uglify-js' ]
+81 verbose gentlyRm vacuuming /Users/richard/src/beaglelabs/beagle/node_modules/.bin/handlebars
+82 silly gentlyRm purging /Users/richard/src/beaglelabs/beagle/node_modules/.bin/handlebars
+83 silly gentlyRm quitting because other entries in /Users/richard/src/beaglelabs/beagle/node_modules/.bin
+84 info install handlebars@2.0.0
+85 info postinstall handlebars@2.0.0
+86 verbose rebuild bundle /Users/richard/src/beaglelabs/beagle/node_modules/natural-gutenberg
+87 info build /Users/richard/src/beaglelabs/beagle/node_modules/natural-gutenberg
+88 info preinstall natural-gutenberg@1.0.0
+89 verbose linkStuff [ false,
+89 verbose linkStuff   false,
+89 verbose linkStuff   false,
+89 verbose linkStuff   '/Users/richard/src/beaglelabs/beagle/node_modules' ]
+90 info linkStuff natural-gutenberg@1.0.0
+91 verbose linkBins natural-gutenberg@1.0.0
+92 verbose linkMans natural-gutenberg@1.0.0
+93 verbose rebuildBundles natural-gutenberg@1.0.0
+94 info install natural-gutenberg@1.0.0
+95 info postinstall natural-gutenberg@1.0.0
+96 verbose rebuild bundle /Users/richard/src/beaglelabs/beagle/node_modules/url
+97 info build /Users/richard/src/beaglelabs/beagle/node_modules/url
+98 info preinstall url@0.10.1
+99 verbose linkStuff [ false,
+99 verbose linkStuff   false,
+99 verbose linkStuff   false,
+99 verbose linkStuff   '/Users/richard/src/beaglelabs/beagle/node_modules' ]
+100 info linkStuff url@0.10.1
+101 verbose linkBins url@0.10.1
+102 verbose linkMans url@0.10.1
+103 verbose rebuildBundles url@0.10.1
+104 verbose rebuildBundles [ 'punycode' ]
+105 info install url@0.10.1
+106 info postinstall url@0.10.1
+107 info install beagle@0.0.0
+108 info postinstall beagle@0.0.0
+109 info prepublish beagle@0.0.0
+110 error peerinvalid The package handlebars does not satisfy its siblings' peerDependencies requirements!
+110 error peerinvalid Peer browserify-handlebars@0.2.0 wants handlebars@>= 1.2.0 < 2
+111 error System Darwin 13.4.0
+112 error command "node" "/usr/local/bin/npm" "install"
+113 error cwd /Users/richard/src/beaglelabs/beagle
+114 error node -v v0.10.30
+115 error npm -v 2.0.0-alpha-5
+116 error code EPEERINVALID
+117 verbose exit [ 1, true ]

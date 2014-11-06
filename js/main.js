@@ -4,7 +4,7 @@ var Handlebars = require('handlebars');
 
 // Non-optional modules
 var PDFJS = require('beagle-pdf');
-var style = require('../beagle-style');
+var style = require('../../beagle-style');
 
 // Optional modules required by the user
 var altmetrics = require('beagle-altmetrics');
@@ -31,7 +31,7 @@ function buildStaticAssets(modules, textInput){
     // it loads or not. The encoding ensures string return, not buffer.
     // Using path.join(__dirname, './main.css', ...) will be more portable,
     // but doesn't work in Chrome for some reason.
-    concatCSS.innerHTML = fs.readFileSync(__dirname + '/main.css', 'utf8');
+    concatCSS.innerHTML = fs.readFileSync(__dirname + '/../build/bundle.min.css', 'utf8');
     var concatHTML = document.createElement('div');
     // Yes, this is the same name. May be best to rename.
     var outerPane = document.createElement('div');
