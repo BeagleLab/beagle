@@ -14,7 +14,8 @@
     "beagle-altmetrics": "0.0.2",
     "react-async": "^1.0.2",
     "react-bootstrap": "^0.12.0",
-    "react-router": "^0.7.0"
+    "react-router": "^0.7.0",
+    "handlebars": "1.2.*"
   },
   "devDependencies": {
     "browserify": "^4.1.8",
@@ -34,9 +35,6 @@
     "react-tools": "^0.11.2",
     "reactify": "^0.14.0",
     "vinyl-source-stream": "^1.0.0"
-  },
-  "peerDependencies": {
-    "handlebars": "*"
   },
   "browserify": { "transform": [ "brfs" ] },
   "scripts": {
