@@ -7,7 +7,7 @@ var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var imagemin = require('gulp-imagemin');
 var sourcemaps = require('gulp-sourcemaps');
-var connect = require('gulp-connect');
+// var connect = require('gulp-connect');
 var source = require('vinyl-source-stream');
 var browserify = require('browserify');
 var reactify = require('reactify');
@@ -29,8 +29,8 @@ gulp.task('clean', function(cb) {
 
 gulp.task('js', function() {
   return browserify(paths.main)
-    .transform('brfs')
-    .transform(reactify)
+    .transform({global: true }, 'reactify')
+    .transform({global: true }, 'brfs')
     .bundle()
     .pipe(source('bundle.min.js'))
     // .pipe(sourcemaps.init())
