@@ -21,7 +21,7 @@ function buildStaticAssets(modules, textInput){
     
     var sidebar = document.createElement('div');
     sidebar.id = "beagle-sidebar";
-    sidebar.innerHTML = '<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet" /><link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet" />';
+    sidebar.innerHTML = '<link href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet" /><link href="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet" />';
 
     // Start the CSS and HTML objects
     var concatCSS = document.createElement('style');
