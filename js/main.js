@@ -3,6 +3,10 @@ var fs = require('fs')
 var _ = require('lodash')
 var Handlebars = require('handlebars')
 
+var React = require('react')
+var App = require('./app.jsx')
+var linkHandler = require('./linkhandler.js')
+
 // Non-optional modules. 
 var style = require('beagle-style')
 
@@ -20,7 +24,9 @@ var sidebarOpen = false;
 function buildStaticAssets(modules, textInput){
   var sidebar = document.createElement('div');
   sidebar.id = "beagle-sidebar";
-  sidebar.innerHTML = '<link href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet" /><link href="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet" />';
+  sidebar.innerHTML = '<link href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet" />'
+  sidebar.innerHTML += '<link href="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet" />'
+  sidebar.innerHTML += '<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>'
 
   // Start the CSS and HTML objects
   var concatCSS = document.createElement('style');
@@ -63,6 +69,7 @@ function buildStaticAssets(modules, textInput){
   // Ideally, this would actually be part of the submodule conversation, above. 
   if (textInput !== null) {
     concatHTML.innerHTML += template(textInput);
+    concatHTML.innerHTML += '<div id="webui-app"></div>'
   }
   
   // Mung it all together
@@ -133,6 +140,9 @@ function buildView(modules, textInput) {
   textInput = (textInput !== undefined) ? textInput : null;
   var sidebar = buildStaticAssets(modules, textInput);
   document.body.appendChild(sidebar);
+  var appEl = document.getElementById('webui-app')
+  React.renderComponent(App(), appEl)
+  linkHandler()
   sidebarOpen = true;
 }
 
