@@ -1,13 +1,15 @@
-var fs = require('fs');
-var _ = require('underscore');
-var Handlebars = require('handlebars');
+var optional = require('optional')
+var fs = require('fs')
+var _ = require('underscore')
+var Handlebars = require('handlebars')
 
-// Non-optional modules
-var PDFJS = require('beagle-pdf');
-var style = require('beagle-style');
+// Non-optional modules. 
+var style = require('beagle-style')
 
 // Optional modules required by the user
-var altmetrics = require('beagle-altmetrics');
+// If they are not able to be browserified, then 
+// a button will appear explaining why they're not there.
+var PDFJS = optional('beagle-pdf')
 
 // The order of these will matter for loading HTML and CSS
 // Eventually, it may be necessary to add overrides, at which point
@@ -56,10 +58,17 @@ function buildStaticAssets(modules, textInput){
     var source = "<h6>Publication</h6><ul><li id='title'>{{title}}</li>  <li>{{journal}}</li>  <li>{{doi}}</li></ul><h6>Graph</h6><a  class='alert alert-info' data-placement='top' title='' data-original-title='View citations'><i class='fa fa-share-alt'></i>Tweets: {{cited_by_tweeters_count}}</a><h6>Tags</h6>{{#each subjects}}<p>{{subject}}</p>{{/each}}<h3>{{#posts}}{{{link_to Post}}}{{/posts}}</h3>";
     var template = Handlebars.compile(source);
 
+    // If there has been an error
+    if (typeof textInput == 'string') {
+      concatHTML.innerHTML += '<button type="button" class="btn btn-warning btn-full">' + 
+        textInput + '</button>'
+    } else     
     // Ideally, this would actually be part of the submodule conversation, above. 
     if (textInput !== null) {
       concatHTML.innerHTML += template(textInput);
     }
+
+    console.log(textInput, concatHTML.innerHTML)
 
     // Mung it all together
     sidebar.appendChild(concatCSS);
@@ -100,10 +109,13 @@ function handleRequest(
         chrome.storage.sync.set(modules);
       }
 
-      if (document.querySelector("body>embed[type='application/pdf']")) {
+      if (document.querySelector("body>embed[type='application/pdf']") && PDFJS) {
         buildView(modules, PDFJS.readPDF(window.location.href));
+      } else if (!PDFJS) {
+        console.log('PDFJS Failed to load or');
+        buildView(modules, 'Error with PDFJS');
       } else {
-        // console.log('Not a pdf.');
+        console.log('Not a pdf.');
         // console.log(window.location);
         // TODO Add in the DOM here. 
         buildView(modules);
