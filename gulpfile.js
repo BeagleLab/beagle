@@ -29,7 +29,7 @@ gulp.task('clean', function(cb) {
 
 gulp.task('js', function() {
   return browserify(paths.main)
-    .transform({global: true }, 'reactify')
+    .transform(reactify)
     .transform({global: true }, 'brfs')
     .bundle()
     .pipe(source('bundle.min.js'))
