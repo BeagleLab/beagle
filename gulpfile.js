@@ -70,5 +70,5 @@ gulp.task('watch', function() {
   gulp.watch(paths.html, ['html']);
 });
 
-
-gulp.task('default', ['watch', 'css', 'js', 'img', 'html']);
+gulp.task('bundle', ['css', 'js', 'img', 'html'])
+gulp.task('default', ['watch', 'css', 'js', 'img', 'html'])

@@ -1,4 +1,5 @@
 #!/bin/sh
 
-browserify -t brfs ./main.js > bundle.js
+echo 'Gulping for great good!'
+gulp bundle
 echo 'Bundled up!'
