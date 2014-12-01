@@ -4,17 +4,18 @@
   "description": "Navigating research",
   "main": "main.js",
   "dependencies": {
+    "beagle-altmetrics": "0.0.2",
     "brfs": "^1.2.0",
     "browserify": "^5.11.2",
     "fs": "^0.0.2",
+    "handlebars": "1.2.*",
+    "lodash": "^2.4.1",
     "path": "^0.4.9",
-    "underscore": "^1.7.0",
-    "uniq": "^1.0.1",
-    "beagle-altmetrics": "0.0.2",
+    "pdfjs-dist": "^1.0.962",
     "react-async": "^1.0.2",
     "react-bootstrap": "^0.12.0",
     "react-router": "^0.7.0",
-    "handlebars": "1.2.*"
+    "uniq": "^1.0.1"
   },
   "devDependencies": {
     "browserify": "^4.1.8",
@@ -35,7 +36,11 @@
     "reactify": "^0.14.0",
     "vinyl-source-stream": "^1.0.0"
   },
-  "browserify": { "transform": [ "brfs" ] },
+  "browserify": {
+    "transform": [
+      "brfs"
+    ]
+  },
   "scripts": {
     "build": "browserify -t brfs main.js > bundle.js",
     "test": "echo \"Error: no test specified\" && exit 1",

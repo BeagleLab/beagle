@@ -1,15 +1,13 @@
 var optional = require('optional')
 var fs = require('fs')
-var _ = require('underscore')
+var _ = require('lodash')
 var Handlebars = require('handlebars')
 
 // Non-optional modules. 
 var style = require('beagle-style')
 
-// Optional modules required by the user
-// If they are not able to be browserified, then 
-// a button will appear explaining why they're not there.
-var PDFJS = optional('beagle-pdf')
+// TODO Optional seems to have issues with non-essential errors, too. 
+var PDFJS = require('beagle-pdf')
 
 // The order of these will matter for loading HTML and CSS
 // Eventually, it may be necessary to add overrides, at which point
@@ -67,9 +65,7 @@ function buildStaticAssets(modules, textInput){
     if (textInput !== null) {
       concatHTML.innerHTML += template(textInput);
     }
-
-    console.log(textInput, concatHTML.innerHTML)
-
+    
     // Mung it all together
     sidebar.appendChild(concatCSS);
     outerPane.appendChild(concatHTML);
@@ -110,9 +106,12 @@ function handleRequest(
       }
 
       if (document.querySelector("body>embed[type='application/pdf']") && PDFJS) {
-        buildView(modules, PDFJS.readPDF(window.location.href));
+        PDFJS.readPDF(window.location.href, function(err, data) {
+          if (err !== null) console.error(err)
+          if (data) buildView(modules, data)
+        });
       } else if (!PDFJS) {
-        console.log('PDFJS Failed to load or');
+        console.log('PDFJS failed to load.');
         buildView(modules, 'Error with PDFJS');
       } else {
         console.log('Not a pdf.');
