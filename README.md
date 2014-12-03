@@ -1,6 +1,8 @@
 beagle
 ======
 
+[![license](http://img.shields.io/badge/license-MIT-red.svg?style=flat)](https://raw.githubusercontent.com/BeagleLab/beagle/master/LICENSE)
+
 Navigating the sea of publications
 
 ##Installation
