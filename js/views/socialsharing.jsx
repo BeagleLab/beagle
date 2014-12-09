@@ -6,10 +6,10 @@ module.exports = React.createClass({
     return (
       <div>
         <button>
-          <a href="mailto:?subject=Champion: This is an awesome Article">Champion this article</a>
+          <a href="mailto:?subject=Champion: This is an awesome Article"><i className="fa fa-shield"></i> Champion</a>
         </button>
         <button>
-          <a href="mailto:?subject=Nominate: Anyone else think this is great?">Nominate this article</a>
+          <a href="mailto:?subject=Nominate: Anyone else think this is great?"><i className="fa fa-flag"></i> Nominate</a>
         </button>
       </div>
     )

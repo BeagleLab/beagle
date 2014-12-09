@@ -2,6 +2,7 @@ var optional = require('optional')
 var fs = require('fs')
 var _ = require('lodash')
 var Handlebars = require('handlebars')
+var $ = require('jquery')
 
 var React = require('react')
 var App = require('./app.jsx')
@@ -24,9 +25,9 @@ var sidebarOpen = false;
 function buildStaticAssets(modules, textInput){
   var sidebar = document.createElement('div');
   sidebar.id = "beagle-sidebar";
-  sidebar.innerHTML = '<link href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet" />'
-  sidebar.innerHTML += '<link href="https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.min.css" rel="stylesheet" />'
-  sidebar.innerHTML += '<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>'
+  
+  sidebar.innerHTML = '<link href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet" />';
+  sidebar.innerHTML += '<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">'
 
   // Start the CSS and HTML objects
   var concatCSS = document.createElement('style');
@@ -119,7 +120,7 @@ function handleRequest(
 
         try {
           if (!navigator.onLine) {
-            throw (new Error('Offline!'))
+            throw (new Error('You are offline!'))
           } else if (!PDFJS) {
             console.log('PDFJS failed to load.');
             throw (new Error('Error with PDFJS'))
