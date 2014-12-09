@@ -1,12 +1,13 @@
 var React = require('react')
 var socialsharing = require('./views/socialsharing.jsx')
+var altmetrics = require('./views/altmetrics.jsx')
 
 module.exports = React.createClass({
   render: function() {
 
     return (
       <div>
-        <p>I like ships, <i>and I used to be a sailor</i></p>
+        <altmetrics data={this.props} />
         <socialsharing />
       </div>
     )

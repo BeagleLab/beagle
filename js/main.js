@@ -1,7 +1,6 @@
 var optional = require('optional')
 var fs = require('fs')
 var _ = require('lodash')
-var Handlebars = require('handlebars')
 var $ = require('jquery')
 
 var React = require('react')
@@ -59,9 +58,6 @@ function buildStaticAssets(modules, textInput){
     });
   }
 
-  var source = "<h6>Publication</h6><ul><li id='title'>{{title}}</li>  <li>{{journal}}</li>  <li>{{doi}}</li></ul><h6>Graph</h6><a  class='alert alert-info' data-placement='top' title='' data-original-title='View citations'><i class='fa fa-share-alt'></i>Tweets: {{cited_by_tweeters_count}}</a><h6>Tags</h6>{{#each subjects}}<p>{{subject}}</p>{{/each}}<h3>{{#posts}}{{{link_to Post}}}{{/posts}}</h3>";
-  var template = Handlebars.compile(source);
-
   // If there has been an error
   if (typeof textInput == 'string') {
     concatHTML.innerHTML += '<button type="button" class="btn btn-warning btn-full">' + 
@@ -69,8 +65,7 @@ function buildStaticAssets(modules, textInput){
   } else     
   // Ideally, this would actually be part of the submodule conversation, above. 
   if (textInput !== null) {
-    concatHTML.innerHTML += template(textInput);
-    concatHTML.innerHTML += '<div id="webui-app"></div>'
+    concatHTML.innerHTML += '<div id="react"></div>';
   }
   
   // Mung it all together
@@ -159,8 +154,10 @@ function buildView(modules, textInput) {
   textInput = (textInput !== undefined) ? textInput : null;
   var sidebar = buildStaticAssets(modules, textInput);
   document.body.appendChild(sidebar);
-  var appEl = document.getElementById('webui-app')
-  React.renderComponent(App(), appEl)
+  React.renderComponent( 
+    App(textInput), 
+    document.getElementById('react')
+  )
   linkHandler()
   sidebarOpen = true;
 }
