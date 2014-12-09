@@ -117,20 +117,33 @@ function handleRequest(
           "altmetrics": true
         }
 
-        if (!PDFJS) {
-          console.log('PDFJS failed to load.');
-          buildView(modules, 'Error with PDFJS');
-        } else if (document.querySelector("body>embed[type='application/pdf']")) {
-          
-          PDFJS.readPDF(window.location.href, options, function(err, data) {
-            if (err !== null) console.error(err)
-            if (data) buildView(modules, data)
-          });
-        } else {
-          console.log('Not a pdf.');
-          // console.log(window.location);
-          // TODO Add in the DOM here. 
-          buildView(modules);
+        try {
+          if (!navigator.onLine) {
+            throw (new Error('Offline!'))
+          } else if (!PDFJS) {
+            console.log('PDFJS failed to load.');
+            throw (new Error('Error with PDFJS'))
+            // buildView(modules, 'Error with PDFJS');
+          } else if (document.querySelector("body>embed[type='application/pdf']")) {
+            
+            PDFJS.readPDF(window.location.href, options, function(err, data) {
+              if (err !== null) {
+                throw (new Error('Could not read the PDF'))
+              }
+
+              if (data) buildView(modules, data)
+            });
+          } else {
+            console.log('Not a pdf.');
+            // console.log(window.location);
+            // TODO Add in the DOM here. 
+            buildView(modules);
+          }
+        }
+
+        catch (e) {
+          console.log(e.name, e.message)
+          buildView(modules, e.message)
         }
       });
     } else {
