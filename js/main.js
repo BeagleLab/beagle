@@ -7,7 +7,10 @@ var React = require('react')
 var App = require('./app.jsx')
 var linkHandler = require('./linkhandler.js')
 
-// Non-optional modules. 
+// for ease of dev.
+var AllViews = require('./allviews.jsx')
+
+// Non-optional modules.
 var style = require('beagle-style')
 
 // TODO Optional seems to have issues with non-essential errors, too. 
@@ -127,7 +130,9 @@ function handleRequest(
                 throw (new Error('Could not read the PDF'))
               }
 
-              if (data) buildView(modules, data)
+              if (data) buildView(modules, {
+                altmetricsData: data,
+              })
             });
           } else {
             console.log('Not a pdf.');

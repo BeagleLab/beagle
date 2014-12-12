@@ -7,7 +7,7 @@ module.exports = React.createClass({
 
     return (
       <div>
-        <altmetrics data={this.props} />
+        <altmetrics data={this.props.altmetricsData} />
         <socialsharing />
       </div>
     )
