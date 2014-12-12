@@ -167,4 +167,13 @@ function buildView(modules, textInput) {
   sidebarOpen = true;
 }
 
-chrome.runtime.onMessage.addListener(handleRequest);
+// check if we're loading in the browser as an extension
+if (chrome && chrome.runtime && chrome.runtime.onMessage) {
+  chrome.runtime.onMessage.addListener(handleRequest);
+} else {
+  // export some things on window for non-extension pages.
+  window.bundle = {
+    React: React,
+    AllViews: AllViews,
+  }
+}
