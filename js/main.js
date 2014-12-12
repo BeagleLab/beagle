@@ -7,13 +7,14 @@ var React = require('react')
 var App = require('./app.jsx')
 var linkHandler = require('./linkhandler.js')
 
-// for ease of dev.
+// for ease of dev. (move these before shipping widely)
 var AllViews = require('./allviews.jsx')
+var Milestones = require('./milestones.jsx')
 
 // Non-optional modules.
 var style = require('beagle-style')
 
-// TODO Optional seems to have issues with non-essential errors, too. 
+// TODO Optional seems to have issues with non-essential errors, too.
 var PDFJS = require('beagle-pdf')
 
 // The order of these will matter for loading HTML and CSS
@@ -27,13 +28,13 @@ var sidebarOpen = false;
 function buildStaticAssets(modules, textInput){
   var sidebar = document.createElement('div');
   sidebar.id = "beagle-sidebar";
-  
+
   sidebar.innerHTML = '<link href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet" />';
   sidebar.innerHTML += '<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">'
 
   // Start the CSS and HTML objects
   var concatCSS = document.createElement('style');
-  
+
   // Get the global CSS
   // May be better for this to be async. For now, there are no checs;
   // it loads or not. The encoding ensures string return, not buffer.
@@ -45,10 +46,10 @@ function buildStaticAssets(modules, textInput){
   var outerPane = document.createElement('div');
   outerPane.className = 'scinav';
   outerPane.innerHTML += '<div class="pane-bg glass"></div>';
-  
+
   concatHTML.className = 'pane';
   concatHTML.innerHTML += '<h2 style="text-align: center;">Beagle</h2>';
-  
+
   // If needed later. No Global HTML at the moment.
   // fs.readFileSync(__dirname + '/sidebar.html', 'utf8');
 
@@ -63,14 +64,14 @@ function buildStaticAssets(modules, textInput){
 
   // If there has been an error
   if (typeof textInput == 'string') {
-    concatHTML.innerHTML += '<button type="button" class="btn btn-warning btn-full">' + 
+    concatHTML.innerHTML += '<button type="button" class="btn btn-warning btn-full">' +
       textInput + '</button>'
-  } else     
-  // Ideally, this would actually be part of the submodule conversation, above. 
+  } else
+  // Ideally, this would actually be part of the submodule conversation, above.
   if (textInput !== null) {
     concatHTML.innerHTML += '<div id="react"></div>';
   }
-  
+
   // Mung it all together
   sidebar.appendChild(concatCSS);
   outerPane.appendChild(concatHTML);
@@ -82,9 +83,9 @@ function buildStaticAssets(modules, textInput){
 // Handle requests from background.html
 function handleRequest(
   // The object data with the request params
-  request, 
+  request,
   // These last two ones isn't important for this example.
-  // If you want know more about it visit: 
+  // If you want know more about it visit:
   // http://code.google.com/chrome/extensions/messaging.html
   sender, sendResponse
   ) {
@@ -93,7 +94,7 @@ function handleRequest(
     if (!sidebarOpen) {
       // If the extension has specified new modules to load
       var newModules = request.modules ? request.modules : null ;
-      
+
       //Get the current list of used modules
       chrome.storage.sync.get('modules', function(result){
 
@@ -124,20 +125,22 @@ function handleRequest(
             throw (new Error('Error with PDFJS'))
             // buildView(modules, 'Error with PDFJS');
           } else if (document.querySelector("body>embed[type='application/pdf']")) {
-            
-            PDFJS.readPDF(window.location.href, options, function(err, data) {
+
+            PDFJS.readPDF(window.location.href, options, function(err, altmetricsData) {
               if (err !== null) {
                 throw (new Error('Could not read the PDF'))
               }
 
-              if (data) buildView(modules, {
-                altmetricsData: data,
+              if (altmetricsData) buildView(modules, {
+                data: {
+                  altmetrics: altmetricsData,
+                }
               })
             });
           } else {
             console.log('Not a pdf.');
             // console.log(window.location);
-            // TODO Add in the DOM here. 
+            // TODO Add in the DOM here.
             buildView(modules);
           }
         }
@@ -159,8 +162,8 @@ function buildView(modules, textInput) {
   textInput = (textInput !== undefined) ? textInput : null;
   var sidebar = buildStaticAssets(modules, textInput);
   document.body.appendChild(sidebar);
-  React.renderComponent( 
-    App(textInput), 
+  React.renderComponent(
+    App(textInput),
     document.getElementById('react')
   )
   linkHandler()
@@ -175,5 +178,6 @@ if (chrome && chrome.runtime && chrome.runtime.onMessage) {
   window.bundle = {
     React: React,
     AllViews: AllViews,
+    Milestones: Milestones,
   }
 }
