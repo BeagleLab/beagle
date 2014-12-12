@@ -7,7 +7,7 @@ var concat = require('gulp-concat');
 var uglify = require('gulp-uglify');
 var imagemin = require('gulp-imagemin');
 var sourcemaps = require('gulp-sourcemaps');
-// var connect = require('gulp-connect');
+var connect = require('gulp-connect');
 var source = require('vinyl-source-stream');
 var browserify = require('browserify');
 var reactify = require('reactify');
@@ -63,6 +63,16 @@ gulp.task('html', function() {
     .pipe(gulp.dest('build/'));
 });
 
+// here for allviews and milestones
+gulp.task('server', function() {
+  connect.server({
+    root: 'build',
+    fallback: 'build/milestones.html',
+    port: 8000,
+    livereload: true
+  })
+})
+
 gulp.task('watch', function() {
   gulp.watch(paths.js, ['js']);
   gulp.watch(paths.css, ['css']);
@@ -71,4 +81,4 @@ gulp.task('watch', function() {
 });
 
 gulp.task('bundle', ['css', 'js', 'img', 'html'])
-gulp.task('default', ['watch', 'css', 'js', 'img', 'html'])
+gulp.task('default', ['watch', 'css', 'js', 'img', 'html', 'server'])
