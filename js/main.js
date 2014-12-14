@@ -25,22 +25,23 @@ function buildStaticAssets(modules, textInput){
   var sidebar = document.createElement('div');
   sidebar.id = "beagle-sidebar";
 
-  // sidebar.innerHTML = '<link href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet" />';
-  // sidebar.innerHTML += '<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">'
+  sidebar.innerHTML = '<link href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet" />';
+  sidebar.innerHTML += '<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">'
 
   // Start the CSS and HTML objects
   var concatCSS = document.createElement('style');
+
 
   // Get the global CSS
   // May be better for this to be async. For now, there are no checs;
   // it loads or not. The encoding ensures string return, not buffer.
   // Using path.join(__dirname, './main.css', ...) will be more portable,
   // but doesn't work in Chrome for some reason.
-  concatCSS.innerHTML = fs.readFileSync(__dirname + '/../build/bundle.min.css', 'utf8');
+  concatCSS.innerHTML += fs.readFileSync(__dirname + '/../build/bundle.min.css', 'utf8');
   // var concatHTML = document.createElement('div');
   // Yes, this is the same name. May be best to rename.
-  // var outerPane = document.createElement('div');
-  // outerPane.className = 'scinav';
+  var outerPane = document.createElement('div');
+  outerPane.id = 'scinav';
   // outerPane.innerHTML += '<div class="pane-bg glass"></div>';
 
   // concatHTML.className = 'pane';
@@ -71,7 +72,7 @@ function buildStaticAssets(modules, textInput){
   // Mung it all together
   sidebar.appendChild(concatCSS);
   // outerPane.appendChild(concatHTML);
-  // sidebar.appendChild(outerPane);
+  sidebar.appendChild(outerPane);
 
   return sidebar;
 }
@@ -156,7 +157,7 @@ function buildView(modules, textInput) {
   document.body.appendChild(sidebar);
   React.renderComponent(
     App(textInput),
-    document.getElementById('beagle-sidebar')
+    document.getElementById('scinav')
   )
   linkHandler()
   sidebarOpen = true;
