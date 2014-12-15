@@ -3,79 +3,16 @@ var fs = require('fs')
 var _ = require('lodash')
 var $ = require('jquery')
 
+// Display modules
+var style = require('beagle-style')
 var React = require('react')
 var App = require('./app.jsx')
 var linkHandler = require('./linkhandler.js')
 
-// Non-optional modules.
-var style = require('beagle-style')
-
 // TODO Optional seems to have issues with non-essential errors, too.
 var PDFJS = require('beagle-pdf')
 
-// The order of these will matter for loading HTML and CSS
-// Eventually, it may be necessary to add overrides, at which point
-// this should become an object.
-var subModules = [style];
-
 var sidebarOpen = false;
-
-// TODO Enable Static Assets to go to other Views besides SideBar
-function buildStaticAssets(modules, textInput){
-  var sidebar = document.createElement('div');
-  sidebar.id = "beagle-sidebar";
-
-  sidebar.innerHTML = '<link href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet" />';
-  sidebar.innerHTML += '<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">'
-
-  // Start the CSS and HTML objects
-  var concatCSS = document.createElement('style');
-
-
-  // Get the global CSS
-  // May be better for this to be async. For now, there are no checs;
-  // it loads or not. The encoding ensures string return, not buffer.
-  // Using path.join(__dirname, './main.css', ...) will be more portable,
-  // but doesn't work in Chrome for some reason.
-  concatCSS.innerHTML += fs.readFileSync(__dirname + '/../build/bundle.min.css', 'utf8');
-  // var concatHTML = document.createElement('div');
-  // Yes, this is the same name. May be best to rename.
-  var outerPane = document.createElement('div');
-  outerPane.id = 'scinav';
-  // outerPane.innerHTML += '<div class="pane-bg glass"></div>';
-
-  // concatHTML.className = 'pane';
-  // concatHTML.innerHTML += '<h2 style="text-align: center;">Beagle</h2>';
-
-  // If needed later. No Global HTML at the moment.
-  // fs.readFileSync(__dirname + '/sidebar.html', 'utf8');
-
-  // // Read in required modules
-  // if (subModules !== null) {
-  //   _.each(subModules, function(module) {
-  //     // Grab CSS and HTML files from required modules
-  //     concatCSS.innerHTML += (module.css) ? module.css : '';
-  //     concatHTML.innerHTML += (module.html) ? module.html : '';
-  //   });
-  // }
-
-  // If there has been an error
-  // if (typeof textInput == 'string') {
-  //   concatHTML.innerHTML += '<button type="button" class="btn btn-warning btn-full">' +
-  //     textInput + '</button>'
-  // } else
-  // // Ideally, this would actually be part of the submodule conversation, above.
-  // if (textInput !== null) {
-  //   concatHTML.innerHTML += '<div id="react"></div>';
-  // }
-
-  // Mung it all together
-  sidebar.appendChild(concatCSS);
-  // outerPane.appendChild(concatHTML);
-  sidebar.appendChild(outerPane);
-
-  return sidebar;
-}
 
 // Handle requests from background.html
 function handleRequest(
@@ -151,13 +88,47 @@ function handleRequest(
   }
 }
 
+// TODO Enable Static Assets to go to other Views besides SideBar
+function buildStaticAssets(modules, textInput){
+  var sidebar = document.createElement('div');
+  sidebar.id = "beagle-sidebar";
+
+  sidebar.innerHTML = '<link href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet" />';
+  sidebar.innerHTML += '<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">'
+
+  // Start the CSS and HTML objects
+  var concatCSS = document.createElement('style');
+
+  // Get the global CSS
+  // May be better for this to be async. For now, there are no checs;
+  // it loads or not. The encoding ensures string return, not buffer.
+  // Using path.join(__dirname, './main.css', ...) will be more portable,
+  // but doesn't work in Chrome for some reason.
+  concatCSS.innerHTML += fs.readFileSync(__dirname + '/../build/bundle.min.css', 'utf8');
+
+  var outerPane = document.createElement('div');
+  outerPane.id = 'react';
+
+  // Grab CSS files from style module. CSS and HTML shouldn't be exported from
+  // other submodules, in order to make sure that everything is modular.
+  if (style) {
+    concatCSS.innerHTML += (style.css) ? style.css : '';
+  }
+
+  // Mung it all together
+  sidebar.appendChild(concatCSS);
+  sidebar.appendChild(outerPane);
+
+  return sidebar;
+}
+
 function buildView(modules, textInput) {
   textInput = (textInput !== undefined) ? textInput : null;
   var sidebar = buildStaticAssets(modules, textInput);
   document.body.appendChild(sidebar);
   React.renderComponent(
     App(textInput),
-    document.getElementById('scinav')
+    document.getElementById('react')
   )
   linkHandler()
   sidebarOpen = true;
