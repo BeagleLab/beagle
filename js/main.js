@@ -9,6 +9,10 @@ var React = require('react')
 var App = require('./app.jsx')
 var linkHandler = require('./linkhandler.js')
 
+// for ease of dev. (move these before shipping widely)
+var AllViews = require('./allviews.jsx')
+var Milestones = require('./milestones.jsx')
+
 // TODO Optional seems to have issues with non-essential errors, too.
 var PDFJS = require('beagle-pdf')
 
@@ -60,12 +64,16 @@ function handleRequest(
             // buildView(modules, 'Error with PDFJS');
           } else if (document.querySelector("body>embed[type='application/pdf']")) {
 
-            PDFJS.readPDF(window.location.href, options, function(err, data) {
+            PDFJS.readPDF(window.location.href, options, function(err, altmetricsData) {
               if (err !== null) {
                 throw (new Error('Could not read the PDF'))
               }
 
-              if (data) buildView(modules, data)
+              if (altmetricsData) buildView(modules, {
+                data: {
+                  altmetrics: altmetricsData,
+                }
+              })
             });
           } else {
             console.log('Not a pdf.');
@@ -134,4 +142,14 @@ function buildView(modules, textInput) {
   sidebarOpen = true;
 }
 
-chrome.runtime.onMessage.addListener(handleRequest);
+// check if we're loading in the browser as an extension
+if (chrome && chrome.runtime && chrome.runtime.onMessage) {
+  chrome.runtime.onMessage.addListener(handleRequest);
+} else {
+  // export some things on window for non-extension pages.
+  window.bundle = {
+    React: React,
+    AllViews: AllViews,
+    Milestones: Milestones,
+  }
+}
