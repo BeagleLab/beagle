@@ -1,5 +1,11 @@
 var React = require('react')
 
+var ListItemWrapper = React.createClass({
+  render: function() {
+  	return <a className="tag"><i className="fa fa-tag"></i> {this.props.data}</a>
+  }
+});
+
 module.exports = React.createClass({
 
   render: function() {
@@ -20,7 +26,7 @@ module.exports = React.createClass({
 
         <h6>Tags</h6>
         {this.props.data.subjects.map(function(subject){
-            return <a className="tag"><i className="fa fa-tag"></i> {subject}</a>
+            return <ListItemWrapper key={subject.id} data={subject} />
         })}
       </div>
     )
