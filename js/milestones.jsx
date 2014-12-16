@@ -24,7 +24,7 @@ module.exports = React.createClass({
 
     // add the view here:
     return (
-      <div className="pane-bg glass">
+      <div className='wrapper'>
         <h1>Milestones</h1>
         <p>This is a listing of milestones, so we can quickly see what we're working toward.</p>
 

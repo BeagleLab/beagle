@@ -18,7 +18,7 @@ var paths = {
   build: 'build/',
   main: ['./js/main.js'],
   js: ['js/**/*.js', 'js/**/*.jsx'],
-  img: ['static/**/*.png'],
+  img: ['static/**/*'],
   css: ['scss/**/*.scss'],
   html: ['html/**/*.html'],
 };

@@ -30,11 +30,10 @@ module.exports = React.createClass({
 
     // add the view here:
     return (
-      <div className="pane-bg glass">
+      <div className='wrapper'>
         <h1>All Views</h1>
         <p>This is a listing of all views, so we can quickly see how they all render.</p>
 
-	      {/*This is hardcoded as this isn't currently a standalone */}
         <h2>Alert</h2>
         <Alert data={data.alert} />
 
