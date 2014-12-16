@@ -9,7 +9,7 @@ data.sampleAltmetrics = {
   journal: "Nucleic acids research 37 (15), 5001",
   doi: "10.1093/nar/gkp436",
   cited_by_tweeters_count: "9001",
-  subjects: [],
+  subjects: ['tag1', 'tag2'],
 }
 
 data.m1 = {
@@ -24,7 +24,7 @@ module.exports = React.createClass({
 
     // add the view here:
     return (
-      <div class="pane-bg glass">
+      <div className="pane-bg glass">
         <h1>Milestones</h1>
         <p>This is a listing of milestones, so we can quickly see what we're working toward.</p>
 

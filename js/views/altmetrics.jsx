@@ -8,7 +8,9 @@ var ListItemWrapper = React.createClass({
 
 module.exports = React.createClass({
 
+
   render: function() {
+		console.log('Data', this.props);
 
     return (
       <div>
