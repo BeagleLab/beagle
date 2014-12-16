@@ -10,7 +10,6 @@ var App = require('./app.jsx')
 var linkHandler = require('./linkhandler.js')
 
 // for ease of dev. (move these before shipping widely)
-var AllViews = require('./allviews.jsx')
 var Milestones = require('./milestones.jsx')
 
 // TODO Optional seems to have issues with non-essential errors, too.
@@ -146,10 +145,11 @@ function buildView(modules, textInput) {
 if (chrome && chrome.runtime && chrome.runtime.onMessage) {
   chrome.runtime.onMessage.addListener(handleRequest);
 } else {
+
   // export some things on window for non-extension pages.
   window.bundle = {
     React: React,
-    AllViews: AllViews,
+    App: App,
     Milestones: Milestones,
   }
 }
