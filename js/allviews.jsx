@@ -31,7 +31,7 @@ module.exports = React.createClass({
     // add the view here:
     return (
       <div className='wrapper'>
-        <h1>All Views</h1>
+        {/* <h1>All Views</h1>
         <p>This is a listing of all views, so we can quickly see how they all render.</p>
 
         <h2>Alert</h2>
@@ -43,7 +43,7 @@ module.exports = React.createClass({
         <h2>views/socialsharing.jsx</h2>
         <Socialsharing />
 
-        <h2>app.jsx</h2>
+        <h2>app.jsx</h2> */}
         <App data={data.app} />
       </div>
     )
