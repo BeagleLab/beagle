@@ -2,6 +2,7 @@ var React = require('react')
 var App = require('./app.jsx')
 var Altmetrics = require('./views/altmetrics.jsx')
 var Socialsharing = require('./views/socialsharing.jsx')
+var Alert = require('./views/alert.jsx')
 
 // put dummy data here:
 var data = {}
@@ -18,16 +19,24 @@ data.app = {
   altmetrics: data.altmetrics,
 }
 
+data.alert = 'Example'
+
 module.exports = React.createClass({
 
 
   render: function() {
+
+		console.log('datum', this.props)
 
     // add the view here:
     return (
       <div className="pane-bg glass">
         <h1>All Views</h1>
         <p>This is a listing of all views, so we can quickly see how they all render.</p>
+
+	      {/*This is hardcoded as this isn't currently a standalone */}
+        <h2>Alert</h2>
+        <Alert data={data.alert} />
 
         <h2>views/altmetrics.jsx</h2>
         <Altmetrics data={data.altmetrics} />
@@ -36,7 +45,7 @@ module.exports = React.createClass({
         <Socialsharing />
 
         <h2>app.jsx</h2>
-        <App /> // TODO Make altmetrics data not highest level
+        <App data={data.app} />
       </div>
     )
   }

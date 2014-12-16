@@ -7,11 +7,7 @@ var ListItemWrapper = React.createClass({
 });
 
 module.exports = React.createClass({
-
-
   render: function() {
-		console.log('Data', this.props);
-
     return (
       <div>
         <h6>Publication</h6>
@@ -22,13 +18,13 @@ module.exports = React.createClass({
         </ul>
 
         <h6>Graph</h6>
-        <a  className='alert alert-info' data-placement='top' title='' data-original-title='View citations'>
+        <a className='alert alert-info' data-placement='top' title='' data-original-title='View citations'>
           <i className='fa fa-share-alt'></i> Tweets: {this.props.data.cited_by_tweeters_count}
         </a>
 
         <h6>Tags</h6>
         {this.props.data.subjects.map(function(subject){
-            return <ListItemWrapper key={subject.id} data={subject} />
+          return <ListItemWrapper key={subject.id} data={subject} />
         })}
       </div>
     )

@@ -1,15 +1,11 @@
 var React = require('react')
 var Socialsharing = require('./views/socialsharing.jsx')
 var Altmetrics = require('./views/altmetrics.jsx')
+var Alert = require('./views/alert.jsx')
 
 module.exports = React.createClass({
-  render: function() {
 
-	  {/* Conditionally load an alert */}
-  	var alert;
-  	if (typeof this.props.data == 'string') {
-			alert = <button type="button" className="btn btn-warning btn-full">{this.props}</button>
-		}
+  render: function() {
 
     return (
       <div className="scinav">
@@ -17,9 +13,8 @@ module.exports = React.createClass({
 				<div className="pane">
 					<h2 className='beagle-header'>Beagle</h2>
 
-					{alert}
-
-	        <Altmetrics data={this.props} />
+					<Alert data={this.props.data} />
+	        <Altmetrics data={this.props.data.altmetrics} />
 	        <Socialsharing />
 				</div>
       </div>
