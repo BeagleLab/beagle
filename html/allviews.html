@@ -1,32 +1,93 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <meta charset='utf-8'>
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Beagle - All Views</title>
+	<head>
+		<meta charset='utf-8'>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>Beagle - All Views</title>
+		<link href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet" />
+		<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+		<link href="static/docs.min.css" media="all" rel="stylesheet" type="text/css" />
+		<script src="bundle.min.js"></script>
+		<link href="bundle.min.css" media="all" rel="stylesheet" type="text/css" />
+		<link href="static/style.min.css" media="all" rel="stylesheet" type="text/css" />
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	</head>
+	<body>
+		<style>
+		h2 {
+		border-top: 1px solid #cccccc;
+		}
+		</style>
+		<div class="bs-docs-header" id="content">
+			<div class="container">
+				<h1>Beagle.prototype.v1</h1>
+				<p>This is a mock of what the interface looks like with the current React templates.
+				Please comment by <a href="http://github.com/BeagleLab/voyage/issues/new">posting an issue</a>.
+				</p>
+			</div>
+		</div>
+		<div class="container bs-docs-container">
 
-  <link href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet" />
-  <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+			<div class="row">
+				<div class="col-md-9" role="main">
+					<!-- ================================================== -->
+					<div class="bs-docs-section">
+						<h1 id="hidden" class="page-header">Hidden - Margins</h1>
+						<p class="lead">The plugin starts out hidden, displaying only small margin annotation indicators.</p>
+						<div class="paper-example">
+							<div class="scinav inject-margin"></div>
+							<img id="paper" src="" />
+							<div id="allviews"></div>
+						</div>
+					</div>
+				</div>
 
-  <script src="bundle.min.js"></script>
-  <link href="bundle.min.css" media="all" rel="stylesheet" type="text/css" />
+				<div class="col-md-3">
+					<div class="bs-docs-sidebar hidden-print" role="complementary">
+						<ul class="nav bs-docs-sidenav">
+							<li><a href="#hidden">Hidden</a></li>
+							<li><a href="#plugin-open">Plugin Open</a></li>
+							<li><a href="#author-profile">Author Profile</a></li>
+							<li><a href="#publication-graph">Publication Graph</a></li>
+							<li><a href="#annotations">Annotations</a></li>
+							<li><a href="#tags">Tags</a></li>
+							<li><a href="#bibtex">BibTeX</a></li>
+						</ul>
+						<a class="back-to-top" href="#top">
+							Back to top
+						</a>
+					</div>
+				</div>
 
-</head>
-<body>
+			</div>
+		</div>
 
-<style>
-h2 {
-  border-top: 1px solid #cccccc;
-}
-</style>
-
-<div id="allviews"></div>
-<script type="text/javascript">
-bundle.React.renderComponent(
-  bundle.AllViews(),
-  document.getElementById('allviews')
-)
-</script>
-
-</body>
+		<footer class="bs-docs-footer" role="contentinfo">
+			Made by <a href="https://github.com/RichardLitt">Richard</a> and <a href="https://github.com/jbenet">Juan </a>
+		</footer>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.1/underscore-min.js"></script>
+		<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+		<link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+		<script src="//cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.9.3/typeahead.min.js"></script>
+		<script src="static/docs.min.js"></script>
+		<script type="text/javascript">
+		$(document).ready(function() {
+		function inject(id) {
+		console.log(id)
+		var c = $("#inject-" + id).contents()
+		console.log(c)
+		console.log($(".inject-" + id))
+		$(".inject-" + id).append(c)
+		}
+		inject("main-panel")
+		inject("margin")
+		$('[data-toggle=tooltip]').tooltip()
+		$('img#paper').attr('src', 'https://www.evernote.com/shard/s198/sh/568f644d-9363-4727-8294-20de7680bbc4/b324078ee29bfbff11dadb243383cf27/deep/0/jbenet.static.s3.amazonaws.com-0525f90-ipfs-the-permanent-web.pdf.png')
+			bundle.React.renderComponent(
+			bundle.AllViews(),
+			document.getElementById('allviews')
+			)
+		})
+		</script>
+	</body>
 </html>

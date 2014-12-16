@@ -14,12 +14,15 @@ var reactify = require('reactify');
 var del = require('del');
 var fs = require('fs');
 
+var style = require('beagle-style')
+
 var paths = {
   build: 'build/',
   main: ['./js/main.js'],
   js: ['js/**/*.js', 'js/**/*.jsx'],
-  img: ['static/**/*'],
-  css: ['scss/**/*.scss'],
+  img: ['static/**/*.png', 'static/**/*.jpg'],
+  static: ['static/**/*.css', 'static/**/*.js', 'node_modules/beagle-style/style.min.css'],
+  sass: ['scss/**/*.scss'],
   html: ['html/**/*.html'],
 };
 
@@ -41,8 +44,13 @@ gulp.task('js', function() {
     .pipe(gulp.dest('build/'));
 });
 
-gulp.task('css', function() {
-  return gulp.src(paths.css)
+gulp.task('static', function() {
+	return gulp.src(paths.static)
+		.pipe(gulp.dest('build/static/'));
+})
+
+gulp.task('sass', function() {
+  return gulp.src(paths.sass)
     .pipe(sourcemaps.init())
       .pipe(sass())
       .pipe(cssmin())
@@ -75,10 +83,11 @@ gulp.task('server', function() {
 
 gulp.task('watch', function() {
   gulp.watch(paths.js, ['js']);
-  gulp.watch(paths.css, ['css']);
+  gulp.watch(paths.css, ['static']);
+  gulp.watch(paths.sass, ['sass']);
   gulp.watch(paths.img, ['img']);
   gulp.watch(paths.html, ['html']);
 });
 
-gulp.task('bundle', ['css', 'js', 'img', 'html'])
-gulp.task('default', ['watch', 'css', 'js', 'img', 'html', 'server'])
+gulp.task('bundle', ['static', 'sass', 'js', 'img', 'html'])
+gulp.task('default', ['watch', 'static', 'sass', 'js', 'img', 'html', 'server'])
