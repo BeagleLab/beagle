@@ -1,7 +1,7 @@
 var React = require('react')
 var Socialsharing = require('./views/socialsharing.jsx')
 var Altmetrics = require('./views/altmetrics.jsx')
-var Alert = require('./views/alert.jsx')
+var Alert = require('./components/alert.jsx')
 
 module.exports = React.createClass({
 

@@ -139,7 +139,7 @@ function buildView(modules, textInput) {
 }
 
 // for ease of dev. (move these before shipping widely)
-var Alert = require('./views/alert.jsx')
+var Alert = require('./components/alert.jsx')
 var AuthorPanel = require('./views/authorPanel.jsx')
 var Altmetrics = require('./views/altmetrics.jsx')
 var Socialsharing = require('./views/socialsharing.jsx')
