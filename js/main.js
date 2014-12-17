@@ -9,9 +9,6 @@ var React = require('react')
 var App = require('./app.jsx')
 var linkHandler = require('./linkhandler.js')
 
-// for ease of dev. (move these before shipping widely)
-var Milestones = require('./milestones.jsx')
-
 // TODO Optional seems to have issues with non-essential errors, too.
 var PDFJS = require('beagle-pdf')
 
@@ -141,15 +138,19 @@ function buildView(modules, textInput) {
   sidebarOpen = true;
 }
 
+// for ease of dev. (move these before shipping widely)
+var Alert = require('./views/alert.jsx')
+
 // check if we're loading in the browser as an extension
 if (chrome && chrome.runtime && chrome.runtime.onMessage) {
   chrome.runtime.onMessage.addListener(handleRequest);
 } else {
 
   // export some things on window for non-extension pages.
+  // Declare all modules you need here. See comments above.
   window.bundle = {
     React: React,
     App: App,
-    Milestones: Milestones,
+    Alert: Alert
   }
 }

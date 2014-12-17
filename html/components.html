@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset='utf-8'>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>Beagle - All Views</title>
+		<link href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet" />
+		<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+		<link href="static/docs.min.css" media="all" rel="stylesheet" type="text/css" />
+		<script src="bundle.min.js"></script>
+		<link href="bundle.min.css" media="all" rel="stylesheet" type="text/css" />
+		<link href="static/style.min.css" media="all" rel="stylesheet" type="text/css" />
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	</head>
+	<body>
+		<style>
+		.ext-wrapper {
+			width: 300px;
+		}
+		</style>
+		<div class="bs-docs-header" id="content">
+			<div class="container">
+				<h1>Beagle.prototype.v1</h1>
+				<p>This is a mock of what the interface looks like with the current React templates.
+				Please comment by <a href="http://github.com/BeagleLab/voyage/issues/new">posting an issue</a>.
+				</p>
+			</div>
+		</div>
+		<div class="container bs-docs-container">
+
+			<div class="row">
+				<div class="col-md-9" role="main">
+					<!-- ================================================== -->
+					<div class="bs-docs-section">
+					  <h1 id="plugin-open" class="page-header">Notifications</h1>
+
+					  <p class="lead">These are the default alerts.</p>
+
+					  <div class="ext-wrapper">
+							<div id="alert"></div>
+						  <!-- <div class="paper-example">
+						    <div class="scinav inject-margin inject-main-panel"></div>
+						    <img id="paper" />
+						  </div> -->
+					  </div>
+
+					</div>
+				</div>
+
+				<div class="col-md-3">
+					<div class="bs-docs-sidebar hidden-print" role="complementary">
+						<ul class="nav bs-docs-sidenav">
+							<li>Components</li>
+							<li><a href="#alert">Alert</a></li>
+							<li><a>===============</a></li>
+							<li><a href="/index.html">Milestones</a></li>
+
+						</ul>
+						<a class="back-to-top" href="#top">
+							Back to top
+						</a>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+		<footer class="bs-docs-footer" role="contentinfo">
+			Made by <a href="https://github.com/RichardLitt">Richard</a> and <a href="https://github.com/jbenet">Juan </a>
+		</footer>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.1/underscore-min.js"></script>
+		<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+		<link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+		<script src="//cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.9.3/typeahead.min.js"></script>
+		<script src="static/docs.min.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				function inject(id) {
+					console.log(id)
+					var c = $("#inject-" + id).contents()
+					console.log(c)
+					console.log($(".inject-" + id))
+					$(".inject-" + id).append(c)
+				}
+				inject("main-panel");
+				inject("margin");
+				$('[data-toggle=tooltip]').tooltip()
+				$('img#paper').attr('src', 'https://www.evernote.com/shard/s198/sh/568f644d-9363-4727-8294-20de7680bbc4/b324078ee29bfbff11dadb243383cf27/deep/0/jbenet.static.s3.amazonaws.com-0525f90-ipfs-the-permanent-web.pdf.png')
+
+				// Dummy Data
+				var data = {}
+
+				data.altmetrics = {
+				  title: "Rapid prototyping of 3D DNA-origami shapes with caDNAno",
+				  journal: "Nucleic acids research 37 (15), 5001",
+				  doi: "10.1093/nar/gkp436",
+				  cited_by_tweeters_count: "9001",
+				  subjects: ['tag1', 'tag2'],
+				}
+
+				data.data = {
+				  altmetrics: data.altmetrics,
+				}
+
+				var failedData = {};
+				failedData.data = 'example';
+
+				/* Old Code to be transferred */
+        // <h1>All Views</h1>
+        // <p>This is a listing of all views, so we can quickly see how they all render.</p>
+
+        // <h2>Alert</h2>
+        // <Alert data={data.alert} />
+
+        // <h2>views/altmetrics.jsx</h2>
+        // <Altmetrics data={data.altmetrics} />
+
+        // <h2>views/socialsharing.jsx</h2>
+        // <Socialsharing />
+
+        // <h2>app.jsx</h2>
+
+				// Bundle it up
+				bundle.React.renderComponent(
+					bundle.Alert(failedData),
+					document.getElementById('alert')
+				)
+			})
+		</script>
+		<script type="text/javascript">
+		</script>
+	</body>
+</html>
