@@ -49,6 +49,16 @@
 							<div id="altmetrics"></div>
 					  </div>
 					</div>
+
+					<!-- Component 3: Social Sharing -->
+					<!-- ================================================== -->
+					<div class="bs-docs-section">
+					  <h1 id="plugin-open" class="page-header">Social Sharing</h1>
+					  <p class="lead">This is the social share box</p>
+					  <div class="ext-wrapper">
+							<div id="social-sharing"></div>
+					  </div>
+					</div>
 				</div>
 
 				<div class="col-md-3">
@@ -91,11 +101,6 @@
 				$('[data-toggle=tooltip]').tooltip()
 				$('img#paper').attr('src', 'https://www.evernote.com/shard/s198/sh/568f644d-9363-4727-8294-20de7680bbc4/b324078ee29bfbff11dadb243383cf27/deep/0/jbenet.static.s3.amazonaws.com-0525f90-ipfs-the-permanent-web.pdf.png')
 
-				// Dummy Data
-
-				// data.data = {
-				//   altmetrics: data.altmetrics,
-				// }
 
 				// Component 1: Alert
 				var failedData = {
@@ -126,8 +131,10 @@
 				)
 
         // Component 3: SocialSharing section
-        // <h2>views/socialsharing.jsx</h2>
-        // <Socialsharing />
+				bundle.React.renderComponent(
+					bundle.Socialsharing(),
+					document.getElementById('social-sharing')
+				)
 			})
 		</script>
 		<script type="text/javascript">

@@ -142,6 +142,7 @@ function buildView(modules, textInput) {
 var Alert = require('./views/alert.jsx')
 var AuthorPanel = require('./views/authorPanel.jsx')
 var Altmetrics = require('./views/altmetrics.jsx')
+var Socialsharing = require('./views/socialsharing.jsx')
 
 // check if we're loading in the browser as an extension
 if (chrome && chrome.runtime && chrome.runtime.onMessage) {
@@ -155,6 +156,7 @@ if (chrome && chrome.runtime && chrome.runtime.onMessage) {
     App: App,
     Alert: Alert,
     AuthorPanel: AuthorPanel,
-    Altmetrics: Altmetrics
+    Altmetrics: Altmetrics,
+    Socialsharing: Socialsharing
   }
 }
