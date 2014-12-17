@@ -21,7 +21,7 @@ var paths = {
   main: ['./js/main.js'],
   js: ['js/**/*.js', 'js/**/*.jsx'],
   img: ['static/**/*.png', 'static/**/*.jpg'],
-  static: ['static/**/*.css', 'static/**/*.js', 'node_modules/beagle-style/style.min.css'],
+  static: ['static/**/*.css', 'static/**/*.js', '../beagle-style/style.min.css'],
   sass: ['scss/**/*.scss'],
   html: ['html/**/*.html'],
 };

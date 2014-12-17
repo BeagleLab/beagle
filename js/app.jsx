@@ -8,7 +8,7 @@ module.exports = React.createClass({
   render: function() {
 
     return (
-      <div className="scinav">
+      <div className="scinav sidebar">
         <div className="pane-bg glass"></div>
 				<div className="pane">
 					<h2 className='beagle-header'>Beagle</h2>
