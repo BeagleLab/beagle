@@ -67,9 +67,9 @@
 
 					  <div class="paper-example">
 
-					    <div class="scinav sidebar inject-main-panel inject-margin">
+					    <div class="scinav sidebar inject-margin">
 
-					      <div class="subpanel-bg glass"></div>
+					      <div id="m3.1"></div>
 					      <div id="m3"></div>
 					    </div>
 
@@ -417,6 +417,10 @@
 					]
 				}
 
+				bundle.React.renderComponent(
+					bundle.App(data),
+					document.getElementById('m3.1')
+				)
 				bundle.React.renderComponent(
 					bundle.AuthorPanel(data),
 					document.getElementById('m3')
