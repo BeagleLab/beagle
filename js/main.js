@@ -140,6 +140,7 @@ function buildView(modules, textInput) {
 
 // for ease of dev. (move these before shipping widely)
 var Alert = require('./views/alert.jsx')
+var AuthorPanel = require('./views/authorPanel.jsx')
 
 // check if we're loading in the browser as an extension
 if (chrome && chrome.runtime && chrome.runtime.onMessage) {
@@ -151,6 +152,7 @@ if (chrome && chrome.runtime && chrome.runtime.onMessage) {
   window.bundle = {
     React: React,
     App: App,
-    Alert: Alert
+    Alert: Alert,
+    AuthorPanel: AuthorPanel
   }
 }

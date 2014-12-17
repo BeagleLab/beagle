@@ -70,39 +70,7 @@
 					    <div class="scinav inject-main-panel inject-margin">
 
 					      <div class="subpanel-bg glass"></div>
-					      <div class="subpanel profile panel panel-default">
-					        <div class="panel-body">
-
-					        <div class="profile-header">
-					          <img class="profile-image" src="http://juan.benet.ai/img/juan.batizbenet.headshotsq.jpg" />
-					          <div class="profile-header-info">
-					            <h3>Juan Benet</h3>
-					            <ul class="no-bullet">
-					              <li>Stanford University</li>
-					              <li>Computer Science</li>
-					            </ul>
-
-					            <!-- save -->
-					            <div class="btn-group">
-					              <button class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Save"><i class="fa fa-star"></i></button>
-					              <button class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Share"><i class="fa fa-share"></i></button>
-					              <button class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Message"><i class="fa fa-comment"></i></button>
-					            </div>
-
-					          </div>
-					          <div class="publications">
-					            <h5>Publications</h5>
-					            <ul>
-					              <li><a href="#">IPFS: Towards the Permanent Web</a></li>
-					              <li><a href="#">IPNS: Mutable names in IPFS</a></li>
-					            </ul>
-					          </div>
-					        </div>
-
-
-
-					        </div>
-					      </div>
+					      <div id="m3"></div>
 					    </div>
 
 					    <img id="paper" />
@@ -411,6 +379,18 @@
 				  altmetrics: data.altmetrics,
 				}
 
+				data.data.author = {
+					'name': 'Richard Feynman',
+					'university': 'CIT',
+					'department': 'Physics',
+					'photo': 'http://upload.wikimedia.org/wikipedia/en/4/42/Richard_Feynman_Nobel.jpg',
+					'publications': [
+						'Lectures on Physics 1',
+						'Lectures on Physics 2',
+						'Lectures on Physics 3'
+					]
+				}
+
 				/* Old Code to be transferred */
         // <h1>All Views</h1>
         // <p>This is a listing of all views, so we can quickly see how they all render.</p>
@@ -438,10 +418,10 @@
 				// 	document.getElementById('m2')
 				// )
 
-				// bundle.React.renderComponent(
-				// 	bundle.App(data),
-				// 	document.getElementById('m3')
-				// )
+				bundle.React.renderComponent(
+					bundle.AuthorPanel(data),
+					document.getElementById('m3')
+				)
 				// bundle.React.renderComponent(
 				// 	bundle.App(data),
 				// 	document.getElementById('m4')
