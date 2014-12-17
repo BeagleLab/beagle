@@ -379,33 +379,6 @@
 				  altmetrics: data.altmetrics,
 				}
 
-				data.data.author = {
-					'name': 'Richard Feynman',
-					'university': 'CIT',
-					'department': 'Physics',
-					'photo': 'http://upload.wikimedia.org/wikipedia/en/4/42/Richard_Feynman_Nobel.jpg',
-					'publications': [
-						'Lectures on Physics 1',
-						'Lectures on Physics 2',
-						'Lectures on Physics 3'
-					]
-				}
-
-				/* Old Code to be transferred */
-        // <h1>All Views</h1>
-        // <p>This is a listing of all views, so we can quickly see how they all render.</p>
-
-        // <h2>Alert</h2>
-        // <Alert data={data.alert} />
-
-        // <h2>views/altmetrics.jsx</h2>
-        // <Altmetrics data={data.altmetrics} />
-
-        // <h2>views/socialsharing.jsx</h2>
-        // <Socialsharing />
-
-        // <h2>app.jsx</h2>
-
 				// Bundle it up
 				bundle.React.renderComponent(
 					bundle.App(data),
@@ -418,22 +391,43 @@
 				// 	document.getElementById('m2')
 				// )
 
+				// Milestone 3: Author Profile
+				data.data.author = {
+					'name': 'Richard Feynman',
+					'university': 'CIT',
+					'department': 'Physics',
+					'photo': 'http://upload.wikimedia.org/wikipedia/en/4/42/Richard_Feynman_Nobel.jpg',
+					'publications': [
+						'Lectures on Physics 1',
+						'Lectures on Physics 2',
+						'Lectures on Physics 3'
+					]
+				}
+
 				bundle.React.renderComponent(
 					bundle.AuthorPanel(data),
 					document.getElementById('m3')
 				)
+
+				// Milestone 4: Publciation Graph
 				// bundle.React.renderComponent(
 				// 	bundle.App(data),
 				// 	document.getElementById('m4')
 				// )
+
+				// Milestone 5: Tags
 				// bundle.React.renderComponent(
 				// 	bundle.App(data),
 				// 	document.getElementById('m5')
 				// )
+
+				// Milestone 6: BibTex
 				// bundle.React.renderComponent(
 				// 	bundle.App(data),
 				// 	document.getElementById('m6')
 				// )
+
+				// Milestone 7: Annotations
 				// bundle.React.renderComponent(
 				// 	bundle.App(data),
 				// 	document.getElementById('m7')
