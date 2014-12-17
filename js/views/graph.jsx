@@ -4,13 +4,16 @@ module.exports = React.createClass({
   render: function() {
     return (
       <div>
-        <a className='alert alert-info' data-placement='top' title='' data-original-title='View citations'>
-          <i className='fa fa-share-alt'></i> Tweets: {this.props.data.cited_by_tweeters_count}
+        <a href="#publication-graph" role="button" className="alert alert-info" data-toggle="tooltip" data-placement="top" title="View citations">
+          <i className='fa fa-share-alt'></i> Cited By: {this.props.data.cited_by.length}
+        </a>
+        <a href="#publication-graph" role="button" className="alert alert-info" data-toggle="tooltip" data-placement="top" title="View references">
+          <i className='fa fa-share-alt'></i> Cites: {this.props.data.cites.length}
+	      </a>
+        <a href="#publication-graph" role="button" className="alert alert-info" data-toggle="tooltip" data-placement="top" title="View closely related papers">
+          <i className='fa fa-share-alt'></i> Related to: {this.props.data.related.length}
         </a>
       </div>
     )
   }
 })
-
-
-

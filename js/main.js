@@ -145,6 +145,7 @@ var Altmetrics = require('./views/altmetrics.jsx')
 var Socialsharing = require('./views/socialsharing.jsx')
 var Publication = require('./views/publication.jsx')
 var Graph = require('./views/graph.jsx')
+var AltGraph = require('./views/altGraph.jsx')
 var Tags = require('./components/tags.jsx')
 
 // check if we're loading in the browser as an extension
@@ -163,6 +164,7 @@ if (chrome && chrome.runtime && chrome.runtime.onMessage) {
     Socialsharing: Socialsharing,
     Publication: Publication,
     Graph: Graph,
+    AltGraph: AltGraph,
     Tags: Tags
   }
 }
