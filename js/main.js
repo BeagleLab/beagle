@@ -142,11 +142,12 @@ function buildView(modules, textInput) {
 var Alert = require('./components/alert.jsx')
 var AuthorPanel = require('./views/authorPanel.jsx')
 var Altmetrics = require('./views/altmetrics.jsx')
-var Socialsharing = require('./views/socialsharing.jsx')
+var Champion = require('./components/champion.jsx')
 var Publication = require('./views/publication.jsx')
 var Graph = require('./views/graph.jsx')
 var AltGraph = require('./views/altGraph.jsx')
 var Tags = require('./components/tags.jsx')
+var Save = require('./components/save.jsx')
 
 // check if we're loading in the browser as an extension
 if (chrome && chrome.runtime && chrome.runtime.onMessage) {
@@ -157,14 +158,16 @@ if (chrome && chrome.runtime && chrome.runtime.onMessage) {
   // Declare all modules you need here. See comments above.
   window.bundle = {
     React: React,
-    App: App,
+
     Alert: Alert,
-    AuthorPanel: AuthorPanel,
-    Altmetrics: Altmetrics,
-    Socialsharing: Socialsharing,
-    Publication: Publication,
-    Graph: Graph,
     AltGraph: AltGraph,
-    Tags: Tags
+    Altmetrics: Altmetrics,
+    App: App,
+    AuthorPanel: AuthorPanel,
+    Champion: Champion,
+    Graph: Graph,
+    Publication: Publication,
+    Save: Save,
+    Tags: Tags,
   }
 }

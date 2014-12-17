@@ -14,7 +14,7 @@ module.exports = React.createClass({
         <h6>Graph</h6>
         <Graph data={this.props.data} />
 
-        <h6>AltGraph</h6>
+        <h6>Alt Metrics</h6>
         <AltGraph data={this.props.data} />
 
         <h6>Tags</h6>

@@ -40,6 +40,15 @@
 					  </div>
 					</div>
 
+					<!-- Component: Save panel -->
+					<!-- ================================================== -->
+					<div class="bs-docs-section">
+					  <h1 id="plugin-open" class="page-header">Notifications</h1>
+					  <p class="lead">These are the default alerts.</p>
+					  <div class="scinav">
+							<div id="save"></div>
+					  </div>
+					</div>
 
 					<!-- Component: Publication -->
 					<!-- ================================================== -->
@@ -78,13 +87,13 @@
 					  </div>
 					</div>
 
-					<!-- Component Social Sharing -->
+					<!-- Component Champion -->
 					<!-- ================================================== -->
 					<div class="bs-docs-section">
-					  <h1 id="plugin-open" class="page-header">Social Sharing</h1>
-					  <p class="lead">This is the social share box</p>
+					  <h1 id="plugin-open" class="page-header">Champion</h1>
+					  <p class="lead">This is the champion email box</p>
 					  <div class="scinav">
-							<div id="social-sharing"></div>
+							<div id="champion"></div>
 					  </div>
 					</div>
 				</div>
@@ -97,7 +106,7 @@
 							<li><a href="#publication">Publication</a></li>
 							<li><a href="#graph">Graph</a></li>
 							<li><a href="#tags">Tags</a></li>
-							<li><a href="#social-sharing">Social Sharing</a></li>
+							<li><a href="#champion">Champion</a></li>
 							<li><a>===============</a></li>
 							<li><a href="/index.html">Milestones</a></li>
 
@@ -142,6 +151,11 @@
 				bundle.React.renderComponent(
 					bundle.Alert(failedData),
 					document.getElementById('alert')
+				)
+
+				bundle.React.renderComponent(
+					bundle.Save(failedData),
+					document.getElementById('save')
 				)
 
 				// Component: Altmetrics Section
@@ -190,10 +204,10 @@
 					document.getElementById('tags')
 				)
 
-        // Component 3: SocialSharing section
+        // Component 3: Champion section
 				bundle.React.renderComponent(
-					bundle.Socialsharing(),
-					document.getElementById('social-sharing')
+					bundle.Champion(),
+					document.getElementById('champion')
 				)
 			})
 		</script>

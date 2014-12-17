@@ -1,7 +1,8 @@
 var React = require('react')
-var Socialsharing = require('./views/socialsharing.jsx')
+var Champion = require('./components/champion.jsx')
 var Altmetrics = require('./views/altmetrics.jsx')
 var Alert = require('./components/alert.jsx')
+var Save = require('./components/save.jsx')
 
 module.exports = React.createClass({
 
@@ -14,8 +15,10 @@ module.exports = React.createClass({
 					<h2 className='beagle-header'>Beagle</h2>
 
 					<Alert data={this.props.data} />
+					<Save />
 	        <Altmetrics data={this.props.data.altmetrics} />
-	        <Socialsharing />
+	        <h6>Champion</h6>
+	        <Champion />
 				</div>
       </div>
     )
