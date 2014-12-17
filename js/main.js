@@ -143,6 +143,9 @@ var Alert = require('./components/alert.jsx')
 var AuthorPanel = require('./views/authorPanel.jsx')
 var Altmetrics = require('./views/altmetrics.jsx')
 var Socialsharing = require('./views/socialsharing.jsx')
+var Publication = require('./views/publication.jsx')
+var Graph = require('./views/graph.jsx')
+var Tags = require('./components/tags.jsx')
 
 // check if we're loading in the browser as an extension
 if (chrome && chrome.runtime && chrome.runtime.onMessage) {
@@ -157,6 +160,9 @@ if (chrome && chrome.runtime && chrome.runtime.onMessage) {
     Alert: Alert,
     AuthorPanel: AuthorPanel,
     Altmetrics: Altmetrics,
-    Socialsharing: Socialsharing
+    Socialsharing: Socialsharing,
+    Publication: Publication,
+    Graph: Graph,
+    Tags: Tags
   }
 }

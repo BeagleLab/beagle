@@ -40,17 +40,36 @@
 					  </div>
 					</div>
 
-					<!-- Component 2: Altmetrics -->
+
+					<!-- Component 2: Publication -->
 					<!-- ================================================== -->
 					<div class="bs-docs-section">
-					  <h1 id="plugin-open" class="page-header">Altmetrics</h1>
-					  <p class="lead">This is the AltMetrics box</p>
+					  <h1 id="plugin-open" class="page-header">Publication Data</h1>
+					  <p class="lead">This is the Publication data box</p>
 					  <div class="ext-wrapper">
-							<div id="altmetrics"></div>
+							<div id="publication"></div>
+					  </div>
+					</div>
+					<!-- Component 3: Graph -->
+					<!-- ================================================== -->
+					<div class="bs-docs-section">
+					  <h1 id="plugin-open" class="page-header">Graph</h1>
+					  <p class="lead">This is the Citation Graph section</p>
+					  <div class="ext-wrapper">
+							<div id="graph"></div>
+					  </div>
+					</div>
+					<!-- Component 4: Tags -->
+					<!-- ================================================== -->
+					<div class="bs-docs-section">
+					  <h1 id="plugin-open" class="page-header">Tags</h1>
+					  <p class="lead">This is what Tags look like.</p>
+					  <div class="ext-wrapper">
+							<div id="tags"></div>
 					  </div>
 					</div>
 
-					<!-- Component 3: Social Sharing -->
+					<!-- Component 5: Social Sharing -->
 					<!-- ================================================== -->
 					<div class="bs-docs-section">
 					  <h1 id="plugin-open" class="page-header">Social Sharing</h1>
@@ -66,6 +85,10 @@
 						<ul class="nav bs-docs-sidenav">
 							<li>Components</li>
 							<li><a href="#alert">Alert</a></li>
+							<li><a href="#publication">Publication</a></li>
+							<li><a href="#graph">Graph</a></li>
+							<li><a href="#tags">Tags</a></li>
+							<li><a href="#social-sharing">Social Sharing</a></li>
 							<li><a>===============</a></li>
 							<li><a href="/index.html">Milestones</a></li>
 
@@ -126,8 +149,19 @@
 				}
 
 				bundle.React.renderComponent(
-					bundle.Altmetrics(data.data),
-					document.getElementById('altmetrics')
+					bundle.Publication(data.data),
+					document.getElementById('publication')
+				)
+				bundle.React.renderComponent(
+					bundle.Graph(data.data),
+					document.getElementById('graph')
+				)
+
+				data.data = ['tag1', 'tag2']
+
+				bundle.React.renderComponent(
+					bundle.Tags(data),
+					document.getElementById('tags')
 				)
 
         // Component 3: SocialSharing section
