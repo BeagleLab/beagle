@@ -30,20 +30,24 @@
 
 			<div class="row">
 				<div class="col-md-9" role="main">
+					<!-- Component 1: Alerts -->
 					<!-- ================================================== -->
 					<div class="bs-docs-section">
 					  <h1 id="plugin-open" class="page-header">Notifications</h1>
-
 					  <p class="lead">These are the default alerts.</p>
-
 					  <div class="ext-wrapper">
 							<div id="alert"></div>
-						  <!-- <div class="paper-example">
-						    <div class="scinav inject-margin inject-main-panel"></div>
-						    <img id="paper" />
-						  </div> -->
 					  </div>
+					</div>
 
+					<!-- Component 2: Altmetrics -->
+					<!-- ================================================== -->
+					<div class="bs-docs-section">
+					  <h1 id="plugin-open" class="page-header">Altmetrics</h1>
+					  <p class="lead">This is the AltMetrics box</p>
+					  <div class="ext-wrapper">
+							<div id="altmetrics"></div>
+					  </div>
 					</div>
 				</div>
 
@@ -88,8 +92,23 @@
 				$('img#paper').attr('src', 'https://www.evernote.com/shard/s198/sh/568f644d-9363-4727-8294-20de7680bbc4/b324078ee29bfbff11dadb243383cf27/deep/0/jbenet.static.s3.amazonaws.com-0525f90-ipfs-the-permanent-web.pdf.png')
 
 				// Dummy Data
-				var data = {}
 
+				// data.data = {
+				//   altmetrics: data.altmetrics,
+				// }
+
+				// Component 1: Alert
+				var failedData = {
+					'data': 'example'
+				};
+
+				bundle.React.renderComponent(
+					bundle.Alert(failedData),
+					document.getElementById('alert')
+				)
+
+				// Component 2: Altmetrics Section
+				var data = {}
 				data.altmetrics = {
 				  title: "Rapid prototyping of 3D DNA-origami shapes with caDNAno",
 				  journal: "Nucleic acids research 37 (15), 5001",
@@ -97,34 +116,18 @@
 				  cited_by_tweeters_count: "9001",
 				  subjects: ['tag1', 'tag2'],
 				}
-
 				data.data = {
-				  altmetrics: data.altmetrics,
+					'data': data.altmetrics
 				}
 
-				var failedData = {};
-				failedData.data = 'example';
+				bundle.React.renderComponent(
+					bundle.Altmetrics(data.data),
+					document.getElementById('altmetrics')
+				)
 
-				/* Old Code to be transferred */
-        // <h1>All Views</h1>
-        // <p>This is a listing of all views, so we can quickly see how they all render.</p>
-
-        // <h2>Alert</h2>
-        // <Alert data={data.alert} />
-
-        // <h2>views/altmetrics.jsx</h2>
-        // <Altmetrics data={data.altmetrics} />
-
+        // Component 3: SocialSharing section
         // <h2>views/socialsharing.jsx</h2>
         // <Socialsharing />
-
-        // <h2>app.jsx</h2>
-
-				// Bundle it up
-				bundle.React.renderComponent(
-					bundle.Alert(failedData),
-					document.getElementById('alert')
-				)
 			})
 		</script>
 		<script type="text/javascript">
