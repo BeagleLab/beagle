@@ -19,27 +19,25 @@ module.exports = React.createClass({
 
 	render: function() {
 		return (
-      <div className="subpanel profile panel panel-default">
-        <div className="panel-body">
-	        <div className="profile-header">
-	          <img className="profile-image" src={this.props.data.author.photo} />
-	          <div className="profile-header-info">
-	            <h3>{this.props.data.author.name}</h3>
-	            <ul className="no-bullet">
-	              <li>{this.props.data.author.university}</li>
-	              <li>{this.props.data.author.department}</li>
-	            </ul>
+      <div className="panel-body">
+        <div className="profile-header">
+          <img className="profile-image" src={this.props.data.author.photo} />
+          <div className="profile-header-info">
+            <h3>{this.props.data.author.name}</h3>
+            <ul className="no-bullet">
+              <li>{this.props.data.author.university}</li>
+              <li>{this.props.data.author.department}</li>
+            </ul>
 
-	            <Save />
+            <Save />
 
-	          </div>
-	          <div className="publications">
+          </div>
+          <div className="publications">
 
-	            <h5>Publications</h5>
-	            <PublicationsList data={this.props.data.author.publications} />
+            <h5>Publications</h5>
+            <PublicationsList data={this.props.data.author.publications} />
 
-	          </div>
-	        </div>
+          </div>
         </div>
       </div>
 		)
