@@ -147,6 +147,9 @@ var Publication = require('./views/publication.jsx')
 var Graph = require('./views/graph.jsx')
 var AltGraph = require('./views/altGraph.jsx')
 var Tags = require('./components/tags.jsx')
+var TagsPanel = require('./views/tagsPanel.jsx')
+var TagsList = require('./components/tagsList.jsx')
+var TagsListWrapper = require('./components/tagsListWrapper.jsx')
 var Save = require('./components/save.jsx')
 var Cite = require('./components/cite.jsx')
 var Annotations = require('./views/annotations.jsx')
@@ -175,6 +178,9 @@ if (chrome && chrome.runtime && chrome.runtime.onMessage) {
     Publication: Publication,
     Save: Save,
     Tags: Tags,
+    TagsPanel: TagsPanel,
+    TagsList: TagsList,
+    TagsListWrapper: TagsListWrapper,
     Cite: Cite,
     Annotations: Annotations,
     MSeven: MSeven, // This is just to show annotations in the sidebar, and shouldn't actually be necessary

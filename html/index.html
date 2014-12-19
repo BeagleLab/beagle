@@ -119,27 +119,8 @@
 
 					    <div class="scinav sidebar inject-margin">
 
-					      <div class="subpanel-bg glass"></div>
 					      <div class="subpanel profile panel panel-default">
-					        <div class="panel-body">
-
-					        <h4 class="gray">Tags</h4>
-					        <p class="lead">IPFS - Toward the Permanent Web</p>
-
-					        <h5>Your Tags:</h5>
-					        <a href="#tags" role="button" class="alert alert-success" data-toggle="tooltip" data-placement="top" title="View tag"><i class="fa fa-tag"></i> permanent-web</a>
-					        <a href="#tags" role="button" class="alert alert-success" data-toggle="tooltip" data-placement="top" title="View tag"><i class="fa fa-tag"></i> ipfs</a>
-
-
-					        <h5>Your Colleagues Tags:</h5>
-					        <a href="#tags" role="button" class="alert alert-info" data-toggle="tooltip" data-placement="top" title="View tag"><i class="fa fa-tag"></i> peer-to-peer</a>
-					        <a href="#tags" role="button" class="alert alert-info" data-toggle="tooltip" data-placement="top" title="View tag"><i class="fa fa-tag"></i> distributed filesys</a>
-					        <a href="#tags" role="button" class="alert alert-info" data-toggle="tooltip" data-placement="top" title="View tag"><i class="fa fa-tag"></i> content-addressing</a>
-
-					        <h5>All Other Public Tags:</h5>
-					        <a href="#tags" role="button" class="alert alert-warning" data-toggle="tooltip" data-placement="top" title="View tag"><i class="fa fa-tag"></i> peer-to-peer</a>
-
-					        </div>
+					        <div id="m5.1"></div>
 					      </div>
 
 					    </div>
@@ -317,6 +298,7 @@
 				}
 
 				data.data = {
+					title: 'This is an example title',
 				  altmetrics: data.altmetrics,
 				}
 
@@ -356,7 +338,6 @@
 
 				// Milestone 4: Publication Graph
 				data.data.publication = {
-					title: "Rapid prototyping of 3D DNA-origami shapes with caDNAno",
 					cited: [
 						'Lectures on Physics 1',
 						'Lectures on Physics 2',
@@ -383,9 +364,18 @@
 				)
 
 				// Milestone 5: Tags
+				data.data.tags = {
+					your_tags: [ 'Arxteryx', 'Diplodocus', 'Kiwi'],
+					group_tags: ['Platypus', 'Bear'],
+					public_tags: ['Earth', 'Air', 'Wind', 'Fire']
+				}
 				bundle.React.renderComponent(
 					bundle.App(data),
 					document.getElementById('m5')
+				)
+				bundle.React.renderComponent(
+					bundle.TagsPanel(data),
+					document.getElementById('m5.1')
 				)
 
 				// Milestone 6: BibTex

@@ -1,14 +1,5 @@
 var React = require('react')
-
-var ListItemWrapper = React.createClass({
-  render: function() {
-  	return (
-  		<a href="#tags" role="button" className="alert alert-info" data-toggle="tooltip" data-placement="top" title="View tag">
-		  	<i className="fa fa-tag"></i> {this.props.data}
-		  </a>
-		)
-  }
-});
+var TagsListWrapper = require('../components/tagsListWrapper.jsx')
 
 module.exports = React.createClass({
 
@@ -16,7 +7,7 @@ module.exports = React.createClass({
 		return (
 			<div>
 				{this.props.data.map(function(tag){
-			    return <ListItemWrapper key={tag.id} data={tag} />
+			    return <TagsListWrapper className={'alert alert-info'} key={tag.id} data={tag} />
         })}
 			</div>
 		)

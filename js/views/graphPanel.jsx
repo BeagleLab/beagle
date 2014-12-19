@@ -6,7 +6,7 @@ module.exports = React.createClass({
     return (
       <div className="panel-body">
         <h4 className="gray">Publication Graph</h4>
-        <p className="lead">{this.props.data.publication.title}</p>
+        <p className="lead">{this.props.data.title}</p>
 
         <h5>Cited by {this.props.data.publication.cited.length}:</h5>
         <PublicationList data={this.props.data.publication.cited} />
