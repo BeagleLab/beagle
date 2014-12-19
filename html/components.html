@@ -120,6 +120,26 @@
 					  </div>
 					</div>
 
+					<!-- Publications List -->
+					<!-- ================================================== -->
+					<div class="bs-docs-section">
+					  <h1 id="plugin-open" class="page-header">Publications List</h1>
+					  <p class="lead">A resuable list component</p>
+					  <div class="scinav">
+							<div id="plist"></div>
+					  </div>
+					</div>
+
+					<!-- Publications List Wrapper Component -->
+					<!-- ================================================== -->
+					<div class="bs-docs-section">
+					  <h1 id="plugin-open" class="page-header">Publications List Wrapper</h1>
+					  <p class="lead">A resuable mini component, inside Publications List</p>
+					  <div class="scinav">
+							<div id="plw"></div>
+					  </div>
+					</div>
+
 				</div>
 
 				<div class="col-md-3">
@@ -253,6 +273,18 @@
 				bundle.React.renderComponent(
 					bundle.Cite(),
 					document.getElementById('cite')
+				)
+
+				// Component Publications List Wrapper
+				bundle.React.renderComponent(
+					bundle.PublicationsList({data: ['this is an array', 'with two items']}),
+					document.getElementById('plist')
+				)
+
+				// Component Publications List Wrapper
+				bundle.React.renderComponent(
+					bundle.PublicationsListWrapper({data: 'This is an example title'}),
+					document.getElementById('plw')
 				)
 			})
 		</script>

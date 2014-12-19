@@ -1,11 +1,6 @@
 var React = require('react')
 var Save = require('../components/save.jsx')
-
-var PublicationsListWrapper = React.createClass({
-  render: function() {
-  	return <li><a className="tag" href="#">{this.props.data}</a></li>
-  }
-});
+var PublicationsList = require('../components/publicationsList.jsx')
 
 // Example data
 // var author = {
@@ -39,12 +34,10 @@ module.exports = React.createClass({
 
 	          </div>
 	          <div className="publications">
+
 	            <h5>Publications</h5>
-	            <ul>
-								{this.props.data.author.publications.map(function(publication){
-				          return <PublicationsListWrapper key={publication.id} data={publication} />
-				        })}
-	            </ul>
+	            <PublicationsList data={this.props.data.author.publications} />
+
 	          </div>
 	        </div>
         </div>

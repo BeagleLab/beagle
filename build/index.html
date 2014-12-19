@@ -93,34 +93,9 @@
 
 					      <div class="subpanel-bg glass"></div>
 					      <div class="subpanel profile panel panel-default">
-					        <div class="panel-body">
+							    <div id="m4.1"></div>
+						  	</div>
 
-					        <h4 class="gray">Publication Graph</h4>
-					        <p class="lead">IPFS - Toward the Permanent Web</p>
-
-					        <h5>Cited by 220:</h5>
-					        <ul>
-					          <li><a href="#">IPNS: Mutable names in IPFS</a></li>
-					          <li><a href="#">IPNS: Mutable names in IPFS</a></li>
-					          <li><a href="#">IPNS: Mutable names in IPFS</a></li>
-					          <li>...</li>
-					        </ul>
-
-					        <h5>Cites 26:</h5>
-					        <ul>
-					          <li><a href="#">Kademlia: A Peer-to-peer Information System Based on the XOR Metric</a></li>
-					          <li><a href="#">Democratizing content publication with Coral</a></li>
-					          <li><a href="#">SFS: Self-cerifying File Systems</a></li>
-					          <li>...</li>
-					        </ul>
-
-					        <h5>Related to 38:</h5>
-					        <ul>
-					          <li>...</li>
-					        </ul>
-
-					        </div>
-					      </div>
 					    </div>
 					    <div id="m4"></div>
 					    <img id="paper" />
@@ -369,17 +344,39 @@
 
 				bundle.React.renderComponent(
 					bundle.App(data),
-					document.getElementById('m3.1')
+					document.getElementById('m3')
 				)
 				bundle.React.renderComponent(
 					bundle.AuthorPanel(data),
-					document.getElementById('m3')
+					document.getElementById('m3.1')
 				)
 
-				// Milestone 4: Publciation Graph
+				// Milestone 4: Publication Graph
+				data.data.publication = {
+					title: "Rapid prototyping of 3D DNA-origami shapes with caDNAno",
+					cited: [
+						'Lectures on Physics 1',
+						'Lectures on Physics 2',
+						'Lectures on Physics 3'
+					],
+					cites: [
+						'Lectures on Physics 4',
+						'Lectures on Physics 5',
+						'Lectures on Physics 6'
+					],
+					related: [
+						'Lectures on Physics 7',
+						'Lectures on Physics 8',
+						'Lectures on Physics 9'
+					]
+				}
 				bundle.React.renderComponent(
 					bundle.App(data),
 					document.getElementById('m4')
+				)
+				bundle.React.renderComponent(
+					bundle.GraphPanel(data),
+					document.getElementById('m4.1')
 				)
 
 				// Milestone 5: Tags

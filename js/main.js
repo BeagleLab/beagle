@@ -151,6 +151,9 @@ var Save = require('./components/save.jsx')
 var Cite = require('./components/cite.jsx')
 var Annotations = require('./views/annotations.jsx')
 var MSeven = require('./milestones/mseven.jsx')
+var GraphPanel = require('./views/graphPanel.jsx')
+var PublicationsList = require('./components/publicationsList.jsx')
+var PublicationsListWrapper = require('./components/publicationsListWrapper.jsx')
 
 // check if we're loading in the browser as an extension
 if (chrome && chrome.runtime && chrome.runtime.onMessage) {
@@ -174,6 +177,9 @@ if (chrome && chrome.runtime && chrome.runtime.onMessage) {
     Tags: Tags,
     Cite: Cite,
     Annotations: Annotations,
-    MSeven: MSeven,
+    MSeven: MSeven, // This is just to show annotations in the sidebar, and shouldn't actually be necessary
+    GraphPanel: GraphPanel,
+    PublicationsList: PublicationsList,
+    PublicationsListWrapper: PublicationsListWrapper
   }
 }
