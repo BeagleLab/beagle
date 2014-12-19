@@ -89,7 +89,7 @@
 
 					  <div class="paper-example">
 
-					    <div class="scinav sidebar inject-main-panel inject-margin">
+					    <div class="scinav sidebar inject-margin">
 
 					      <div class="subpanel-bg glass"></div>
 					      <div class="subpanel profile panel panel-default">
@@ -122,7 +122,7 @@
 					        </div>
 					      </div>
 					    </div>
-
+					    <div id="m4"></div>
 					    <img id="paper" />
 					  </div>
 
@@ -139,7 +139,7 @@
 
 					  <div class="paper-example">
 
-					    <div class="scinav sidebar inject-main-panel inject-margin">
+					    <div class="scinav sidebar inject-margin">
 
 					      <div class="subpanel-bg glass"></div>
 					      <div class="subpanel profile panel panel-default">
@@ -165,6 +165,7 @@
 					      </div>
 
 					    </div>
+					    <div id="m5"></div>
 					    <img id="paper" />
 					  </div>
 
@@ -181,7 +182,7 @@
 
 					  <div class="paper-example">
 
-					    <div class="scinav sidebar inject-main-panel inject-margin">
+					    <div class="scinav sidebar inject-margin">
 
 					      <div class="subpanel-bg glass"></div>
 					      <div class="subpanel profile panel panel-default">
@@ -218,6 +219,7 @@
 					      </div>
 
 					    </div>
+					    <div id="m6"></div>
 					    <img id="paper" />
 					  </div>
 
@@ -239,8 +241,6 @@
 							<div id="m7"></div>
 						</div>
 
-
-
 					    <!--
 								These clearly don't work. Removed for now.
 
@@ -258,59 +258,6 @@
 
 
 					<!-- ================================================== -->
-
-					<div id="inject-main-panel" class="hidden">
-					    <div class="pane-bg glass"></div>
-					    <div class="pane">
-
-					      <h4 style="text-align: center;">scinav</h4>
-
-					      <!-- save -->
-					      <div class="btn-group" style="padding: 0px 10px;">
-					        <button class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Save"><i class="fa fa-star"></i></button>
-					        <button class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Share"><i class="fa fa-share"></i></button>
-					        <button class="btn btn-default" data-toggle="tooltip" data-placement="bottom" title="Cite"><i class="fa fa-edit"></i></button>
-					      </div>
-
-					      <!-- pub -->
-					      <h6>Publication</h6>
-					      <ul>
-					        <li id="title"><a href="http://jbenet.static.s3.amazonaws.com/0525f90/ipfs-the-permanent-web.pdf">IPFS - Towards the Permanent Web</a></li>
-					        <li id="authors"><a href="#author-profile" data-toggle="tooltip" data-placement="top" title="View Author's Profile">Juan Benet</a>, 2014</li>
-					        <li id="field"><a href="#" data-toggle="tooltip" data-placement="top" title="View Field">CS</a> / <a href="#" data-toggle="tooltip" data-placement="top" title="View Field">Distributed Systems</a></li>
-					      </ul>
-
-					      <!-- pub graph -->
-					      <h6>Graph</h6>
-					      <a href="#publication-graph" role="button" class="alert alert-info" data-toggle="tooltip" data-placement="top" title="View citations"><i class="fa fa-share-alt"></i> Cited by 220</a>
-					      <a href="#publication-graph" role="button" class="alert alert-info" data-toggle="tooltip" data-placement="top" title="View references"><i class="fa fa-share-alt"></i> Cites 26</a>
-					      <a href="#publication-graph" role="button" class="alert alert-info" data-toggle="tooltip" data-placement="top" title="View closely related papers"><i class="fa fa-share-alt"></i> Related to 38</a>
-
-
-					      <!-- annotations -->
-					      <h6>Annotations</h6>
-					      <a href="#annotations" role="button" class="alert alert-danger" data-toggle="tooltip" data-placement="top" title="View flags"><i class="fa fa-warning"></i> 7 innacuracy flags</a>
-					      <a href="#annotations" role="button" class="alert alert-success" data-toggle="tooltip" data-placement="top" title="View flags"><i class="fa fa-exclamation"></i> 120 interesting flags</a>
-					      <a href="#annotations" role="button"class="alert alert-warning" data-toggle="tooltip" data-placement="top" title="View notes"><i class="fa fa-edit"></i> 132 notes. 8 yours</a>
-
-					      <!-- tags -->
-					      <h6>Tags</h6>
-					      <a href="#tags" role="button" class="alert alert-info" data-toggle="tooltip" data-placement="top" title="View tag"><i class="fa fa-tag"></i> peer-to-peer</a>
-					      <a href="#tags" role="button" class="alert alert-info" data-toggle="tooltip" data-placement="top" title="View tag"><i class="fa fa-tag"></i> distributed filesys</a>
-					      <a href="#tags" role="button" class="alert alert-info" data-toggle="tooltip" data-placement="top" title="View tag"><i class="fa fa-tag"></i> content-addressing</a>
-
-
-					      <!-- other actions -->
-					      <h6>Other</h6>
-					      <div id="other-btns" class="btn-group">
-					        <a href="#" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="View in Google Scholar"><i class="fa fa-google"></i> Scholar</a>
-					        <a href="#bibtex" class="btn btn-default" data-toggle="tooltip" data-placement="top" title="Get BibTex"><i class="fa fa-file-text"></i> BibTex</a>
-					      </div>
-
-					    </div>
-
-					</div>
-
 					<div id="inject-margin" class="hidden">
 
 					  <div class="margin">
@@ -430,23 +377,24 @@
 				)
 
 				// Milestone 4: Publciation Graph
-				// bundle.React.renderComponent(
-				// 	bundle.App(data),
-				// 	document.getElementById('m4')
-				// )
+				bundle.React.renderComponent(
+					bundle.App(data),
+					document.getElementById('m4')
+				)
 
 				// Milestone 5: Tags
-				// bundle.React.renderComponent(
-				// 	bundle.App(data),
-				// 	document.getElementById('m5')
-				// )
+				bundle.React.renderComponent(
+					bundle.App(data),
+					document.getElementById('m5')
+				)
 
 				// Milestone 6: BibTex
-				// bundle.React.renderComponent(
-				// 	bundle.App(data),
-				// 	document.getElementById('m6')
-				// )
-				//
+				bundle.React.renderComponent(
+					bundle.App(data),
+					document.getElementById('m6')
+				)
+
+				// Milestone 7: Annotations
 				data.data.annotations = {
 					innacuracy_count: 6,
 					interesting_count: 3,
@@ -454,7 +402,6 @@
 					your_notes_count: 2
 				}
 
-				// Milestone 7: Annotations
 				bundle.React.renderComponent(
 					bundle.MSeven(data),
 					document.getElementById('m7')
