@@ -158,6 +158,7 @@ var GraphModal = require('./views/graphModal.jsx')
 var PublicationsList = require('./components/publicationsList.jsx')
 var PublicationsListWrapper = require('./components/publicationsListWrapper.jsx')
 var CiteModal = require('./views/citeModal.jsx')
+var NotificationBanner = require('./views/notificationBanner.jsx')
 
 // check if we're loading in the browser as an extension
 if (chrome && chrome.runtime && chrome.runtime.onMessage) {
@@ -188,6 +189,7 @@ if (chrome && chrome.runtime && chrome.runtime.onMessage) {
 		GraphModal: GraphModal,
 		PublicationsList: PublicationsList,
 		PublicationsListWrapper: PublicationsListWrapper,
-		CiteModal: CiteModal
+		CiteModal: CiteModal,
+		NotificationBanner: NotificationBanner,
 	}
 }

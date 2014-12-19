@@ -50,6 +50,7 @@
 						<p class="lead">The plugin starts out hidden, displaying only small margin annotation indicators.<br />
 							Margin annotations will be added in Milestone 7.</p>
 						<div class="paper-example">
+						  <div id="notification"></div>
 							<div class="scinav sidebar inject-margin"></div>
 							<img id="paper" src="" />
 							<div id="m2"></div>
@@ -114,6 +115,7 @@
 					  <p class="lead">
 					   Tags are associations made by either you, your field, or everyone. The key will be in being able to filter what tags are viewed. Here, I've denoted the scope of tags with different background colors.
 					  </p>
+
 
 					  <div class="paper-example">
 
@@ -286,6 +288,10 @@
 				// 	bundle.App(data),
 				// 	document.getElementById('m2')
 				// )
+					bundle.React.renderComponent(
+					bundle.NotificationBanner({data: 'This is a notification!'}),
+					document.getElementById('notification')
+				)
 
 				// Milestone 3: Author Profile
 				data.data.author = {
@@ -373,6 +379,7 @@
 					bundle.MSeven(data),
 					document.getElementById('m7')
 				)
+
 			})
 		</script>
 		<script type="text/javascript">
