@@ -17,6 +17,10 @@
 		.scinav {
 			width: 300px;
 		}
+		.notification-banner {
+			position: static;
+			width: 100%;
+		}
 		</style>
 		<div class="bs-docs-header" id="content">
 			<div class="container">
@@ -37,6 +41,16 @@
 					  <p class="lead">These are the default alerts.</p>
 					  <div class="scinav">
 							<div id="alert"></div>
+					  </div>
+					</div>
+
+					<!-- Notification Banner Component -->
+					<!-- ================================================== -->
+					<div class="bs-docs-section">
+					  <h1 id="plugin-open" class="page-header">Notification Banner</h1>
+					  <p class="lead">This is a separate, stand alone notification banner</p>
+					  <div class="scinav">
+							<div id="notification-banner"></div>
 					  </div>
 					</div>
 
@@ -232,6 +246,11 @@
 				bundle.React.renderComponent(
 					bundle.Alert(failedData),
 					document.getElementById('alert')
+				)
+
+				bundle.React.renderComponent(
+					bundle.NotificationBanner(failedData),
+					document.getElementById('notification-banner')
 				)
 
 				bundle.React.renderComponent(
