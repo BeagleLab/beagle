@@ -4,13 +4,9 @@ module.exports = React.createClass({
 
   render: function() {
     return (
-      <div>
-        <button>
-          <a href="mailto:?subject=Champion: This is an awesome Article"><i className="fa fa-shield"></i> Champion</a>
-        </button>
-        <button>
-          <a href="mailto:?subject=Nominate: Anyone else think this is great?"><i className="fa fa-flag"></i> Nominate</a>
-        </button>
+      <div className="btn-group">
+        <a href="mailto:?subject=Champion: This is an awesome Article" className="btn btn-default" data-toggle="tooltip" data-placement="top" title="Champion this article"><i className="fa fa-shield"></i> Champion</a>
+        <a href="mailto:?subject=Nominate: Anyone else think this is great?" className="btn btn-default" data-toggle="tooltip" data-placement="top" title="Nominate this article"><i className="fa fa-flag"></i> Nominate</a>
       </div>
     )
   }
