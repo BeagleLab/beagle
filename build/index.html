@@ -143,41 +143,11 @@
 
 					    <div class="scinav sidebar inject-margin">
 
-					      <div class="subpanel-bg glass"></div>
 					      <div class="subpanel profile panel panel-default">
-					        <div class="panel-body">
-
-					        <h4 class="gray">Bibliography</h4>
-					        <p class="lead">Kademlia: A Peer-to-Peer Information System Based on the XOR Metric</p>
-
-					        <ul class="nav nav-pills nav-justified">
-					          <li class="active"><a href="#">BibTex</a></li>
-					          <li><a href="#">EndNote</a></li>
-					          <li><a href="#">ACM Ref</a></li>
-					        </ul>
-
-					        <br />
-					        <pre style="font-size: 10px;">
-					@inproceedings{Maymounkov:2002:KPI:646334.687801,
-					 author = {Maymounkov, Petar and Mazi\`{e}res, David},
-					 title = {Kademlia: A Peer-to-Peer Information System Based on the XOR Metric},
-					 booktitle = {Revised Papers from the First International Workshop on Peer-to-Peer Systems},
-					 series = {IPTPS '01},
-					 year = {2002},
-					 isbn = {3-540-44179-4},
-					 pages = {53--65},
-					 numpages = {13},
-					 url = {http://dl.acm.org/citation.cfm?id=646334.687801},
-					 acmid = {687801},
-					 publisher = {Springer-Verlag},
-					 address = {London, UK, UK},
-					}
-					</pre>
-
-					        </div>
+						      <div id="m6.1"></div>
 					      </div>
 
-					    </div>
+						    </div>
 					    <div id="m6"></div>
 					    <img id="paper" />
 					  </div>
@@ -382,6 +352,10 @@
 				bundle.React.renderComponent(
 					bundle.App(data),
 					document.getElementById('m6')
+				)
+				bundle.React.renderComponent(
+					bundle.CitePanel(data),
+					document.getElementById('m6.1')
 				)
 
 				// Milestone 7: Annotations
