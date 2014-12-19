@@ -234,21 +234,24 @@
 					  </p>
 
 					  <div class="paper-example">
+							<div class="scinav sidebar inject-margin"></div>
+							<img id="paper" src="" />
+							<div id="m7"></div>
+						</div>
 
-					    <div class="scinav sidebar inject-main-panel inject-margin">
 
-					      <div class="text-highlights">
-					        <div class="text-highlight red" style="top: 280px; height: 34px; width: 200px;" data-toggle="tooltip" data-placement="bottom" title="Flagged innacurate 10 times, including Adam Marblestone."></div>
+
+					    <!--
+								These clearly don't work. Removed for now.
+
+					    <div class="text-highlights">
+					    	   <div class="text-highlight red" style="top: 280px; height: 34px; width: 200px;" data-toggle="tooltip" data-placement="bottom" title="Flagged innacurate 10 times, including Adam Marblestone."></div>
 
 					        <div class="text-highlight green" style="top: 380px; height: 34px; width: 200px;" data-toggle="tooltip" data-placement="bottom" title="Flagged as interesting 35 times, including David Mazieres, Deian Stefan, and you."></div>
 
 					        <div class="text-highlight yellow" style="top: 550px; height: 70px; width: 200px;" data-toggle="tooltip" data-placement="bottom" title="Flagged as interesting 35 times, including David Mazieres, Deian Stefan, and you."></div>
 
-					      </div>
-
-					    </div>
-					    <img id="paper" />
-					  </div>
+					     </div> -->
 
 					</div>
 
@@ -443,12 +446,19 @@
 				// 	bundle.App(data),
 				// 	document.getElementById('m6')
 				// )
+				//
+				data.data.annotations = {
+					innacuracy_count: 6,
+					interesting_count: 3,
+					notes_count: 27,
+					your_notes_count: 2
+				}
 
 				// Milestone 7: Annotations
-				// bundle.React.renderComponent(
-				// 	bundle.App(data),
-				// 	document.getElementById('m7')
-				// )
+				bundle.React.renderComponent(
+					bundle.MSeven(data),
+					document.getElementById('m7')
+				)
 			})
 		</script>
 		<script type="text/javascript">

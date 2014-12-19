@@ -59,6 +59,7 @@
 							<div id="publication"></div>
 					  </div>
 					</div>
+
 					<!-- Component: Graph -->
 					<!-- ================================================== -->
 					<div class="bs-docs-section">
@@ -68,7 +69,8 @@
 							<div id="graph"></div>
 					  </div>
 					</div>
-					<!-- Component: Graph -->
+
+					<!-- Component: AltGraph -->
 					<!-- ================================================== -->
 					<div class="bs-docs-section">
 					  <h1 id="plugin-open" class="page-header">AltGraph</h1>
@@ -77,6 +79,7 @@
 							<div id="altGraph"></div>
 					  </div>
 					</div>
+
 					<!-- Component Tags -->
 					<!-- ================================================== -->
 					<div class="bs-docs-section">
@@ -96,6 +99,17 @@
 							<div id="champion"></div>
 					  </div>
 					</div>
+
+					<!-- Component Annotations -->
+					<!-- ================================================== -->
+					<div class="bs-docs-section">
+					  <h1 id="plugin-open" class="page-header">Annotations</h1>
+					  <p class="lead">This is the Annotations box</p>
+					  <div class="scinav">
+							<div id="annotations"></div>
+					  </div>
+					</div>
+
 				</div>
 
 				<div class="col-md-3">
@@ -107,6 +121,7 @@
 							<li><a href="#graph">Graph</a></li>
 							<li><a href="#tags">Tags</a></li>
 							<li><a href="#champion">Champion</a></li>
+							<li><a href="#annotations">Annotations</a></li>
 							<li><a>===============</a></li>
 							<li><a href="/index.html">Milestones</a></li>
 
@@ -204,10 +219,23 @@
 					document.getElementById('tags')
 				)
 
-        // Component 3: Champion section
+        // Component Champion section
 				bundle.React.renderComponent(
 					bundle.Champion(),
 					document.getElementById('champion')
+				)
+
+        // Component Annotations section
+				bundle.React.renderComponent(
+					bundle.Annotations({
+						'data': {
+							innacuracy_count: 6,
+							interesting_count: 3,
+							notes_count: 27,
+							your_notes_count: 2
+						}
+					}),
+					document.getElementById('annotations')
 				)
 			})
 		</script>

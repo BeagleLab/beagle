@@ -149,6 +149,8 @@ var AltGraph = require('./views/altGraph.jsx')
 var Tags = require('./components/tags.jsx')
 var Save = require('./components/save.jsx')
 var Cite = require('./components/cite.jsx')
+var Annotations = require('./views/annotations.jsx')
+var MSeven = require('./milestones/mseven.jsx')
 
 // check if we're loading in the browser as an extension
 if (chrome && chrome.runtime && chrome.runtime.onMessage) {
@@ -170,6 +172,8 @@ if (chrome && chrome.runtime && chrome.runtime.onMessage) {
     Publication: Publication,
     Save: Save,
     Tags: Tags,
-    Cite: Cite
+    Cite: Cite,
+    Annotations: Annotations,
+    MSeven: MSeven,
   }
 }
