@@ -110,6 +110,16 @@
 					  </div>
 					</div>
 
+					<!-- Component Cite -->
+					<!-- ================================================== -->
+					<div class="bs-docs-section">
+					  <h1 id="plugin-open" class="page-header">Cite</h1>
+					  <p class="lead">This is the Cite box</p>
+					  <div class="scinav">
+							<div id="cite"></div>
+					  </div>
+					</div>
+
 				</div>
 
 				<div class="col-md-3">
@@ -122,6 +132,7 @@
 							<li><a href="#tags">Tags</a></li>
 							<li><a href="#champion">Champion</a></li>
 							<li><a href="#annotations">Annotations</a></li>
+							<li><a href="#cite">Cite</a></li>
 							<li><a>===============</a></li>
 							<li><a href="/index.html">Milestones</a></li>
 
@@ -236,6 +247,12 @@
 						}
 					}),
 					document.getElementById('annotations')
+				)
+
+        // Component Cite section
+				bundle.React.renderComponent(
+					bundle.Cite(),
+					document.getElementById('cite')
 				)
 			})
 		</script>
