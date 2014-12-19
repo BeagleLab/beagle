@@ -232,10 +232,10 @@
 		<script type="text/javascript">
 			$(document).ready(function() {
 				function inject(id) {
-					console.log(id)
+					// console.log(id)
 					var c = $("#inject-" + id).contents()
-					console.log(c)
-					console.log($(".inject-" + id))
+					// console.log(c)
+					// console.log($(".inject-" + id))
 					$(".inject-" + id).append(c)
 				}
 				inject("main-panel")
@@ -272,13 +272,16 @@
 				  altmetrics: data.altmetrics,
 				}
 
+				// Milestone 1: Sidebar
 				// Bundle it up
 				bundle.React.renderComponent(
 					bundle.App(data),
 					document.getElementById('m1')
 				)
 
-				// Should be hidden, but should show notations in margin
+				// Milestone 2: Hidden Sidebar
+				// Should be hidden, but should show notations in margin, with some
+				// UI to open the margin
 				// bundle.React.renderComponent(
 				// 	bundle.App(data),
 				// 	document.getElementById('m2')

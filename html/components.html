@@ -43,8 +43,8 @@
 					<!-- Component: Save panel -->
 					<!-- ================================================== -->
 					<div class="bs-docs-section">
-					  <h1 id="plugin-open" class="page-header">Notifications</h1>
-					  <p class="lead">These are the default alerts.</p>
+					  <h1 id="plugin-open" class="page-header">Save</h1>
+					  <p class="lead">These is the Save section.</p>
 					  <div class="scinav">
 							<div id="save"></div>
 					  </div>
@@ -140,14 +140,35 @@
 					  </div>
 					</div>
 
-					<!-- AltMetrics Component -->
-					<!-- AuthorPanel Component -->
-					<!-- GraphPanel Component -->
+					<!-- Tags List -->
+					<!-- ================================================== -->
+					<div class="bs-docs-section">
+					  <h1 id="plugin-open" class="page-header">Tags List</h1>
+					  <p class="lead">A resuable list component</p>
+					  <div class="scinav">
+							<div id="tlist"></div>
+					  </div>
+					</div>
+
+					<!-- Tags List Wrapper Component -->
+					<!-- ================================================== -->
+					<div class="bs-docs-section">
+					  <h1 id="plugin-open" class="page-header">Tags List Wrapper</h1>
+					  <p class="lead">A resuable mini component, inside Tags List</p>
+					  <div class="scinav">
+							<div id="tlw"></div>
+					  </div>
+					</div>
+
+					<!-- To Do -->
 					<!-- Supplement Component -->
 					<!-- TOC Component -->
-					<!-- tagsList Component -->
-					<!-- tagsListWrapper Component -->
+
+					<!-- Panels -->
+					<!-- AuthorPanel Component -->
+					<!-- GraphPanel Component -->
 					<!-- tagsPanel Component -->
+					<!-- citePanel Component -->
 
 				</div>
 
@@ -155,15 +176,19 @@
 					<div class="bs-docs-sidebar hidden-print" role="complementary">
 						<ul class="nav bs-docs-sidenav">
 							<li>Components</li>
-							<li><a href="#alert">Alert</a></li>
+							<li><a href="#alert">Notifications</a></li>
+							<li><a href="#save">Save</a></li>
 							<li><a href="#publication">Publication</a></li>
 							<li><a href="#graph">Graph</a></li>
+							<li><a href="#altGraph">AltGraph</a></li>
 							<li><a href="#tags">Tags</a></li>
 							<li><a href="#champion">Champion</a></li>
 							<li><a href="#annotations">Annotations</a></li>
 							<li><a href="#cite">Cite</a></li>
 							<li><a href="#plist">Publication List</a></li>
 							<li><a href="#plw">Publication List Wrapper</a></li>
+							<li><a href="#tlist">Tags List</a></li>
+							<li><a href="#tlw">Tags List Wrapper</a></li>
 							<li><a>===============</a></li>
 							<li><a href="/index.html">Milestones</a></li>
 
@@ -188,10 +213,10 @@
 		<script type="text/javascript">
 			$(document).ready(function() {
 				function inject(id) {
-					console.log(id)
+					// console.log(id)
 					var c = $("#inject-" + id).contents()
-					console.log(c)
-					console.log($(".inject-" + id))
+					// console.log(c)
+					// console.log($(".inject-" + id))
 					$(".inject-" + id).append(c)
 				}
 				inject("main-panel");
@@ -215,7 +240,6 @@
 					document.getElementById('save')
 				)
 
-				// Component: Altmetrics Section
 				var data = {}
 				data.altmetrics = {
 				  title: "Rapid prototyping of 3D DNA-origami shapes with caDNAno",
@@ -240,20 +264,25 @@
 					'data': data.altmetrics
 				}
 
+				// Component Publication section
 				bundle.React.renderComponent(
 					bundle.Publication(data.data),
 					document.getElementById('publication')
 				)
+
+				// Component Graph
 				bundle.React.renderComponent(
 					bundle.Graph(data.data),
 					document.getElementById('graph')
 				)
 
+				// Component AltGraph
 				bundle.React.renderComponent(
 					bundle.AltGraph(data.data),
 					document.getElementById('altGraph')
 				)
 
+				// Component Tag section
 				data.data = ['tag1', 'tag2']
 
 				bundle.React.renderComponent(
@@ -286,7 +315,7 @@
 					document.getElementById('cite')
 				)
 
-				// Component Publications List Wrapper
+				// Component Publications List
 				bundle.React.renderComponent(
 					bundle.PublicationsList({data: ['this is an array', 'with two items']}),
 					document.getElementById('plist')
@@ -296,6 +325,18 @@
 				bundle.React.renderComponent(
 					bundle.PublicationsListWrapper({data: 'This is an example title'}),
 					document.getElementById('plw')
+				)
+
+				// Component Tags List
+				bundle.React.renderComponent(
+					bundle.TagsList({data: ['this is an array', 'with two items'], className: "alert alert-info"}),
+					document.getElementById('tlist')
+				)
+
+				// Component Tags List Wrapper
+				bundle.React.renderComponent(
+					bundle.TagsListWrapper({data: 'tag1', className: "alert alert-info"}),
+					document.getElementById('tlw')
 				)
 			})
 		</script>
