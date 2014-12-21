@@ -156,11 +156,35 @@
 
 					</div>
 
+					<!-- ================================================== -->
+
+					<div class="bs-docs-section" id="saved-papers">
+					  <h1 class="page-header">Milestone 7: Saved Papers</h1>
+
+					  <p class="lead">
+					   Access your saved papers, and papers from your colleages.
+					  </p>
+
+					  <div class="paper-example">
+
+					    <div class="scinav sidebar inject-margin">
+
+					      <div class="subpanel profile panel panel-default">
+						      <div id="m7.1"></div>
+					      </div>
+
+						    </div>
+					    <div id="m7"></div>
+					    <img id="paper" />
+					  </div>
+
+					</div>
+
 
 					<!-- ================================================== -->
 
 					<div class="bs-docs-section">
-					  <h1 id="annotations" class="page-header">Milestone 7: Annotations</h1>
+					  <h1 id="annotations" class="page-header">Milestone 8: Annotations</h1>
 
 					  <p class="lead">
 					    While viewing annotations, highlight the text and display hypothesis style notes <span class="alert-danger">(notes NOT shown here)</span>.
@@ -169,7 +193,7 @@
 					  <div class="paper-example">
 							<div class="scinav sidebar inject-margin"></div>
 							<img id="paper" src="" />
-							<div id="m7"></div>
+							<div id="m8"></div>
 						</div>
 
 					    <!--
@@ -209,7 +233,8 @@
 							<li><a href="#publication-graph">M4: Publication Graph</a></li>
 							<li><a href="#tags">M5: Tags</a></li>
 							<li><a href="#bibtex">M6: BibTeX</a></li>
-							<li><a href="#annotations">M7: Annotations</a></li>
+							<li><a href="#saved-papers">M7: Saved Papers</a></li>
+							<li><a href="#annotations">M8: Annotations</a></li>
 							<li><a>===============</a></li>
 							<li><a href="/components.html">Components</a></li>
 
@@ -288,7 +313,7 @@
 				// 	bundle.App(data),
 				// 	document.getElementById('m2')
 				// )
-					bundle.React.renderComponent(
+				bundle.React.renderComponent(
 					bundle.NotificationBanner({data: 'This is a notification!'}),
 					document.getElementById('notification')
 				)
@@ -367,6 +392,16 @@
 					document.getElementById('m6.1')
 				)
 
+				// Milestone 8: BibTex
+				bundle.React.renderComponent(
+					bundle.App(data),
+					document.getElementById('m7')
+				)
+				bundle.React.renderComponent(
+					bundle.SavedPapersModal(),
+					document.getElementById('m7.1')
+				)
+
 				// Milestone 7: Annotations
 				data.data.annotations = {
 					innacuracy_count: 6,
@@ -376,8 +411,8 @@
 				}
 
 				bundle.React.renderComponent(
-					bundle.MSeven(data),
-					document.getElementById('m7')
+					bundle.AnnotationsMilestone(data),
+					document.getElementById('m8')
 				)
 
 			})

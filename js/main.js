@@ -153,12 +153,13 @@ var TagsListWrapper = require('./components/tagsListWrapper.jsx')
 var Save = require('./components/save.jsx')
 var Cite = require('./components/cite.jsx')
 var Annotations = require('./views/annotations.jsx')
-var MSeven = require('./milestones/mseven.jsx')
+var AnnotationsMilestone = require('./milestones/annotationsMilestone.jsx')
 var GraphModal = require('./views/graphModal.jsx')
 var PublicationsList = require('./components/publicationsList.jsx')
 var PublicationsListWrapper = require('./components/publicationsListWrapper.jsx')
 var CiteModal = require('./views/citeModal.jsx')
 var NotificationBanner = require('./views/notificationBanner.jsx')
+var SavedPapersModal = require('./views/savedPapersModal.jsx')
 
 // check if we're loading in the browser as an extension
 if (chrome && chrome.runtime && chrome.runtime.onMessage) {
@@ -185,11 +186,12 @@ if (chrome && chrome.runtime && chrome.runtime.onMessage) {
 		TagsListWrapper: TagsListWrapper,
 		Cite: Cite,
 		Annotations: Annotations,
-		MSeven: MSeven, // This is just to show annotations in the sidebar, and shouldn't actually be necessary
+		AnnotationsMilestone: AnnotationsMilestone, // This is just to show annotations in the sidebar, and shouldn't actually be necessary
 		GraphModal: GraphModal,
 		PublicationsList: PublicationsList,
 		PublicationsListWrapper: PublicationsListWrapper,
 		CiteModal: CiteModal,
 		NotificationBanner: NotificationBanner,
+		SavedPapersModal: SavedPapersModal
 	}
 }
