@@ -1,8 +1,6 @@
 var React = require('react')
 var PublicationsList = require('../components/publicationsList.jsx')
 
-
-
 module.exports = React.createClass({
 	render: function() {
 

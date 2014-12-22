@@ -8,8 +8,8 @@ module.exports = React.createClass({
         <h4 className="gray">Publication Graph</h4>
         <p className="lead">{this.props.data.title}</p>
 
-        <h5>Cited by {this.props.data.publication.cited.length}:</h5>
-        <PublicationList data={this.props.data.publication.cited} />
+        <h5>Cited by {this.props.data.publication.cited_by.length}:</h5>
+        <PublicationList data={this.props.data.publication.cited_by} />
 
         <h5>Cites {this.props.data.publication.cites.length}:</h5>
         <PublicationList data={this.props.data.publication.cites} />

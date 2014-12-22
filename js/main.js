@@ -139,31 +139,30 @@ function buildView(modules, textInput) {
 }
 
 // for ease of dev. (move these before shipping widely)
+var Abstract = require('./views/abstract.jsx')
 var Alert = require('./components/alert.jsx')
-var AuthorModal = require('./views/authorModal.jsx')
-var Altmetrics = require('./views/altmetrics.jsx')
-var Champion = require('./components/champion.jsx')
-var Publication = require('./views/publication.jsx')
-var Graph = require('./views/graph.jsx')
 var AltGraph = require('./views/altGraph.jsx')
-var Tags = require('./components/tags.jsx')
-var TagsModal = require('./views/tagsModal.jsx')
-var TagsList = require('./components/tagsList.jsx')
-var TagsListWrapper = require('./components/tagsListWrapper.jsx')
-var Save = require('./components/save.jsx')
-var Cite = require('./components/cite.jsx')
 var Annotations = require('./views/annotations.jsx')
 var AnnotationsMilestone = require('./milestones/annotationsMilestone.jsx')
+var AuthorModal = require('./views/authorModal.jsx')
+var Champion = require('./components/champion.jsx')
+var Cite = require('./components/cite.jsx')
+var CiteModal = require('./views/citeModal.jsx')
+var Figs = require('./views/figs.jsx')
+var Graph = require('./views/graph.jsx')
 var GraphModal = require('./views/graphModal.jsx')
+var LinkOut = require('./components/linkOut.jsx')
+var NotificationBanner = require('./views/notificationBanner.jsx')
+var Publication = require('./views/publication.jsx')
 var PublicationsList = require('./components/publicationsList.jsx')
 var PublicationsListWrapper = require('./components/publicationsListWrapper.jsx')
-var CiteModal = require('./views/citeModal.jsx')
-var NotificationBanner = require('./views/notificationBanner.jsx')
+var Save = require('./components/save.jsx')
 var SavedPapersModal = require('./views/savedPapersModal.jsx')
 var Supplement = require('./views/supplement.jsx')
-var Abstract = require('./views/abstract.jsx')
-var Figs = require('./views/figs.jsx')
-var LinkOut = require('./components/linkOut.jsx')
+var Tags = require('./components/tags.jsx')
+var TagsList = require('./components/tagsList.jsx')
+var TagsListWrapper = require('./components/tagsListWrapper.jsx')
+var TagsModal = require('./views/tagsModal.jsx')
 var Toc = require('./views/toc.jsx')
 
 // check if we're loading in the browser as an extension
@@ -178,7 +177,6 @@ if (chrome && chrome.runtime && chrome.runtime.onMessage) {
 		Abstract: Abstract,
 		Alert: Alert,
 		AltGraph: AltGraph,
-		Altmetrics: Altmetrics,
 		App: App,
 		AuthorModal: AuthorModal,
 		Champion: Champion,

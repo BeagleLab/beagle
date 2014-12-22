@@ -273,30 +273,31 @@
 				// Dummy Data
 				var data = {}
 
-				data.altmetrics = {
-				  title: "Rapid prototyping of 3D DNA-origami shapes with caDNAno",
-				  journal: "Nucleic acids research 37 (15), 5001",
-				  doi: "10.1093/nar/gkp436",
-				  cited_by: [
-				  	'Publication1',
-				  	'Publication2'
-				  ],
-				  cites: [
-				  	'Publication1',
-				  	'Publication2'
-				  ],
-				  related: [
-				  	'Publication1',
-				  	'Publication2'
-				  ],
-				  cited_by_tweeters_count: "9001",
-				  subjects: ['tag1', 'tag2'],
-				  subjects: ['tag1', 'tag2'],
-				}
-
 				data.data = {
 					title: 'This is an example title',
-				  altmetrics: data.altmetrics,
+				  publication: {
+					  title: "Rapid prototyping of 3D DNA-origami shapes with caDNAno",
+					  journal: "Nucleic acids research 37 (15), 5001",
+					  doi: "10.1093/nar/gkp436",
+						cited_by: [
+							'Lectures on Physics 1',
+							'Lectures on Physics 2',
+							'Lectures on Physics 3'
+						],
+						cites: [
+							'Lectures on Physics 4',
+							'Lectures on Physics 5',
+							'Lectures on Physics 6'
+						],
+						related: [
+							'Lectures on Physics 7',
+							'Lectures on Physics 8',
+							'Lectures on Physics 9'
+						],
+					  cited_by_tweeters_count: "9001",
+					  subjects: ['tag1', 'tag2'],
+					  subjects: ['tag1', 'tag2'],
+					}
 				}
 
 				// Milestone 1: Sidebar
@@ -341,23 +342,23 @@
 				)
 
 				// Milestone 4: Publication Graph
-				data.data.publication = {
-					cited: [
-						'Lectures on Physics 1',
-						'Lectures on Physics 2',
-						'Lectures on Physics 3'
-					],
-					cites: [
-						'Lectures on Physics 4',
-						'Lectures on Physics 5',
-						'Lectures on Physics 6'
-					],
-					related: [
-						'Lectures on Physics 7',
-						'Lectures on Physics 8',
-						'Lectures on Physics 9'
-					]
-				}
+				// data.data.publication = {
+				// 	cited: [
+				// 		'Lectures on Physics 1',
+				// 		'Lectures on Physics 2',
+				// 		'Lectures on Physics 3'
+				// 	],
+				// 	cites: [
+				// 		'Lectures on Physics 4',
+				// 		'Lectures on Physics 5',
+				// 		'Lectures on Physics 6'
+				// 	],
+				// 	related: [
+				// 		'Lectures on Physics 7',
+				// 		'Lectures on Physics 8',
+				// 		'Lectures on Physics 9'
+				// 	]
+				// }
 				bundle.React.renderComponent(
 					bundle.App(data),
 					document.getElementById('m4')
