@@ -161,6 +161,7 @@ var CiteModal = require('./views/citeModal.jsx')
 var NotificationBanner = require('./views/notificationBanner.jsx')
 var SavedPapersModal = require('./views/savedPapersModal.jsx')
 var Abstract = require('./views/abstract.jsx')
+var Figs = require('./views/figs.jsx')
 
 // check if we're loading in the browser as an extension
 if (chrome && chrome.runtime && chrome.runtime.onMessage) {
@@ -178,6 +179,7 @@ if (chrome && chrome.runtime && chrome.runtime.onMessage) {
 		App: App,
 		AuthorModal: AuthorModal,
 		Champion: Champion,
+		Figs: Figs,
 		Graph: Graph,
 		Publication: Publication,
 		Save: Save,

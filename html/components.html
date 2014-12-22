@@ -21,6 +21,9 @@
 			position: static;
 			width: 100%;
 		}
+		img.figs {
+			max-height: 200px;
+		}
 		</style>
 		<div class="bs-docs-header" id="content">
 			<div class="container">
@@ -39,6 +42,8 @@
 					<div class="bs-docs-section">
 					  <h1 id="plugin-open" class="page-header">Notifications</h1>
 					  <p class="lead">These are the default alerts.</p>
+					  <p>Example data:</p>
+					  <pre id="alert-data"></pre>
 					  <div class="scinav">
 							<div id="alert"></div>
 					  </div>
@@ -49,6 +54,8 @@
 					<div class="bs-docs-section">
 					  <h1 id="plugin-open" class="page-header">Notification Banner</h1>
 					  <p class="lead">This is a separate, stand alone notification banner</p>
+						<p>Example data:</p>
+					  <pre id="notification-banner-data"></pre>
 					  <div class="scinav">
 							<div id="notification-banner"></div>
 					  </div>
@@ -58,6 +65,8 @@
 					<!-- ================================================== -->
 					<div class="bs-docs-section">
 					  <h1 id="plugin-open" class="page-header">Save</h1>
+					  <p>Example data:</p>
+					  <pre id="save-data"></pre>
 					  <div class="scinav">
 							<div id="save"></div>
 					  </div>
@@ -68,6 +77,8 @@
 					<div class="bs-docs-section">
 					  <h1 id="plugin-open" class="page-header">Publication Data</h1>
 					  <p class="lead">This is the Publication data box</p>
+					  <p>Example data:</p>
+					  <pre id="publication-data"></pre>
 					  <div class="scinav">
 							<div id="publication"></div>
 					  </div>
@@ -78,6 +89,8 @@
 					<div class="bs-docs-section">
 					  <h1 id="plugin-open" class="page-header">Graph</h1>
 					  <p class="lead">This is the Citation Graph section</p>
+					  <p>Example data:</p>
+					  <pre id="graph-data"></pre>
 					  <div class="scinav">
 							<div id="graph"></div>
 					  </div>
@@ -88,8 +101,10 @@
 					<div class="bs-docs-section">
 					  <h1 id="plugin-open" class="page-header">AltGraph</h1>
 					  <p class="lead">This is the Alternative Metrics section</p>
+					  <p>Example data:</p>
+					  <pre id="alt-graph-data"></pre>
 					  <div class="scinav">
-							<div id="altGraph"></div>
+							<div id="alt-graph"></div>
 					  </div>
 					</div>
 
@@ -98,6 +113,8 @@
 					<div class="bs-docs-section">
 					  <h1 id="plugin-open" class="page-header">Tags</h1>
 					  <p class="lead">This is what Tags look like.</p>
+					  <p>Example data:</p>
+					  <pre id="tags-data"></pre>
 					  <div class="scinav">
 							<div id="tags"></div>
 					  </div>
@@ -118,6 +135,8 @@
 					<div class="bs-docs-section">
 					  <h1 id="plugin-open" class="page-header">Annotations</h1>
 					  <p class="lead">This is the Annotations box</p>
+					  <p>Example data:</p>
+					  <pre id="annotations-data"></pre>
 					  <div class="scinav">
 							<div id="annotations"></div>
 					  </div>
@@ -138,6 +157,8 @@
 					<div class="bs-docs-section">
 					  <h1 id="plugin-open" class="page-header">Publications List</h1>
 					  <p class="lead">A resuable list component</p>
+					  <p>Example data:</p>
+					  <pre id="plist-data"></pre>
 					  <div class="scinav">
 							<div id="plist"></div>
 					  </div>
@@ -148,6 +169,8 @@
 					<div class="bs-docs-section">
 					  <h1 id="plugin-open" class="page-header">Publications List Wrapper</h1>
 					  <p class="lead">A resuable mini component, inside Publications List</p>
+					  <p>Example data:</p>
+					  <pre id="plw-data"></pre>
 					  <div class="scinav">
 							<div id="plw"></div>
 					  </div>
@@ -158,6 +181,8 @@
 					<div class="bs-docs-section">
 					  <h1 id="plugin-open" class="page-header">Tags List</h1>
 					  <p class="lead">A resuable list component</p>
+					  <p>Example data:</p>
+					  <pre id="tlist-data"></pre>
 					  <div class="scinav">
 							<div id="tlist"></div>
 					  </div>
@@ -168,6 +193,8 @@
 					<div class="bs-docs-section">
 					  <h1 id="plugin-open" class="page-header">Tags List Wrapper</h1>
 					  <p class="lead">A resuable mini component, inside Tags List</p>
+					  <p>Example data:</p>
+					  <pre id="tlw-data"></pre>
 					  <div class="scinav">
 							<div id="tlw"></div>
 					  </div>
@@ -178,8 +205,22 @@
 					<div class="bs-docs-section">
 					  <h1 id="plugin-open" class="page-header">Abstract</h1>
 					  <p class="lead">Abstract text</p>
+					  <p>Example data:</p>
+					  <pre id="abstract-data"></pre>
 					  <div class="scinav">
 							<div id="abstract"></div>
+					  </div>
+					</div>
+
+					<!-- Figs Component -->
+					<!-- ================================================== -->
+					<div class="bs-docs-section">
+					  <h1 id="plugin-open" class="page-header">Figs</h1>
+					  <p class="lead">Figures taken directly from the PDF</p>
+					  <p>Example data:</p>
+					  <pre id="figs-data"></pre>
+					  <div class="scinav">
+							<div id="figs"></div>
 					  </div>
 					</div>
 
@@ -254,68 +295,78 @@
 					'data': 'example'
 				};
 
+				document.getElementById('alert-data').innerHTML = JSON.stringify(failedData, undefined, 2);
 				bundle.React.renderComponent(
 					bundle.Alert(failedData),
 					document.getElementById('alert')
 				)
 
+				document.getElementById('notification-banner-data').innerHTML = JSON.stringify(failedData, undefined, 2);
 				bundle.React.renderComponent(
 					bundle.NotificationBanner(failedData),
 					document.getElementById('notification-banner')
 				)
 
+				document.getElementById('save-data').innerHTML = JSON.stringify(failedData, undefined, 2);
 				bundle.React.renderComponent(
 					bundle.Save(failedData),
 					document.getElementById('save')
 				)
 
-				var data = {}
-				data.altmetrics = {
-				  title: "Rapid prototyping of 3D DNA-origami shapes with caDNAno",
-				  journal: "Nucleic acids research 37 (15), 5001",
-				  doi: "10.1093/nar/gkp436",
-				  cited_by_tweeters_count: "9001",
-				  cited_by: [
-				  	'Publication1',
-				  	'Publication2'
-				  ],
-				  cites: [
-				  	'Publication1',
-				  	'Publication2'
-				  ],
-				  related: [
-				  	'Publication1',
-				  	'Publication2'
-				  ],
-				  subjects: ['tag1', 'tag2'],
-				}
-				data.data = {
-					'data': data.altmetrics
-				}
 
 				// Component Publication section
+				var publicationData = {
+					data: {
+					  title: "Rapid prototyping of 3D DNA-origami shapes with caDNAno",
+					  journal: "Nucleic acids research 37 (15), 5001",
+					  doi: "10.1093/nar/gkp436"
+					}
+				};
+				document.getElementById('publication-data').innerHTML = JSON.stringify(publicationData, undefined, 2);
 				bundle.React.renderComponent(
-					bundle.Publication(data.data),
+					bundle.Publication(publicationData),
 					document.getElementById('publication')
 				)
 
+
 				// Component Graph
+				var graphData = {
+					data: {
+					  cited_by: [
+					  	'Publication1',
+					  	'Publication2'
+					  ],
+					  cites: [
+					  	'Publication1',
+					  	'Publication2'
+					  ],
+					  related: [
+					  	'Publication1',
+					  	'Publication2'
+					  ]
+					}
+				}
+				document.getElementById('graph-data').innerHTML = JSON.stringify(graphData, undefined, 2);
 				bundle.React.renderComponent(
-					bundle.Graph(data.data),
+					bundle.Graph(graphData),
 					document.getElementById('graph')
 				)
 
+
 				// Component AltGraph
+				var altGraphData = {data: {cited_by_tweeters_count: "9001"}};
+				document.getElementById('alt-graph-data').innerHTML = JSON.stringify(altGraphData, undefined, 2);
 				bundle.React.renderComponent(
-					bundle.AltGraph(data.data),
-					document.getElementById('altGraph')
+					bundle.AltGraph(altGraphData),
+					document.getElementById('alt-graph')
 				)
 
-				// Component Tag section
-				data.data = ['tag1', 'tag2']
 
+				// Component Tag section
+				var tagsData = {data: ['tag1', 'tag2']};
+				document.getElementById('tags-data').innerHTML = JSON.stringify(tagsData, undefined, 2);
 				bundle.React.renderComponent(
-					bundle.Tags(data),
+					bundle.Tags(tagsData),
 					document.getElementById('tags')
 				)
 
@@ -325,16 +376,19 @@
 					document.getElementById('champion')
 				)
 
+
         // Component Annotations section
-				bundle.React.renderComponent(
-					bundle.Annotations({
+				var annotationsData = {
 						'data': {
 							innacuracy_count: 6,
 							interesting_count: 3,
 							notes_count: 27,
 							your_notes_count: 2
 						}
-					}),
+					};
+				document.getElementById('annotations-data').innerHTML = JSON.stringify(annotationsData, undefined, 2);
+				bundle.React.renderComponent(
+					bundle.Annotations(annotationsData),
 					document.getElementById('annotations')
 				)
 
@@ -344,34 +398,56 @@
 					document.getElementById('cite')
 				)
 
+
 				// Component Publications List
+				var plistData = {data: ['this is an array', 'with two items']}
+				document.getElementById('plist-data').innerHTML = JSON.stringify(plistData, undefined, 2);
 				bundle.React.renderComponent(
-					bundle.PublicationsList({data: ['this is an array', 'with two items']}),
+					bundle.PublicationsList(plistData),
 					document.getElementById('plist')
 				)
 
+
 				// Component Publications List Wrapper
+				var plwData = {data: 'This is an example title'}
+				document.getElementById('plw-data').innerHTML = JSON.stringify(plwData, undefined, 2);
 				bundle.React.renderComponent(
-					bundle.PublicationsListWrapper({data: 'This is an example title'}),
+					bundle.PublicationsListWrapper(plwData),
 					document.getElementById('plw')
 				)
 
+
 				// Component Tags List
+				var tlistData = {data: ['this is an array', 'with two items'], className: "alert alert-info"}
+				document.getElementById('tlist-data').innerHTML = JSON.stringify(tlistData, undefined, 2);
 				bundle.React.renderComponent(
-					bundle.TagsList({data: ['this is an array', 'with two items'], className: "alert alert-info"}),
+					bundle.TagsList(tlistData),
 					document.getElementById('tlist')
 				)
 
+
 				// Component Tags List Wrapper
+				var tlwData = {data: 'tag1', className: "alert alert-info"}
+				document.getElementById('tlw-data').innerHTML = JSON.stringify(tlwData, undefined, 2);
 				bundle.React.renderComponent(
-					bundle.TagsListWrapper({data: 'tag1', className: "alert alert-info"}),
+					bundle.TagsListWrapper(tlwData),
 					document.getElementById('tlw')
 				)
 
 				// Component Abstract
+				var abstractData = {data: 'Hupehsuchia is a group of enigmatic Triassic marine reptiles that is known exclusively from two counties in Hubei Province, China. One of the common features of the group was a modestly long neck with nine to ten cervical vertebrae. We report a new species of Hupehsuchia, Eohupehsuchus brevicollis gen. et sp. nov., which for the first time shows a short neck in this group, with six cervicals. The configuration of the skull roof in Eohupehsuchus is also unique among Hupehsuchia, with narrow frontals and posteriorly shifted parietals, warranting recognition of a new species. The taxon superficially resembles Nanchangosaurus in retaining hupehsuchian plesiomorphies, such as low neural spines and small body size. However, its limbs are well-developed, unlike in Nanchangosaurus, although the latter genus is marginally larger in body length. Thus, the individual is unlikely to be immature'}
+				document.getElementById("abstract-data").innerHTML = JSON.stringify(abstractData, undefined, 2);
 				bundle.React.renderComponent(
-					bundle.Abstract({data: 'Hupehsuchia is a group of enigmatic Triassic marine reptiles that is known exclusively from two counties in Hubei Province, China. One of the common features of the group was a modestly long neck with nine to ten cervical vertebrae. We report a new species of Hupehsuchia, Eohupehsuchus brevicollis gen. et sp. nov., which for the first time shows a short neck in this group, with six cervicals. The configuration of the skull roof in Eohupehsuchus is also unique among Hupehsuchia, with narrow frontals and posteriorly shifted parietals, warranting recognition of a new species. The taxon superficially resembles Nanchangosaurus in retaining hupehsuchian plesiomorphies, such as low neural spines and small body size. However, its limbs are well-developed, unlike in Nanchangosaurus, although the latter genus is marginally larger in body length. Thus, the individual is unlikely to be immature'}),
+					bundle.Abstract(abstractData),
 					document.getElementById('abstract')
+				)
+
+				// Component Figs
+				var figsData = {data: '/images/figs.jpg'}
+				document.getElementById("figs-data").innerHTML = JSON.stringify(figsData, undefined, 2);
+				bundle.React.renderComponent(
+					bundle.Figs(figsData),
+					document.getElementById('figs')
 				)
 			})
 		</script>
