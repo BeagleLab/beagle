@@ -148,6 +148,7 @@ var AuthorModal = require('./views/authorModal.jsx')
 var Champion = require('./components/champion.jsx')
 var Cite = require('./components/cite.jsx')
 var CiteModal = require('./views/citeModal.jsx')
+var Contact = require('./components/contact.jsx')
 var Figs = require('./views/figs.jsx')
 var Graph = require('./views/graph.jsx')
 var GraphModal = require('./views/graphModal.jsx')
@@ -182,6 +183,7 @@ if (chrome && chrome.runtime && chrome.runtime.onMessage) {
 		App: App,
 		AuthorModal: AuthorModal,
 		Champion: Champion,
+		Contact: Contact,
 		Figs: Figs,
 		Graph: Graph,
 		LinkOut: LinkOut,

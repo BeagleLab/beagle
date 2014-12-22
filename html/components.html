@@ -285,12 +285,17 @@
 					  <pre id="tf-idf-data"></pre>
 					</div>
 
-					<!-- To Do -->
-					<!-- Modals -->
-					<!-- AuthorModal Component -->
-					<!-- GraphModal Component -->
-					<!-- tagsModal Component -->
-					<!-- citeModal Component -->
+					<!-- Contact Component -->
+					<!-- ================================================== -->
+					<div class="bs-docs-section">
+					  <h1 id="plugin-open" class="page-header">Contact</h1>
+					  <p class="lead">Website, media, and email for an author</p>
+					  <div class="scinav">
+							<div id="contact"></div>
+					  </div>
+					  <p class="example-lead">Example data:</p>
+					  <pre id="contact-data"></pre>
+					</div>
 
 				</div>
 
@@ -317,6 +322,7 @@
 							<li><a href="#link">Link Out</a></li>
 							<li><a href="#toc">Table of Contents</a></li>
 							<li><a href="#tf-odf">tf-idf</a></li>
+							<li><a href="#contact">Contact</a></li>
 							<li><a>===============</a></li>
 							<li><a href="/index.html">Milestones</a></li>
 
@@ -581,15 +587,27 @@
 					document.getElementById('tf-idf')
 				)
 
-				// Component tf-idf
-				// var journalData = {'data': [
-				// 	'example', 'example', 'example'
-				// ]};
-				// document.getElementById("tf-idf-data").innerHTML = JSON.stringify(tfIdfData, undefined, 2);
-				// bundle.React.renderComponent(
-				// 	bundle.TfIdf(tfIdfData),
-				// 	document.getElementById('tf-idf')
-				// )
+				// Component Contact
+				var contactData = {'data': {
+					'author': {
+						'name': 'Richard Feynman',
+						'university': 'CIT',
+						'department': 'Physics',
+						'photo': 'http://upload.wikimedia.org/wikipedia/en/4/42/Richard_Feynman_Nobel.jpg',
+						'publications': [
+							'Lectures on Physics 1',
+							'Lectures on Physics 2',
+							'Lectures on Physics 3'
+						],
+						'website': '#website',
+						'email': 'test@gmail.com'
+					}
+				}};
+				document.getElementById("contact-data").innerHTML = JSON.stringify(contactData, undefined, 2);
+				bundle.React.renderComponent(
+					bundle.Contact(contactData),
+					document.getElementById('contact')
+				)
 			})
 		</script>
 		<script type="text/javascript">
