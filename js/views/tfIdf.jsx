@@ -19,7 +19,6 @@ var TfIdf = React.createClass({
       }
     });
 
-
     return (
         <div>
         	{items}
