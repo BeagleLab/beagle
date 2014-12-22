@@ -2,12 +2,15 @@ var React = require('react')
 var PublicationsListWrapper = require('../components/publicationsListWrapper.jsx')
 
 module.exports = React.createClass({
-	displayName: 'Publciations List',
+	displayName: 'Publications List',
 	render: function() {
+
+		var list = this.props.data;
+
 		return (
 			<ul>
 			  {this.props.data.map(function(publication){
-			    return <PublicationsListWrapper key={publication.id} data={publication} />
+			    return <PublicationsListWrapper key={list.indexOf(publication)} data={publication} />
 			  })}
 			</ul>
 		)
