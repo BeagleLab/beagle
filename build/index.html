@@ -224,6 +224,31 @@
 					</div>
 
 
+					<!-- ================================================== -->
+
+					<div class="bs-docs-section" id="journal">
+					  <h1 class="page-header">Milestone 9: Journal Information</h1>
+
+					  <p class="lead">
+					   Access information about Journals and the current Issues
+					  </p>
+
+					  <div class="paper-example">
+
+					    <div class="scinav sidebar inject-margin">
+
+					      <div class="subpanel profile panel panel-default">
+						      <div id="m9.1"></div>
+					      </div>
+
+						    </div>
+					    <div id="m9"></div>
+					    <img id="paper" />
+					  </div>
+
+					</div>
+
+
 
 					<!-- ================================================== -->
 					<div id="inject-margin" class="hidden">
@@ -248,6 +273,7 @@
 							<li><a href="#bibtex">M6: BibTeX</a></li>
 							<li><a href="#saved-papers">M7: Saved Papers</a></li>
 							<li><a href="#annotations">M8: Annotations</a></li>
+							<li><a href="#journal">M9: Journal Information</a></li>
 							<li><a>===============</a></li>
 							<li><a href="/components.html">Components</a></li>
 
@@ -292,6 +318,7 @@
 				  	id: '136172',
 					  title: "Rapid prototyping of 3D DNA-origami shapes with caDNAno",
 					  journal: "Nucleic acids research 37 (15), 5001",
+					  issue: "2.1",
 					  doi: "10.1093/nar/gkp436",
 						toc: [
 							{
@@ -407,7 +434,7 @@
 					document.getElementById('m6.1')
 				)
 
-				// Milestone 8: BibTex
+				// Milestone 7: BibTex
 				bundle.React.renderComponent(
 					bundle.App(data),
 					document.getElementById('m7')
@@ -417,7 +444,7 @@
 					document.getElementById('m7.1')
 				)
 
-				// Milestone 7: Annotations
+				// Milestone 8: Annotations
 				data.data.annotations = {
 					innacuracy_count: 6,
 					interesting_count: 3,
@@ -428,6 +455,22 @@
 				bundle.React.renderComponent(
 					bundle.AnnotationsMilestone(data),
 					document.getElementById('m8')
+				)
+
+				// Milestone 9: journal
+				data.data.journal = {
+		      'name': 'PLOS',
+		      'about': 'Public Library of Science',
+		      'impact_factor': '2.1'
+		    }
+
+		    bundle.React.renderComponent(
+		    	bundle.App(data),
+		    	document.getElementById('m9')
+		    )
+				bundle.React.renderComponent(
+					bundle.JournalModal(data),
+					document.getElementById('m9.1')
 				)
 
 			})

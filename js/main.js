@@ -151,6 +151,7 @@ var CiteModal = require('./views/citeModal.jsx')
 var Figs = require('./views/figs.jsx')
 var Graph = require('./views/graph.jsx')
 var GraphModal = require('./views/graphModal.jsx')
+var JournalModal = require('./views/journalModal.jsx')
 var LinkOut = require('./components/linkOut.jsx')
 var NotificationBanner = require('./views/notificationBanner.jsx')
 var Publication = require('./views/publication.jsx')
@@ -202,5 +203,6 @@ if (chrome && chrome.runtime && chrome.runtime.onMessage) {
 		Supplement: Supplement,
 		TfIdf: TfIdf,
 		Toc: Toc,
+		JournalModal: JournalModal,
 	}
 }
