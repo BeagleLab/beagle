@@ -8,7 +8,7 @@ var Save = require('../components/save.jsx')
 var Tags = require('../components/tags.jsx')
 
 module.exports = React.createClass({
-
+	displayName: 'Annotations Milestone',
   render: function() {
 
     return (

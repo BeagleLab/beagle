@@ -16,7 +16,7 @@ var PublicationsList = require('../components/publicationsList.jsx')
 // }
 
 module.exports = React.createClass({
-
+	displayName: 'Author Modal',
 	render: function() {
 		return (
       <div className="panel-body">

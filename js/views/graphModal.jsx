@@ -2,6 +2,7 @@ var React = require('react')
 var PublicationList = require('../components/publicationsList.jsx')
 
 module.exports = React.createClass({
+	displayName: 'Graph Modal',
   render: function() {
     return (
       <div className="panel-body">

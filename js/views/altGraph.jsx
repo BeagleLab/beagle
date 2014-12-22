@@ -1,6 +1,7 @@
 var React = require('react')
 
 module.exports = React.createClass({
+	displayName: 'Alt Graph',
   render: function() {
     return (
       <div>

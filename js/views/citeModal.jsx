@@ -1,6 +1,7 @@
 var React = require('react')
 
 module.exports = React.createClass({
+	displayName: 'Cite Modal',
 	render: function() {
 		return (
       <div className="panel-body">

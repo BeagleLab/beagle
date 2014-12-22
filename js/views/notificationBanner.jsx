@@ -1,7 +1,7 @@
 var React = require('react');
 
 var NotificationBar = React.createClass({
-    displayName: 'NotificationBar',
+    displayName: 'Notification Bar',
     render: function () {
         return (
             <div className="notification-banner">{this.props.data}</div>

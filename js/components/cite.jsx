@@ -1,6 +1,7 @@
 var React = require('react')
 
 module.exports = React.createClass({
+	displayName: 'Cite',
   render: function() {
     return (
       <div id="other-btns" className="btn-group">

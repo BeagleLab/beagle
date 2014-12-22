@@ -2,6 +2,7 @@ var React = require('react')
 var TagsList = require('../components/tagsList.jsx')
 
 module.exports = React.createClass({
+	displayName: 'Tags Modal',
 	render: function() {
 		return (
 			<div className="panel-body">

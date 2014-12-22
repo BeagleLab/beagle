@@ -2,7 +2,7 @@ var React = require('react')
 var TagsListWrapper = require('../components/tagsListWrapper.jsx')
 
 module.exports = React.createClass({
-
+	displayName: 'Tags',
 	render: function() {
 		return (
 			<div>

@@ -1,7 +1,7 @@
 var React = require('react')
 
 module.exports = React.createClass({
-
+	displayName: 'Champion',
   render: function() {
     return (
       <div className="btn-group">
