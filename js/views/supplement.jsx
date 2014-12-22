@@ -17,7 +17,7 @@ var Supplement = React.createClass({
     displayName: 'Supplement',
     render: function () {
         return (
-            <div className="Supplement">
+            <div className="supplement">
 						  {this.props.data.map(function(supplement){
 						    return <ListWrapper key={supplement.id} data={supplement} />
 						  })}

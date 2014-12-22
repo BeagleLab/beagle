@@ -164,6 +164,7 @@ var Supplement = require('./views/supplement.jsx')
 var Abstract = require('./views/abstract.jsx')
 var Figs = require('./views/figs.jsx')
 var LinkOut = require('./components/linkOut.jsx')
+var Toc = require('./views/toc.jsx')
 
 // check if we're loading in the browser as an extension
 if (chrome && chrome.runtime && chrome.runtime.onMessage) {
@@ -200,5 +201,6 @@ if (chrome && chrome.runtime && chrome.runtime.onMessage) {
 		NotificationBanner: NotificationBanner,
 		SavedPapersModal: SavedPapersModal,
 		Supplement: Supplement,
+		Toc: Toc,
 	}
 }
