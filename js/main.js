@@ -163,6 +163,7 @@ var SavedPapersModal = require('./views/savedPapersModal.jsx')
 var Supplement = require('./views/supplement.jsx')
 var Abstract = require('./views/abstract.jsx')
 var Figs = require('./views/figs.jsx')
+var LinkOut = require('./components/linkOut.jsx')
 
 // check if we're loading in the browser as an extension
 if (chrome && chrome.runtime && chrome.runtime.onMessage) {
@@ -182,6 +183,7 @@ if (chrome && chrome.runtime && chrome.runtime.onMessage) {
 		Champion: Champion,
 		Figs: Figs,
 		Graph: Graph,
+		LinkOut: LinkOut,
 		Publication: Publication,
 		Save: Save,
 		Tags: Tags,
