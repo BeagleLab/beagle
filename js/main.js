@@ -160,6 +160,7 @@ var PublicationsListWrapper = require('./components/publicationsListWrapper.jsx'
 var CiteModal = require('./views/citeModal.jsx')
 var NotificationBanner = require('./views/notificationBanner.jsx')
 var SavedPapersModal = require('./views/savedPapersModal.jsx')
+var Supplement = require('./views/supplement.jsx')
 var Abstract = require('./views/abstract.jsx')
 var Figs = require('./views/figs.jsx')
 
@@ -172,7 +173,7 @@ if (chrome && chrome.runtime && chrome.runtime.onMessage) {
 	// Declare all modules you need here. See comments above.
 	window.bundle = {
 		React: React,
-
+		Abstract: Abstract,
 		Alert: Alert,
 		AltGraph: AltGraph,
 		Altmetrics: Altmetrics,
@@ -196,6 +197,6 @@ if (chrome && chrome.runtime && chrome.runtime.onMessage) {
 		CiteModal: CiteModal,
 		NotificationBanner: NotificationBanner,
 		SavedPapersModal: SavedPapersModal,
-		Abstract: Abstract
+		Supplement: Supplement,
 	}
 }

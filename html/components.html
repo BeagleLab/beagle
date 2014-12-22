@@ -24,6 +24,12 @@
 		img.figs {
 			max-height: 200px;
 		}
+		pre {
+			max-width: 75%;
+		}
+		.supplement-info .description {
+			font-weight: bold;
+		}
 		</style>
 		<div class="bs-docs-header" id="content">
 			<div class="container">
@@ -224,8 +230,19 @@
 					  </div>
 					</div>
 
+					<!-- Supplementary Component -->
+					<!-- ================================================== -->
+					<div class="bs-docs-section">
+					  <h1 id="plugin-open" class="page-header">Supplementary Information</h1>
+					  <p class="lead">Links to all supplementary Information</p>
+					  <p>Example data:</p>
+					  <pre id="supp-data"></pre>
+					  <div class="scinav">
+							<div id="supp"></div>
+					  </div>
+					</div>
+
 					<!-- To Do -->
-					<!-- Supplement Component -->
 					<!-- TOC Component -->
 
 					<!-- Modals -->
@@ -254,6 +271,8 @@
 							<li><a href="#tlist">Tags List</a></li>
 							<li><a href="#tlw">Tags List Wrapper</a></li>
 							<li><a href="#abstract">Abstract</a></li>
+							<li><a href="#figs">Figs</a></li>
+							<li><a href="#supp">Supplementary Info</a></li>
 							<li><a>===============</a></li>
 							<li><a href="/index.html">Milestones</a></li>
 
@@ -448,6 +467,27 @@
 				bundle.React.renderComponent(
 					bundle.Figs(figsData),
 					document.getElementById('figs')
+				)
+
+				// Component Supplementary Information
+				var suppData = {'data': [
+					{
+						'name': 'S1 Dataset',
+						'description': 'Phylogenetic data matrix in NEXUS format',
+						'doi': 'doi:10.1371/journal.pone.0115244.s001',
+						'type': 'NEX'
+					},
+					{
+						'name': 'S1 Text',
+						'description': 'Phylogenetic data matrix and character descriptions',
+						'doi': 'doi:10.1371/journal.pone.0115244.s002',
+						'type': 'DOCX'
+					}
+				]};
+				document.getElementById("supp-data").innerHTML = JSON.stringify(suppData, undefined, 2);
+				bundle.React.renderComponent(
+					bundle.Supplement(suppData),
+					document.getElementById('supp')
 				)
 			})
 		</script>
