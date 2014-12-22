@@ -160,6 +160,7 @@ var PublicationsListWrapper = require('./components/publicationsListWrapper.jsx'
 var CiteModal = require('./views/citeModal.jsx')
 var NotificationBanner = require('./views/notificationBanner.jsx')
 var SavedPapersModal = require('./views/savedPapersModal.jsx')
+var Abstract = require('./views/abstract.jsx')
 
 // check if we're loading in the browser as an extension
 if (chrome && chrome.runtime && chrome.runtime.onMessage) {
@@ -192,6 +193,7 @@ if (chrome && chrome.runtime && chrome.runtime.onMessage) {
 		PublicationsListWrapper: PublicationsListWrapper,
 		CiteModal: CiteModal,
 		NotificationBanner: NotificationBanner,
-		SavedPapersModal: SavedPapersModal
+		SavedPapersModal: SavedPapersModal,
+		Abstract: Abstract
 	}
 }

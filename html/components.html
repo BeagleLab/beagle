@@ -173,6 +173,16 @@
 					  </div>
 					</div>
 
+					<!-- Abstract Component -->
+					<!-- ================================================== -->
+					<div class="bs-docs-section">
+					  <h1 id="plugin-open" class="page-header">Abstract</h1>
+					  <p class="lead">Abstract text</p>
+					  <div class="scinav">
+							<div id="abstract"></div>
+					  </div>
+					</div>
+
 					<!-- To Do -->
 					<!-- Supplement Component -->
 					<!-- TOC Component -->
@@ -202,6 +212,7 @@
 							<li><a href="#plw">Publication List Wrapper</a></li>
 							<li><a href="#tlist">Tags List</a></li>
 							<li><a href="#tlw">Tags List Wrapper</a></li>
+							<li><a href="#abstract">Abstract</a></li>
 							<li><a>===============</a></li>
 							<li><a href="/index.html">Milestones</a></li>
 
@@ -355,6 +366,12 @@
 				bundle.React.renderComponent(
 					bundle.TagsListWrapper({data: 'tag1', className: "alert alert-info"}),
 					document.getElementById('tlw')
+				)
+
+				// Component Abstract
+				bundle.React.renderComponent(
+					bundle.Abstract({data: 'Hupehsuchia is a group of enigmatic Triassic marine reptiles that is known exclusively from two counties in Hubei Province, China. One of the common features of the group was a modestly long neck with nine to ten cervical vertebrae. We report a new species of Hupehsuchia, Eohupehsuchus brevicollis gen. et sp. nov., which for the first time shows a short neck in this group, with six cervicals. The configuration of the skull roof in Eohupehsuchus is also unique among Hupehsuchia, with narrow frontals and posteriorly shifted parietals, warranting recognition of a new species. The taxon superficially resembles Nanchangosaurus in retaining hupehsuchian plesiomorphies, such as low neural spines and small body size. However, its limbs are well-developed, unlike in Nanchangosaurus, although the latter genus is marginally larger in body length. Thus, the individual is unlikely to be immature'}),
+					document.getElementById('abstract')
 				)
 			})
 		</script>
