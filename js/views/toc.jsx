@@ -3,7 +3,13 @@ var React = require('react');
 
 var ListWrapper = React.createClass({
   render: function() {
-  	return <li><a href="#{this.props.data.anchor}" title={this.props.data.name}>{this.props.data.name}</a></li>
+  	return (
+  		<li>
+	  		<a href="#{this.props.data.anchor}" title={this.props.data.name}>
+		  		{this.props.data.name}
+	  		</a>
+	  	</li>
+	  )
   }
 });
 

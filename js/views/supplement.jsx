@@ -19,7 +19,7 @@ var Supplement = React.createClass({
         return (
             <div className="supplement">
 						  {this.props.data.map(function(supplement){
-						    return <ListWrapper key={supplement.id} data={supplement} />
+						    return <ListWrapper key={supplement.name.replace(' ','')} data={supplement} />
 						  })}
             </div>
         );

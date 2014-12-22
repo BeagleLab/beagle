@@ -164,6 +164,7 @@ var TagsList = require('./components/tagsList.jsx')
 var TagsListWrapper = require('./components/tagsListWrapper.jsx')
 var TagsModal = require('./views/tagsModal.jsx')
 var Toc = require('./views/toc.jsx')
+var TfIdf = require('./views/tfIdf.jsx')
 
 // check if we're loading in the browser as an extension
 if (chrome && chrome.runtime && chrome.runtime.onMessage) {
@@ -199,6 +200,7 @@ if (chrome && chrome.runtime && chrome.runtime.onMessage) {
 		NotificationBanner: NotificationBanner,
 		SavedPapersModal: SavedPapersModal,
 		Supplement: Supplement,
+		TfIdf: TfIdf,
 		Toc: Toc,
 	}
 }

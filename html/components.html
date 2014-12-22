@@ -273,6 +273,18 @@
 					  <pre id="toc-data"></pre>
 					</div>
 
+					<!-- tf-idf Component -->
+					<!-- ================================================== -->
+					<div class="bs-docs-section">
+					  <h1 id="plugin-open" class="page-header">tf-idf</h1>
+					  <p class="lead">Term Frequency–Inverse Document Frequency. Currently, this is just a list of words, although the data structure will most likely change.</p>
+					  <div class="scinav">
+							<div id="tf-idf"></div>
+					  </div>
+					  <p class="example-lead">Example data:</p>
+					  <pre id="tf-idf-data"></pre>
+					</div>
+
 					<!-- To Do -->
 					<!-- Modals -->
 					<!-- AuthorModal Component -->
@@ -304,6 +316,7 @@
 							<li><a href="#supp">Supplementary Info</a></li>
 							<li><a href="#link">Link Out</a></li>
 							<li><a href="#toc">Table of Contents</a></li>
+							<li><a href="#tf-odf">tf-idf</a></li>
 							<li><a>===============</a></li>
 							<li><a href="/index.html">Milestones</a></li>
 
@@ -537,14 +550,17 @@
 				// Component TOC
 				var tocData = {'data': [
 					{
+						'id': '1',
 						'name': 'Introduction',
 						'anchor': '#intro'
 					},
 					{
+						'id': '2',
 						'name': '1st Section',
 						'anchor': '#section1'
 					},
 					{
+						'id': '3',
 						'name': 'Conclusion',
 						'anchor': '#conclusion'
 					}
@@ -553,6 +569,16 @@
 				bundle.React.renderComponent(
 					bundle.Toc(tocData),
 					document.getElementById('toc')
+				)
+
+				// Component tf-idf
+				var tfIdfData = {'data': [
+					'example', 'example', 'example'
+				]};
+				document.getElementById("tf-idf-data").innerHTML = JSON.stringify(tfIdfData, undefined, 2);
+				bundle.React.renderComponent(
+					bundle.TfIdf(tfIdfData),
+					document.getElementById('tf-idf')
 				)
 			})
 		</script>
