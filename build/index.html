@@ -17,6 +17,19 @@
 		.scinav.sidebar {
 			width: 150px;
 		}
+		.panel.panel-default {
+			margin: 10px 0px;
+		}
+		.panel-heading {
+			padding: 5px;
+		}
+		.panel-title a {
+			font-size: 12px;
+			text-decoration: none;
+		}
+		.panel-title a:hover {
+			text-decoration: none;
+		}
 		</style>
 		<div class="bs-docs-header" id="content">
 			<div class="container">
@@ -279,6 +292,20 @@
 					  title: "Rapid prototyping of 3D DNA-origami shapes with caDNAno",
 					  journal: "Nucleic acids research 37 (15), 5001",
 					  doi: "10.1093/nar/gkp436",
+						toc: [
+							{
+								'name': 'Introduction',
+								'anchor': '#intro'
+							},
+							{
+								'name': '1st Section',
+								'anchor': '#section1'
+							},
+							{
+								'name': 'Conclusion',
+								'anchor': '#conclusion'
+							}
+						],
 						cited_by: [
 							'Lectures on Physics 1',
 							'Lectures on Physics 2',
@@ -342,23 +369,6 @@
 				)
 
 				// Milestone 4: Publication Graph
-				// data.data.publication = {
-				// 	cited: [
-				// 		'Lectures on Physics 1',
-				// 		'Lectures on Physics 2',
-				// 		'Lectures on Physics 3'
-				// 	],
-				// 	cites: [
-				// 		'Lectures on Physics 4',
-				// 		'Lectures on Physics 5',
-				// 		'Lectures on Physics 6'
-				// 	],
-				// 	related: [
-				// 		'Lectures on Physics 7',
-				// 		'Lectures on Physics 8',
-				// 		'Lectures on Physics 9'
-				// 	]
-				// }
 				bundle.React.renderComponent(
 					bundle.App(data),
 					document.getElementById('m4')
