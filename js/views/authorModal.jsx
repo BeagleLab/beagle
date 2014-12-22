@@ -1,6 +1,7 @@
 var React = require('react')
 var Save = require('../components/save.jsx')
 var PublicationsList = require('../components/publicationsList.jsx')
+var Contact = require('../components/contact.jsx')
 
 // Example data
 // var author = {
@@ -29,7 +30,11 @@ module.exports = React.createClass({
               <li>{this.props.data.author.department}</li>
             </ul>
 
-            <Save />
+            <Contact data={this.props.data} /><br />
+
+            <div className='graph-container'>
+            	<img className='graph' src={this.props.data.author.graph} />
+            </div>
 
           </div>
           <div className="publications">
