@@ -167,6 +167,9 @@ var TagsListWrapper = require('./components/tagsListWrapper.jsx')
 var TagsModal = require('./views/tagsModal.jsx')
 var Toc = require('./views/toc.jsx')
 var TfIdf = require('./views/tfIdf.jsx')
+var SignIn = require('./components/signIn.jsx')
+var SignOut = require('./components/signOut.jsx')
+var SignUpMilestone = require('./milestones/signUpMilestone.jsx')
 
 // check if we're loading in the browser as an extension
 if (chrome && chrome.runtime && chrome.runtime.onMessage) {
@@ -202,9 +205,12 @@ if (chrome && chrome.runtime && chrome.runtime.onMessage) {
 		CiteModal: CiteModal,
 		NotificationBanner: NotificationBanner,
 		SavedPapersModal: SavedPapersModal,
+		SignIn: SignIn,
+		SignOut: SignOut,
 		Supplement: Supplement,
 		TfIdf: TfIdf,
 		Toc: Toc,
 		JournalModal: JournalModal,
+		SignUpMilestone: SignUpMilestone,
 	}
 }

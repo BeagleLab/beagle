@@ -297,6 +297,27 @@
 					  <pre id="contact-data"></pre>
 					</div>
 
+					<!-- Component Sign In -->
+					<!-- ================================================== -->
+					<div class="bs-docs-section">
+					  <h1 id="plugin-open" class="page-header">Sign In</h1>
+					  <p class="lead">This is the Sign In // Sign Up component. It is unclear how we are going to do this; most data and capabilities are available to the user without needing to sign in. However note taking, annotation, and saving papers is not possible without signing in. If we're doing it in a modal, use it at this scale; otherwise, remove all other panels from the side panel and display just this.</p>
+					  <div class="scinav">
+							<div id="sign-in"></div>
+					  </div>
+					</div>
+
+					<!-- Component Sign In -->
+					<!-- ================================================== -->
+					<div class="bs-docs-section">
+					  <h1 id="plugin-open" class="page-header">Sign Out</h1>
+					  <p class="lead">The Sign Out button, which should be at the bottom of the sidebar.</p>
+					  <div class="scinav">
+							<div id="sign-out"></div>
+					  </div>
+					</div>
+
+
 				</div>
 
 				<div class="col-md-3">
@@ -323,6 +344,8 @@
 							<li><a href="#toc">Table of Contents</a></li>
 							<li><a href="#tf-odf">tf-idf</a></li>
 							<li><a href="#contact">Contact</a></li>
+							<li><a href="#sign-in">Sign In</a></li>
+							<li><a href="#sign-out">Sign Out</a></li>
 							<li><a>===============</a></li>
 							<li><a href="/index.html">Milestones</a></li>
 
@@ -608,6 +631,19 @@
 				bundle.React.renderComponent(
 					bundle.Contact(contactData),
 					document.getElementById('contact')
+				)
+
+
+				// Component Sign In
+				bundle.React.renderComponent(
+					bundle.SignIn(),
+					document.getElementById('sign-in')
+				)
+
+				// Component Sign out
+				bundle.React.renderComponent(
+					bundle.SignOut(),
+					document.getElementById('sign-out')
 				)
 			})
 		</script>

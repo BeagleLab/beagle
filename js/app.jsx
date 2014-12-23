@@ -9,6 +9,7 @@ var Publication = require('./views/publication.jsx')
 var Save = require('./components/save.jsx')
 var Tags = require('./components/tags.jsx')
 var Toc = require('./views/toc.jsx')
+var SignOut = require('./components/signOut.jsx')
 
 module.exports = React.createClass({
 
@@ -44,6 +45,8 @@ module.exports = React.createClass({
 
 	        <h6>Cite</h6>
 	        <Cite />
+
+	        <SignOut />
 				</div>
       </div>
     )

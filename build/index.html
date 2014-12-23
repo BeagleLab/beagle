@@ -34,6 +34,11 @@
 			max-width: 100%;
 			padding: 10px 10px 10px 0px;
 		}
+		.return {
+			text-align: center;
+			font-size: 10px;
+			margin-top: 30px;
+		}
 		</style>
 		<div class="bs-docs-header" id="content">
 			<div class="container">
@@ -252,7 +257,22 @@
 
 					</div>
 
+					<!-- ================================================== -->
 
+					<div class="bs-docs-section">
+					  <h1 id="auth" class="page-header">Milestone 10: User Authentication</h1>
+
+					  <p class="lead">
+					    On trying to save, annotate, or take notes, the user is prompted to either sign in to a persistent session, or to sign up using their email and a password (or, perhaps, we simply email them the password, and they set a new one each time by checking their email, and we don't store anything). This temporarily removes the sidebar.
+					  </p>
+
+					  <div class="paper-example">
+							<div class="scinav sidebar inject-margin"></div>
+							<img id="paper" src="" />
+							<div id="m10"></div>
+						</div>
+
+					</div>
 
 					<!-- ================================================== -->
 					<div id="inject-margin" class="hidden">
@@ -278,6 +298,7 @@
 							<li><a href="#saved-papers">M7: Saved Papers</a></li>
 							<li><a href="#annotations">M8: Annotations</a></li>
 							<li><a href="#journal">M9: Journal Information</a></li>
+							<li><a href="#auth">M10: User Authentication</a></li>
 							<li><a>===============</a></li>
 							<li><a href="/components.html">Components</a></li>
 
@@ -479,6 +500,15 @@
 					bundle.JournalModal(data),
 					document.getElementById('m9.1')
 				)
+
+				// Milestone 10: Authentication
+				var unAuthError = 'You are not authenticated!'
+
+				bundle.React.renderComponent(
+					bundle.SignUpMilestone(unAuthError),
+					document.getElementById('m10')
+				)
+
 
 			})
 		</script>
