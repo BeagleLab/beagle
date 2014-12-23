@@ -1,11 +1,12 @@
 var React = require('react')
 var TagsList = require('../components/tagsList.jsx')
+var Modal = require('../components/modal.jsx')
 
 module.exports = React.createClass({
 	displayName: 'Tags Modal',
 	render: function() {
 		return (
-			<div className="panel-body">
+			<Modal>
 
 	      <h4 className="gray">Tags</h4>
 	      <p className="lead">{this.props.data.title}</p>
@@ -19,7 +20,7 @@ module.exports = React.createClass({
 	      <h5>All Other Public Tags:</h5>
 	      <TagsList className={'alert alert-warning'} data={this.props.data.tags.public_tags} />
 
-      </div>
+      </Modal>
 		)
 	}
 })

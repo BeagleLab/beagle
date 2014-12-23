@@ -2,25 +2,13 @@ var React = require('react')
 var Save = require('../components/save.jsx')
 var PublicationsList = require('../components/publicationsList.jsx')
 var Contact = require('../components/contact.jsx')
-
-// Example data
-// var author = {
-// 	'name': 'Richard Feynman',
-// 	'university': 'CIT',
-// 	'department': 'Physics',
-// 	'photo': 'http://upload.wikimedia.org/wikipedia/en/4/42/Richard_Feynman_Nobel.jpg',
-// 	'publications': [
-// 		'Lectures on Physics 1',
-// 		'Lectures on Physics 2',
-// 		'Lectures on Physics 3'
-// 	]
-// }
+var Modal = require('../components/modal.jsx')
 
 module.exports = React.createClass({
 	displayName: 'Author Modal',
 	render: function() {
 		return (
-      <div className="panel-body">
+      <Modal>
         <div className="profile-header">
           <img className="profile-image" src={this.props.data.author.photo} />
           <div className="profile-header-info">
@@ -44,7 +32,7 @@ module.exports = React.createClass({
 
           </div>
         </div>
-      </div>
+      </Modal>
 		)
 	}
 })

@@ -1,10 +1,11 @@
 var React = require('react')
+var Modal = require('../components/modal.jsx')
 
 module.exports = React.createClass({
 	displayName: 'Cite Modal',
 	render: function() {
 		return (
-      <div className="panel-body">
+      <Modal>
 
 				<h4 className="gray">Bibliography</h4>
 				<p className="lead">{this.props.data.title}</p>
@@ -34,7 +35,7 @@ module.exports = React.createClass({
 					} */}
 				</pre>
 
-			</div>
+			</Modal>
 		)
 	}
 })

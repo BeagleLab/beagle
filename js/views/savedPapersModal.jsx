@@ -1,5 +1,7 @@
 var React = require('react')
 var PublicationsList = require('../components/publicationsList.jsx')
+var Modal = require('../components/modal.jsx')
+
 
 module.exports = React.createClass({
 	displayName: 'Saved Papers Modal',
@@ -8,7 +10,7 @@ module.exports = React.createClass({
 		var paperlist = ['This is a paper', 'this is a paper']
 
 		return (
-      <div className="panel-body">
+      <Modal>
 
 				<h4 className="gray">My Papers</h4>
 
@@ -21,7 +23,7 @@ module.exports = React.createClass({
 				<br />
 				<PublicationsList data={paperlist} />
 
-			</div>
+			</Modal>
 		)
 	}
 })

@@ -1,11 +1,12 @@
 var React = require('react')
+var Modal = require('../components/modal.jsx')
 var PublicationList = require('../components/publicationsList.jsx')
 
 module.exports = React.createClass({
 	displayName: 'Graph Modal',
   render: function() {
     return (
-      <div className="panel-body">
+      <Modal>
         <h4 className="gray">Publication Graph</h4>
         <p className="lead">{this.props.data.title}</p>
 
@@ -17,7 +18,7 @@ module.exports = React.createClass({
 
         <h5>Related to {this.props.data.publication.related.length}:</h5>
         <PublicationList data={this.props.data.publication.related} />
-      </div>
+      </Modal>
     )
   }
 })
