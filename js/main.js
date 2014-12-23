@@ -155,6 +155,7 @@ var GraphModal = require('./views/graphModal.jsx')
 var JournalModal = require('./views/journalModal.jsx')
 var LinkOut = require('./components/linkOut.jsx')
 var NotificationBanner = require('./views/notificationBanner.jsx')
+var PaperModal = require('./views/paperModal.jsx')
 var Publication = require('./views/publication.jsx')
 var PublicationsList = require('./components/publicationsList.jsx')
 var PublicationsListWrapper = require('./components/publicationsListWrapper.jsx')
@@ -212,5 +213,6 @@ if (chrome && chrome.runtime && chrome.runtime.onMessage) {
 		Toc: Toc,
 		JournalModal: JournalModal,
 		SignUpMilestone: SignUpMilestone,
+		PaperModal: PaperModal,
 	}
 }

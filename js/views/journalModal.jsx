@@ -26,7 +26,7 @@ module.exports = React.createClass({
 				<p>Impact Factor {this.props.data.journal.impact_factor}</p>
 
 				<h6>Current Paper:</h6> {this.props.data.publication.title}
-				<h6>Issue:</h6> {this.props.data.publication.issue}
+				<h6>Issue: {this.props.data.publication.issue}</h6>
 
 			</div>
 		)

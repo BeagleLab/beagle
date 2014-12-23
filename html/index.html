@@ -275,6 +275,27 @@
 					</div>
 
 					<!-- ================================================== -->
+
+					<div class="bs-docs-section">
+					  <h1 id="paper-info" class="page-header">Milestone 11: Paper Information</h1>
+
+					  <p class="lead">
+					    For papers that are not currently in the browser, but are linked to by Beagle.
+					  </p>
+
+					  <div class="paper-example">
+							<div class="scinav sidebar inject-margin">
+								<div class="subpanel profile panel panel-default">
+						      <div id="m11.1"></div>
+					      </div>
+							</div>
+							<img id="paper" src="" />
+							<div id="m11"></div>
+						</div>
+
+					</div>
+
+					<!-- ================================================== -->
 					<div id="inject-margin" class="hidden">
 
 					  <div class="margin">
@@ -299,6 +320,7 @@
 							<li><a href="#annotations">M8: Annotations</a></li>
 							<li><a href="#journal">M9: Journal Information</a></li>
 							<li><a href="#auth">M10: User Authentication</a></li>
+							<li><a href="#paper-info">M11: Paper Information</a></li>
 							<li><a>===============</a></li>
 							<li><a href="/components.html">Components</a></li>
 
@@ -341,6 +363,36 @@
 					title: 'This is an example title',
 				  publication: {
 				  	id: '136172',
+				  	author: [
+				  		{
+								'email': 'test@gmail.com',
+								'department': 'Physics',
+								'graph': 'images/graph.png',
+								'name': 'Richard Feynman',
+								'photo': 'http://upload.wikimedia.org/wikipedia/en/4/42/Richard_Feynman_Nobel.jpg',
+								'publications': [
+									'Lectures on Physics 1',
+									'Lectures on Physics 2',
+									'Lectures on Physics 3'
+								],
+								'university': 'CIT',
+								'website': '#website',
+							},
+				  		{
+								'email': 'test@gmail.com',
+								'department': 'Linguistics',
+								'graph': 'images/graph.png',
+								'name': 'Noam Chomsky',
+								'photo': 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Chomsky.jpg/460px-Chomsky.jpg'	,
+								'publications': [
+									'Lectures on Physics 1',
+									'Lectures on Physics 2',
+									'Lectures on Physics 3'
+								],
+								'university': 'CIT',
+								'website': '#website',
+							}
+				  	],
 					  title: "Rapid prototyping of 3D DNA-origami shapes with caDNAno",
 					  journal: "Nucleic acids research 37 (15), 5001",
 					  issue: "2.1",
@@ -378,7 +430,6 @@
 							'Lectures on Physics 9'
 						],
 					  cited_by_tweeters_count: "9001",
-					  subjects: ['tag1', 'tag2'],
 					  subjects: ['tag1', 'tag2'],
 					}
 				}
@@ -509,7 +560,21 @@
 					document.getElementById('m10')
 				)
 
+				// Milestone 11: Paper
+				data.data.journal = {
+		      'name': 'PLOS',
+		      'about': 'Public Library of Science',
+		      'impact_factor': '2.1'
+		    }
 
+		    bundle.React.renderComponent(
+		    	bundle.App(data),
+		    	document.getElementById('m11')
+		    )
+				bundle.React.renderComponent(
+					bundle.PaperModal(data),
+					document.getElementById('m11.1')
+				)
 			})
 		</script>
 		<script type="text/javascript">
