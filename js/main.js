@@ -1,9 +1,8 @@
-"use strict()";
+"use strict";
 
-var optional = require('optional')
 var fs = require('fs')
 var _ = require('lodash')
-var $ = require('jquery')
+// var $ = require('jquery')
 
 // Display modules
 var style = require('beagle-style')
@@ -67,11 +66,13 @@ function handleRequest(
 								throw (new Error('Could not read the PDF'))
 							}
 
-							if (altmetricsData) buildView(modules, {
-								data: {
-									altmetrics: altmetricsData,
-								}
-							})
+							if (altmetricsData) {
+                buildView(modules, {
+  								data: {
+  									altmetrics: altmetricsData,
+  								}
+  							})
+              }
 						});
 					} else {
 						console.log('Not a pdf.');
