@@ -39,6 +39,12 @@
 			font-size: 10px;
 			margin-top: 30px;
 		}
+		.note-input textarea {
+			height: 300px;
+		}
+		.save-section {
+			float: right;
+		}
 		</style>
 		<div class="bs-docs-header" id="content">
 			<div class="container">
@@ -259,7 +265,7 @@
 
 					<!-- ================================================== -->
 
-					<div class="bs-docs-section">
+					<div class="bs-docs-section" id="auth">
 					  <h1 id="auth" class="page-header">Milestone 10: User Authentication</h1>
 
 					  <p class="lead">
@@ -276,7 +282,7 @@
 
 					<!-- ================================================== -->
 
-					<div class="bs-docs-section">
+					<div class="bs-docs-section" id="paper-info">
 					  <h1 id="paper-info" class="page-header">Milestone 11: Paper Information</h1>
 
 					  <p class="lead">
@@ -291,6 +297,27 @@
 							</div>
 							<img id="paper" src="" />
 							<div id="m11"></div>
+						</div>
+
+					</div>
+
+					<!-- ================================================== -->
+
+					<div class="bs-docs-section" id="notes">
+					  <h1 id="paper-info" class="page-header">Milestone 12: Notes</h1>
+
+					  <p class="lead">
+					    Save a high-level note about a paper when you save the paper
+					  </p>
+
+					  <div class="paper-example">
+							<div class="scinav sidebar inject-margin">
+								<div class="subpanel profile panel panel-default">
+						      <div id="m12.1"></div>
+					      </div>
+							</div>
+							<img id="paper" src="" />
+							<div id="m12"></div>
 						</div>
 
 					</div>
@@ -321,6 +348,7 @@
 							<li><a href="#journal">M9: Journal Information</a></li>
 							<li><a href="#auth">M10: User Authentication</a></li>
 							<li><a href="#paper-info">M11: Paper Information</a></li>
+							<li><a href="#notes">M12: Notes</a></li>
 							<li><a>===============</a></li>
 							<li><a href="/components.html">Components</a></li>
 
@@ -574,6 +602,16 @@
 				bundle.React.renderComponent(
 					bundle.PaperModal(data),
 					document.getElementById('m11.1')
+				)
+
+				// Milestone 12: Save a note on the paper
+		    bundle.React.renderComponent(
+		    	bundle.App(data),
+		    	document.getElementById('m12')
+		    )
+				bundle.React.renderComponent(
+					bundle.NoteModal(),
+					document.getElementById('m12.1')
 				)
 			})
 		</script>
