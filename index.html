@@ -18,9 +18,10 @@
   </style>
 </head>
 <body>
-  <object data="examples/example.pdf" type="application/pdf" width="100%" height="100%">
-    <p>Alt: Link <a href="examples/example.pdf">to the PDF!</a></p>
+  <object data="http://static.benet.ai/t/ipfs.pdf" type="application/pdf" width="100%" height="100%">
+    <p>Alt: Link <a href="http://static.benet.ai/t/ipfs.pdf">to the PDF!</a></p>
   </object>
+  <div id="sidebar"></div>
   <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.1/underscore-min.js"></script>
   <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
   <link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
@@ -120,7 +121,7 @@
       // Bundle it up
       bundle.React.renderComponent(
         bundle.App(data),
-        document.getElementById('m1')
+        document.getElementById('sidebar')
       )
     });
   </script>
