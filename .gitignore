@@ -1,6 +1,5 @@
 node_modules
 examples
 .jshintrc
-build/
 *.sublime-project
 *.sublime-workspace

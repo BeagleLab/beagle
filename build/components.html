@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset='utf-8'>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>Beagle - All Views</title>
+		<link href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet" />
+		<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+		<link href="static/docs.min.css" media="all" rel="stylesheet" type="text/css" />
+		<script src="bundle.min.js"></script>
+		<link href="bundle.min.css" media="all" rel="stylesheet" type="text/css" />
+		<link href="static/style.min.css" media="all" rel="stylesheet" type="text/css" />
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	</head>
+	<body>
+		<style>
+		.scinav {
+			width: 300px;
+		}
+		.notification-banner {
+			position: static;
+			width: 100%;
+		}
+		img.figs {
+			max-height: 200px;
+		}
+		pre {
+			max-width: 75%;
+			font-size: 10px;
+		}
+		.supplement-info .description {
+			font-weight: bold;
+		}
+		.example-lead {
+			border-top: 1px solid #e7e7e7;
+			max-width: 75%;
+			margin-top: 30px;
+			padding-top: 15px;
+		}
+		</style>
+		<div class="bs-docs-header" id="content">
+			<div class="container">
+				<h1>Beagle.prototype.v1</h1>
+				<p>This is a mock of what the interface looks like with the current React templates.
+				Please comment by <a href="http://github.com/BeagleLab/voyage/issues/new">posting an issue</a>.
+				</p>
+			</div>
+		</div>
+		<div class="container bs-docs-container">
+
+			<div class="row">
+				<div class="col-md-9" role="main">
+					<!-- Component: Alerts -->
+					<!-- ================================================== -->
+					<div class="bs-docs-section">
+					  <h1 id="plugin-open" class="page-header">Notifications</h1>
+					  <p class="lead">These are the default alerts.</p>
+					  <div class="scinav">
+							<div id="alert"></div>
+					  </div>
+					  <p class="example-lead">Example data:</p>
+					  <pre id="alert-data"></pre>
+					</div>
+
+					<!-- Notification Banner Component -->
+					<!-- ================================================== -->
+					<div class="bs-docs-section">
+					  <h1 id="plugin-open" class="page-header">Notification Banner</h1>
+					  <p class="lead">This is a separate, stand alone notification banner</p>
+					  <div class="scinav">
+							<div id="notification-banner"></div>
+					  </div>
+						<p class="example-lead">Example data:</p>
+					  <pre id="notification-banner-data"></pre>
+					</div>
+
+					<!-- Component: Save panel -->
+					<!-- ================================================== -->
+					<div class="bs-docs-section">
+					  <h1 id="plugin-open" class="page-header">Save</h1>
+					  <div class="scinav">
+							<div id="save"></div>
+					  </div>
+					  <p class="example-lead">Example data:</p>
+					  <pre id="save-data"></pre>
+					</div>
+
+					<!-- Component: Publication -->
+					<!-- ================================================== -->
+					<div class="bs-docs-section">
+					  <h1 id="plugin-open" class="page-header">Publication Data</h1>
+					  <p class="lead">This is the Publication data box</p>
+					  <div class="scinav">
+							<div id="publication"></div>
+					  </div>
+					  <p class="example-lead">Example data:</p>
+					  <pre id="publication-data"></pre>
+					</div>
+
+					<!-- Component: Graph -->
+					<!-- ================================================== -->
+					<div class="bs-docs-section">
+					  <h1 id="plugin-open" class="page-header">Graph</h1>
+					  <p class="lead">This is the Citation Graph section</p>
+					  <div class="scinav">
+							<div id="graph"></div>
+					  </div>
+					  <p class="example-lead">Example data:</p>
+					  <pre id="graph-data"></pre>
+					</div>
+
+					<!-- Component: AltGraph -->
+					<!-- ================================================== -->
+					<div class="bs-docs-section">
+					  <h1 id="plugin-open" class="page-header">AltGraph</h1>
+					  <p class="lead">This is the Alternative Metrics section</p>
+					  <div class="scinav">
+							<div id="alt-graph"></div>
+					  </div>
+					  <p class="example-lead">Example data:</p>
+					  <pre id="alt-graph-data"></pre>
+					</div>
+
+					<!-- Component Tags -->
+					<!-- ================================================== -->
+					<div class="bs-docs-section">
+					  <h1 id="plugin-open" class="page-header">Tags</h1>
+					  <p class="lead">This is what Tags look like.</p>
+					  <div class="scinav">
+							<div id="tags"></div>
+					  </div>
+					  <p class="example-lead">Example data:</p>
+					  <pre id="tags-data"></pre>
+					</div>
+
+					<!-- Component Champion -->
+					<!-- ================================================== -->
+					<div class="bs-docs-section">
+					  <h1 id="plugin-open" class="page-header">Champion</h1>
+					  <p class="lead">This is the champion email box</p>
+					  <div class="scinav">
+							<div id="champion"></div>
+					  </div>
+					</div>
+
+					<!-- Component Annotations -->
+					<!-- ================================================== -->
+					<div class="bs-docs-section">
+					  <h1 id="plugin-open" class="page-header">Annotations</h1>
+					  <p class="lead">This is the Annotations box</p>
+					  <div class="scinav">
+							<div id="annotations"></div>
+					  </div>
+					  <p class="example-lead">Example data:</p>
+					  <pre id="annotations-data"></pre>
+					</div>
+
+					<!-- Component Cite -->
+					<!-- ================================================== -->
+					<div class="bs-docs-section">
+					  <h1 id="plugin-open" class="page-header">Cite</h1>
+					  <p class="lead">This is the Cite box</p>
+					  <div class="scinav">
+							<div id="cite"></div>
+					  </div>
+					</div>
+
+					<!-- Publications List -->
+					<!-- ================================================== -->
+					<div class="bs-docs-section">
+					  <h1 id="plugin-open" class="page-header">Publications List</h1>
+					  <p class="lead">A resuable list component</p>
+					  <div class="scinav">
+							<div id="plist"></div>
+					  </div>
+					  <p class="example-lead">Example data:</p>
+					  <pre id="plist-data"></pre>
+					</div>
+
+					<!-- Publications List Wrapper Component -->
+					<!-- ================================================== -->
+					<div class="bs-docs-section">
+					  <h1 id="plugin-open" class="page-header">Publications List Wrapper</h1>
+					  <p class="lead">A resuable mini component, inside Publications List</p>
+					  <div class="scinav">
+							<div id="plw"></div>
+					  </div>
+					  <p class="example-lead">Example data:</p>
+					  <pre id="plw-data"></pre>
+					</div>
+
+					<!-- Tags List -->
+					<!-- ================================================== -->
+					<div class="bs-docs-section">
+					  <h1 id="plugin-open" class="page-header">Tags List</h1>
+					  <p class="lead">A resuable list component</p>
+					  <div class="scinav">
+							<div id="tlist"></div>
+					  </div>
+					  <p class="example-lead">Example data:</p>
+					  <pre id="tlist-data"></pre>
+					</div>
+
+					<!-- Tags List Wrapper Component -->
+					<!-- ================================================== -->
+					<div class="bs-docs-section">
+					  <h1 id="plugin-open" class="page-header">Tags List Wrapper</h1>
+					  <p class="lead">A resuable mini component, inside Tags List</p>
+					  <div class="scinav">
+							<div id="tlw"></div>
+					  </div>
+					  <p class="example-lead">Example data:</p>
+					  <pre id="tlw-data"></pre>
+					</div>
+
+					<!-- Abstract Component -->
+					<!-- ================================================== -->
+					<div class="bs-docs-section">
+					  <h1 id="plugin-open" class="page-header">Abstract</h1>
+					  <p class="lead">Abstract text</p>
+					  <div class="scinav">
+							<div id="abstract"></div>
+					  </div>
+					  <p class="example-lead">Example data:</p>
+					  <pre id="abstract-data"></pre>
+					</div>
+
+					<!-- Figs Component -->
+					<!-- ================================================== -->
+					<div class="bs-docs-section">
+					  <h1 id="plugin-open" class="page-header">Figs</h1>
+					  <p class="lead">Figures taken directly from the PDF</p>
+					  <div class="scinav">
+							<div id="figs"></div>
+					  </div>
+					  <p class="example-lead">Example data:</p>
+					  <pre id="figs-data"></pre>
+					</div>
+
+					<!-- Supplementary Component -->
+					<!-- ================================================== -->
+					<div class="bs-docs-section">
+					  <h1 id="plugin-open" class="page-header">Supplementary Information</h1>
+					  <p class="lead">Links to all supplementary Information</p>
+					  <div class="scinav">
+							<div id="supp"></div>
+					  </div>
+					  <p class="example-lead">Example data:</p>
+					  <pre id="supp-data"></pre>
+					</div>
+
+					<!-- Link Out Component -->
+					<!-- ================================================== -->
+					<div class="bs-docs-section">
+					  <h1 id="plugin-open" class="page-header">Link Out Icon</h1>
+					  <p class="lead">Adds an icon with a title for linking out</p>
+					  <div class="scinav">
+							<div id="link"></div>
+					  </div>
+					  <p class="example-lead">Example data:</p>
+					  <pre id="link-data"></pre>
+					</div>
+
+					<!-- Table of Contents Component -->
+					<!-- ================================================== -->
+					<div class="bs-docs-section">
+					  <h1 id="plugin-open" class="page-header">Table of Contents</h1>
+					  <p class="lead">Shows each section title and links to each section anchor</p>
+					  <div class="scinav">
+							<div id="toc"></div>
+					  </div>
+					  <p class="example-lead">Example data:</p>
+					  <pre id="toc-data"></pre>
+					</div>
+
+					<!-- tf-idf Component -->
+					<!-- ================================================== -->
+					<div class="bs-docs-section">
+					  <h1 id="plugin-open" class="page-header">tf-idf</h1>
+					  <p class="lead">Term Frequency–Inverse Document Frequency. Currently, this is just a list of words, although the data structure will most likely change.</p>
+					  <div class="scinav">
+							<div id="tf-idf"></div>
+					  </div>
+					  <p class="example-lead">Example data:</p>
+					  <pre id="tf-idf-data"></pre>
+					</div>
+
+					<!-- Contact Component -->
+					<!-- ================================================== -->
+					<div class="bs-docs-section">
+					  <h1 id="plugin-open" class="page-header">Contact</h1>
+					  <p class="lead">Website, media, and email for an author</p>
+					  <div class="scinav">
+							<div id="contact"></div>
+					  </div>
+					  <p class="example-lead">Example data:</p>
+					  <pre id="contact-data"></pre>
+					</div>
+
+					<!-- Component Sign In -->
+					<!-- ================================================== -->
+					<div class="bs-docs-section">
+					  <h1 id="plugin-open" class="page-header">Sign In</h1>
+					  <p class="lead">This is the Sign In // Sign Up component. It is unclear how we are going to do this; most data and capabilities are available to the user without needing to sign in. However note taking, annotation, and saving papers is not possible without signing in. If we're doing it in a modal, use it at this scale; otherwise, remove all other panels from the side panel and display just this.</p>
+					  <div class="scinav">
+							<div id="sign-in"></div>
+					  </div>
+					</div>
+
+					<!-- Component Sign In -->
+					<!-- ================================================== -->
+					<div class="bs-docs-section">
+					  <h1 id="plugin-open" class="page-header">Sign Out</h1>
+					  <p class="lead">The Sign Out button, which should be at the bottom of the sidebar.</p>
+					  <div class="scinav">
+							<div id="sign-out"></div>
+					  </div>
+					</div>
+
+
+				</div>
+
+				<div class="col-md-3">
+					<div class="bs-docs-sidebar hidden-print" role="complementary">
+						<ul class="nav bs-docs-sidenav">
+							<li>Components</li>
+							<li><a href="#alert">Notifications</a></li>
+							<li><a href="#save">Save</a></li>
+							<li><a href="#publication">Publication</a></li>
+							<li><a href="#graph">Graph</a></li>
+							<li><a href="#altGraph">AltGraph</a></li>
+							<li><a href="#tags">Tags</a></li>
+							<li><a href="#champion">Champion</a></li>
+							<li><a href="#annotations">Annotations</a></li>
+							<li><a href="#cite">Cite</a></li>
+							<li><a href="#plist">Publication List</a></li>
+							<li><a href="#plw">Publication List Wrapper</a></li>
+							<li><a href="#tlist">Tags List</a></li>
+							<li><a href="#tlw">Tags List Wrapper</a></li>
+							<li><a href="#abstract">Abstract</a></li>
+							<li><a href="#figs">Figs</a></li>
+							<li><a href="#supp">Supplementary Info</a></li>
+							<li><a href="#link">Link Out</a></li>
+							<li><a href="#toc">Table of Contents</a></li>
+							<li><a href="#tf-odf">tf-idf</a></li>
+							<li><a href="#contact">Contact</a></li>
+							<li><a href="#sign-in">Sign In</a></li>
+							<li><a href="#sign-out">Sign Out</a></li>
+							<li><a>===============</a></li>
+							<li><a href="/index.html">Milestones</a></li>
+
+						</ul>
+						<a class="back-to-top" href="#top">
+							Back to top
+						</a>
+					</div>
+				</div>
+
+			</div>
+		</div>
+
+		<footer class="bs-docs-footer" role="contentinfo">
+			Made by <a href="https://github.com/RichardLitt">Richard</a> and <a href="https://github.com/jbenet">Juan </a>
+		</footer>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.1/underscore-min.js"></script>
+		<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+		<link href="//netdna.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+		<script src="//cdnjs.cloudflare.com/ajax/libs/typeahead.js/0.9.3/typeahead.min.js"></script>
+		<script src="static/docs.min.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				function inject(id) {
+					// console.log(id)
+					var c = $("#inject-" + id).contents()
+					// console.log(c)
+					// console.log($(".inject-" + id))
+					$(".inject-" + id).append(c)
+				}
+				inject("main-panel");
+				inject("margin");
+				$('[data-toggle=tooltip]').tooltip()
+				$('img#paper').attr('src', 'https://www.evernote.com/shard/s198/sh/568f644d-9363-4727-8294-20de7680bbc4/b324078ee29bfbff11dadb243383cf27/deep/0/jbenet.static.s3.amazonaws.com-0525f90-ipfs-the-permanent-web.pdf.png')
+
+
+				// Component: Alert
+				var failedData = {
+					'data': 'example'
+				};
+
+				document.getElementById('alert-data').innerHTML = JSON.stringify(failedData, undefined, 2);
+				bundle.React.renderComponent(
+					bundle.Alert(failedData),
+					document.getElementById('alert')
+				)
+
+				document.getElementById('notification-banner-data').innerHTML = JSON.stringify(failedData, undefined, 2);
+				bundle.React.renderComponent(
+					bundle.NotificationBanner(failedData),
+					document.getElementById('notification-banner')
+				)
+
+				document.getElementById('save-data').innerHTML = JSON.stringify(failedData, undefined, 2);
+				bundle.React.renderComponent(
+					bundle.Save(failedData),
+					document.getElementById('save')
+				)
+
+
+				// Component Publication section
+				var publicationData = {
+					data: {
+					  title: "Rapid prototyping of 3D DNA-origami shapes with caDNAno",
+					  journal: "Nucleic acids research 37 (15), 5001",
+					  doi: "10.1093/nar/gkp436"
+					}
+				};
+				document.getElementById('publication-data').innerHTML = JSON.stringify(publicationData, undefined, 2);
+				bundle.React.renderComponent(
+					bundle.Publication(publicationData),
+					document.getElementById('publication')
+				)
+
+
+				// Component Graph
+				var graphData = {
+					data: {
+					  cited_by: [
+					  	'Publication1',
+					  	'Publication2'
+					  ],
+					  cites: [
+					  	'Publication1',
+					  	'Publication2'
+					  ],
+					  related: [
+					  	'Publication1',
+					  	'Publication2'
+					  ]
+					}
+				}
+				document.getElementById('graph-data').innerHTML = JSON.stringify(graphData, undefined, 2);
+				bundle.React.renderComponent(
+					bundle.Graph(graphData),
+					document.getElementById('graph')
+				)
+
+
+				// Component AltGraph
+				var altGraphData = {data: {cited_by_tweeters_count: "9001"}};
+				document.getElementById('alt-graph-data').innerHTML = JSON.stringify(altGraphData, undefined, 2);
+				bundle.React.renderComponent(
+					bundle.AltGraph(altGraphData),
+					document.getElementById('alt-graph')
+				)
+
+
+				// Component Tag section
+				var tagsData = {data: ['tag1', 'tag2']};
+				document.getElementById('tags-data').innerHTML = JSON.stringify(tagsData, undefined, 2);
+				bundle.React.renderComponent(
+					bundle.Tags(tagsData),
+					document.getElementById('tags')
+				)
+
+        // Component Champion section
+				bundle.React.renderComponent(
+					bundle.Champion(),
+					document.getElementById('champion')
+				)
+
+
+        // Component Annotations section
+				var annotationsData = {
+						'data': {
+							innacuracy_count: 6,
+							interesting_count: 3,
+							notes_count: 27,
+							your_notes_count: 2
+						}
+					};
+				document.getElementById('annotations-data').innerHTML = JSON.stringify(annotationsData, undefined, 2);
+				bundle.React.renderComponent(
+					bundle.Annotations(annotationsData),
+					document.getElementById('annotations')
+				)
+
+        // Component Cite section
+				bundle.React.renderComponent(
+					bundle.Cite(),
+					document.getElementById('cite')
+				)
+
+
+				// Component Publications List
+				var plistData = {data: ['this is an array', 'with two items']}
+				document.getElementById('plist-data').innerHTML = JSON.stringify(plistData, undefined, 2);
+				bundle.React.renderComponent(
+					bundle.PublicationsList(plistData),
+					document.getElementById('plist')
+				)
+
+
+				// Component Publications List Wrapper
+				var plwData = {data: 'This is an example title'}
+				document.getElementById('plw-data').innerHTML = JSON.stringify(plwData, undefined, 2);
+				bundle.React.renderComponent(
+					bundle.PublicationsListWrapper(plwData),
+					document.getElementById('plw')
+				)
+
+
+				// Component Tags List
+				var tlistData = {data: ['this is an array', 'with two items'], className: "alert alert-info"}
+				document.getElementById('tlist-data').innerHTML = JSON.stringify(tlistData, undefined, 2);
+				bundle.React.renderComponent(
+					bundle.TagsList(tlistData),
+					document.getElementById('tlist')
+				)
+
+
+				// Component Tags List Wrapper
+				var tlwData = {data: 'tag1', className: "alert alert-info"}
+				document.getElementById('tlw-data').innerHTML = JSON.stringify(tlwData, undefined, 2);
+				bundle.React.renderComponent(
+					bundle.TagsListWrapper(tlwData),
+					document.getElementById('tlw')
+				)
+
+				// Component Abstract
+				var abstractData = {data: 'Hupehsuchia is a group of enigmatic Triassic marine reptiles that is known exclusively from two counties in Hubei Province, China. One of the common features of the group was a modestly long neck with nine to ten cervical vertebrae. We report a new species of Hupehsuchia, Eohupehsuchus brevicollis gen. et sp. nov., which for the first time shows a short neck in this group, with six cervicals. The configuration of the skull roof in Eohupehsuchus is also unique among Hupehsuchia, with narrow frontals and posteriorly shifted parietals, warranting recognition of a new species. The taxon superficially resembles Nanchangosaurus in retaining hupehsuchian plesiomorphies, such as low neural spines and small body size. However, its limbs are well-developed, unlike in Nanchangosaurus, although the latter genus is marginally larger in body length. Thus, the individual is unlikely to be immature'}
+				document.getElementById("abstract-data").innerHTML = JSON.stringify(abstractData, undefined, 2);
+				bundle.React.renderComponent(
+					bundle.Abstract(abstractData),
+					document.getElementById('abstract')
+				)
+
+				// Component Figs
+				var figsData = {data: '/images/figs.jpg'}
+				document.getElementById("figs-data").innerHTML = JSON.stringify(figsData, undefined, 2);
+				bundle.React.renderComponent(
+					bundle.Figs(figsData),
+					document.getElementById('figs')
+				)
+
+				// Component Supplementary Information
+				var suppData = {'data': [
+					{
+						'name': 'S1 Dataset',
+						'description': 'Phylogenetic data matrix in NEXUS format',
+						'doi': 'doi:10.1371/journal.pone.0115244.s001',
+						'type': 'NEX',
+						'link': '#'
+					},
+					{
+						'name': 'S1 Text',
+						'description': 'Phylogenetic data matrix and character descriptions',
+						'doi': 'doi:10.1371/journal.pone.0115244.s002',
+						'type': 'DOCX',
+						'link': '#'
+					}
+				]};
+				document.getElementById("supp-data").innerHTML = JSON.stringify(suppData, undefined, 2);
+				bundle.React.renderComponent(
+					bundle.Supplement(suppData),
+					document.getElementById('supp')
+				)
+
+				// Component Supplementary Information
+				var linkData = {'data': {
+					'title': 'PLOS',
+					'href': 'http://www.plosone.org/'
+				}};
+				document.getElementById("link-data").innerHTML = JSON.stringify(linkData, undefined, 2);
+				bundle.React.renderComponent(
+					bundle.LinkOut(linkData),
+					document.getElementById('link')
+				)
+
+				// Component TOC
+				var tocData = {'data': [
+					{
+						'id': '1',
+						'name': 'Introduction',
+						'anchor': '#intro'
+					},
+					{
+						'id': '2',
+						'name': '1st Section',
+						'anchor': '#section1'
+					},
+					{
+						'id': '3',
+						'name': 'Conclusion',
+						'anchor': '#conclusion'
+					}
+				]};
+				document.getElementById("toc-data").innerHTML = JSON.stringify(tocData, undefined, 2);
+				bundle.React.renderComponent(
+					bundle.Toc(tocData),
+					document.getElementById('toc')
+				)
+
+				// Component tf-idf
+				var tfIdfData = {'data': [
+					'example', 'example', 'example'
+				]};
+				document.getElementById("tf-idf-data").innerHTML = JSON.stringify(tfIdfData, undefined, 2);
+				bundle.React.renderComponent(
+					bundle.TfIdf(tfIdfData),
+					document.getElementById('tf-idf')
+				)
+
+				// Component Contact
+				var contactData = {'data': {
+					'author': {
+						'name': 'Richard Feynman',
+						'university': 'CIT',
+						'department': 'Physics',
+						'photo': 'http://upload.wikimedia.org/wikipedia/en/4/42/Richard_Feynman_Nobel.jpg',
+						'publications': [
+							'Lectures on Physics 1',
+							'Lectures on Physics 2',
+							'Lectures on Physics 3'
+						],
+						'website': '#website',
+						'email': 'test@gmail.com',
+						'graph': 'images/graph.png'
+					}
+				}};
+				document.getElementById("contact-data").innerHTML = JSON.stringify(contactData, undefined, 2);
+				bundle.React.renderComponent(
+					bundle.Contact(contactData),
+					document.getElementById('contact')
+				)
+
+
+				// Component Sign In
+				bundle.React.renderComponent(
+					bundle.SignIn(),
+					document.getElementById('sign-in')
+				)
+
+				// Component Sign out
+				bundle.React.renderComponent(
+					bundle.SignOut(),
+					document.getElementById('sign-out')
+				)
+			})
+		</script>
+		<script type="text/javascript">
+		</script>
+	</body>
+</html>
