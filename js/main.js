@@ -180,44 +180,12 @@ var SignUpMilestone = require('./milestones/signUpMilestone.jsx')
 if (chrome && chrome.runtime && chrome.runtime.onMessage) {
 	chrome.runtime.onMessage.addListener(handleRequest);
 } else {
-
-	// export some things on window for non-extension pages.
-	// Declare all modules you need here. See comments above.
-	window.bundle = {
-		React: React,
-		Abstract: Abstract,
-		Alert: Alert,
-		AltGraph: AltGraph,
-		App: App,
-		AuthorModal: AuthorModal,
-		Champion: Champion,
-		Contact: Contact,
-		Figs: Figs,
-		Graph: Graph,
-		LinkOut: LinkOut,
-		Publication: Publication,
-		Save: Save,
-		Tags: Tags,
-		TagsModal: TagsModal,
-		TagsList: TagsList,
-		TagsListWrapper: TagsListWrapper,
-		Cite: Cite,
-		Annotations: Annotations,
-		AnnotationsMilestone: AnnotationsMilestone, // This is just to show annotations in the sidebar, and shouldn't actually be necessary
-		GraphModal: GraphModal,
-		PublicationsList: PublicationsList,
-		PublicationsListWrapper: PublicationsListWrapper,
-		CiteModal: CiteModal,
-		NotificationBanner: NotificationBanner,
-		SavedPapersModal: SavedPapersModal,
-		SignIn: SignIn,
-		SignOut: SignOut,
-		Supplement: Supplement,
-		TfIdf: TfIdf,
-		Toc: Toc,
-		JournalModal: JournalModal,
-		SignUpMilestone: SignUpMilestone,
-		PaperModal: PaperModal,
-		NoteModal: NoteModal,
-	}
+	var sidebar = buildStaticAssets(modules, textInput);
+  document.body.appendChild(sidebar);
+  React.renderComponent(
+    App(textInput),
+    document.getElementById('react')
+  )
+  linkHandler()
+  sidebarOpen = true;
 }
