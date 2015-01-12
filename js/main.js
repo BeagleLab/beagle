@@ -117,8 +117,7 @@ function parsePDF(options, modules) {
 }
 
 // TODO Enable Static Assets to go to other Views besides SideBar
-// TODO Enable modules again
-function buildStaticAssets(/* modules, */ textInput){
+function buildStaticAssets(modules, textInput){
 	var sidebar = document.createElement('div');
 	sidebar.id = "beagle-sidebar";
 
