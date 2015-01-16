@@ -1,5 +1,7 @@
 #!/bin/sh
 
-echo 'Gulping for great good!'
+green='\033[0;32m'
+NC='\033[0m' # No Color
+echo "${green}Gulping for great good${NC}"
 gulp bundle
-echo 'Bundled up!'
+echo "${green}Bundled up!${NC}"
