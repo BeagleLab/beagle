@@ -2,7 +2,7 @@
 
 var fs = require('fs')
 var _ = require('lodash')
-// var $ = require('jquery')
+var rangy = require('rangy')
 
 // Display modules
 var style = require('beagle-style')
@@ -78,7 +78,7 @@ function parsePDF(options, modules) {
       return document.querySelector("iframe[type='application/pdf']").contentDocument
     }
     else {
-      throw (new Error('Could not find the PDF'))
+      return false
     }
   }
 
@@ -107,6 +107,7 @@ function parsePDF(options, modules) {
       // console.log(window.location);
       // TODO Add in the DOM here.
       buildView(modules);
+      // alert(rangy.getSelection().getRangeAt(0))
     }
   }
 
@@ -122,7 +123,7 @@ function buildStaticAssets(modules, textInput){
 	sidebar.id = "beagle-sidebar";
 
 	sidebar.innerHTML = '<link href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet" />';
-	sidebar.innerHTML += '<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">'
+	sidebar.innerHTML += '<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">'
 
 	// Start the CSS and HTML objects
 	var concatCSS = document.createElement('style');
@@ -156,7 +157,7 @@ function buildView(modules, textInput) {
 	document.body.appendChild(sidebar);
   console.log('textInput', textInput)
 	React.renderComponent(
-		App(textInput),
+		App(require('../lib/sampleData.js')), // TODO Swap
 		document.getElementById('react')
 	)
 	linkHandler()
@@ -180,6 +181,7 @@ if (chrome && chrome.runtime && chrome.runtime.onMessage) {
   var CiteModal = require('./views/citeModal.jsx')
   var Contact = require('./components/contact.jsx')
   var Figs = require('./views/figs.jsx')
+  var GrabText = require('./views/grabText.jsx')
   var Graph = require('./views/graph.jsx')
   var GraphModal = require('./views/graphModal.jsx')
   var JournalModal = require('./views/journalModal.jsx')
@@ -192,16 +194,16 @@ if (chrome && chrome.runtime && chrome.runtime.onMessage) {
   var PublicationsListWrapper = require('./components/publicationsListWrapper.jsx')
   var Save = require('./components/save.jsx')
   var SavedPapersModal = require('./views/savedPapersModal.jsx')
+  var SignIn = require('./components/signIn.jsx')
+  var SignOut = require('./components/signOut.jsx')
+  var SignUpMilestone = require('./milestones/signUpMilestone.jsx')
   var Supplement = require('./views/supplement.jsx')
   var Tags = require('./components/tags.jsx')
   var TagsList = require('./components/tagsList.jsx')
   var TagsListWrapper = require('./components/tagsListWrapper.jsx')
   var TagsModal = require('./views/tagsModal.jsx')
-  var Toc = require('./views/toc.jsx')
   var TfIdf = require('./views/tfIdf.jsx')
-  var SignIn = require('./components/signIn.jsx')
-  var SignOut = require('./components/signOut.jsx')
-  var SignUpMilestone = require('./milestones/signUpMilestone.jsx')
+  var Toc = require('./views/toc.jsx')
 
   try {
     parsePDF({'altmetrics': true})
@@ -210,121 +212,45 @@ if (chrome && chrome.runtime && chrome.runtime.onMessage) {
     console.log(e.name, e.message)
   }
 
-  var data = {}
-
-  data.data = {
-    title: 'This is an example title',
-    publication: {
-      id: '136172',
-      author: [
-        {
-          'email': 'test@gmail.com',
-          'department': 'Physics',
-          'graph': 'images/graph.png',
-          'name': 'Richard Feynman',
-          'photo': 'http://upload.wikimedia.org/wikipedia/en/4/42/Richard_Feynman_Nobel.jpg',
-          'publications': [
-            'Lectures on Physics 1',
-            'Lectures on Physics 2',
-            'Lectures on Physics 3'
-          ],
-          'university': 'CIT',
-          'website': '#website',
-        },
-        {
-          'email': 'test@gmail.com',
-          'department': 'Linguistics',
-          'graph': 'images/graph.png',
-          'name': 'Noam Chomsky',
-          'photo': 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Chomsky.jpg/460px-Chomsky.jpg'  ,
-          'publications': [
-            'Lectures on Physics 1',
-            'Lectures on Physics 2',
-            'Lectures on Physics 3'
-          ],
-          'university': 'CIT',
-          'website': '#website',
-        }
-      ],
-      title: "Rapid prototyping of 3D DNA-origami shapes with caDNAno",
-      journal: "Nucleic acids research 37 (15), 5001",
-      issue: "2.1",
-      doi: "10.1093/nar/gkp436",
-      toc: [
-        {
-          'id': 1,
-          'name': 'Introduction',
-          'anchor': '#intro'
-        },
-        {
-          'id': 2,
-          'name': '1st Section',
-          'anchor': '#section1'
-        },
-        {
-          'id': 3,
-          'name': 'Conclusion',
-          'anchor': '#conclusion'
-        }
-      ],
-      cited_by: [
-        'Lectures on Physics 1',
-        'Lectures on Physics 2',
-        'Lectures on Physics 3'
-      ],
-      cites: [
-        'Lectures on Physics 4',
-        'Lectures on Physics 5',
-        'Lectures on Physics 6'
-      ],
-      related: [
-        'Lectures on Physics 7',
-        'Lectures on Physics 8',
-        'Lectures on Physics 9'
-      ],
-      cited_by_tweeters_count: "9001",
-      subjects: ['tag1', 'tag2'],
-    }
-  }
-
 	// export some things on window for non-extension pages.
 	// Declare all modules you need here. See comments above.
 	window.bundle = {
-    data: data,
-		React: React,
-		Abstract: Abstract,
-		Alert: Alert,
-		AltGraph: AltGraph,
-		App: App,
-		AuthorModal: AuthorModal,
-		Champion: Champion,
-		Contact: Contact,
-		Figs: Figs,
-		Graph: Graph,
-		LinkOut: LinkOut,
-		Publication: Publication,
-		Save: Save,
-		Tags: Tags,
-		TagsModal: TagsModal,
-		TagsList: TagsList,
-		TagsListWrapper: TagsListWrapper,
-		Cite: Cite,
-		Annotations: Annotations,
-		AnnotationsMilestone: AnnotationsMilestone, // This is just to show annotations in the sidebar, and shouldn't actually be necessary
-		GraphModal: GraphModal,
-		PublicationsList: PublicationsList,
-		PublicationsListWrapper: PublicationsListWrapper,
-		CiteModal: CiteModal,
-		NotificationBanner: NotificationBanner,
-		SavedPapersModal: SavedPapersModal,
-		SignIn: SignIn,
-		SignOut: SignOut,
-		Supplement: Supplement,
-		TfIdf: TfIdf,
-		Toc: Toc,
-		JournalModal: JournalModal,
-		SignUpMilestone: SignUpMilestone,
-		PaperModal: PaperModal,
-		NoteModal: NoteModal,
+    data: require('../lib/sampleData.js'),
+    Abstract: Abstract,
+    Alert: Alert,
+    AltGraph: AltGraph,
+    Annotations: Annotations,
+    AnnotationsMilestone: AnnotationsMilestone, // This is just to show annotations in the sidebar, and shouldn't actually be necessary
+    App: App,
+    AuthorModal: AuthorModal,
+    Champion: Champion,
+    Cite: Cite,
+    CiteModal: CiteModal,
+    Contact: Contact,
+    Figs: Figs,
+    GrabText: GrabText,
+    Graph: Graph,
+    GraphModal: GraphModal,
+    JournalModal: JournalModal,
+    LinkOut: LinkOut,
+    NoteModal: NoteModal,
+    NotificationBanner: NotificationBanner,
+    PaperModal: PaperModal,
+    Publication: Publication,
+    PublicationsList: PublicationsList,
+    PublicationsListWrapper: PublicationsListWrapper,
+    React: React,
+    Save: Save,
+    SavedPapersModal: SavedPapersModal,
+    SignIn: SignIn,
+    SignOut: SignOut,
+    SignUpMilestone: SignUpMilestone,
+    Supplement: Supplement,
+    Tags: Tags,
+    TagsList: TagsList,
+    TagsListWrapper: TagsListWrapper,
+    TagsModal: TagsModal,
+    TfIdf: TfIdf,
+    Toc: Toc,
 	}
 }

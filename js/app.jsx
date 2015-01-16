@@ -10,6 +10,7 @@ var Save = require('./components/save.jsx')
 var Tags = require('./components/tags.jsx')
 var Toc = require('./views/toc.jsx')
 var SignOut = require('./components/signOut.jsx')
+var GrabText = require('./views/grabText.jsx')
 
 module.exports = React.createClass({
 
@@ -19,6 +20,7 @@ module.exports = React.createClass({
      	<Sidebar>
 
 				<Save />
+        <GrabText />
 
 				<Accordion>
 					<Panel header="Publication" eventKey='1' activeKey={false}>
