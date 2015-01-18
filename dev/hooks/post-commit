@@ -1,0 +1,14 @@
+## Reset the build so we can apply the stash again. Will be overwritten
+#git co build/index.html
+#git co build/bundle.min.js
+## Pop the stash back on
+#git stash pop
+
+echo '\033[0;31mHave you added a screenshot to the folder?\033[0m'
+
+#select yn in "Yes" "No"; do
+#    case $yn in
+#        Yes ) exit;;
+#        No ) exit;;
+#    esac
+#done
