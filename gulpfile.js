@@ -1,20 +1,20 @@
-var gulp = require('gulp');
-var sass = require('gulp-sass');
-var cssmin = require('gulp-cssmin');
-var concat = require('gulp-concat');
-var imagemin = require('gulp-imagemin');
-var sourcemaps = require('gulp-sourcemaps');
-var connect = require('gulp-connect');
-var source = require('vinyl-source-stream');
-var browserify = require('browserify');
-var reactify = require('reactify');
-var del = require('del');
 /*jshint strict:false */
 
 // var fs = require('fs')
 // var g_if = require('gulp-if')
 // var react = require('gulp-react')
 // var uglify = require('gulp-uglify')
+var browserify = require('browserify')
+var concat = require('gulp-concat')
+var connect = require('gulp-connect')
+var cssmin = require('gulp-cssmin')
+var del = require('del')
+var gulp = require('gulp')
+var imagemin = require('gulp-imagemin')
+var reactify = require('reactify')
+var sass = require('gulp-sass')
+var source = require('vinyl-source-stream')
+var sourcemaps = require('gulp-sourcemaps')
 
 // TODO Export style automatically
 // var style = require('beagle-style')
@@ -28,11 +28,11 @@ var paths = {
   sass: ['scss/**/main.scss'],
   documentSass: ['scss/**/document-level.scss'],
   html: ['html/**/*.html'],
-};
+}
 
 gulp.task('clean', function(cb) {
-  del([paths.build], cb);
-});
+  del([paths.build], cb)
+})
 
 gulp.task('js', function() {
   return browserify(paths.main)
@@ -45,12 +45,12 @@ gulp.task('js', function() {
     // .pipe(uglify())
     // .pipe(concat('bundle.min.js'))
     // .pipe(sourcemaps.write())
-    .pipe(gulp.dest('build/'));
-});
+    .pipe(gulp.dest('build/'))
+})
 
 gulp.task('static', function() {
-	return gulp.src(paths.static)
-		.pipe(gulp.dest('build/static/'));
+  return gulp.src(paths.static)
+    .pipe(gulp.dest('build/static/'))
 })
 
 gulp.task('sass', function() {
@@ -60,8 +60,8 @@ gulp.task('sass', function() {
       .pipe(cssmin())
       .pipe(concat('bundle.min.css'))
     .pipe(sourcemaps.write())
-    .pipe(gulp.dest('build/'));
-});
+    .pipe(gulp.dest('build/'))
+})
 
 gulp.task('documentSass', function() {
   return gulp.src(paths.documentSass)
@@ -76,14 +76,14 @@ gulp.task('documentSass', function() {
 gulp.task('img', function() {
   return gulp.src(paths.img)
     .pipe(imagemin({optimizationLevel: 5}))
-    .pipe(gulp.dest('build/images/'));
+    .pipe(gulp.dest('build/images/'))
     // .pipe(connect.reload())
-});
+})
 
 gulp.task('html', function() {
   return gulp.src(paths.html)
-    .pipe(gulp.dest('build/'));
-});
+    .pipe(gulp.dest('build/'))
+})
 
 // Here for allviews and milestones
 gulp.task('server', function() {
@@ -96,12 +96,12 @@ gulp.task('server', function() {
 })
 
 gulp.task('watch', function() {
-  gulp.watch(paths.js, ['js']);
-  gulp.watch(paths.css, ['static']);
-  gulp.watch(paths.sass, ['sass']);
-  gulp.watch(paths.img, ['img']);
-  gulp.watch(paths.html, ['html']);
-});
+  gulp.watch(paths.js, ['js'])
+  gulp.watch(paths.css, ['static'])
+  gulp.watch(paths.sass, ['sass'])
+  gulp.watch(paths.img, ['img'])
+  gulp.watch(paths.html, ['html'])
+})
 
 gulp.task('bundle', ['static', 'sass', 'documentSass', 'js', 'img', 'html'])
 gulp.task('default', ['watch', 'static', 'sass', 'documentSass', 'js', 'img', 'html', 'server'])
