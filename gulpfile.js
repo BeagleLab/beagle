@@ -13,8 +13,11 @@ var browserify = require('browserify');
 var reactify = require('reactify');
 var del = require('del');
 var fs = require('fs');
+/*jshint strict:false */
 
-var style = require('beagle-style')
+
+// TODO Export style automatically
+// var style = require('beagle-style')
 
 var paths = {
   build: 'build/',
@@ -22,7 +25,8 @@ var paths = {
   js: ['js/**/*.js', 'js/**/*.jsx'],
   img: ['static/**/*.png', 'static/**/*.jpg'],
   static: ['static/**/*.css', 'static/**/*.js', '../beagle-style/style.min.css', 'examples/example.pdf'],
-  sass: ['scss/**/*.scss'],
+  sass: ['scss/**/main.scss'],
+  documentSass: ['scss/**/document-level.scss'],
   html: ['html/**/*.html'],
 };
 
@@ -59,6 +63,16 @@ gulp.task('sass', function() {
     .pipe(gulp.dest('build/'));
 });
 
+gulp.task('documentSass', function() {
+  return gulp.src(paths.documentSass)
+    .pipe(sourcemaps.init())
+      .pipe(sass())
+      .pipe(cssmin())
+      .pipe(concat('document.min.css'))
+    .pipe(sourcemaps.write())
+    .pipe(gulp.dest('build/'))
+})
+
 gulp.task('img', function() {
   return gulp.src(paths.img)
     .pipe(imagemin({optimizationLevel: 5}))
@@ -71,7 +85,7 @@ gulp.task('html', function() {
     .pipe(gulp.dest('build/'));
 });
 
-// here for allviews and milestones
+// Here for allviews and milestones
 gulp.task('server', function() {
   connect.server({
     root: 'build',
@@ -89,5 +103,5 @@ gulp.task('watch', function() {
   gulp.watch(paths.html, ['html']);
 });
 
-gulp.task('bundle', ['static', 'sass', 'js', 'img', 'html'])
-gulp.task('default', ['watch', 'static', 'sass', 'js', 'img', 'html', 'server'])
+gulp.task('bundle', ['static', 'sass', 'documentSass', 'js', 'img', 'html'])
+gulp.task('default', ['watch', 'static', 'sass', 'documentSass', 'js', 'img', 'html', 'server'])
