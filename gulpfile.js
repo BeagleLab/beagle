@@ -1,10 +1,7 @@
 var gulp = require('gulp');
-var g_if = require('gulp-if');
-var react = require('gulp-react');
 var sass = require('gulp-sass');
 var cssmin = require('gulp-cssmin');
 var concat = require('gulp-concat');
-var uglify = require('gulp-uglify');
 var imagemin = require('gulp-imagemin');
 var sourcemaps = require('gulp-sourcemaps');
 var connect = require('gulp-connect');
@@ -12,9 +9,12 @@ var source = require('vinyl-source-stream');
 var browserify = require('browserify');
 var reactify = require('reactify');
 var del = require('del');
-var fs = require('fs');
 /*jshint strict:false */
 
+// var fs = require('fs')
+// var g_if = require('gulp-if')
+// var react = require('gulp-react')
+// var uglify = require('gulp-uglify')
 
 // TODO Export style automatically
 // var style = require('beagle-style')
