@@ -29,26 +29,23 @@ function handleRequest(
 
 		if (!sidebarOpen) {
 			// If the extension has specified new modules to load
-			var newModules = request.modules ? request.modules : null ;
+			var newModules = request.modules ? request.modules : null
 
 			//Get the current list of used modules
 			chrome.storage.sync.get('modules', function(result){
 
-				var modules = result;
-
-        console.log('Modules from chome storage', modules);
-
+        var modules = result
 				// If there are new modules, append them
 				if (newModules) {
 
-					modules.dependencies = (modules.dependencies) ? modules.dependencies : [];
+					modules.dependencies = (modules.dependencies) ? modules.dependencies : []
 
 					_.each(newModules, function(module) {
-						modules.dependencies.push(module);
-					});
+						modules.dependencies.push(module)
+					})
 
 					// If there is a change, set it.
-					chrome.storage.sync.set(modules);
+					chrome.storage.sync.set(modules)
 				}
 
         // TODO Specify this only in the background.js file, not here.
@@ -57,11 +54,11 @@ function handleRequest(
 				}
 
 				parsePDF(options, modules)
-			});
+			})
 		} else {
-			var el = document.getElementById('beagle-sidebar');
-			el.parentNode.removeChild(el);
-			sidebarOpen = false;
+			var el = document.getElementById('beagle-sidebar')
+			el.parentNode.removeChild(el)
+			sidebarOpen = false
 		}
 	}
 }
@@ -75,7 +72,6 @@ function parsePDF(options, modules) {
       return window.location.href
     }
     else if (document.querySelector("iframe[type='application/pdf']")) {
-      // console.log('PDF Url', document.querySelector("iframe[type='application/pdf']").getAttribute('data'));
       return document.querySelector("iframe[type='application/pdf']").contentDocument
     }
     else {
@@ -87,11 +83,8 @@ function parsePDF(options, modules) {
     if (!navigator.onLine) {
       throw (new Error('You are offline!'))
     } else if (!PDFJS) {
-      console.log('PDFJS failed to load.');
       throw (new Error('Error with PDFJS'))
-      // buildView(modules, 'Error with PDFJS');
     } else if (getPdfDocumentLocation()) {
-
       PDFJS.readPDF(getPdfDocumentLocation(), options, function(err, altmetricsData) {
         if (err !== null) { throw (new Error('Could not read the PDF')) }
 
@@ -102,19 +95,15 @@ function parsePDF(options, modules) {
             }
           })
         }
-      });
+      })
     } else {
-      console.log('Not a pdf.');
-      // console.log(window.location);
-      // TODO Add in the DOM here.
       buildView(modules);
-      // alert(rangy.getSelection().getRangeAt(0))
+      console.log('Not a pdf.')
     }
   }
 
   catch (e) {
     console.log(e.name, e.message)
-    buildView(modules, e.message)
   }
 }
 
@@ -162,7 +151,7 @@ function buildView(modules, textInput) {
 		App(sampleData),
 	)
 	linkHandler()
-	sidebarOpen = true;
+	sidebarOpen = true
 }
 
 // check if we're loading in the browser as an extension
