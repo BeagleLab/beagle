@@ -26,7 +26,7 @@ var paths = {
   img: ['static/**/*.png', 'static/**/*.jpg'],
   static: ['static/**/*.css', 'static/**/*.js', '../beagle-style/style.min.css', 'examples/example.pdf'],
   sass: ['scss/**/main.scss'],
-  documentSass: ['scss/**/document-level.scss'],
+  iframeSass: ['scss/**/iframe.scss'],
   html: ['html/**/*.html'],
 }
 
@@ -63,12 +63,12 @@ gulp.task('sass', function() {
     .pipe(gulp.dest('build/'))
 })
 
-gulp.task('documentSass', function() {
-  return gulp.src(paths.documentSass)
+gulp.task('iframeSass', function() {
+  return gulp.src(paths.iframeSass)
     .pipe(sourcemaps.init())
       .pipe(sass())
       .pipe(cssmin())
-      .pipe(concat('document.min.css'))
+      .pipe(concat('iframe.min.css'))
     .pipe(sourcemaps.write())
     .pipe(gulp.dest('build/'))
 })
@@ -99,9 +99,10 @@ gulp.task('watch', function() {
   gulp.watch(paths.js, ['js'])
   gulp.watch(paths.css, ['static'])
   gulp.watch(paths.sass, ['sass'])
+  gulp.watch(paths.iframeSass, ['iframeSass'])
   gulp.watch(paths.img, ['img'])
   gulp.watch(paths.html, ['html'])
 })
 
-gulp.task('bundle', ['static', 'sass', 'documentSass', 'js', 'img', 'html'])
-gulp.task('default', ['watch', 'static', 'sass', 'documentSass', 'js', 'img', 'html', 'server'])
+gulp.task('bundle', ['static', 'sass', 'iframeSass', 'js', 'img', 'html'])
+gulp.task('default', ['watch', 'static', 'sass', 'iframeSass', 'js', 'img', 'html', 'server'])
