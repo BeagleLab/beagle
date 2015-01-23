@@ -2,7 +2,6 @@
 
 var fs = require('fs')
 var _ = require('lodash')
-var rangy = require('rangy')
 
 // Display modules
 var style = require('beagle-style')
@@ -14,7 +13,8 @@ var sampleData = require('../lib/sampleData.js')
 // TODO Optional seems to have issues with non-essential errors, too.
 var PDFJS = require('beagle-pdf')
 
-var sidebarOpen = false;
+var sidebarOpen = false,
+  sidebarId = 'beagle-sidebar'
 
 // Handle requests from background.html
 function handleRequest(
@@ -90,15 +90,14 @@ function parsePDF(options, modules) {
 
         if (altmetricsData) {
           buildView(modules, {
-            data: {
-              altmetrics: altmetricsData,
-            }
+            altmetrics: altmetricsData,
+            doctype: 'pdf'
           })
         }
       })
     } else {
-      buildView(modules);
       console.log('Not a pdf.')
+      buildView(modules, {doctype: 'html'})
     }
   }
 
@@ -108,47 +107,75 @@ function parsePDF(options, modules) {
 }
 
 // TODO Enable Static Assets to go to other Views besides SideBar
-function buildStaticAssets(modules, textInput){
-	var sidebar = document.createElement('div');
-	sidebar.id = "beagle-sidebar";
+function buildStaticAssets(modules, data){
 
-	sidebar.innerHTML = '<link href="https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet" />';
-	sidebar.innerHTML += '<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">'
+  var sidebar, iframeCSS
 
-	// Start the CSS and HTML objects
-	var concatCSS = document.createElement('style');
+  if (data.doctype === 'pdf') {
 
-	// Get the global CSS
-	// May be better for this to be async. For now, there are no checs;
-	// it loads or not. The encoding ensures string return, not buffer.
-	// Using path.join(__dirname, './main.css', ...) will be more portable,
-	// but doesn't work in Chrome for some reason.
-	concatCSS.innerHTML += fs.readFileSync(__dirname + '/../build/bundle.min.css', 'utf8');
+  	sidebar = document.createElement('div')
+  	sidebar.id = sidebarId
 
-	var outerPane = document.createElement('div');
-	outerPane.id = 'react';
+  } else if (data.doctype === 'html') {
 
-	// Grab CSS files from style module. CSS and HTML shouldn't be exported from
-	// other submodules, in order to make sure that everything is modular.
-	if (style) {
-		concatCSS.innerHTML += (style.css) ? style.css : '';
-	}
+    if (document.getElementById(sidebarId)) {
+      throw (new Error('id:' + sidebarId + 'taken. Use another id!'))
+    }
 
-	// Mung it all together
-	sidebar.appendChild(concatCSS);
-	sidebar.appendChild(outerPane);
+    sidebar = document.createElement('iframe')
+    sidebar.id = sidebarId
 
-	return sidebar;
+    // Get the CSS that is inject into the main page if it is HTML.
+    if (document.head) {
+      iframeCSS = document.createElement('style')
+      iframeCSS.innerHTML = fs.readFileSync(__dirname + '/../build/iframe.min.css', 'utf8')
+      document.head.appendChild(iframeCSS)
+    } else {
+      throw (new Error('There is no head for this document!'))
+    }
+  }
+
+  document.body.appendChild(sidebar)
+
+  // Start the CSS
+  var concatCSS = document.createElement('style')
+  concatCSS.innerHTML += '@import url("https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css");'
+  concatCSS.innerHTML += '@import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css");'
+
+  // Get the global CSS
+  // May be better for this to be async. For now, there are no tests
+  // it loads or not. The encoding ensures string return, not buffer.
+  concatCSS.innerHTML += fs.readFileSync(__dirname + '/../build/bundle.min.css', 'utf8')
+
+  // Grab CSS files from style module. CSS and HTML shouldn't be exported from
+  // other submodules, in order to make sure that everything is modular.
+  if (style) {
+    concatCSS.innerHTML += (style.css) ? style.css : ''
+  }
+
+  // Make a wrapper for the HTML
+  var outerPane = document.createElement('div')
+  outerPane.id = 'react'
+  outerPane.className = 'beagle-wrapper'
+
+  // Mung it all together
+  if (data.doctype === 'pdf') {
+    sidebar.appendChild(concatCSS)
+    sidebar.appendChild(outerPane)
+  } else if (data.doctype === 'html') {
+  	document.getElementById(sidebarId).contentDocument.head.appendChild(concatCSS)
+  	document.getElementById(sidebarId).contentDocument.body.appendChild(outerPane)
+  }
 }
 
-function buildView(modules, textInput) {
-	textInput = (textInput !== undefined) ? textInput : null;
-	var sidebar = buildStaticAssets(modules, textInput);
-	document.body.appendChild(sidebar);
-  console.log('textInput', textInput)
+function buildView(modules, data) {
+	data = data || null
+	buildStaticAssets(modules, data)
+  var parent = (data.doctype === 'pdf') ? document :
+    document.getElementById(sidebarId).contentDocument
 	React.renderComponent(
-		document.getElementById('react')
 		App(sampleData),
+		parent.getElementById('react')
 	)
 	linkHandler()
 	sidebarOpen = true
