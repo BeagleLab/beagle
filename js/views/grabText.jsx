@@ -1,5 +1,4 @@
 'use strict';
-/** @jsx React.DOM */
 var React = require('react')
 var rangy = require('rangy')
 
@@ -10,7 +9,13 @@ var GrabText = React.createClass({
   },
   handleClick: function(event) {
     this.setState({text: !this.state.text})
-    alert(rangy.getSelection().getRangeAt(0))
+    // Save it using the Chrome extension storage API.
+    var text = rangy.getSelection().getRangeAt(0)
+    chrome.storage.sync.set({'value': text.startContainer.data}, function() {
+      // Notify that we saved.
+      alert('Text saved: ', text.startContainer.data)
+      console.log('Text saved', text.startContainer.data)
+    })
   },
   render: function () {
     return (
