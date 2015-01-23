@@ -9,6 +9,7 @@ var style = require('beagle-style')
 var React = require('react')
 var App = require('./app.jsx')
 var linkHandler = require('./linkhandler.js')
+var sampleData = require('../lib/sampleData.js')
 
 // TODO Optional seems to have issues with non-essential errors, too.
 var PDFJS = require('beagle-pdf')
@@ -157,8 +158,8 @@ function buildView(modules, textInput) {
 	document.body.appendChild(sidebar);
   console.log('textInput', textInput)
 	React.renderComponent(
-		App(require('../lib/sampleData.js')), // TODO Swap
 		document.getElementById('react')
+		App(sampleData),
 	)
 	linkHandler()
 	sidebarOpen = true;
