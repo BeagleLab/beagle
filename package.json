@@ -13,6 +13,7 @@
     "optional": "^0.1.2",
     "path": "^0.4.9",
     "pdfjs-dist": "^1.0.962",
+    "protocol-parser": "^0.0.3",
     "react-async": "^1.0.2",
     "react-bootstrap": "^0.12.0",
     "react-router": "^0.7.0",
