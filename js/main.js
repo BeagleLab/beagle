@@ -2,6 +2,7 @@
 
 var fs = require('fs')
 var _ = require('lodash')
+var pp = require('protocol-parser')
 
 // Display modules
 var style = require('beagle-style')
@@ -90,14 +91,18 @@ function parsePDF(options, modules) {
 
         if (altmetricsData) {
           buildView(modules, {
-            altmetrics: altmetricsData,
-            doctype: 'pdf'
+            doctype: 'pdf',
+            altmetrics: altmetricsData
           })
         }
       })
     } else {
       console.log('Not a pdf.')
-      buildView(modules, {doctype: 'html'})
+
+      buildView(modules, {
+        doctype: 'html',
+        protocols: pp.standardProtocols()
+      })
     }
   }
 
@@ -171,6 +176,10 @@ function buildStaticAssets(modules, data){
 function buildView(modules, data) {
 	data = data || null
 	buildStaticAssets(modules, data)
+
+  if (data.doctype === 'html')
+    console.log(data.protocols)
+
   var parent = (data.doctype === 'pdf') ? document :
     document.getElementById(sidebarId).contentDocument
 	React.renderComponent(
