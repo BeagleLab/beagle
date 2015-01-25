@@ -101,7 +101,7 @@ function parsePDF(options, modules) {
 
       buildView(modules, {
         doctype: 'html',
-        protocols: pp.standardProtocols()
+        protocols: pp.parse(window, ['og', 'twitter', 'citation', 'dc'])
       })
     }
   }
