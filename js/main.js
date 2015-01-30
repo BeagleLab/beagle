@@ -26,22 +26,23 @@ function handleRequest(
 	// http://code.google.com/chrome/extensions/messaging.html
 	sender, sendResponse
 	) {
+
+  var options = {}, modules, el
+
 	if (request.callFunction == "toggleSidebar") {
 
 		if (!sidebarOpen) {
-			// If the extension has specified new modules to load
-			var newModules = request.modules ? request.modules : null
 
-			//Get the current list of used modules
-			chrome.storage.sync.get('modules', function(result){
+      //Get the current list of used modules
+      chrome.storage.sync.get('modules', function(result){
 
-        var modules = result
-				// If there are new modules, append them
-				if (newModules) {
+        modules = result
+  			// If the extension has specified new modules to load
+				if (request.modules) {
 
 					modules.dependencies = (modules.dependencies) ? modules.dependencies : []
 
-					_.each(newModules, function(module) {
+					_.each(request.modules, function(module) {
 						modules.dependencies.push(module)
 					})
 
@@ -49,16 +50,18 @@ function handleRequest(
 					chrome.storage.sync.set(modules)
 				}
 
-        // TODO Specify this only in the background.js file, not here.
-				var options = {
-					"altmetrics": true
-				}
+        _.each(modules.dependencies, function(module) {
+          options[module] = true
+        })
 
+        //Currently, options and modules are pretty much exactly the same
+        //Both are objects, modules has a depth of 1
+        //The reason is that they will eventually come from different sources
 				parsePDF(options, modules)
 			})
 		} else {
-			var el = document.getElementById('beagle-sidebar')
-			el.parentNode.removeChild(el)
+			el = document.getElementById('beagle-sidebar')
+      el.parentNode.removeChild(el)
 			sidebarOpen = false
 		}
 	}
@@ -86,22 +89,23 @@ function parsePDF(options, modules) {
     } else if (!PDFJS) {
       throw (new Error('Error with PDFJS'))
     } else if (getPdfDocumentLocation()) {
-      PDFJS.readPDF(getPdfDocumentLocation(), options, function(err, altmetricsData) {
+
+      // PDFJS will not execute the callback a second time. I've no idea why. There
+      // isn't an error or a change in getPdfDocumentLocation() or options, it just
+      // doesn't fire the callback.
+      PDFJS.readPDF(getPdfDocumentLocation(), options, function(err, val) {
         if (err !== null) { throw (new Error('Could not read the PDF')) }
 
-        if (altmetricsData) {
-          buildView(modules, {
-            doctype: 'pdf',
-            altmetrics: altmetricsData
-          })
-        }
+        options.doctype = 'pdf'
+        buildView(modules, options)
+
       })
     } else {
       console.log('Not a pdf.')
 
       buildView(modules, {
         doctype: 'html',
-        protocols: pp.standardProtocols()
+        protocols: pp.parse(window, ['twitter', 'og', 'citation', 'dc'])
       })
     }
   }
@@ -177,11 +181,11 @@ function buildView(modules, data) {
 	data = data || null
 	buildStaticAssets(modules, data)
 
-  if (data.doctype === 'html')
-    console.log(data.protocols)
+  if (data.doctype === 'html') { console.log(data.protocols) }
 
   var parent = (data.doctype === 'pdf') ? document :
     document.getElementById(sidebarId).contentDocument
+  console.log(document)
 	React.renderComponent(
 		App(sampleData),
 		parent.getElementById('react')

@@ -7,7 +7,7 @@ console.log( 'Background.html starting!' );
 	chrome.tabs.getSelected(null, function(tab) {
 		chrome.pageAction.show(tab.id);
 	});
-	
+
 	/*Send request to current tab when page action is clicked*/
 	chrome.pageAction.onClicked.addListener(function(tab) {
 		chrome.tabs.getSelected(null, function(tab) {
@@ -18,9 +18,9 @@ console.log( 'Background.html starting!' );
 				{
 					callFunction: "toggleSidebar",
 					modules: [
-						'natural-gutenberg'
+						'altmetrics'
 					]
-				}, 
+				},
 				//Optional callback function
 				function(response) {
 					console.log(response);
