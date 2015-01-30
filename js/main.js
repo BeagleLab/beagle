@@ -11,6 +11,13 @@ var App = require('./app.jsx')
 var linkHandler = require('./linkhandler.js')
 var sampleData = require('../lib/sampleData.js')
 
+// var level = require('level-browserify')
+
+// // 1) Create our database, supply location and options.
+// //    This will create or open the underlying LevelDB store/Indexedb Database
+// var db = level('./mydb')
+
+
 // TODO Optional seems to have issues with non-essential errors, too.
 var PDFJS = require('beagle-pdf')
 
@@ -181,11 +188,11 @@ function buildView(modules, data) {
 	data = data || null
 	buildStaticAssets(modules, data)
 
-  if (data.doctype === 'html') { console.log(data.protocols) }
+  if (data.doctype === 'html')
+    console.log(data.protocols)
 
   var parent = (data.doctype === 'pdf') ? document :
     document.getElementById(sidebarId).contentDocument
-  console.log(document)
 	React.renderComponent(
 		App(sampleData),
 		parent.getElementById('react')
@@ -212,6 +219,7 @@ if (chrome && chrome.runtime && chrome.runtime.onMessage) {
   var Contact = require('./components/contact.jsx')
   var Figs = require('./views/figs.jsx')
   var GrabText = require('./views/grabText.jsx')
+  var GetValue = require('./views/getValue.jsx')
   var Graph = require('./views/graph.jsx')
   var GraphModal = require('./views/graphModal.jsx')
   var JournalModal = require('./views/journalModal.jsx')
@@ -259,6 +267,7 @@ if (chrome && chrome.runtime && chrome.runtime.onMessage) {
     Contact: Contact,
     Figs: Figs,
     GrabText: GrabText,
+    GetValue: GetValue,
     Graph: Graph,
     GraphModal: GraphModal,
     JournalModal: JournalModal,

@@ -1,6 +1,8 @@
 'use strict';
 var React = require('react')
 var rangy = require('rangy')
+var level = require('level-browserify')
+var db = level('./mydb')
 
 var GrabText = React.createClass({
   displayName: 'GrabText',
@@ -9,18 +11,21 @@ var GrabText = React.createClass({
   },
   handleClick: function(event) {
     this.setState({text: !this.state.text})
-    // Save it using the Chrome extension storage API.
     var text = rangy.getSelection().getRangeAt(0)
-    chrome.storage.sync.set({'value': text.startContainer.data}, function() {
-      // Notify that we saved.
-      alert('Text saved: ', text.startContainer.data)
-      console.log('Text saved', text.startContainer.data)
+    db.put('text', text, function (err) {
+      if (err) return console.log('Ooops!', err) // some kind of I/O error
+      console.log('Saved', text)
     })
+    // chrome.storage.sync.set({'value': text.startContainer.data}, function() {
+    //   // Notify that we saved.
+    //   alert('Text saved: ', text.startContainer.data)
+    //   console.log('Text saved', text.startContainer.data)
+    // })
   },
   render: function () {
     return (
-      <button className="btn" onClick={this.handleClick}>
-        test
+      <button className="btn btn-success" type="button" onClick={this.handleClick}>
+        Save Selection
       </button>
     );
   }

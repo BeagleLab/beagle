@@ -11,6 +11,7 @@ var Tags = require('./components/tags.jsx')
 var Toc = require('./views/toc.jsx')
 var SignOut = require('./components/signOut.jsx')
 var GrabText = require('./views/grabText.jsx')
+var GetValue = require('./views/getValue.jsx')
 
 module.exports = React.createClass({
 
@@ -21,7 +22,11 @@ module.exports = React.createClass({
 
 				<Save />
 
+        <br />
         <GrabText />
+        <br/>
+        <GetValue />
+        <br />
 
 				<Accordion>
 					<Panel header="Publication" eventKey='1' activeKey={false}>
