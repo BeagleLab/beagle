@@ -1,3 +1,3 @@
-cd /Users/richard/src/beaglelabs/beagle/node_modules
+cd ./node_modules
 ln -s ../../beagle-style
 ln -s ../../beagle-pdf
