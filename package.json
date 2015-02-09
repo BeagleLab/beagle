@@ -11,6 +11,7 @@
     "fs": "^0.0.2",
     "gulp-imagemin": "^2.1.0",
     "jquery": "^2.1.1",
+    "level-browserify": "^0.18.1",
     "lodash": "^2.4.1",
     "optional": "^0.1.2",
     "path": "^0.4.9",
