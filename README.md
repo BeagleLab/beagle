@@ -17,12 +17,10 @@ You will need to install [node](http://nodejs.org/). This will come with npm pre
 
 When you have edited `main.js` or any dependency of it, run:
 
-`browserify -t brfs main.js > bundle.js`
+`gulp`.
 
-This will ensure that everything is compiled into bundle.js. You may need to run `npm install browserify -g` first. Go to the Chrome Extensions page, and refresh it. Refresh the page your .pdf or browser is loaded on before clicking the Beagle icon, as well. Everything should be all set.
+Let us know what else you'd need to do here, I suspect there is more. 
 
-If you don't like running `browserify` every time you want to change something, I don't blame you. Run this, instead:
+This will ensure that everything is compiled into bundle.js. You may need to run `npm install browserify -g` first. After it states `default done`, go to the Chrome Extensions page, and refresh it. Refresh the page your .pdf or browser is loaded on before clicking the Beagle icon, as well. Everything should be all set.
 
-`watchify -t brfs main.js -o bundle.js -v`
-
-All of your edits will be automagically bundled for you. Just refresh the extension and the page you're testing on. 
+On changes, all of your edits will be automagically bundled for you. Just refresh the extension and the page you're testing on. 
