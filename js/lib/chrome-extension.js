@@ -48,10 +48,10 @@ function ChromeExtension(dependencies) {
    * object to be passed so that it can listen for localStorage events.
    */
   this.listen = function (window) {
-    // chromeBrowserAction.onClicked.addListener(onBrowserActionClicked);
-    // chromeTabs.onCreated.addListener(onTabCreated);
-    // chromeTabs.onUpdated.addListener(onTabUpdated);
-    // chromeTabs.onRemoved.addListener(onTabRemoved);
+    chromeBrowserAction.onClicked.addListener(onBrowserActionClicked);
+    chromeTabs.onCreated.addListener(onTabCreated);
+    chromeTabs.onUpdated.addListener(onTabUpdated);
+    chromeTabs.onRemoved.addListener(onTabRemoved);
 
     // FIXME: Find out why we used to reload the data on every get.
     window.addEventListener('storage', function (event) {
