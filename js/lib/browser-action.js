@@ -7,12 +7,12 @@ var states = require("./tab-state").states;
 // for hi-res screens (38).
 var icons = {};
 icons[states.ACTIVE] = {
-  19: 'images/browser-icon-active.png',
-  38: 'images/browser-icon-active@2x.png'
+  19: 'images/icon19.png',
+  38: 'images/icon19@2x.png'
 };
 icons[states.INACTIVE] = {
-  19: 'images/browser-icon-inactive.png',
-  38: 'images/browser-icon-inactive@2x.png'
+  19: 'images/icon19.png',
+  38: 'images/icon19@2x.png'
 };
 
 // Fake localization function.
