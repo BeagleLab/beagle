@@ -24,6 +24,8 @@ var PDFJS = require('beagle-pdf')
 var sidebarOpen = false,
   sidebarId = 'beagle-sidebar'
 
+console.log('Main.js is being called from inside bundle.min.js')
+
 // Handle requests from background.html
 function handleRequest(
 	// The object data with the request params
@@ -33,6 +35,8 @@ function handleRequest(
 	// http://code.google.com/chrome/extensions/messaging.html
 	sender, sendResponse
 	) {
+
+  console.log("Inside handleRequest in main.js. callFunction: ", request.callFunction)
 
   var options = {}, modules, el
 
@@ -193,7 +197,7 @@ function buildView(modules, data) {
 
   var parent = (data.doctype === 'pdf') ? document :
     document.getElementById(sidebarId).contentDocument
-	
+
   React.render(
 		App(sampleData),
 		parent.getElementById('react')

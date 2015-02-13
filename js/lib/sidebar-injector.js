@@ -36,7 +36,7 @@ function SidebarInjector(chromeTabs, dependencies) {
    * otherwise it will be rejected with an error.
    */
   this.injectIntoTab = function (tab) {
-    console.log("Hello!")
+    console.log("injectIntoTab: ", tab.url)
     if (isFileURL(tab.url)) {
       return injectIntoLocalDocument(tab);
     } else {
