@@ -1,4 +1,3 @@
-(function (h) {
   function ExtensionError(message) {
     Error.apply(this, arguments);
     this.message = message;
@@ -23,9 +22,7 @@
   }
   RestrictedProtocolError.prototype = Object.create(ExtensionError);
 
-  h.ExtensionError = ExtensionError;
-  h.LocalFileError = LocalFileError;
-  h.NoFileAccessError = NoFileAccessError;
-  h.RestrictedProtocolError = RestrictedProtocolError;
-
-})(window.h || (window.h = {}));
+  module.exports.ExtensionError = exports.ExtensionError = ExtensionError;
+  module.exports.LocalFileError = exports.LocalFileError = LocalFileError;
+  module.exports.NoFileAccessError = exports.NoFileAccessError = NoFileAccessError;
+  module.exports.RestrictedProtocolError = exports.RestrictedProtocolError = RestrictedProtocolError;

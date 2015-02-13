@@ -31,17 +31,17 @@
 	"background": {
 		"persistent": true,
 		"scripts": [
-      "lib/tab-store.js",
-      "lib/tab-state.js",
-      "lib/tab-error-cache.js",
-      "lib/sidebar-injector.js",
-      "lib/browser-action.js",
-      "lib/help-page.js",
-      "lib/errors.js",
-      "lib/hypothesis-chrome-extension.js",
-			"background.js"
+      "background.min.js"
 		]
 	},
+  "content_scripts": [{
+    "matches": [
+      "<all_urls>"
+    ],
+    "js": [
+      "bundle.min.js"
+    ]
+  }],
 
 	"web_accessible_resources": [
 		"images/*",
