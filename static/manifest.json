@@ -1,0 +1,51 @@
+{
+	"name": "Beagle",
+	"short_name": "Beagle",
+	"version": "0.2",
+	"manifest_version": 2,
+	"description": "Inject a sidebar on the current tab when the page action is clicked",
+	"icons": {
+    "16": "images/icon16.png",
+    "48": "images/icon48.png",
+    "128": "images/icon128.png"
+	},
+	"browser_action": {
+		"default_icon": {
+			"19": "images/icon19.png",
+			"38": "images/icon38.png"
+		}
+	},
+
+	"homepage_url": "https://github.com/BeagleLab/voyage",
+	"incognito": "split",
+
+	"offline_enabled": false,
+	"permissions": [
+		"<all_urls>",
+
+		"contentSettings",
+		"tabs",
+		"storage"
+	],
+	
+	"background": {
+		"persistent": true,
+		"scripts": [
+      "background.min.js"
+		]
+	},
+  "content_scripts": [{
+    "matches": [
+      "<all_urls>"
+    ],
+    "js": [
+      "bundle.min.js"
+    ]
+  }],
+
+	"web_accessible_resources": [
+		"images/*",
+		"content/*",
+		"lib/*"
+	]
+}
