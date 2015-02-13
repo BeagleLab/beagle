@@ -23,4 +23,10 @@ Let us know what else you'd need to do here, I suspect there is more.
 
 This will ensure that everything is compiled into bundle.js. You may need to run `npm install browserify -g` first. After it states `default done`, go to the Chrome Extensions page, and refresh it. Refresh the page your .pdf or browser is loaded on before clicking the Beagle icon, as well. Everything should be all set.
 
-On changes, all of your edits will be automagically bundled for you. Just refresh the extension and the page you're testing on. 
+On changes, all of your edits will be automagically bundled for you. Just refresh the extension and the page you're testing on.
+
+### Style
+
+Make sure your text editor can use the .editorconfig file. For more, see [editorconfig](https://github.com/sindresorhus/editorconfig-sublime). 
+
+Run JSHint on everything, if possible. 
