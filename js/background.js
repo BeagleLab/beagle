@@ -1,29 +1,5 @@
-  'use strict';
+	console.log("Inside Background Page")
 
-
-
-	// /*Send request to current tab when page action is clicked*/
-	// function fxt(tab) {
-	// 	chrome.tabs.getSelected(null, function(tab) {
- //      console.log("Hello")
-	// 		chrome.tabs.sendMessage(
-	// 			//Selected tab id
-	// 			tab.id,
-	// 			//Params inside a object data
-	// 			{
-	// 				callFunction: "toggleSidebar",
-	// 				modules: [  'altmetrics' ]
-	// 			}
- //        //,
-	// 			//Optional callback function
-	// 			// function(response) {
-	// 			// 	alert('Chrome tabs message sent.')	
-	// 			// }
-	// 		);
-	// 	});
-	// }
-
-	// chrome.browserAction.onClicked.addListener(fxt);
 
 	// THIS BREAKS. WHY
 	// Context Menu
