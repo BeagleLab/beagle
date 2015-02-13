@@ -1,14 +1,6 @@
 	console.log("Inside Background Page")
 
-
-	// THIS BREAKS. WHY
-	// Context Menu
-	// chrome.contextMenus.create({
-	//    title: 'Beagle',
-	//    contexts: ['page'],
-	//    onclick: function (detail, tab) { fxt(tab) }
-	// });
-	// END BREAK
+	// TODO Look into whether context menus would work
 
   var browserExtension = new (require("./lib/chrome-extension"))({
     chromeTabs: chrome.tabs,
