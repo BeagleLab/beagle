@@ -465,7 +465,7 @@
 
 				// Milestone 1: Sidebar
 				// Bundle it up
-				bundle.React.renderComponent(
+				bundle.React.render(
 					bundle.App(data),
 					document.getElementById('m1')
 				)
@@ -473,11 +473,11 @@
 				// Milestone 2: Hidden Sidebar
 				// Should be hidden, but should show notations in margin, with some
 				// UI to open the margin
-				// bundle.React.renderComponent(
+				// bundle.React.render(
 				// 	bundle.App(data),
 				// 	document.getElementById('m2')
 				// )
-				bundle.React.renderComponent(
+				bundle.React.render(
 					bundle.NotificationBanner({data: 'This is a notification!'}),
 					document.getElementById('notification')
 				)
@@ -498,21 +498,21 @@
 					'website': '#website',
 				}
 
-				bundle.React.renderComponent(
+				bundle.React.render(
 					bundle.App(data),
 					document.getElementById('m3')
 				)
-				bundle.React.renderComponent(
+				bundle.React.render(
 					bundle.AuthorModal(data),
 					document.getElementById('m3.1')
 				)
 
 				// Milestone 4: Publication Graph
-				bundle.React.renderComponent(
+				bundle.React.render(
 					bundle.App(data),
 					document.getElementById('m4')
 				)
-				bundle.React.renderComponent(
+				bundle.React.render(
 					bundle.GraphModal(data),
 					document.getElementById('m4.1')
 				)
@@ -523,31 +523,31 @@
 					group_tags: ['Platypus', 'Bear'],
 					public_tags: ['Earth', 'Air', 'Wind', 'Fire']
 				}
-				bundle.React.renderComponent(
+				bundle.React.render(
 					bundle.App(data),
 					document.getElementById('m5')
 				)
-				bundle.React.renderComponent(
+				bundle.React.render(
 					bundle.TagsModal(data),
 					document.getElementById('m5.1')
 				)
 
 				// Milestone 6: BibTex
-				bundle.React.renderComponent(
+				bundle.React.render(
 					bundle.App(data),
 					document.getElementById('m6')
 				)
-				bundle.React.renderComponent(
+				bundle.React.render(
 					bundle.CiteModal(data),
 					document.getElementById('m6.1')
 				)
 
 				// Milestone 7: BibTex
-				bundle.React.renderComponent(
+				bundle.React.render(
 					bundle.App(data),
 					document.getElementById('m7')
 				)
-				bundle.React.renderComponent(
+				bundle.React.render(
 					bundle.SavedPapersModal(),
 					document.getElementById('m7.1')
 				)
@@ -560,7 +560,7 @@
 					your_notes_count: 2
 				}
 
-				bundle.React.renderComponent(
+				bundle.React.render(
 					bundle.AnnotationsMilestone(data),
 					document.getElementById('m8')
 				)
@@ -572,11 +572,11 @@
 		      'impact_factor': '2.1'
 		    }
 
-		    bundle.React.renderComponent(
+		    bundle.React.render(
 		    	bundle.App(data),
 		    	document.getElementById('m9')
 		    )
-				bundle.React.renderComponent(
+				bundle.React.render(
 					bundle.JournalModal(data),
 					document.getElementById('m9.1')
 				)
@@ -584,7 +584,7 @@
 				// Milestone 10: Authentication
 				var unAuthError = 'You are not authenticated!'
 
-				bundle.React.renderComponent(
+				bundle.React.render(
 					bundle.SignUpMilestone(unAuthError),
 					document.getElementById('m10')
 				)
@@ -596,21 +596,21 @@
 		      'impact_factor': '2.1'
 		    }
 
-		    bundle.React.renderComponent(
+		    bundle.React.render(
 		    	bundle.App(data),
 		    	document.getElementById('m11')
 		    )
-				bundle.React.renderComponent(
+				bundle.React.render(
 					bundle.PaperModal(data),
 					document.getElementById('m11.1')
 				)
 
 				// Milestone 12: Save a note on the paper
-		    bundle.React.renderComponent(
+		    bundle.React.render(
 		    	bundle.App(data),
 		    	document.getElementById('m12')
 		    )
-				bundle.React.renderComponent(
+				bundle.React.render(
 					bundle.NoteModal(),
 					document.getElementById('m12.1')
 				)

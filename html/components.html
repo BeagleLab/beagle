@@ -389,19 +389,19 @@
 				};
 
 				document.getElementById('alert-data').innerHTML = JSON.stringify(failedData, undefined, 2);
-				bundle.React.renderComponent(
+				bundle.React.render(
 					bundle.Alert(failedData),
 					document.getElementById('alert')
 				)
 
 				document.getElementById('notification-banner-data').innerHTML = JSON.stringify(failedData, undefined, 2);
-				bundle.React.renderComponent(
+				bundle.React.render(
 					bundle.NotificationBanner(failedData),
 					document.getElementById('notification-banner')
 				)
 
 				document.getElementById('save-data').innerHTML = JSON.stringify(failedData, undefined, 2);
-				bundle.React.renderComponent(
+				bundle.React.render(
 					bundle.Save(failedData),
 					document.getElementById('save')
 				)
@@ -416,7 +416,7 @@
 					}
 				};
 				document.getElementById('publication-data').innerHTML = JSON.stringify(publicationData, undefined, 2);
-				bundle.React.renderComponent(
+				bundle.React.render(
 					bundle.Publication(publicationData),
 					document.getElementById('publication')
 				)
@@ -440,7 +440,7 @@
 					}
 				}
 				document.getElementById('graph-data').innerHTML = JSON.stringify(graphData, undefined, 2);
-				bundle.React.renderComponent(
+				bundle.React.render(
 					bundle.Graph(graphData),
 					document.getElementById('graph')
 				)
@@ -449,7 +449,7 @@
 				// Component AltGraph
 				var altGraphData = {data: {cited_by_tweeters_count: "9001"}};
 				document.getElementById('alt-graph-data').innerHTML = JSON.stringify(altGraphData, undefined, 2);
-				bundle.React.renderComponent(
+				bundle.React.render(
 					bundle.AltGraph(altGraphData),
 					document.getElementById('alt-graph')
 				)
@@ -458,13 +458,13 @@
 				// Component Tag section
 				var tagsData = {data: ['tag1', 'tag2']};
 				document.getElementById('tags-data').innerHTML = JSON.stringify(tagsData, undefined, 2);
-				bundle.React.renderComponent(
+				bundle.React.render(
 					bundle.Tags(tagsData),
 					document.getElementById('tags')
 				)
 
         // Component Champion section
-				bundle.React.renderComponent(
+				bundle.React.render(
 					bundle.Champion(),
 					document.getElementById('champion')
 				)
@@ -480,13 +480,13 @@
 						}
 					};
 				document.getElementById('annotations-data').innerHTML = JSON.stringify(annotationsData, undefined, 2);
-				bundle.React.renderComponent(
+				bundle.React.render(
 					bundle.Annotations(annotationsData),
 					document.getElementById('annotations')
 				)
 
         // Component Cite section
-				bundle.React.renderComponent(
+				bundle.React.render(
 					bundle.Cite(),
 					document.getElementById('cite')
 				)
@@ -495,7 +495,7 @@
 				// Component Publications List
 				var plistData = {data: ['this is an array', 'with two items']}
 				document.getElementById('plist-data').innerHTML = JSON.stringify(plistData, undefined, 2);
-				bundle.React.renderComponent(
+				bundle.React.render(
 					bundle.PublicationsList(plistData),
 					document.getElementById('plist')
 				)
@@ -504,7 +504,7 @@
 				// Component Publications List Wrapper
 				var plwData = {data: 'This is an example title'}
 				document.getElementById('plw-data').innerHTML = JSON.stringify(plwData, undefined, 2);
-				bundle.React.renderComponent(
+				bundle.React.render(
 					bundle.PublicationsListWrapper(plwData),
 					document.getElementById('plw')
 				)
@@ -513,7 +513,7 @@
 				// Component Tags List
 				var tlistData = {data: ['this is an array', 'with two items'], className: "alert alert-info"}
 				document.getElementById('tlist-data').innerHTML = JSON.stringify(tlistData, undefined, 2);
-				bundle.React.renderComponent(
+				bundle.React.render(
 					bundle.TagsList(tlistData),
 					document.getElementById('tlist')
 				)
@@ -522,7 +522,7 @@
 				// Component Tags List Wrapper
 				var tlwData = {data: 'tag1', className: "alert alert-info"}
 				document.getElementById('tlw-data').innerHTML = JSON.stringify(tlwData, undefined, 2);
-				bundle.React.renderComponent(
+				bundle.React.render(
 					bundle.TagsListWrapper(tlwData),
 					document.getElementById('tlw')
 				)
@@ -530,7 +530,7 @@
 				// Component Abstract
 				var abstractData = {data: 'Hupehsuchia is a group of enigmatic Triassic marine reptiles that is known exclusively from two counties in Hubei Province, China. One of the common features of the group was a modestly long neck with nine to ten cervical vertebrae. We report a new species of Hupehsuchia, Eohupehsuchus brevicollis gen. et sp. nov., which for the first time shows a short neck in this group, with six cervicals. The configuration of the skull roof in Eohupehsuchus is also unique among Hupehsuchia, with narrow frontals and posteriorly shifted parietals, warranting recognition of a new species. The taxon superficially resembles Nanchangosaurus in retaining hupehsuchian plesiomorphies, such as low neural spines and small body size. However, its limbs are well-developed, unlike in Nanchangosaurus, although the latter genus is marginally larger in body length. Thus, the individual is unlikely to be immature'}
 				document.getElementById("abstract-data").innerHTML = JSON.stringify(abstractData, undefined, 2);
-				bundle.React.renderComponent(
+				bundle.React.render(
 					bundle.Abstract(abstractData),
 					document.getElementById('abstract')
 				)
@@ -538,7 +538,7 @@
 				// Component Figs
 				var figsData = {data: '/images/figs.jpg'}
 				document.getElementById("figs-data").innerHTML = JSON.stringify(figsData, undefined, 2);
-				bundle.React.renderComponent(
+				bundle.React.render(
 					bundle.Figs(figsData),
 					document.getElementById('figs')
 				)
@@ -561,7 +561,7 @@
 					}
 				]};
 				document.getElementById("supp-data").innerHTML = JSON.stringify(suppData, undefined, 2);
-				bundle.React.renderComponent(
+				bundle.React.render(
 					bundle.Supplement(suppData),
 					document.getElementById('supp')
 				)
@@ -572,7 +572,7 @@
 					'href': 'http://www.plosone.org/'
 				}};
 				document.getElementById("link-data").innerHTML = JSON.stringify(linkData, undefined, 2);
-				bundle.React.renderComponent(
+				bundle.React.render(
 					bundle.LinkOut(linkData),
 					document.getElementById('link')
 				)
@@ -596,7 +596,7 @@
 					}
 				]};
 				document.getElementById("toc-data").innerHTML = JSON.stringify(tocData, undefined, 2);
-				bundle.React.renderComponent(
+				bundle.React.render(
 					bundle.Toc(tocData),
 					document.getElementById('toc')
 				)
@@ -606,7 +606,7 @@
 					'example', 'example', 'example'
 				]};
 				document.getElementById("tf-idf-data").innerHTML = JSON.stringify(tfIdfData, undefined, 2);
-				bundle.React.renderComponent(
+				bundle.React.render(
 					bundle.TfIdf(tfIdfData),
 					document.getElementById('tf-idf')
 				)
@@ -629,20 +629,20 @@
 					}
 				}};
 				document.getElementById("contact-data").innerHTML = JSON.stringify(contactData, undefined, 2);
-				bundle.React.renderComponent(
+				bundle.React.render(
 					bundle.Contact(contactData),
 					document.getElementById('contact')
 				)
 
 
 				// Component Sign In
-				bundle.React.renderComponent(
+				bundle.React.render(
 					bundle.SignIn(),
 					document.getElementById('sign-in')
 				)
 
 				// Component Sign out
-				bundle.React.renderComponent(
+				bundle.React.render(
 					bundle.SignOut(),
 					document.getElementById('sign-out')
 				)
