@@ -1,6 +1,6 @@
 'use strict';
 
-console.log("Inside Hypothesis chrome extension")
+console.log("Inside chrome extension")
 
 var TAB_STATUS_COMPLETE = 'complete';
 
@@ -31,27 +31,27 @@ var TAB_STATUS_COMPLETE = 'complete';
  *   extensionURL: chrome.extension.getURL.
  *   isAllowedFileSchemeAccess: chrome.extension.isAllowedFileSchemeAccess.
  */
-function HypothesisChromeExtension(dependencies) {
+function ChromeExtension(dependencies) {
   var chromeTabs = dependencies.chromeTabs;
   var chromeBrowserAction = dependencies.chromeBrowserAction;
-  var help  = new require("./help-page")(chromeTabs, dependencies.extensionURL)
-  var store = new require("./stab-store")(localStorage)
-  var state = new require("./tab-state")(store.all(), onTabStateChange)
-  var browserAction = new require("./browser-action")(chromeBrowserAction)
-  var sidebar = new require("./sidebar-injector")(chromeTabs, {
+  var help  = new (require("./help-page"))(chromeTabs, dependencies.extensionURL)
+  var store = new (require("./tab-store"))(localStorage)
+  var state = new (require("./tab-state"))(store.all(), onTabStateChange)
+  var browserAction = new (require("./browser-action"))(chromeBrowserAction)
+  var sidebar = new (require("./sidebar-injector"))(chromeTabs, {
     extensionURL: dependencies.extensionURL,
     isAllowedFileSchemeAccess: dependencies.isAllowedFileSchemeAccess,
   })
-  var tabErrors = new require("./tab-error-cache")
+  var tabErrors = new (require("./tab-error-cache"))()
 
   /* Sets up the extension and binds event listeners. Requires a window
    * object to be passed so that it can listen for localStorage events.
    */
   this.listen = function (window) {
-    chromeBrowserAction.onClicked.addListener(onBrowserActionClicked);
-    chromeTabs.onCreated.addListener(onTabCreated);
-    chromeTabs.onUpdated.addListener(onTabUpdated);
-    chromeTabs.onRemoved.addListener(onTabRemoved);
+    // chromeBrowserAction.onClicked.addListener(onBrowserActionClicked);
+    // chromeTabs.onCreated.addListener(onTabCreated);
+    // chromeTabs.onUpdated.addListener(onTabUpdated);
+    // chromeTabs.onRemoved.addListener(onTabRemoved);
 
     // FIXME: Find out why we used to reload the data on every get.
     window.addEventListener('storage', function (event) {
@@ -84,11 +84,11 @@ function HypothesisChromeExtension(dependencies) {
   };
 
   /* Opens the onboarding page */
-  this.firstRun = function () {
-    chromeTabs.create({url: 'https://hypothes.is/welcome'}, function (tab) {
-      state.activateTab(tab.id);
-    });
-  };
+  // this.firstRun = function () {
+  //   chromeTabs.create({url: 'https://hypothes.is/welcome'}, function (tab) {
+  //     state.activateTab(tab.id);
+  //   });
+  // };
 
   function onTabStateChange(tabId, current, previous) {
     if (current) {
@@ -165,4 +165,4 @@ function HypothesisChromeExtension(dependencies) {
   }
 }
 
-module.exports = exports = HypothesisChromeExtension
+module.exports = exports = ChromeExtension
