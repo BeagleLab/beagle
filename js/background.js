@@ -35,7 +35,7 @@
 	// });
 	// END BREAK
 
-  var browserExtension = new h.HypothesisChromeExtension({
+  var browserExtension = new (require("./lib/chrome-extension"))({
     chromeTabs: chrome.tabs,
     chromeBrowserAction: chrome.browserAction,
     extensionURL: function (path) {
