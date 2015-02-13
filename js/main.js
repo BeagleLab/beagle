@@ -7,7 +7,7 @@ var pp = require('protocol-parser')
 // Display modules
 var style = require('beagle-style')
 var React = require('react')
-var App = require('./app.jsx')
+var App = React.createFactory(require('./app.jsx'))
 var linkHandler = require('./linkhandler.js')
 var sampleData = require('../lib/sampleData.js')
 
@@ -193,7 +193,8 @@ function buildView(modules, data) {
 
   var parent = (data.doctype === 'pdf') ? document :
     document.getElementById(sidebarId).contentDocument
-	React.render(
+	
+  React.render(
 		App(sampleData),
 		parent.getElementById('react')
 	)
