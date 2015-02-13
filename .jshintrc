@@ -1,4 +1,9 @@
 {
   "node": true,
-  "asi": true
+  "asi": true,
+  "browser": true,
+  "browserify": true,
+  "globals": {
+    "chrome": true
+  }
 }
