@@ -188,12 +188,12 @@ function buildView(modules, data) {
 	data = data || null
 	buildStaticAssets(modules, data)
 
-  if (data.doctype === 'html')
-    console.log(data.protocols)
+  if (data.doctype === 'html' && !_.every(_.forOwn(data.protocols, function(protocol) { !_.isEmpty(protocol) } )))
+    console.log(data.protocols, !_.isEmpty(data.protocols))
 
   var parent = (data.doctype === 'pdf') ? document :
     document.getElementById(sidebarId).contentDocument
-	React.renderComponent(
+	React.render(
 		App(sampleData),
 		parent.getElementById('react')
 	)
