@@ -99,9 +99,11 @@ function SidebarInjector(chromeTabs, dependencies) {
     return new Promise(function (resolve, reject) {
       if (!isPDFViewerURL(tab.url)) {
         chromeTabs.update(tab.id, {url: getPDFViewerURL(tab.url)}, function () {
+        	sendMessageToEmbedBeagle()
           resolve();
         });
       } else {
+      	sendMessageToEmbedBeagle()
         resolve();
       }
     });
@@ -126,38 +128,25 @@ function SidebarInjector(chromeTabs, dependencies) {
         return reject(new err.RestrictedProtocolError('Cannot load Hypothesis into ' + protocol + ' pages'));
       }
 
-      return isSidebarInjected(tab.id).then(function (isInjected) {
+      return (function (isInjected) {
         if (!isInjected) {
-          injectConfig(tab.id).then(function () {
+        	console.log('Normally, inject public/config here.')
+          // injectConfig(tab.id).then(function () {
             chromeTabs.executeScript(tab.id, {
               code: 'window.annotator = true'
             }, function () {
-                chromeTabs.getSelected(null, function(tab) {
-                  console.log("Hello")
-                  chromeTabs.sendMessage(
-                    //Selected tab id
-                    tab.id,
-                    //Params inside a object data
-                    {
-                      callFunction: "toggleSidebar",
-                      modules: [  'altmetrics' ]
-                    }
-                    //,
-                    //Optional callback function
-                    // function(response) {
-                    //  alert('Chrome tabs message sent.')  
-                    // }
-                  )
-                })
-              chromeTabs.executeScript(tab.id, {
-                file: 'public/embed.js'
-              }, resolve);
+              console.log('Normally, execute public/embed.js here.')
+              sendMessageToEmbedBeagle()
+              // chromeTabs.executeScript(tab.id, {
+              //   file: 'public/embed.js'
+              // }, resolve);
             });
-          });
+          // });
         } else {
+        	sendMessageToEmbedBeagle()
           resolve();
         }
-      });
+      })()
     });
   }
 
@@ -176,20 +165,23 @@ function SidebarInjector(chromeTabs, dependencies) {
         return resolve();
       }
 
-      return isSidebarInjected(tab.id).then(function (isInjected) {
-        var src  = extensionURL('/public/destroy.js');
-        var code = 'var script = document.createElement("script");' +
-          'script.src = "{}";' +
-          'document.body.appendChild(script);' +
-          'delete window.annotator;';
+      // TODO Implement removal
 
-        if (isInjected) {
-          chromeTabs.executeScript(tab.id, {
-            code: code.replace('{}', src)
-          }, resolve);
-        } else {
+      return isSidebarInjected(tab.id).then(function (isInjected) {
+        // var src  = extensionURL('/public/destroy.js');
+        // var code = 'var script = document.createElement("script");' +
+        //   'script.src = "{}";' +
+        //   'document.body.appendChild(script);' +
+        //   'delete window.annotator;';
+
+        // if (isInjected) {
+        // chromeTabs.executeScript(tab.id, {
+        //   // code: code.replace('{}', src)
+        // }, resolve);
+    		// resolve()
+        // } else {
           resolve();
-        }
+        // }
       });
     });
   }
@@ -203,16 +195,33 @@ function SidebarInjector(chromeTabs, dependencies) {
     });
   }
 
-  function injectConfig(tabId) {
-    return new Promise(function (resolve) {
-      var src  = extensionURL('/public/config.js');
-      var code = 'var script = document.createElement("script");' +
-        'script.src = "{}";' +
-        'document.body.appendChild(script);';
-
-      chromeTabs.executeScript(tabId, {code: code.replace('{}', src)}, resolve);
-    });
+  function sendMessageToEmbedBeagle () {
+  	chromeTabs.getSelected(null, function(tab) {
+      chromeTabs.sendMessage(
+        //Selected tab id
+        tab.id,
+        //Params inside a object data
+        {
+          callFunction: "toggleSidebar",
+          modules: [  'altmetrics' ]
+        },
+        // Optional callback function
+        function(response) {
+	        console.log("Chrome tabs message 'toggleSidebar' sent.")
+        }
+      )
+    })
   }
+
+  // function injectConfig(tabId) {
+  //   return new Promise(function (resolve) {
+  //     var src  = extensionURL('/public/config.js');
+  //     var code = 'var script = document.createElement("script");' +
+  //       'script.src = "{}";' +
+  //       'document.body.appendChild(script);';
+  //     chromeTabs.executeScript(tabId, {code: code.replace('{}', src)}, resolve);
+  //   });
+  // }
 }
 
 module.exports = exports = SidebarInjector
