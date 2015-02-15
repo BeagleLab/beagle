@@ -1,6 +1,7 @@
 'use strict';
 
 var err = require("./help-page")
+var urlChecks = require("./url-checks")
 
 /* The SidebarInjector is used to deploy and remove the Hypothesis sidebar
  * from tabs. It also deals with loading PDF documents into the PDF.js viewer
@@ -37,7 +38,7 @@ function SidebarInjector(chromeTabs, dependencies) {
    */
   this.injectIntoTab = function (tab) {
     console.log("injectIntoTab: ", tab.url)
-    if (isFileURL(tab.url)) {
+    if (urlChecks.isFileURL(tab.url)) {
       return injectIntoLocalDocument(tab);
     } else {
       return injectIntoRemoteDocument(tab);
@@ -52,39 +53,15 @@ function SidebarInjector(chromeTabs, dependencies) {
    * otherwise it will be rejected with an error.
    */
   this.removeFromTab = function (tab) {
-    if (isPDFViewerURL(tab.url)) {
+    if (urlChecks.isPDFViewerURL(tab.url)) {
       return removeFromPDF(tab);
     } else {
       return removeFromHTML(tab);
     }
   };
 
-  function getPDFViewerURL(url) {
-    var PDF_VIEWER_URL = extensionURL('/content/web/viewer.html');
-    return PDF_VIEWER_URL + '?file=' + encodeURIComponent(url);
-  }
-
-  function isPDFURL(url) {
-    return url.toLowerCase().indexOf('.pdf') > 0;
-  }
-
-  function isPDFViewerURL(url) {
-    return url.indexOf(getPDFViewerURL('')) === 0;
-  }
-
-  function isFileURL(url) {
-    return url.indexOf("file:") === 0;
-  }
-
-  function isSupportedURL(url) {
-    var SUPPORTED_PROTOCOLS = ['http:', 'https:', 'ftp:'];
-    return SUPPORTED_PROTOCOLS.some(function (protocol) {
-      return url.indexOf(protocol) === 0;
-    });
-  }
-
   function injectIntoLocalDocument(tab) {
-    if (isPDFURL(tab.url)) {
+    if (urlChecks.isPDFURL(tab.url)) {
       return injectIntoLocalPDF(tab);
     } else {
       return Promise.reject(new err.LocalFileError('Local non-PDF files are not supported'));
@@ -92,13 +69,13 @@ function SidebarInjector(chromeTabs, dependencies) {
   }
 
   function injectIntoRemoteDocument(tab) {
-    return isPDFURL(tab.url) ? injectIntoPDF(tab) : injectIntoHTML(tab);
+    return urlChecks.isPDFURL(tab.url) ? injectIntoPDF(tab) : injectIntoHTML(tab);
   }
 
   function injectIntoPDF(tab) {
     return new Promise(function (resolve, reject) {
-      if (!isPDFViewerURL(tab.url)) {
-        chromeTabs.update(tab.id, {url: getPDFViewerURL(tab.url)}, function () {
+      if (!urlChecks.isPDFViewerURL(tab.url)) {
+        chromeTabs.update(tab.id, {url: urlChecks.getPDFViewerURL(tab.url)}, function () {
         	sendMessageToEmbedBeagle()
           resolve();
         });
@@ -123,7 +100,7 @@ function SidebarInjector(chromeTabs, dependencies) {
 
   function injectIntoHTML(tab) {
     return new Promise(function (resolve, reject) {
-      if (!isSupportedURL(tab.url)) {
+      if (!urlChecks.isSupportedURL(tab.url)) {
         var protocol = tab.url.split(':')[0];
         return reject(new err.RestrictedProtocolError('Cannot load Hypothesis into ' + protocol + ' pages'));
       }
@@ -152,7 +129,7 @@ function SidebarInjector(chromeTabs, dependencies) {
 
   function removeFromPDF(tab) {
     return new Promise(function (resolve) {
-      var url = tab.url.slice(getPDFViewerURL('').length).split('#')[0];
+      var url = tab.url.slice(urlChecks.getPDFViewerURL('').length).split('#')[0];
       chromeTabs.update(tab.id, {
         url: decodeURIComponent(url)
       }, resolve);
@@ -161,7 +138,7 @@ function SidebarInjector(chromeTabs, dependencies) {
 
   function removeFromHTML(tab) {
     return new Promise(function (resolve, reject) {
-      if (!isSupportedURL(tab.url)) {
+      if (!urlChecks.isSupportedURL(tab.url)) {
         return resolve();
       }
 
