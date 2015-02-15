@@ -26,10 +26,10 @@ var paths = {
   "js": ['js/**/*.js', 'js/**/*.jsx'],
   "img": ['static/**/*.png', 'static/**/*.jpg', '!static/content/**'],
   "static": [
-    'static/**/*.css', 
-    'static/**/*.js', 
+    'static/**/*.css',
+    'static/**/*.js',
     '!static/content/**/*.*',
-    '../beagle-style/style.min.css', 
+    '../beagle-style/style.min.css',
     'examples/example.pdf'
   ],
   "sass": ['scss/**/main.scss'],
@@ -140,4 +140,4 @@ gulp.task('watch', function() {
 })
 
 gulp.task('bundle', ['move', 'static', 'sass', 'iframeSass', 'main.js', 'background.js', 'img', 'html', 'content'])
-gulp.task('default', ['watch', 'move', 'static','sass', 'iframeSass', 'main.js', 'background.js', 'img', 'html', 'server'])
+gulp.task('default', ['watch', 'move', 'static', 'sass', 'iframeSass', 'main.js', 'background.js', 'img', 'html', 'server'])
