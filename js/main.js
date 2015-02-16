@@ -27,14 +27,7 @@ var sidebarOpen = false,
 console.log('Main.js is being called from inside bundle.min.js')
 
 // Handle requests from background.html
-function handleRequest(
-	// The object data with the request params
-	request,
-	// These last two ones isn't important for this example.
-	// If you want know more about it visit:
-	// http://code.google.com/chrome/extensions/messaging.html
-	sender, sendResponse
-	) {
+function handleRequest(request, sender, sendResponse) {
 
   console.log("Inside handleRequest in main.js. callFunction: ", request.callFunction)
 
