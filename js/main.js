@@ -66,7 +66,7 @@ function handleRequest(request, sender, sendResponse) {
 		} else {
 			el = document.getElementById('beagle-sidebar')
       el.parentNode.removeChild(el)
-			sidebarOpen = false
+			sidebarOpen = null
 		}
 	}
 }
