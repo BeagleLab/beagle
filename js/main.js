@@ -26,6 +26,35 @@ var sidebarOpen = false,
 
 console.log('Main.js is being called from inside bundle.min.js')
 
+function getModules(requestModules) {
+	var options = {}, modules
+
+	//Get the current list of used modules
+  chrome.storage.sync.get('modules', function(result){
+    modules = result
+
+		// If the extension has specified new modules to load
+		if (requestModules) {
+			modules.dependencies = (modules.dependencies) ? modules.dependencies : []
+			_.each(requestModules, function(module) {
+				modules.dependencies.push(module)
+			})
+			// If there is a change, set it.
+			chrome.storage.sync.set(modules)
+		}
+
+    _.each(modules.dependencies, function(module) {
+      options[module] = true
+    })
+
+    // Options and modules are essentially the same - options comes from local
+    // storage, while modules should come from the background page.
+    // So, we just return the options module.
+    // TODO Test this, may not work in all envs.
+		return options
+	})
+}
+
 // Handle requests from background.html
 function handleRequest(request, sender, sendResponse) {
 
