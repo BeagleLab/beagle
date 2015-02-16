@@ -3,6 +3,7 @@
 var fs = require('fs')
 var _ = require('lodash')
 var pp = require('protocol-parser')
+var domready = require("domready")
 
 // Display modules
 var style = require('beagle-style')
