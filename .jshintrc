@@ -1,9 +1,10 @@
 {
-  "node": true,
   "asi": true,
   "browser": true,
   "browserify": true,
   "globals": {
     "chrome": true
-  }
+  },
+  "newcap": false,
+  "node": true,
 }
