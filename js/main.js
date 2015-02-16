@@ -185,6 +185,7 @@ function buildView(modules, data) {
 	data = data || null
 	buildStaticAssets(modules, data)
 
+	// This is unrelated code to the main point of this function and shouldn't be here.
   if (data.doctype === 'html' && !_.every(_.forOwn(data.protocols, function(protocol) { !_.isEmpty(protocol) } )))
     console.log(data.protocols, !_.isEmpty(data.protocols))
 
