@@ -76,10 +76,12 @@ function SidebarInjector(chromeTabs, dependencies) {
     return new Promise(function (resolve, reject) {
       if (!urlChecks.isPDFViewerURL(tab.url)) {
         chromeTabs.update(tab.id, {url: urlChecks.getPDFViewerURL(tab.url)}, function () {
+        	console.log("injectIntoPDF and notViewerURL")
         	sendMessageToEmbedBeagle()
           resolve();
         });
       } else {
+      	console.log("injectIntoPDF")
       	sendMessageToEmbedBeagle()
         resolve();
       }

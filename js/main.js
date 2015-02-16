@@ -30,6 +30,8 @@ console.log('Main.js is being called from inside bundle.min.js')
 function getModules(requestModules) {
 	var options = {}, modules
 
+	// TODO See if you can refactor to remove var modules
+
 	//Get the current list of used modules
   chrome.storage.sync.get('modules', function(result){
     modules = result
@@ -58,42 +60,17 @@ function getModules(requestModules) {
 
 // Handle requests from background.html
 function handleRequest(request, sender, sendResponse) {
-
   console.log("Inside handleRequest in main.js. callFunction: ", request.callFunction)
 
-  var options = {}, modules, el
+  var el
 
 	if (request.callFunction == "toggleSidebar") {
-
 		if (!sidebarOpen) {
-
-      //Get the current list of used modules
-      chrome.storage.sync.get('modules', function(result){
-
-        modules = result
-  			// If the extension has specified new modules to load
-				if (request.modules) {
-
-					modules.dependencies = (modules.dependencies) ? modules.dependencies : []
-
-					_.each(request.modules, function(module) {
-						modules.dependencies.push(module)
-					})
-
-					// If there is a change, set it.
-					chrome.storage.sync.set(modules)
-				}
-
-        _.each(modules.dependencies, function(module) {
-          options[module] = true
-        })
-
-        //Currently, options and modules are pretty much exactly the same
-        //Both are objects, modules has a depth of 1
-        //The reason is that they will eventually come from different sources
-				parsePDF(options, modules)
-			})
+			// Get modules from background script and local storage,
+			// Go on to build the sidebar
+			parsePDF({'modules': getModules(request.modules)})
 		} else {
+			// Remove the sidebar
 			el = document.getElementById('beagle-sidebar')
       el.parentNode.removeChild(el)
 			sidebarOpen = null
@@ -101,9 +78,8 @@ function handleRequest(request, sender, sendResponse) {
 	}
 }
 
-function parsePDF(options, modules) {
-
-  modules = modules || null
+// TODO Rename. isDocumentPDFOrHTML is better.
+function parsePDF(options) {
 
   function getPdfDocumentLocation () {
     if (document.querySelector("body>embed[type='application/pdf']")) {
@@ -121,7 +97,7 @@ function parsePDF(options, modules) {
     if (!navigator.onLine) {
       throw (new Error('You are offline!'))
     } else if (!PDFJS) {
-      throw (new Error('Error with PDFJS'))
+      throw (new Error('PDFJS not being loaded in main.js'))
     } else if (getPdfDocumentLocation()) {
 
       // PDFJS will not execute the callback a second time. I've no idea why. There
@@ -131,16 +107,17 @@ function parsePDF(options, modules) {
         if (err !== null) { throw (new Error('Could not read the PDF')) }
 
         options.doctype = 'pdf'
-        buildView(modules, options)
+
+        buildView(options)
 
       })
     } else {
       console.log('Not a pdf.')
 
-      buildView(modules, {
-        doctype: 'html',
-        protocols: pp.parse(window, ['twitter', 'og', 'citation', 'dc'])
-      })
+      options.doctype = 'html'
+      options.protocols = pp.parse(window, ['twitter', 'og', 'citation', 'dc'])
+
+      buildView(options)
     }
   }
 
@@ -150,23 +127,27 @@ function parsePDF(options, modules) {
 }
 
 // TODO Enable Static Assets to go to other Views besides SideBar
-function buildStaticAssets(modules, data){
+function buildStaticAssets(options){
 
   var sidebar, iframeCSS
 
-  if (data.doctype === 'pdf') {
+  if (options.doctype === 'pdf') {
 
   	sidebar = document.createElement('div')
   	sidebar.id = sidebarId
+  	document.body.appendChild(sidebar)
 
-  } else if (data.doctype === 'html') {
+  } else {
 
-    if (document.getElementById(sidebarId)) {
-      throw (new Error('id:' + sidebarId + 'taken. Use another id!'))
+    // If !doctype === 'viewer'
+    if (options.doctype === 'html') {
+	    if (document.getElementById(sidebarId)) {
+	      throw (new Error('id:' + sidebarId + 'taken. Use another id!'))
+	    }
+	    sidebar = document.createElement('iframe')
+	    sidebar.id = sidebarId
+	    document.body.appendChild(sidebar)
     }
-
-    sidebar = document.createElement('iframe')
-    sidebar.id = sidebarId
 
     // Get the CSS that is inject into the main page if it is HTML.
     if (document.head) {
@@ -177,8 +158,6 @@ function buildStaticAssets(modules, data){
       throw (new Error('There is no head for this document!'))
     }
   }
-
-  document.body.appendChild(sidebar)
 
   // Start the CSS
   var concatCSS = document.createElement('style')
@@ -202,36 +181,51 @@ function buildStaticAssets(modules, data){
   outerPane.className = 'beagle-wrapper'
 
   // Mung it all together
-  if (data.doctype === 'pdf') {
+  if (options.doctype === 'pdf') {
     sidebar.appendChild(concatCSS)
     sidebar.appendChild(outerPane)
-  } else if (data.doctype === 'html') {
+  } else {
   	document.getElementById(sidebarId).contentDocument.head.appendChild(concatCSS)
   	document.getElementById(sidebarId).contentDocument.body.appendChild(outerPane)
   }
 }
 
-function buildView(modules, data) {
-	data = data || null
-	buildStaticAssets(modules, data)
+function buildView(options) {
+	buildStaticAssets(options)
 
+	// TODO Where should data from modules be routed?
 	// This is unrelated code to the main point of this function and shouldn't be here.
-  if (data.doctype === 'html' && !_.every(_.forOwn(data.protocols, function(protocol) { !_.isEmpty(protocol) } )))
-    console.log(data.protocols, !_.isEmpty(data.protocols))
+  if (options.doctype === 'html' && !_.every(_.forOwn(options.protocols, function(protocol) { return !_.isEmpty(protocol) } )))
+    console.log(options.protocols, !_.isEmpty(options.protocols))
 
-  var parent = (data.doctype === 'pdf') ? document :
+  var parent = (options.doctype === 'pdf') ? document :
     document.getElementById(sidebarId).contentDocument
 
   React.render(
 		App(sampleData),
 		parent.getElementById('react')
 	)
+
 	linkHandler()
-	sidebarOpen = true
+
+	if (options.doctype !== 'viewer') {
+		sidebarOpen = true
+	}
 }
 
-// check if we're loading in the browser as an extension
-if (chrome && chrome.runtime && chrome.runtime.onMessage) {
+// If we're loading Beagle in viewer.html
+if (window.location.pathname === '/content/web/viewer.html') {
+	console.log("In the PDF.js viewer")
+
+	domready(function(){
+		buildView({
+			'modules': getModules(),
+			'doctype': 'viewer'
+		})
+	})
+
+// If we're injecting the sidebar
+} else if (chrome && chrome.runtime && chrome.runtime.onMessage) {
 	chrome.runtime.onMessage.addListener(handleRequest)
 } else {
 
