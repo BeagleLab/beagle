@@ -22,10 +22,12 @@ module.exports = React.createClass({
 
 				<Save />
 
+				<br />
         <br />
         <GrabText />
         <br/>
         <GetValue />
+        <br />
         <br />
 
 				<Accordion>
