@@ -15,12 +15,13 @@ var GetValue = React.createClass({
       if (err) return console.log('Ooops!', err) // likely the key was not found
 
       console.log('text=' + value)
+
     })
   },
   render: function () {
     return (
       <button className="btn btn-primary" type="button" onClick={this.handleClick}>
-        Get Saved Value
+        Retrieve value
       </button>
     );
   }
