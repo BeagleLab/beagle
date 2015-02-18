@@ -8,8 +8,8 @@ Navigating the sea of publications
 ##Installation
 
 1. Git clone this repository.
-2. In order to enable this in chrome, you need to open Chrome Settings > Extensions. Click 'Load Unpacked Extension', then select the folder you downloaded in the first step.
-3. Load a pdf in Chrome to maximise usage, or just click on the icon in the search bar on any page.
+2. In order to enable this in chrome, you need to open Chrome Settings > Extensions. Click 'Load Unpacked Extension'. Select the `build` folder from within this repository. 
+3. Go to any page, and click on the icon in the search bar. To see best results, click the icon while looking at a pdf. 
 
 ### Developer Installation
 
