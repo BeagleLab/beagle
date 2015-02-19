@@ -1,6 +1,5 @@
 'use strict';
 var fs = require('fs')
-
 var React = require('react')
 var rangy = require('rangy')
 var level = require('level-browserify')
@@ -9,17 +8,17 @@ var db = level('./mydb')
 // var Mailgun = require('mailgun').Mailgun;
 // var mg = new Mailgun('key-7e56f671872d1e829021dd4dd39ae156');
 
-var nodemailer = require('nodemailer');
-var mg = require('nodemailer-mailgun-transport');
-
 // This is your API key that you retrieve from www.mailgun.com/cp (free up to 10K monthly emails)
 var auth = {
   auth: {
-    api_key: 'key-7e56f671872d1e829021dd4dd39ae156'
+    api_key: 'key-7e56f671872d1e829021dd4dd39ae156',
+    domain: 'sandboxc5e90e5fb9e84a9eb572c4e8c6720c67.mailgun.org'
   }
 }
 
-var nodemailerMailgun = nodemailer.createTransport(mg(auth));
+var nodemailer = require('nodemailer')
+var mg = require('nodemailer-mailgun-transport')(auth)
+var nodemailerMailgun = nodemailer.createTransport(mg)
 
 var GetValue = React.createClass({
   displayName: 'GetValue',
@@ -54,7 +53,7 @@ var GetValue = React.createClass({
 
 	    // mg.sendText('richard@beagle.io',
      //     ['richard.littauer@gmail.com'],
-     //
+
 
 	    //    ]},
      //     function(err) { err && console.log('Email failed', err) });
