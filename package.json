@@ -60,5 +60,8 @@
   "bugs": {
     "url": "https://github.com/RichardLitt/beagle/issues"
   },
-  "homepage": "https://github.com/RichardLitt/beagle"
+  "homepage": "https://github.com/RichardLitt/beagle",
+  "devDependencies": {
+    "dependency-check": "^2.2.2"
+  }
 }
