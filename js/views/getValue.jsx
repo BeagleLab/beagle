@@ -4,6 +4,7 @@ var React = require('react')
 var rangy = require('rangy')
 var level = require('level-browserify')
 var db = level('./mydb')
+var url = require('../lib/url-checks')
 
 // var Mailgun = require('mailgun').Mailgun;
 // var mg = new Mailgun('key-7e56f671872d1e829021dd4dd39ae156');
@@ -30,18 +31,22 @@ var GetValue = React.createClass({
     db.get('text', function (err, value) {
       if (err) return console.log('Ooops!', err) // likely the key was not found
 
-      console.log('text=' + value)
+    	var urlHtml = url.getPDFURL(window.location.href)
+
+    	var messageText = 'Hi Richard.\n I thought you might appreciate this text from a PDF he was reading:' +
+			  '\n\n' + value + '\n' +
+        '\n If you want to see it, go here: ' + urlHtml +
+        '\n Well, hope that helped with the sciencing.' +
+        '\n\n For great good,\n - Richard'
+
+      console.log("Message: ", messageText)
 
     	nodemailerMailgun.sendMail({
-			  from: 'richard@beagle.io',
-			  to: 'richard.littauer@gmail.com', // An array if you have multiple recipients.
-			  subject: 'Hey you, awesome!',
-			  text: 'Hi Adam. I thought you might appreciate this text from a PDF he was reading:\n\n' +
-         value + '\n\n Well, hope that helped with the sciencing.\n\n For great good,\n - Richard',
-        'attachments': [{
-         	fileName: 'PDF',
-	        path: window.location.href
-		    }]
+				  from: 'richard@beagle.io',
+				  // cc: 'richard.littauer@gmail.com',
+				  to: 'richard.littauer@gmail.com', // An array if you have multiple recipients.
+				  subject: 'Hey you, awesome!',
+				  text: messageText
 			}, function (err, info) {
 			  if (err) {
 			    console.log('Error: ' + err);
@@ -50,13 +55,6 @@ var GetValue = React.createClass({
 			    console.log('Response: ' + info);
 			  }
 			});
-
-	    // mg.sendText('richard@beagle.io',
-     //     ['richard.littauer@gmail.com'],
-
-
-	    //    ]},
-     //     function(err) { err && console.log('Email failed', err) });
 
     })
   },
