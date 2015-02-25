@@ -16,43 +16,42 @@ var GetValue = require('./views/getValue.jsx')
 module.exports = React.createClass({
 
   render: function() {
-
     return (
-     	<Sidebar>
+			<Sidebar>
 
-				<Save />
+				{/* <Save />
 
 				<br />
-        <br />
-        <GrabText />
-        <br/>
-        <GetValue />
-        <br />
-        <br />
+				<br /> */}
+				<GrabText />
+				<br/>
+				<GetValue />
+				<br />
+				<br />
 
 				<Accordion>
 					<Panel header="Publication" eventKey='1' activeKey={false}>
-		        <Publication data={this.props.data.publication} />
-		      </Panel>
-		    </Accordion>
+						<Publication data={this.props.data.publication} />
+					</Panel>
+				</Accordion>
 
-		    <Accordion>
+				{/* <Accordion>
 					<Panel header="Table of Contents" eventKey='2'>
-		        <Toc data={this.props.data.publication.toc} />
-		      </Panel>
-		    </Accordion>
+						<Toc data={this.props.data.publication.toc} />
+					</Panel>
+				</Accordion> */}
 
-        <h6>Graph</h6>
-        <Graph data={this.props.data.publication} />
+				<h6>Graph</h6>
+				<Graph data={this.props.data.publication} />
 
-        <h6>Tags</h6>
-        <Tags data={this.props.data.publication.subjects} />
+				{/* <h6>Tags</h6>
+				<Tags data={this.props.data.publication.subjects} />
 
-        <h6>Cite</h6>
-        <Cite />
+				<h6>Cite</h6>
+				<Cite /> */}
 
-        <SignOut />
-      </Sidebar>
-    )
+				<SignOut />
+			</Sidebar>
+		)
   }
 })
