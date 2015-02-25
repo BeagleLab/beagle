@@ -63,7 +63,7 @@ var GetValue = React.createClass({
   render: function () {
     return (
       <button className="btn btn-primary" type="button" onClick={this.handleClick}>
-        Retrieve value
+        Email
       </button>
     );
   }
