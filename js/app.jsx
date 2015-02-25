@@ -4,6 +4,7 @@ var Accordion = require('react-bootstrap').Accordion
 var Panel = require('react-bootstrap').Panel
 
 var Cite = require('./components/cite.jsx')
+var EmailInput = require('./views/emailInput.jsx')
 var Graph = require('./views/graph.jsx')
 var Publication = require('./views/publication.jsx')
 var Save = require('./components/save.jsx')
@@ -28,6 +29,8 @@ module.exports = React.createClass({
 				<GetValue />
 				<br />
 				<br />
+
+				<EmailInput />
 
 				<Accordion>
 					<Panel header="Publication" eventKey='1' activeKey={false}>
