@@ -1,34 +1,24 @@
-"use strict";
+'use strict'
 
 var fs = require('fs')
 var _ = require('lodash')
 var pp = require('protocol-parser')
-var domready = require("domready")
-
-// Display modules
+var domready = require('domready')
 var style = require('beagle-style')
 var React = require('react')
 var App = React.createFactory(require('./app.jsx'))
 var linkHandler = require('./linkhandler.js')
 var sampleData = require('../lib/sampleData.js')
 var url = require('./lib/url-checks')
-
-// var level = require('level-browserify')
-
-// // 1) Create our database, supply location and options.
-// //    This will create or open the underlying LevelDB store/Indexedb Database
-// var db = level('./mydb')
-
-// TODO Optional seems to have issues with non-essential errors, too.
 var PDFJS = require('beagle-pdf')
 
-var sidebarOpen = false,
-	sidebarId = 'beagle-sidebar'
+var sidebarOpen = false
+var sidebarId = 'beagle-sidebar'
 
 console.log('Main.js is being called from inside bundle.min.js')
 
 function getModules (requestModules, cb) {
-	// Get the current list of used modules
+  // Get the current list of used modules
   chrome.storage.sync.get('modules', function (result) {
     var options = {}
 
@@ -47,140 +37,129 @@ function getModules (requestModules, cb) {
     })
 
     // Options and modules are essentially the same - options comes from local
-		// storage, while modules should come from the background page.
-		// So, we just return the options module.
-		// TODO Test this, may not work in all envs.
+    // storage, while modules should come from the background page.
+    // So, we just return the options module.
+    // TODO Test this, may not work in all envs.
     console.log('options', options)
     if (cb)
-			return cb(options)
-		else
-			return options
+      return cb(options)
+    else
+      return options
   })
 }
 
 // Handle requests from background.html
-function handleRequest(request, sender, sendResponse) {
-	console.log("Inside handleRequest in main.js. callFunction: ", request.callFunction)
+function handleRequest (request, sender, sendResponse) {
+  console.log('Inside handleRequest in main.js. callFunction: ', request.callFunction)
 
-	var el
+  var el
 
-	if (request.callFunction == "toggleSidebar") {
-		if (!sidebarOpen) {
-			// Get modules from background script and local storage,
-			// Go on to build the sidebar
-			parsePDF({'modules': getModules(request.modules)})
-		} else {
-			// Remove the sidebar
-			el = document.getElementById('beagle-sidebar')
-			el.parentNode.removeChild(el)
-			sidebarOpen = null
-		}
-	}
+  if (request.callFunction === 'toggleSidebar') {
+    if (!sidebarOpen) {
+      // Get modules from background script and local storage,
+      // Go on to build the sidebar
+      parsePDF({'modules': getModules(request.modules)})
+    } else {
+      // Remove the sidebar
+      el = document.getElementById('beagle-sidebar')
+      el.parentNode.removeChild(el)
+      sidebarOpen = null
+    }
+  }
 }
 
 // TODO Rename. isDocumentPDFOrHTML is better.
-function parsePDF(options) {
+function parsePDF (options) {
+  function getPdfDocumentLocation () {
+    if (document.querySelector("body>embed[type='application/pdf']")) {
+      return window.location.href
+    } else if (document.querySelector("iframe[type='application/pdf']")) {
+      return document.querySelector("iframe[type='application/pdf']").contentDocument
+    } else {
+      return false
+    }
+  }
 
-	function getPdfDocumentLocation () {
-		if (document.querySelector("body>embed[type='application/pdf']")) {
-			return window.location.href
-		}
-		else if (document.querySelector("iframe[type='application/pdf']")) {
-			return document.querySelector("iframe[type='application/pdf']").contentDocument
-		}
-		else {
-			return false
-		}
-	}
+  try {
+    if (!navigator.onLine) {
+      throw (new Error('You are offline!'))
+    } else if (!PDFJS) {
+      throw (new Error('PDFJS not being loaded in main.js'))
+    } else if (getPdfDocumentLocation()) {
+      options.doctype = 'pdf'
+      options.pdfLocation = getPdfDocumentLocation()
+      buildView(options)
+    } else {
+      console.log('Not a pdf.')
 
-	try {
-		if (!navigator.onLine) {
-			throw (new Error('You are offline!'))
-		} else if (!PDFJS) {
-			throw (new Error('PDFJS not being loaded in main.js'))
-		} else if (getPdfDocumentLocation()) {
+      options.doctype = 'html'
+      options.protocols = pp.parse(window, ['twitter', 'og', 'citation', 'dc'])
 
-			options.doctype = 'pdf'
-			options.pdfLocation = getPdfDocumentLocation()
-			buildView(options)
-
-		} else {
-			console.log('Not a pdf.')
-
-			options.doctype = 'html'
-			options.protocols = pp.parse(window, ['twitter', 'og', 'citation', 'dc'])
-
-			buildView(options)
-		}
-	}
-
-	catch (e) {
-		console.log(e.name, e.message)
-	}
+      buildView(options)
+    }
+  } catch (e) {
+    console.log(e.name, e.message)
+  }
 }
 
 // TODO Enable Static Assets to go to other Views besides SideBar
-function buildStaticAssets(options){
+function buildStaticAssets (options) {
+  var sidebar, iframeCSS
 
-	var sidebar, iframeCSS
+  if (options.doctype === 'pdf') {
+    sidebar = document.createElement('div')
+    sidebar.id = sidebarId
+    document.body.appendChild(sidebar)
+  } else {
+    // If !doctype === 'viewer'
+    if (options.doctype === 'html') {
+      if (document.getElementById(sidebarId)) {
+        throw (new Error('id:' + sidebarId + 'taken. Use another id!'))
+      }
+      sidebar = document.createElement('iframe')
+      sidebar.id = sidebarId
+      document.body.appendChild(sidebar)
+    }
 
-	if (options.doctype === 'pdf') {
+    // Get the CSS that is inject into the main page if it is HTML.
+    if (document.head) {
+      iframeCSS = document.createElement('style')
+      iframeCSS.innerHTML = fs.readFileSync(__dirname + '/../build/iframe.min.css', 'utf8')
+      document.head.appendChild(iframeCSS)
+    } else {
+      throw (new Error('There is no head for this document!'))
+    }
+  }
 
-		sidebar = document.createElement('div')
-		sidebar.id = sidebarId
-		document.body.appendChild(sidebar)
+  // Start the CSS
+  var concatCSS = document.createElement('style')
+  concatCSS.innerHTML += '@import url("https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css");'
+  concatCSS.innerHTML += '@import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css");'
 
-	} else {
+  // Get the global CSS
+  // May be better for this to be async. For now, there are no tests
+  // it loads or not. The encoding ensures string return, not buffer.
+  concatCSS.innerHTML += fs.readFileSync(__dirname + '/../build/bundle.min.css', 'utf8')
 
-		// If !doctype === 'viewer'
-		if (options.doctype === 'html') {
-			if (document.getElementById(sidebarId)) {
-				throw (new Error('id:' + sidebarId + 'taken. Use another id!'))
-			}
-			sidebar = document.createElement('iframe')
-			sidebar.id = sidebarId
-			document.body.appendChild(sidebar)
-		}
+  // Grab CSS files from style module. CSS and HTML shouldn't be exported from
+  // other submodules, in order to make sure that everything is modular.
+  if (style) {
+    concatCSS.innerHTML += (style.css) ? style.css : ''
+  }
 
-		// Get the CSS that is inject into the main page if it is HTML.
-		if (document.head) {
-			iframeCSS = document.createElement('style')
-			iframeCSS.innerHTML = fs.readFileSync(__dirname + '/../build/iframe.min.css', 'utf8')
-			document.head.appendChild(iframeCSS)
-		} else {
-			throw (new Error('There is no head for this document!'))
-		}
-	}
+  // Make a wrapper for the HTML
+  var outerPane = document.createElement('div')
+  outerPane.id = 'react'
+  outerPane.className = 'beagle-wrapper'
 
-	// Start the CSS
-	var concatCSS = document.createElement('style')
-	concatCSS.innerHTML += '@import url("https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css");'
-	concatCSS.innerHTML += '@import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css");'
-
-	// Get the global CSS
-	// May be better for this to be async. For now, there are no tests
-	// it loads or not. The encoding ensures string return, not buffer.
-	concatCSS.innerHTML += fs.readFileSync(__dirname + '/../build/bundle.min.css', 'utf8')
-
-	// Grab CSS files from style module. CSS and HTML shouldn't be exported from
-	// other submodules, in order to make sure that everything is modular.
-	if (style) {
-		concatCSS.innerHTML += (style.css) ? style.css : ''
-	}
-
-	// Make a wrapper for the HTML
-	var outerPane = document.createElement('div')
-	outerPane.id = 'react'
-	outerPane.className = 'beagle-wrapper'
-
-	// Mung it all together
-	if (options.doctype === 'pdf') {
-		sidebar.appendChild(concatCSS)
-		sidebar.appendChild(outerPane)
-	} else {
-		document.getElementById(sidebarId).contentDocument.head.appendChild(concatCSS)
-		document.getElementById(sidebarId).contentDocument.body.appendChild(outerPane)
-	}
+  // Mung it all together
+  if (options.doctype === 'pdf') {
+    sidebar.appendChild(concatCSS)
+    sidebar.appendChild(outerPane)
+  } else {
+    document.getElementById(sidebarId).contentDocument.head.appendChild(concatCSS)
+    document.getElementById(sidebarId).contentDocument.body.appendChild(outerPane)
+  }
 }
 
 function buildView (options) {
@@ -228,107 +207,106 @@ function buildView (options) {
 
 // If we're loading Beagle in viewer.html
 if (window.location.pathname === '/content/web/viewer.html') {
-	console.log("In the PDF.js viewer")
+  console.log('In the PDF.js viewer')
 
-	domready(function(){
-		getModules(['altmetrics'], function(modules){
-			buildView({
-				'modules': modules,
-				'doctype': 'viewer',
-				'pdfLocation': url.getPDFURL(window.location.href)
-			})
-		})
-	})
+  domready(function () {
+    getModules(['altmetrics'], function (modules) {
+      buildView({
+        'modules': modules,
+        'doctype': 'viewer',
+        'pdfLocation': url.getPDFURL(window.location.href)
+      })
+    })
+  })
 
 // If we're injecting the sidebar
 } else if (chrome && chrome.runtime && chrome.runtime.onMessage) {
-	chrome.runtime.onMessage.addListener(handleRequest)
+  chrome.runtime.onMessage.addListener(handleRequest)
 } else {
+  // for ease of dev. (move these before shipping widely)
+  var Abstract = require('./views/abstract.jsx')
+  var Alert = require('./components/alert.jsx')
+  var AltGraph = require('./views/altGraph.jsx')
+  var Annotations = require('./views/annotations.jsx')
+  var AnnotationsMilestone = require('./milestones/annotationsMilestone.jsx')
+  var AuthorModal = require('./views/authorModal.jsx')
+  var Champion = require('./components/champion.jsx')
+  var Cite = require('./components/cite.jsx')
+  var CiteModal = require('./views/citeModal.jsx')
+  var Contact = require('./components/contact.jsx')
+  var Figs = require('./views/figs.jsx')
+  var GrabText = require('./views/grabText.jsx')
+  var GetValue = require('./views/getValue.jsx')
+  var Graph = require('./views/graph.jsx')
+  var GraphModal = require('./views/graphModal.jsx')
+  var JournalModal = require('./views/journalModal.jsx')
+  var LinkOut = require('./components/linkOut.jsx')
+  var NoteModal = require('./views/noteModal.jsx')
+  var NotificationBanner = require('./views/notificationBanner.jsx')
+  var PaperModal = require('./views/paperModal.jsx')
+  var Publication = require('./views/publication.jsx')
+  var PublicationsList = require('./components/publicationsList.jsx')
+  var PublicationsListWrapper = require('./components/publicationsListWrapper.jsx')
+  var Save = require('./components/save.jsx')
+  var SavedPapersModal = require('./views/savedPapersModal.jsx')
+  var SignIn = require('./components/signIn.jsx')
+  var SignOut = require('./components/signOut.jsx')
+  var SignUpMilestone = require('./milestones/signUpMilestone.jsx')
+  var Supplement = require('./views/supplement.jsx')
+  var Tags = require('./components/tags.jsx')
+  var TagsList = require('./components/tagsList.jsx')
+  var TagsListWrapper = require('./components/tagsListWrapper.jsx')
+  var TagsModal = require('./views/tagsModal.jsx')
+  var TfIdf = require('./views/tfIdf.jsx')
+  var Toc = require('./views/toc.jsx')
 
-	// for ease of dev. (move these before shipping widely)
-	var Abstract = require('./views/abstract.jsx')
-	var Alert = require('./components/alert.jsx')
-	var AltGraph = require('./views/altGraph.jsx')
-	var Annotations = require('./views/annotations.jsx')
-	var AnnotationsMilestone = require('./milestones/annotationsMilestone.jsx')
-	var AuthorModal = require('./views/authorModal.jsx')
-	var Champion = require('./components/champion.jsx')
-	var Cite = require('./components/cite.jsx')
-	var CiteModal = require('./views/citeModal.jsx')
-	var Contact = require('./components/contact.jsx')
-	var Figs = require('./views/figs.jsx')
-	var GrabText = require('./views/grabText.jsx')
-	var GetValue = require('./views/getValue.jsx')
-	var Graph = require('./views/graph.jsx')
-	var GraphModal = require('./views/graphModal.jsx')
-	var JournalModal = require('./views/journalModal.jsx')
-	var LinkOut = require('./components/linkOut.jsx')
-	var NoteModal = require('./views/noteModal.jsx')
-	var NotificationBanner = require('./views/notificationBanner.jsx')
-	var PaperModal = require('./views/paperModal.jsx')
-	var Publication = require('./views/publication.jsx')
-	var PublicationsList = require('./components/publicationsList.jsx')
-	var PublicationsListWrapper = require('./components/publicationsListWrapper.jsx')
-	var Save = require('./components/save.jsx')
-	var SavedPapersModal = require('./views/savedPapersModal.jsx')
-	var SignIn = require('./components/signIn.jsx')
-	var SignOut = require('./components/signOut.jsx')
-	var SignUpMilestone = require('./milestones/signUpMilestone.jsx')
-	var Supplement = require('./views/supplement.jsx')
-	var Tags = require('./components/tags.jsx')
-	var TagsList = require('./components/tagsList.jsx')
-	var TagsListWrapper = require('./components/tagsListWrapper.jsx')
-	var TagsModal = require('./views/tagsModal.jsx')
-	var TfIdf = require('./views/tfIdf.jsx')
-	var Toc = require('./views/toc.jsx')
+  try {
+    parsePDF({'altmetrics': true})
+  } catch (e) {
+    console.log('PDF document not found in page (Following error is normal).')
+    console.log(e.name, e.message)
+  }
 
-	try {
-		parsePDF({'altmetrics': true})
-	} catch (e) {
-		console.log('PDF document not found in page (Following error is normal).')
-		console.log(e.name, e.message)
-	}
-
-	// export some things on window for non-extension pages.
-	// Declare all modules you need here. See comments above.
-	window.bundle = {
-		data: require('../lib/sampleData.js'),
-		Abstract: Abstract,
-		Alert: Alert,
-		AltGraph: AltGraph,
-		Annotations: Annotations,
-		AnnotationsMilestone: AnnotationsMilestone, // This is just to show annotations in the sidebar, and shouldn't actually be necessary
-		App: App,
-		AuthorModal: AuthorModal,
-		Champion: Champion,
-		Cite: Cite,
-		CiteModal: CiteModal,
-		Contact: Contact,
-		Figs: Figs,
-		GrabText: GrabText,
-		GetValue: GetValue,
-		Graph: Graph,
-		GraphModal: GraphModal,
-		JournalModal: JournalModal,
-		LinkOut: LinkOut,
-		NoteModal: NoteModal,
-		NotificationBanner: NotificationBanner,
-		PaperModal: PaperModal,
-		Publication: Publication,
-		PublicationsList: PublicationsList,
-		PublicationsListWrapper: PublicationsListWrapper,
-		React: React,
-		Save: Save,
-		SavedPapersModal: SavedPapersModal,
-		SignIn: SignIn,
-		SignOut: SignOut,
-		SignUpMilestone: SignUpMilestone,
-		Supplement: Supplement,
-		Tags: Tags,
-		TagsList: TagsList,
-		TagsListWrapper: TagsListWrapper,
-		TagsModal: TagsModal,
-		TfIdf: TfIdf,
-		Toc: Toc,
-	}
+  // export some things on window for non-extension pages.
+  // Declare all modules you need here. See comments above.
+  window.bundle = {
+    data: require('../lib/sampleData.js'),
+    Abstract: Abstract,
+    Alert: Alert,
+    AltGraph: AltGraph,
+    Annotations: Annotations,
+    AnnotationsMilestone: AnnotationsMilestone, // This is just to show annotations in the sidebar, and shouldn't actually be necessary
+    App: App,
+    AuthorModal: AuthorModal,
+    Champion: Champion,
+    Cite: Cite,
+    CiteModal: CiteModal,
+    Contact: Contact,
+    Figs: Figs,
+    GrabText: GrabText,
+    GetValue: GetValue,
+    Graph: Graph,
+    GraphModal: GraphModal,
+    JournalModal: JournalModal,
+    LinkOut: LinkOut,
+    NoteModal: NoteModal,
+    NotificationBanner: NotificationBanner,
+    PaperModal: PaperModal,
+    Publication: Publication,
+    PublicationsList: PublicationsList,
+    PublicationsListWrapper: PublicationsListWrapper,
+    React: React,
+    Save: Save,
+    SavedPapersModal: SavedPapersModal,
+    SignIn: SignIn,
+    SignOut: SignOut,
+    SignUpMilestone: SignUpMilestone,
+    Supplement: Supplement,
+    Tags: Tags,
+    TagsList: TagsList,
+    TagsListWrapper: TagsListWrapper,
+    TagsModal: TagsModal,
+    TfIdf: TfIdf,
+    Toc: Toc
+  }
 }
