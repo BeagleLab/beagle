@@ -44,8 +44,8 @@ module.exports = React.createClass({
 					</Panel>
 				</Accordion> */}
 
-				<h6>Graph</h6>
-				<Graph data={this.props.data.publication} />
+				{/* <h6>Graph</h6>
+				<Graph data={this.props.data.publication} /> */}
 
 				{/* <h6>Tags</h6>
 				<Tags data={this.props.data.publication.subjects} />
