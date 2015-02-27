@@ -236,7 +236,6 @@ if (window.location.pathname === '/content/web/viewer.html') {
   var Contact = require('./components/contact.jsx')
   var Figs = require('./views/figs.jsx')
   var GrabText = require('./views/grabText.jsx')
-  var GetValue = require('./views/getValue.jsx')
   var Graph = require('./views/graph.jsx')
   var GraphModal = require('./views/graphModal.jsx')
   var JournalModal = require('./views/journalModal.jsx')
@@ -284,7 +283,6 @@ if (window.location.pathname === '/content/web/viewer.html') {
     Contact: Contact,
     Figs: Figs,
     GrabText: GrabText,
-    GetValue: GetValue,
     Graph: Graph,
     GraphModal: GraphModal,
     JournalModal: JournalModal,
