@@ -30,7 +30,7 @@ module.exports = React.createClass({
 				<Forms />
 
 				<Accordion>
-					<Panel header="Publication" eventKey='1' activeKey={false}>
+					<Panel header="Publication Details" eventKey='1' activeKey={false}>
 						<Publication data={this.props.data.publication} />
 					</Panel>
 				</Accordion>
@@ -50,7 +50,7 @@ module.exports = React.createClass({
 				<h6>Cite</h6>
 				<Cite /> */}
 
-				<SignOut />
+				{/* <SignOut /> */}
 			</Sidebar>
 		)
   }
