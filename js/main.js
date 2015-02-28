@@ -66,6 +66,8 @@ function handleRequest (request, sender, sendResponse) {
       sidebarOpen = null
     }
   }
+
+  sendResponse()
 }
 
 // TODO Rename. isDocumentPDFOrHTML is better.
