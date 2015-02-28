@@ -108,23 +108,8 @@ function SidebarInjector(chromeTabs, dependencies) {
       }
 
       return (function (isInjected) {
-        if (!isInjected) {
-        	console.log('Normally, inject public/config here.')
-          // injectConfig(tab.id).then(function () {
-            chromeTabs.executeScript(tab.id, {
-              code: 'window.annotator = true'
-            }, function () {
-              console.log('Normally, execute public/embed.js here.')
-              sendMessageToEmbedBeagle()
-              // chromeTabs.executeScript(tab.id, {
-              //   file: 'public/embed.js'
-              // }, resolve);
-            });
-          // });
-        } else {
-        	sendMessageToEmbedBeagle()
-          resolve();
-        }
+        sendMessageToEmbedBeagle()
+        resolve();
       })()
     });
   }

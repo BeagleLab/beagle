@@ -106,15 +106,12 @@ function ChromeExtension(dependencies) {
   }
 
   function onBrowserActionClicked(tab) {
-
     var tabError = tabErrors.getTabError(tab.id);
     if (state.isTabErrored(tab.id) && tabError) {
       help.showHelpForError(tab, tabError);
-    }
-    else if (state.isTabActive(tab.id)) {
+    } else if (state.isTabActive(tab.id)) {
       state.deactivateTab(tab.id);
-    }
-    else {
+    } else {
       state.activateTab(tab.id);
     }
   }
