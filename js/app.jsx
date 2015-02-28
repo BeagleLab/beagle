@@ -12,6 +12,7 @@ var Toc = require('./views/toc.jsx')
 var SignOut = require('./components/signOut.jsx')
 var GrabText = require('./views/grabText.jsx')
 var Forms = require('./views/forms.jsx').Forms
+var RetrieveValue = require('./views/retrieveValue.jsx')
 
 module.exports = React.createClass({
 
@@ -34,6 +35,13 @@ module.exports = React.createClass({
 						<Publication data={this.props.data.publication} />
 					</Panel>
 				</Accordion>
+
+				<Accordion>
+					<Panel header="Snippets">
+						<RetrieveValue data={this.props.data} />
+					</Panel>
+				</Accordion>
+
 
 				{/* <Accordion>
 					<Panel header="Table of Contents" eventKey='2'>
