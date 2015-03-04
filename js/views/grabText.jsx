@@ -3,6 +3,7 @@ var React = require('react')
 var rangy = require('rangy')
 var level = require('level-browserify')
 var db = level('./mydb')
+var crypto = require('crypto')
 
 var GrabText = React.createClass({
   displayName: 'GrabText',
