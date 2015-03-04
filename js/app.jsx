@@ -28,10 +28,14 @@ module.exports = React.createClass({
 				<br/>
 				<br />
 
-				<Forms />
+        <Accordion>
+          <Panel header="Share by email" eventKey='1' activeKey={true}>
+    				<Forms />
+          </Panel>
+        </Accordion>
 
 				<Accordion>
-					<Panel header="Publication Details" eventKey='1' activeKey={false}>
+					<Panel header="Publication Details" eventKey='2' activeKey={false}>
 						<Publication data={this.props.data.publication} />
 					</Panel>
 				</Accordion>
@@ -44,7 +48,7 @@ module.exports = React.createClass({
 
 
 				{/* <Accordion>
-					<Panel header="Table of Contents" eventKey='2'>
+					<Panel header="Table of Contents" eventKey='3'>
 						<Toc data={this.props.data.publication.toc} />
 					</Panel>
 				</Accordion> */}
