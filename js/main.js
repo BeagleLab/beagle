@@ -181,17 +181,28 @@ function buildView (options) {
   // // doesn't fire the callback.
   if (options.pdfLocation) {
     console.log('pdf location', options)
-    PDFJS.readPDF(options.pdfLocation, options, function (err, val) {
-      if (err !== null) { throw (new Error('Could not read the PDF')) }
 
-      val = (val) ? {'data': {'publication': val}} : sampleData
+    PDFJS.getFingerprint(options.pdfLocation, function (err, fingerprint) {
+      if (err) { throw (new Error('Could not get the PDF fingerprint'))}
 
-      console.log('val', val)
+      console.log('fingerprint', fingerprint)
 
-      React.render(
-        App(val),
-        parent.getElementById('react')
-      )
+      var val = {
+        'fingerprint': fingerprint
+      }
+
+      PDFJS.readPDFText(options.pdfLocation, options, function (err, data) {
+        if (err !== null) { throw (new Error('Could not read the PDF')) }
+
+        val.data = (data) ? {'publication': data} : sampleData
+
+        console.log('PDF data and fingerprint', val)
+
+        React.render(
+          App(val),
+          parent.getElementById('react')
+        )
+      })
     })
   } else {
     React.render(
