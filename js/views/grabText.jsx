@@ -35,13 +35,14 @@ var GrabText = React.createClass({
           // This is canonically the PDF id; else, just the name of the url should work.
           'document_id': (fingerprint) ? fingerprint : url.getPDFURL(window.location.href)
         }
+
+        db.put(selection.id, selection, function (err) {
+          if (err) return console.log('Ooops!', err) // some kind of I/O error
+          console.log(selection)
+        })
       }
     )
 
-    db.put(selection.id, selection, function (err) {
-      if (err) return console.log('Ooops!', err) // some kind of I/O error
-      console.log(selection)
-    })
 
     // chrome.storage.sync.set({'value': text.startContainer.data}, function() {
     //   // Notify that we saved.
