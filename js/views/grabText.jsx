@@ -42,18 +42,19 @@ var GrabText = React.createClass({
       if (err) return console.log('Ooops!', err) // some kind of I/O error
       console.log(selection)
     })
-      // chrome.storage.sync.set({'value': text.startContainer.data}, function() {
-      //   // Notify that we saved.
-      //   alert('Text saved: ', text.startContainer.data)
-      //   console.log('Text saved', text.startContainer.data)
-      // })
+
+    // chrome.storage.sync.set({'value': text.startContainer.data}, function() {
+    //   // Notify that we saved.
+    //   alert('Text saved: ', text.startContainer.data)
+    //   console.log('Text saved', text.startContainer.data)
+    // })
   },
   render: function () {
     return (
       <button className="btn btn-success" type="button" onClick={this.handleClick}>
         Save Text
       </button>
-    );
+    )
   }
 })
 

@@ -22,7 +22,6 @@
 	"offline_enabled": false,
 	"permissions": [
 		"<all_urls>",
-
 		"contentSettings",
 		"tabs",
 		"storage"
