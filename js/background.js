@@ -1,5 +1,8 @@
 console.log('Inside Background Page')
 
+// Load in the chrome extension screen capture code
+require('chrome-ext-screen-capture').backgroundPage()
+
 // TODO Look into whether context menus would work
 
 var browserExtension = new (require('./lib/chrome-extension'))({

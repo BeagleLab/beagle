@@ -6,6 +6,7 @@ var db = level('./mydb')
 var crypto = require('crypto')
 var url = require('../lib/url-checks')
 var pdfjs = require('beagle-pdf')
+var cesc = require('chrome-ext-screen-capture')
 
 var GrabText = React.createClass({
   displayName: 'GrabText',
@@ -14,10 +15,17 @@ var GrabText = React.createClass({
   },
   handleClick: function (event) {
     this.setState({text: !this.state.text})
+
+    cesc.takeScreenshot(function (canvas) {
+      var selection = document.getSelection().getRangeAt(0).getBoundingClientRect()
+      var imgURL = cesc.renderPreview(selection, canvas, {padding: 20}).toDataURL('image/png')
+      console.log('Check this out', imgURL)
+    })
+
     var text = rangy.getSelection().getRangeAt(0)
 
     pdfjs.getFingerprint(url.getPDFURL(window.location.href),
-      function setDocumentId(err, fingerprint) {
+      function setDocumentId (err, fingerprint) {
         if (err) {
           console.log('Could not properly get PDF fingerprint')
           // throw (new Error('Could not get the PDF fingerprint'))
@@ -42,7 +50,6 @@ var GrabText = React.createClass({
         })
       }
     )
-
 
     // chrome.storage.sync.set({'value': text.startContainer.data}, function() {
     //   // Notify that we saved.
