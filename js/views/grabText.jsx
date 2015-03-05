@@ -1,6 +1,9 @@
 'use strict'
 var React = require('react')
 var rangy = require('rangy')
+// Hide alerts from showing up when randomly browsing
+rangy.config.alertOnFail = false
+
 var level = require('level-browserify')
 var db = level('./mydb')
 var crypto = require('crypto')
