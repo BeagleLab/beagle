@@ -42,7 +42,7 @@ module.exports = React.createClass({
 
 				<Accordion>
 					<Panel header="Snippets">
-						<RetrieveValue data={this.props.data} />
+						<RetrieveValue fingerprint={this.props.fingerprint} data={this.props.data} />
 					</Panel>
 				</Accordion>
 
