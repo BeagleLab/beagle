@@ -25,7 +25,7 @@ var GrabText = React.createClass({
       console.log('Check this out', imgURL)
     })
 
-    var text = rangy.getSelection().getRangeAt(0)
+    var text = rangy.getSelection().toString()
 
     pdfjs.getFingerprint(url.getPDFURL(window.location.href),
       function setDocumentId (err, fingerprint) {
@@ -47,9 +47,9 @@ var GrabText = React.createClass({
           'document_id': (fingerprint) ? fingerprint : url.getPDFURL(window.location.href)
         }
 
-        db.put(selection.id, selection, function (err) {
+        console.log(selection)
+        db.put(selection.id, selection, {'valueEncoding': 'json'}, function (err) {
           if (err) return console.log('Ooops!', err) // some kind of I/O error
-          console.log(selection)
         })
       }
     )
