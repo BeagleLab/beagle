@@ -31,7 +31,6 @@
 	"background": {
 		"persistent": true,
 		"scripts": [
-      "common.min.js",
       "background.min.js"
 		]
 	},
@@ -40,8 +39,7 @@
       "<all_urls>"
     ],
     "js": [
-      "common.min.js",
-      "main.min.js"
+      "bundle.min.js"
     ]
   }],
 

@@ -21,7 +21,8 @@ var sourcemaps = require('gulp-sourcemaps')
 
 var paths = {
   "build": 'build/',
-  "main": ['./js/main.js', './js/background.js'],
+  "main": ['./js/main.js'],
+  "background": ['./js/background.js'],
   "js": ['js/**/*.js', 'js/**/*.jsx'],
   "img": ['static/**/*.png', 'static/**/*.jpg', '!static/content/**'],
   "static": [
@@ -42,13 +43,26 @@ gulp.task('clean', function(cb) {
   del([paths.build], cb)
 })
 
-gulp.task('browserify', function() {
+gulp.task('main.js', function() {
   return browserify(paths.main)
     .transform(reactify)
     .transform({global: true }, 'brfs')
-    .plugin('factor-bundle', {outputs: ['build/main.min.js', 'build/background.min.js']})
     .bundle()
-    .pipe(source('common.min.js'))
+    .pipe(source('bundle.min.js'))
+    // .pipe(sourcemaps.init())
+    // .pipe(g_if('*.jsx', react()))
+    // .pipe(uglify())
+    // .pipe(concat('bundle.min.js'))
+    // .pipe(sourcemaps.write())
+    .pipe(gulp.dest('build/'))
+})
+
+gulp.task('background.js', function() {
+  return browserify(paths.background)
+    .transform(reactify)
+    .transform({global: true }, 'brfs')
+    .bundle()
+    .pipe(source('background.min.js'))
     // .pipe(sourcemaps.init())
     // .pipe(g_if('*.jsx', react()))
     // .pipe(uglify())
@@ -116,7 +130,8 @@ gulp.task('server', function() {
 
 gulp.task('watch', function() {
   gulp.watch(paths.manifest, ['static'])
-  gulp.watch(paths.js, ['browserify'])
+  gulp.watch(paths.js, ['background.js'])
+  gulp.watch(paths.js, ['main.js'])
   gulp.watch(paths.css, ['static'])
   gulp.watch(paths.sass, ['sass'])
   gulp.watch(paths.iframeSass, ['iframeSass'])
@@ -124,5 +139,5 @@ gulp.task('watch', function() {
   gulp.watch(paths.html, ['html'])
 })
 
-gulp.task('bundle', ['move', 'static', 'sass', 'iframeSass', 'browserify', 'img', 'html', 'content'])
-gulp.task('default', ['watch', 'move', 'static', 'sass', 'iframeSass', 'browserify', 'img', 'html', 'server'])
+gulp.task('bundle', ['move', 'static', 'sass', 'iframeSass', 'main.js', 'background.js', 'img', 'html', 'content'])
+gulp.task('default', ['watch', 'move', 'static', 'sass', 'iframeSass', 'main.js', 'background.js', 'img', 'html', 'server'])
