@@ -1,6 +1,6 @@
 'use strict'
 var React = require('react')
-var rangy = require('rangy')
+var rangy = require('rangy')({'alertOnFail': false})
 // Hide alerts from showing up when randomly browsing
 rangy.config.alertOnFail = false
 
