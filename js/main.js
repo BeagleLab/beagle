@@ -183,18 +183,19 @@ function buildView (options) {
     console.log('pdf location', options)
 
     PDFJS.getFingerprint(options.pdfLocation, function (err, fingerprint) {
-      if (err) { throw (new Error('Could not get the PDF fingerprint'))}
-
-      console.log('fingerprint', fingerprint)
-
-      var val = {
-        'fingerprint': fingerprint
+      if (err) {
+        throw (new Error('Could not get the PDF fingerprint'))
       }
+      var val = { 'fingerprint': fingerprint }
 
       PDFJS.readPDFText(options.pdfLocation, options, function (err, data) {
-        if (err !== null) { throw (new Error('Could not read the PDF')) }
+        if (err === 'Failed to find a DOI.') {
+          console.log('Failed to find a DOI.')
+        } else if (err !== null) {
+          throw (new Error('Could not read the PDF'))
+        }
 
-        val.data = (data) ? {'publication': data} : sampleData
+        val.data = (data) ? {'publication': data} : sampleData.data
 
         console.log('PDF data and fingerprint', val)
 
