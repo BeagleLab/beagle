@@ -184,7 +184,10 @@ function buildView (options) {
       if (err) {
         throw (new Error('Could not get the PDF fingerprint'))
       }
-      var val = { 'fingerprint': fingerprint }
+      var val = {
+        'fingerprint': fingerprint,
+        'staticPath': '../../'
+      }
 
       PDFJS.readPDFText(options.pdfLocation, options, function (err, data) {
         if (err === 'Failed to find a DOI.') {

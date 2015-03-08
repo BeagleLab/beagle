@@ -18,7 +18,7 @@ module.exports = React.createClass({
 
   render: function() {
     return (
-			<Sidebar>
+			<Sidebar staticPath={this.props.staticPath} >
 
 				{/* <Save />
 
