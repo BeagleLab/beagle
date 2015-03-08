@@ -11,11 +11,10 @@ var linkHandler = require('./linkhandler.js')
 var sampleData = require('../lib/sampleData.js')
 var url = require('./lib/url-checks')
 var PDFJS = require('beagle-pdf')
-
 var sidebarOpen = false
 var sidebarId = 'beagle-sidebar'
 
-console.log('Main.js is being called from inside bundle.min.js')
+// console.log('Main.js is being called from inside bundle.min.js')
 
 function getModules (requestModules, cb) {
   // Get the current list of used modules
@@ -40,18 +39,17 @@ function getModules (requestModules, cb) {
     // storage, while modules should come from the background page.
     // So, we just return the options module.
     // TODO Test this, may not work in all envs.
-    console.log('options', options)
-    if (cb)
+    // console.log('options', options)
+    if (cb) {
       return cb(options)
-    else
+    } else {
       return options
+    }
   })
 }
 
 // Handle requests from background.html
 function handleRequest (request, sender, sendResponse) {
-  console.log('Inside handleRequest in main.js. callFunction: ', request.callFunction)
-
   var el
 
   if (request.callFunction === 'toggleSidebar') {
