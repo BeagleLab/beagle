@@ -4,9 +4,18 @@ var Alert = require('./alert.jsx')
 module.exports = React.createClass({
 	displayName: 'Sidebar',
   getInitialState: function() {
+    var staticPath
+    if (this.props.staticPath) {
+      staticPath = this.props.staticPath + 'images/noun_11582.png'
+    } else if (chrome && chrome.extension) {
+      staticPath = chrome.extension.getURL("images/noun_11582.png")
+    } else {
+      staticPath = 'images/noun_11582.png'
+    }
+
+
     return {
-      staticPath: (this.props.staticPath) ? this.props.staticPath + 'images/noun_11582.png' :
-        chrome.extension.getURL("images/noun_11582.png")
+      'staticPath': staticPath
     }
   },
 	render: function() {
