@@ -1,7 +1,12 @@
 #!/bin/sh
 
+# This is only needed if you are using nvm
+# Brought in because some versions (looking at you, iojs) will break build. 
+. $NVM_DIR/nvm.sh
+
 green='\033[0;32m'
 NC='\033[0m' # No Color
 echo "${green}Gulping for great good${NC}"
 gulp bundle
 echo "${green}Bundled up!${NC}"
+git add build/*
