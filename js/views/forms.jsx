@@ -1,6 +1,9 @@
 var React = require('react')
 var db = require('level-browserify')('./mydb')
 var url = require('../lib/url-checks')
+var Accordion = require('react-bootstrap').Accordion
+var Panel = require('react-bootstrap').Panel
+
 var nodemailer = require('nodemailer')
 // This is your API key that you retrieve from www.mailgun.com/cp (free up to 10K monthly emails)
 var mg = require('nodemailer-mailgun-transport')({
@@ -127,30 +130,37 @@ var Forms = React.createClass({
 			</div>
 		}
 
-		return <div>
-			<div className="panel panel-default">
-				<div className="panel-heading clearfix">
-					<h3 className="panel-title pull-left">Contact Form</h3>
-					<div className="pull-right">
-						<label className="checkbox-inline">
-							<input type="checkbox"
-								checked={this.state.subject}
-								onChange={this.handleChange.bind(this, 'subject')}
-							/> Subject
-						</label>
-					</div>
-				</div>
-				<div className="panel-body">
-					<ContactForm ref="contactForm"
-						subject={this.state.subject}
-					/>
-				</div>
-				<div className="panel-footer">
-					<button type="button" className="btn btn-primary btn-block" onClick={this.handleSubmit}>Submit</button>
-				</div>
-			</div>
-			{submitted}
-		</div>
+		return (
+      <Accordion>
+        <Panel header="Share by email" eventKey='1' activeKey={true}>
+					{/* <label className="checkbox-inline">
+						<input type="checkbox"
+							checked={this.state.subject}
+							onChange={this.handleChange.bind(this, 'subject')}
+						/> Subject
+					</label> */}
+  				<ContactForm ref="contactForm"
+  					subject={this.state.subject}
+  				/>
+					<button type="button" className="btn btn-primary btn-block" onClick={this.handleSubmit}>
+            Submit
+          </button>
+
+        {/* <div className="panel panel-default">
+          <div className="panel-heading clearfix">
+            <h3 className="panel-title pull-left">Contact Form</h3>
+            <div className="pull-right">
+            </div>
+          </div>
+          <div className="panel-body">
+          </div>
+          <div className="panel-footer">
+  				</div>
+  			</div> */}
+        </Panel>
+  			{submitted}
+    </Accordion>
+    )
 	}
 
 , handleChange: function(field, e) {

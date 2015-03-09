@@ -28,11 +28,7 @@ module.exports = React.createClass({
 				<br/>
 				<br />
 
-        <Accordion>
-          <Panel header="Share by email" eventKey='1' activeKey={true}>
-    				<Forms />
-          </Panel>
-        </Accordion>
+				<Forms />
 
 				<Accordion>
 					<Panel header="Publication Details" eventKey='2' activeKey={false}>
