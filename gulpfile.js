@@ -79,7 +79,7 @@ var bundler = watchify(b)
 
 function bundle () {
   return bundler.bundle()
-    .on('error', gutil.log.bind(gutil, 'Browserify Error'))
+    // .on('error', gutil.log.bind(gutil, 'Browserify Error'))
     .pipe(source('main.min.js'))
     // If you want your source maps up in your console
     // .pipe(buffer())
