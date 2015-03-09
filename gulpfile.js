@@ -27,6 +27,7 @@ var paths = {
   'main': 'main.js',
   'jsPath': './js/',
   'background': 'background.js',
+  'milestones': ['js/milestones/**/*.*'],
     'static/**/*.css',
     'static/**/*.js',
     '!static/content/**/*.*',
@@ -71,6 +72,14 @@ gulp.task('background.js', function() {
     // .pipe(sourcemaps.write())
     .pipe(gulp.dest('build/'))
 })
+// gulp.task('milestones', function () {
+//   return browserify('./js/milestones/allviews.js')
+//     .transform(reactify)
+//     .transform({global: true }, 'brfs')
+//     .bundle()
+//     .pipe(source('allviews.min.js'))
+//     .pipe(gulp.dest('build/milestones/'))
+// })
 
 gulp.task('static', function() {
   return gulp.src(paths.static)
@@ -133,6 +142,7 @@ gulp.task('watch', function() {
   gulp.watch(paths.manifest, ['static'])
   gulp.watch(paths.js, ['background.js'])
   gulp.watch(paths.js, ['main.js'])
+  // gulp.watch(paths.milestones, ['milestones'])
   gulp.watch(paths.css, ['static'])
   gulp.watch(paths.sass, ['sass'])
   gulp.watch(paths.iframeSass, ['iframeSass'])
