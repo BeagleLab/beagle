@@ -72,7 +72,6 @@ gulp.task('brundle', function() {
     // .pipe(sourcemaps.init({loadMaps: true}))
     // .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest('./build'))
-    .stop()
 })
 
 // For watching after bundling
@@ -170,7 +169,7 @@ gulp.task('watch', function () {
   gulp.watch(paths.html, ['html'])
 })
 
-gulp.task('bundle', ['brundle'/*, 'move', 'static', 'sass', 'iframeSass', 'img', 'html', 'content'*/], function(){
+gulp.task('bundle', ['brundle', 'move', 'static', 'sass', 'iframeSass', 'img', 'html', 'content'], function(){
   this.stop()
 })
 
