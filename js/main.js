@@ -167,8 +167,10 @@ function buildView (options) {
 
   // TODO Where should data from modules be routed?
   // This is unrelated code to the main point of this function and shouldn't be here.
-  if (options.doctype === 'html' && !_.every(_.forOwn(options.protocols, function (protocol) { return !_.isEmpty(protocol) })))
+  var protocolsFound = !_.every(_.forOwn(options.protocols, function (protocol) { return !_.isEmpty(protocol) }))
+  if (options.doctype === 'html' && protocolsFound) {
     console.log(options.protocols, !_.isEmpty(options.protocols))
+  }
 
   var parent = (options.doctype === 'pdf') ? document :
     document.getElementById(sidebarId).contentDocument
