@@ -1,10 +1,30 @@
 var React = require('react')
 var db = require('level-browserify')('./mydb')
 
+var ListWrapper = React.createClass({
+  displayName: 'Selection List Wrapper',
+  render: function() {
+    var data = JSON.parse(this.props.data)
+    return (
+      <div className="selection">
+        {data.text}
+      </div>
+    )
+  }
+});
+
+
 module.exports = React.createClass({
   displayName: 'Retrieve Value',
-  handleClick: function (event) {
+  getInitialState: function () {
+    return {'selected': []}
+  },
+  componentDidMount: function() {
     var fingerprint = this.props.fingerprint
+
+    var selected = []
+
+    var that = this
 
     // Read the entire database. TODO: Change this, it is not efficient.
     db.createReadStream()
@@ -14,25 +34,25 @@ module.exports = React.createClass({
         if (JSON.parse(data.value).document_id === fingerprint) {
           // Log the results for now. TODO: Send to view
           console.log('Well, this works', JSON.parse(data.value))
+          selected.push(data.value)
         }
 
         // Hypothetically, how you would delete everything
         // db.del(data.key, function(e) { console.log('e', e)})
+      }).on('end', function(){
+        that.setState({
+          "selected": selected
+        })
       })
-      .on('close', function(){
-        console.log('Database exhausted.')
-      })
-
   },
   render: function () {
-    // db.get('text', function (err, value) {
-    //   if (err) return console.log('Ooops!', err) // likely the key was not found
-    //   value = value
-    // })
+    var selected = this.state.selected
     return (
-      <button className="btn btn-success" type="button" onClick={this.handleClick}>
-        Log data
-      </button>
+      <div>
+        {this.state.selected.map(function(selection){
+          return <ListWrapper key={selected.indexOf(selection)} data={selection} />
+        })}
+      </div>
     )
   }
 })
