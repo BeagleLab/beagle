@@ -20,12 +20,13 @@ var sourcemaps = require('gulp-sourcemaps')
 // var style = require('beagle-style')
 
 var paths = {
-  "build": 'build/',
-  "main": ['./js/main.js'],
-  "background": ['./js/background.js'],
   "js": ['js/**/*.js', 'js/**/*.jsx'],
   "img": ['static/**/*.png', 'static/**/*.jpg', '!static/content/**'],
   "static": [
+  'build': 'build/',
+  'main': 'main.js',
+  'jsPath': './js/',
+  'background': 'background.js',
     'static/**/*.css',
     'static/**/*.js',
     '!static/content/**/*.*',

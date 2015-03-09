@@ -39,7 +39,7 @@
       "<all_urls>"
     ],
     "js": [
-      "bundle.min.js"
+      "main.min.js"
     ]
   }],
 
