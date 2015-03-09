@@ -49,8 +49,8 @@ gulp.task('clean', function (cb) {
   del([paths.build], cb)
 })
 
-var bundler = watchify(
-  browserify({
+// Initiation of browserify object
+var b = browserify({
     // Required watchify args
     'cache': {},
     'packageCache': {},
@@ -61,22 +61,37 @@ var bundler = watchify(
     'transform': [reactify]
   })
   .transform('brfs', { global: true })
-)
 
-gulp.task('js', bundle)
-bundler.on('update', bundle)
-bundler.on('log', gutil.log)
+// For one-off bundling. browserify bundle - brundle is a joke.
+gulp.task('brundle', function() {
+  return b.bundle()
+    .on('error', gutil.log.bind(gutil, 'Browserify Error'))
+    .pipe(source('main.min.js'))
+    // If you want your source maps up in your console
+    // .pipe(buffer())
+    // .pipe(sourcemaps.init({loadMaps: true}))
+    // .pipe(sourcemaps.write('./'))
+    .pipe(gulp.dest('./build'))
+    .stop()
+})
 
+// For watching after bundling
+var bundler = watchify(b)
 
 function bundle () {
   return bundler.bundle()
     .on('error', gutil.log.bind(gutil, 'Browserify Error'))
     .pipe(source('main.min.js'))
+    // If you want your source maps up in your console
     // .pipe(buffer())
     // .pipe(sourcemaps.init({loadMaps: true}))
     // .pipe(sourcemaps.write('./'))
     .pipe(gulp.dest('./build'))
 }
+
+gulp.task('watchify', bundle)
+bundler.on('update', bundle)
+bundler.on('log', gutil.log)
 
 // gulp.task('milestones', function () {
 //   return browserify('./js/milestones/allviews.js')
@@ -146,7 +161,7 @@ gulp.task('server', function () {
 
 gulp.task('watch', function () {
   gulp.watch(paths.manifest, ['static'])
-  gulp.watch(paths.js, ['js'])
+  // gulp.watch(paths.js, ['js'])
   // gulp.watch(paths.milestones, ['milestones'])
   gulp.watch(paths.css, ['static'])
   gulp.watch(paths.sass, ['sass'])
@@ -155,5 +170,8 @@ gulp.task('watch', function () {
   gulp.watch(paths.html, ['html'])
 })
 
-gulp.task('bundle', ['move', 'static', 'sass', 'iframeSass', 'js', 'img', 'html', 'content'])
-gulp.task('default', ['watch', 'move', 'static', 'sass', 'iframeSass', 'js', 'img', 'html', 'server'])
+gulp.task('bundle', ['brundle'/*, 'move', 'static', 'sass', 'iframeSass', 'img', 'html', 'content'*/], function(){
+  this.stop()
+})
+
+gulp.task('default', ['watch', 'watchify', 'move', 'static', 'sass', 'iframeSass', 'img', 'html', 'server'])
