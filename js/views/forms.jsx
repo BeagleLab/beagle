@@ -3,6 +3,7 @@ var db = require('level-browserify')('./mydb')
 var url = require('../lib/url-checks')
 var Accordion = require('react-bootstrap').Accordion
 var Panel = require('react-bootstrap').Panel
+var _ = require('lodash')
 
 var nodemailer = require('nodemailer')
 // This is your API key that you retrieve from www.mailgun.com/cp (free up to 10K monthly emails)
@@ -170,40 +171,58 @@ var Forms = React.createClass({
 	}
 
 , handleSubmit: function() {
+    var fingerprint = this.props.fingerprint
+
 		if (this.refs.contactForm.isValid()) {
 			var data = this.refs.contactForm.getFormData();
-			db.get('text', function (err, value) {
-	      if (err) return console.log('Ooops!', err) // likely the key was not found
 
-	    	var urlHtml = url.getPDFURL(window.location.href)
 
-	    	var messageText = 'Hi Richard.' +
-	    		'\n\nI was feeding this cat and then I thought this:' +
-	    		'\n\t' + data.message +
-	    		'\n Here are the purrs that happened:' +
-				  '\n\n' + value + '\n' +
-	        '\n If you want to see it, go here: ' + urlHtml +
-	        '\n Well, hope that helped with the sciencing.' +
-	        '\n\n For great good,\n - Richard'
+      var payload = []
 
-	      console.log("Message: ", messageText)
+      // Read the entire database. TODO: Change this, it is not efficient.
+      db.createReadStream()
+        .on('data', function(data){
+          // If a comment is attached to the PDF you're looking at, get it
+          if (JSON.parse(data.value).document_id === fingerprint) {
+            payload.push(data)
+          }
+        })
+        .on('close', function(){
+          // Log the results for now. TODO: Send to view
+          var urlHtml = url.getPDFURL(window.location.href)
 
-	    	nodemailerMailgun.sendMail({
-					  from: 'richard@beagle.io',
-					  // cc: 'richard.littauer@gmail.com',
-					  to: data.email, // An array if you have multiple recipients.
-					  subject: data.subject || 'Hey you, awesome!',
-					  text: messageText
-				}, function (err, info) {
-				  if (err) {
-				    console.log('Error: ' + err);
-				  }
-				  else {
-				    console.log('Response: ' + info);
-				  }
-				});
+          var messageText = 'Hi Richard.' +
+            '\n\nI was feeding this cat and then I thought this:' +
+            '\n\n\t' + data.message +
+            '\n\n Here are the purrs that happened:'
 
-	    })
+          // TODO Allow user to select snippets to send.
+          _.each(payload, function(annotation) {
+            messageText += '\n> ' + JSON.parse(annotation.value).text + '\n'
+          })
+
+          messageText += '\n If you want to see it, go here: ' + urlHtml +
+            '\n Well, hope that helped with the sciencing.' +
+            '\n\n For great good,\n - Richard'
+
+          console.log("Message: ", messageText)
+
+          nodemailerMailgun.sendMail({
+              from: 'richard@beagle.io',
+              // cc: 'richard.littauer@gmail.com',
+              to: data.email, // An array if you have multiple recipients.
+              subject: data.subject || 'Hey you, awesome!',
+              text: messageText
+          }, function (err, info) {
+            if (err) {
+              console.log('Error: ' + err);
+            }
+            else {
+              console.log('Response: ' + info);
+            }
+          })
+          console.log('Database exhausted.')
+        })
 			this.setState({'submitted': data})
 		}
 	}
