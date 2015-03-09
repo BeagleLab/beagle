@@ -19,7 +19,6 @@ var source = require('vinyl-source-stream')
 var sourcemaps = require('gulp-sourcemaps')
 var _ = require('lodash')
 var watchify = require('watchify')
-var requireKey = require('require-key')
 
 // TODO Export style automatically
 // var style = require('beagle-style')
@@ -59,7 +58,7 @@ var bundler = watchify(
     // Browserify options
     'entries': [paths.jsPath + 'main.js'],
     'noParse': ['react.js', 'jquery.js', 'pdf.combined.js'],
-    'transform': [reactify, requireKey]
+    'transform': [reactify]
   })
   .transform('brfs', { global: true })
 )
