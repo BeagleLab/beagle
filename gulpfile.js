@@ -1,5 +1,6 @@
 /*jshint strict:false */
 
+// var buffer = require('vinyl-buffer')
 // var fs = require('fs')
 // var g_if = require('gulp-if')
 // var react = require('gulp-react')
@@ -10,11 +11,15 @@ var connect = require('gulp-connect')
 var cssmin = require('gulp-cssmin')
 var del = require('del')
 var gulp = require('gulp')
+var gutil = require('gulp-util')
 var imagemin = require('gulp-imagemin')
 var reactify = require('reactify')
 var sass = require('gulp-sass')
 var source = require('vinyl-source-stream')
 var sourcemaps = require('gulp-sourcemaps')
+var _ = require('lodash')
+var watchify = require('watchify')
+var requireKey = require('require-key')
 
 // TODO Export style automatically
 // var style = require('beagle-style')
@@ -45,33 +50,35 @@ gulp.task('clean', function (cb) {
   del([paths.build], cb)
 })
 
-gulp.task('main.js', function() {
-  return browserify(paths.main)
-    .transform(reactify)
-    .transform({global: true }, 'brfs')
-    .bundle()
-    .pipe(source('bundle.min.js'))
-    // .pipe(sourcemaps.init())
-    // .pipe(g_if('*.jsx', react()))
-    // .pipe(uglify())
-    // .pipe(concat('bundle.min.js'))
-    // .pipe(sourcemaps.write())
-    .pipe(gulp.dest('build/'))
-})
+var bundler = watchify(
+  browserify({
+    // Required watchify args
+    'cache': {},
+    'packageCache': {},
+    'fullPaths': true,
+    // Browserify options
+    'entries': [paths.jsPath + 'main.js'],
+    'noParse': ['react.js', 'jquery.js', 'pdf.combined.js'],
+    'transform': [reactify, requireKey]
+  })
+  .transform('brfs', { global: true })
+)
 
-gulp.task('background.js', function() {
-  return browserify(paths.background)
-    .transform(reactify)
-    .transform({global: true }, 'brfs')
-    .bundle()
-    .pipe(source('background.min.js'))
-    // .pipe(sourcemaps.init())
-    // .pipe(g_if('*.jsx', react()))
-    // .pipe(uglify())
-    // .pipe(concat('bundle.min.js'))
-    // .pipe(sourcemaps.write())
-    .pipe(gulp.dest('build/'))
-})
+gulp.task('js', bundle)
+bundler.on('update', bundle)
+bundler.on('log', gutil.log)
+
+
+function bundle () {
+  return bundler.bundle()
+    .on('error', gutil.log.bind(gutil, 'Browserify Error'))
+    .pipe(source('main.min.js'))
+    // .pipe(buffer())
+    // .pipe(sourcemaps.init({loadMaps: true}))
+    // .pipe(sourcemaps.write('./'))
+    .pipe(gulp.dest('./build'))
+}
+
 // gulp.task('milestones', function () {
 //   return browserify('./js/milestones/allviews.js')
 //     .transform(reactify)
@@ -140,8 +147,7 @@ gulp.task('server', function () {
 
 gulp.task('watch', function () {
   gulp.watch(paths.manifest, ['static'])
-  gulp.watch(paths.js, ['background.js'])
-  gulp.watch(paths.js, ['main.js'])
+  gulp.watch(paths.js, ['js'])
   // gulp.watch(paths.milestones, ['milestones'])
   gulp.watch(paths.css, ['static'])
   gulp.watch(paths.sass, ['sass'])
@@ -150,5 +156,5 @@ gulp.task('watch', function () {
   gulp.watch(paths.html, ['html'])
 })
 
-gulp.task('bundle', ['move', 'static', 'sass', 'iframeSass', 'main.js', 'background.js', 'img', 'html', 'content'])
-gulp.task('default', ['watch', 'move', 'static', 'sass', 'iframeSass', 'main.js', 'background.js', 'img', 'html', 'server'])
+gulp.task('bundle', ['move', 'static', 'sass', 'iframeSass', 'js', 'img', 'html', 'content'])
+gulp.task('default', ['watch', 'move', 'static', 'sass', 'iframeSass', 'js', 'img', 'html', 'server'])
