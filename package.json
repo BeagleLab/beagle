@@ -34,7 +34,7 @@
     "path": "^0.11.14",
     "pdfjs-dist": "^1.0.1145",
     "protocol-parser": "^0.0.7",
-    "rangy": "https://github.com/RichardLitt/rangy#2c71406",
+    "rangy": "git://github.com:RichardLitt/rangy.git#748582f",
     "react": "^0.12.2",
     "react-async": "^2.0.1",
     "react-bootstrap": "^0.15.1",
