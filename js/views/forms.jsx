@@ -174,11 +174,15 @@ var Forms = React.createClass({
 , handleSubmit: function() {
     var fingerprint = this.props.fingerprint
 
+    // Set this late
+    var config = {
+      "sendImg": true
+    }
+
 		if (this.refs.contactForm.isValid()) {
-			var data = this.refs.contactForm.getFormData();
-
-
-      var payload = []
+			var data = this.refs.contactForm.getFormData()
+      , payload = []
+      , imageURL
 
       // Read the entire database. TODO: Change this, it is not efficient.
       db.createReadStream()
@@ -199,11 +203,22 @@ var Forms = React.createClass({
 
           // TODO Allow user to select snippets to send.
           _.each(payload, function(annotation) {
-            messageText += '\n> ' + JSON.parse(annotation.value).text + '\n'
+            annotation = JSON.parse(annotation.value)
+            if (config.sendImg && annotation.id ) {
+              chrome.storage.sync.get(annotation.id, function(items) {
+                imageURL = items.value
+              })
+            }
+            messageText += '\n> ' + annotation.text + '\n'
           })
 
-          messageText += '\n If you want to see it, go here: ' + urlHtml +
-            '\n Well, hope that helped with the sciencing.' +
+          messageText += '\n If you want to see it, go here: ' + urlHtml
+
+          if (imageURL) {
+            messageText += '\n <img src="cid:' + imageURL + '" /> '
+          }
+
+          messageText += '\n Well, hope that helped with the sciencing.' +
             '\n\n For great good,\n - Richard'
 
           console.log("Message: ", messageText)
@@ -213,13 +228,14 @@ var Forms = React.createClass({
               // cc: 'richard.littauer@gmail.com',
               to: data.email, // An array if you have multiple recipients.
               subject: data.subject || 'Hey you, awesome!',
-              text: messageText
           }, function (err, info) {
             if (err) {
               console.log('Error: ' + err);
             }
             else {
               console.log('Response: ' + info);
+              text: messageText,
+              inline: imageURL
             }
           })
           console.log('Database exhausted.')
