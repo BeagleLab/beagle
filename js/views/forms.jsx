@@ -4,16 +4,19 @@ var url = require('../lib/url-checks')
 var Accordion = require('react-bootstrap').Accordion
 var Panel = require('react-bootstrap').Panel
 var _ = require('lodash')
+var request = require('request')
+request.debug = true
 
-var nodemailer = require('nodemailer')
+// var nodemailer = require('nodemailer')
 // This is your API key that you retrieve from www.mailgun.com/cp (free up to 10K monthly emails)
-var mg = require('nodemailer-mailgun-transport')({
-  auth: {
-    api_key: 'key-7e56f671872d1e829021dd4dd39ae156',
-    domain: 'sandboxc5e90e5fb9e84a9eb572c4e8c6720c67.mailgun.org'
-  }
-})
-var nodemailerMailgun = nodemailer.createTransport(mg)
+// var mg = require('nodemailer-mailgun-transport')({
+//   auth: {
+//     api_key: 'key-7e56f671872d1e829021dd4dd39ae156',
+//     domain: 'sandboxc5e90e5fb9e84a9eb572c4e8c6720c67.mailgun.org'
+//   }
+// })
+//
+// var nodemailerMailgun = nodemailer.createTransport(mg)
 
 var ContactForm = React.createClass({
   getDefaultProps: function() {
@@ -223,21 +226,33 @@ var Forms = React.createClass({
 
           console.log("Message: ", messageText)
 
-          nodemailerMailgun.sendMail({
+          var mailingUrl = 'http://localhost:5000/message'
+
+          var req = request.post(mailingUrl, {
               from: 'richard@beagle.io',
               // cc: 'richard.littauer@gmail.com',
               to: data.email, // An array if you have multiple recipients.
               subject: data.subject || 'Hey you, awesome!',
-          }, function (err, info) {
-            if (err) {
-              console.log('Error: ' + err);
-            }
-            else {
-              console.log('Response: ' + info);
               text: messageText,
               inline: imageURL
+          }, function (err, res, body) {
+            if (err != null) {
+              console.error(err)
+              process.exit(-1)
             }
+
+            console.log(body)
           })
+            // Old callbak
+            // function (err, info) {
+              // if (err) {
+              //   console.log('Error: ' + err);
+              // }
+              // else {
+              //   console.log('Response: ' + info);
+              // }
+            // }
+
           console.log('Database exhausted.')
         })
 			this.setState({'submitted': data})
