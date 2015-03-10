@@ -27,9 +27,11 @@ var GrabText = React.createClass({
     // Highlight the selected text
     pdfjs.showHighlight(pdfCoords)
 
+    var imgURL
+
     // Take a screenshot
     cesc.takeScreenshot(function (canvas) {
-      var imgURL = cesc.renderPreview(htmlCoords, canvas, {padding: 20}).toDataURL('image/png')
+      imgURL = cesc.renderPreview(htmlCoords, canvas, {padding: 20}).toDataURL('image/png')
       console.log('Check this out', imgURL)
     })
 
@@ -57,18 +59,22 @@ var GrabText = React.createClass({
         }
 
         console.log(selection)
-        db.put(selection.id, selection, {'valueEncoding': 'json'}, function (err) {
+
+        var id = selection.id
+
+        // Save into the database
+        db.put(id, selection, {'valueEncoding': 'json'}, function (err) {
           if (err) return console.log('Ooops!', err) // some kind of I/O error
           console.log('Stored ' + selection.id + ' away...')
+        })
+
+        // Save a temporary copy for use in other components
+        chrome.storage.sync.set({id: imgURL}, function() {
+          console.log('Saved imgURL for', selection.id)
         })
       }
     )
 
-    // chrome.storage.sync.set({'value': text.startContainer.data}, function() {
-    //   // Notify that we saved.
-    //   alert('Text saved: ', text.startContainer.data)
-    //   console.log('Text saved', text.startContainer.data)
-    // })
   },
   render: function () {
     return (
