@@ -44,31 +44,40 @@ var GrabText = React.createClass({
     return {text: false}
   },
   handleClick: function (event) {
+    // In case we end up using it in the view (not currently)
     this.setState({text: !this.state.text})
 
+    // Get the coordinates we need and the text itself
+    var pdfCoords = getHightlightCoords()
+    var htmlCoords = document.getSelection().getRangeAt(0).getBoundingClientRect()
+    var text = rangy.getSelection().toString()
+
+    // Highlight the selected text
+    showHighlight(pdfCoords)
+
+    // Take a screenshot
     cesc.takeScreenshot(function (canvas) {
-      var selection = document.getSelection().getRangeAt(0).getBoundingClientRect()
-      var imgURL = cesc.renderPreview(selection, canvas, {padding: 20}).toDataURL('image/png')
+      var imgURL = cesc.renderPreview(htmlCoords, canvas, {padding: 20}).toDataURL('image/png')
       console.log('Check this out', imgURL)
     })
-    showHighlight(getHightlightCoords())
-
-    var text = rangy.getSelection().toString()
 
     pdfjs.getFingerprint(url.getPDFURL(window.location.href),
       function setDocumentId (err, fingerprint) {
-        if (err) {
-          console.log('Could not properly get PDF fingerprint')
-          // throw (new Error('Could not get the PDF fingerprint'))
-        }
+        if (err) { console.log('Could not properly get PDF fingerprint') }
+        // throw (new Error('Could not get the PDF fingerprint'))
 
         var selection = {
           //  Should probably be called 'selection', not 'text'
           'text': text,
 
+          // Store both coordinates for later
+          'pdfCoords': (pdfCoords) ? pdfCoords : null,
+          'htmlCoords': htmlCoords,
+
           // We could also use the text as a hash, too.
           'id': crypto.randomBytes(20).toString('hex'),
 
+          // This is the url for the PDF itself, in case other people use it
           'url': url.getPDFURL(window.location.href),
 
           // This is canonically the PDF id; else, just the name of the url should work.
@@ -78,6 +87,7 @@ var GrabText = React.createClass({
         console.log(selection)
         db.put(selection.id, selection, {'valueEncoding': 'json'}, function (err) {
           if (err) return console.log('Ooops!', err) // some kind of I/O error
+          console.log('Stored ' + selection.id + ' away...')
         })
       }
     )
