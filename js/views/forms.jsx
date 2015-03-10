@@ -58,9 +58,9 @@ var ContactForm = React.createClass({
 
 , render: function() {
     return <div className="form-horizontal">
-      {this.props.subject && this.renderTextInput('subject', 'Subject')}
-      {this.renderTextInput('email', 'Email')}
-      {this.renderTextInput('message', 'message')}
+      {this.props.subject && this.renderTextInput('subject', 'Subject', 'llamas')}
+      {this.renderTextInput('email', 'Email', 'richard.littauer@gmail.com')}
+      {this.renderTextInput('message', 'Message', 'This is a standard llama message llama')}
       {/*
 				To be used when attaching PDFs is an option.
       {this.renderRadioInlines('currentCustomer', 'Are you currently a ' + this.props.company + ' Customer?', {
@@ -70,9 +70,10 @@ var ContactForm = React.createClass({
     </div>
   }
 
-, renderTextInput: function(id, label) {
+, renderTextInput: function(id, label, value) {
     return this.renderField(id, label,
-      <input type="text" className="form-control" id={id} ref={id}/>
+      <input type="text" className="form-control" id={id} ref={id} value={value} />,
+       value // optional value for dev
     )
   }
 
@@ -104,7 +105,7 @@ var ContactForm = React.createClass({
     return this.renderField(id, label, radios)
   }
 
-, renderField: function(id, label, field) {
+, renderField: function(id, label, field, value) {
     return <div className={$c('form-group', {'has-error': id in this.state.errors})}>
       <label htmlFor={id} className="col-sm-4 control-label">{label}</label>
       <div className="col-sm-6">
