@@ -72,7 +72,7 @@ var GrabText = React.createClass({
   },
   render: function () {
     return (
-      <button className="btn btn-success" type="button" onClick={this.handleClick}>
+      <button className="btn btn-success btn-block" type="button" onClick={this.handleClick}>
         Save Text
       </button>
     )
