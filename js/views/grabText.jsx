@@ -25,12 +25,19 @@ var GrabText = React.createClass({
 
     // Highlight the selected text
     pdfjs.showHighlight(pdfCoords)
+    try {
 
     // Take a screenshot
     cesc.takeScreenshot(function (canvas) {
       var imgURL = cesc.renderPreview(htmlCoords, canvas, {padding: 20}).toDataURL('image/png')
       console.log('Check this out', imgURL)
     })
+    } catch (e) {
+      console.log('It looks like you are traversing an embedded PDF.')
+      console.log('These are currently not selectable. Please report this.')
+      console.log(e.name, e.message)
+      return
+    }
 
     pdfjs.getFingerprint(url.getPDFURL(window.location.href),
       function setDocumentId (err, fingerprint) {
