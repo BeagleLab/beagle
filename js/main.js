@@ -90,7 +90,7 @@ function parsePDF (options) {
       options.pdfLocation = getPdfDocumentLocation()
       buildView(options)
     } else {
-      console.log('Not a pdf.')
+      console.log('Not a global pdf.')
 
       options.doctype = 'html'
       options.protocols = pp.parse(window, ['twitter', 'og', 'citation', 'dc'])
