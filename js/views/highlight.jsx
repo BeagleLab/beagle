@@ -82,12 +82,6 @@ var Highlight = React.createClass({
     } else {
       saveSelection(selection)
     }
-
-    // chrome.storage.sync.set({'value': text.startContainer.data}, function() {
-    //   // Notify that we saved.
-    //   alert('Text saved: ', text.startContainer.data)
-    //   console.log('Text saved', text.startContainer.data)
-    // })
   },
   render: function () {
     return (
