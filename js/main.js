@@ -56,16 +56,17 @@ function handleRequest (request, sender, sendResponse) {
     if (!sidebarOpen) {
       // Get modules from background script and local storage,
       // Go on to build the sidebar
-      parsePDF({'modules': getModules(request.modules)})
+      getModules(request.modules, function(data) {
+        parsePDF({'modules': data})
+      })
     } else {
       // Remove the sidebar
       el = document.getElementById('beagle-sidebar')
       el.parentNode.removeChild(el)
       sidebarOpen = null
     }
+    sendResponse()
   }
-
-  sendResponse()
 }
 
 // TODO Rename. isDocumentPDFOrHTML is better.
@@ -98,6 +99,7 @@ function parsePDF (options) {
       buildView(options)
     }
   } catch (e) {
+    console.trace()
     console.log(e.name, e.message)
   }
 }
@@ -188,7 +190,8 @@ function buildView (options) {
       }
       var val = {
         'fingerprint': fingerprint,
-        'staticPath': '../../'
+        'staticPath': '../../',
+        'location': options.pdfLocation
       }
 
       PDFJS.readPDFText(options.pdfLocation, options, function (err, data) {
