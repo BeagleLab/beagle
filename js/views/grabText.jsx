@@ -8,7 +8,6 @@ var crypto = require('crypto')
 var url = require('../lib/url-checks')
 var pdfjs = require('beagle-pdf')
 var cesc = require('chrome-ext-screen-capture')
-var _ = require('lodash')
 
 var GrabText = React.createClass({
   displayName: 'GrabText',
