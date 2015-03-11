@@ -1,6 +1,6 @@
 'use strict'
 
-var React = require('react')
+var React = require('react/addons')
 var rangy = require('rangy')({'alertOnFail': false})
 var level = require('level-browserify')
 var db = level('./mydb')
@@ -14,9 +14,14 @@ var Highlight = React.createClass({
   getInitialState: function () {
     return {text: false}
   },
+  getDefaultProps: function () {
+    return {
+      'annotations': []
+    }
+  },
   handleClick: function (event) {
     // In case we end up using it in the view (not currently)
-    this.setState({text: !this.state.text})
+    // this.setState({text: !this.state.text})
 
     // Get the coordinates we need and the text itself
     var text = rangy.getSelection().toString()
@@ -61,6 +66,14 @@ var Highlight = React.createClass({
       // TODO Hash this
       'document_id': (this.props.fingerprint) ? this.props.fingerprint : window.location.href
     }
+
+    var newState = React.addons.update(this.state, {
+      'annotations' : {
+        $push : [selection]
+      }
+    });
+
+    this.setState(newState)
 
     function saveSelection (selection) {
       console.log(selection)

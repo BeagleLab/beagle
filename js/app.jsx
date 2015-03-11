@@ -17,6 +17,11 @@ var Sidebar = require('./components/sidebar.jsx')
 // var Toc = require('./views/toc.jsx')
 
 module.exports = React.createClass({
+  getInitialState: function(){
+    return {
+      annotations: {}
+    }
+  },
 
   render: function() {
     return (
@@ -24,7 +29,7 @@ module.exports = React.createClass({
 
 				{/* <Save /> */}
 
-				<Highlight location={this.props.location} />
+				<Highlight annotations={this.props.annotations} location={this.props.location} />
 
         <Screenshot fingerprint={this.props.fingerprint} location={this.props.location} />
 
@@ -38,7 +43,7 @@ module.exports = React.createClass({
 
 				<Accordion>
 					<Panel header="Snippets">
-						<RetrieveValue fingerprint={this.props.fingerprint} data={this.props.data} />
+						<RetrieveValue annotations={this.props.annotations} fingerprint={this.props.fingerprint} data={this.props.data} />
 					</Panel>
 				</Accordion>
 

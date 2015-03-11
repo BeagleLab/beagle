@@ -176,7 +176,6 @@ var Forms = React.createClass({
 		if (this.refs.contactForm.isValid()) {
 			var data = this.refs.contactForm.getFormData();
 
-
       var payload = []
 
       // Read the entire database. TODO: Change this, it is not efficient.
