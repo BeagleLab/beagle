@@ -13,7 +13,7 @@ var getPDFURL = function (url) {
 }
 
 var isPDFURL = function (url) {
-  return url.toLowerCase().indexOf('.pdf') > 0
+  return url.toLowerCase().indexOf('.pdf') > 0 || url.indexOf('representation=PDF') > 0
 }
 
 var isPDFViewerURL = function (url) {
