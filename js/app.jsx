@@ -24,7 +24,7 @@ module.exports = React.createClass({
 
 				<br />
 				<br /> */}
-				<GrabText />
+				<GrabText fingerprint={this.props.fingerprint} location={this.props.location} />
 				<br/>
 				<br />
 
