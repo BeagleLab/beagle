@@ -19,19 +19,16 @@ var GrabText = React.createClass({
     this.setState({text: !this.state.text})
 
     // Get the coordinates we need and the text itself
-    var pdfCoords = pdfjs.getHightlightCoords()
-    var htmlCoords = document.getSelection().getRangeAt(0).getBoundingClientRect()
     var text = rangy.getSelection().toString()
 
-    // Highlight the selected text
-    pdfjs.showHighlight(pdfCoords)
     try {
+      var htmlCoords = document.getSelection().getRangeAt(0).getBoundingClientRect()
 
-    // Take a screenshot
-    cesc.takeScreenshot(function (canvas) {
-      var imgURL = cesc.renderPreview(htmlCoords, canvas, {padding: 20}).toDataURL('image/png')
-      console.log('Check this out', imgURL)
-    })
+      // Take a screenshot
+      cesc.takeScreenshot(function (canvas) {
+        var imgURL = cesc.renderPreview(htmlCoords, canvas, {padding: 20}).toDataURL('image/png')
+        console.log('Check this out', imgURL)
+      })
     } catch (e) {
       console.log('It looks like you are traversing an embedded PDF.')
       console.log('These are currently not selectable. Please report this.')
@@ -39,36 +36,52 @@ var GrabText = React.createClass({
       return
     }
 
-    pdfjs.getFingerprint(url.getPDFURL(window.location.href),
-      function setDocumentId (err, fingerprint) {
-        if (err) { console.log('Could not properly get PDF fingerprint') }
-        // throw (new Error('Could not get the PDF fingerprint'))
+    // Get the PDF coordinates and highlight, if exists
+    if (this.props.location) {
+      var pdfCoords = pdfjs.getHightlightCoords()
+      pdfjs.showHighlight(pdfCoords)
 
-        var selection = {
-          //  Should probably be called 'selection', not 'text'
-          'text': text,
+    }
 
-          // Store both coordinates for later
-          'pdfCoords': (pdfCoords) ? pdfCoords : null,
-          'htmlCoords': htmlCoords,
+    var selection = {
+      //  Should probably be called 'selection', not 'text'
+      'text': text,
 
-          // We could also use the text as a hash, too.
-          'id': crypto.randomBytes(20).toString('hex'),
+      // Store both coordinates for later
+      'pdfCoords': (this.props.location) ? pdfCoords : null,
+      'htmlCoords': htmlCoords,
 
-          // This is the url for the PDF itself, in case other people use it
-          'url': url.getPDFURL(window.location.href),
+      // We could also use the text as a hash, too.
+      'id': crypto.randomBytes(20).toString('hex'),
 
-          // This is canonically the PDF id; else, just the name of the url should work.
-          'document_id': (fingerprint) ? fingerprint : url.getPDFURL(window.location.href)
+      // This is the url for the PDF itself, in case other people use it
+      'url': (this.props.location) ? url.getPDFURL(window.location.href) : window.location.href,
+
+      // This is canonically the PDF id; else, just the name of the url should work.
+      // TODO Hash this
+      'document_id': (this.props.fingerprint) ? this.props.fingerprint : window.location.href
+    }
+
+    function saveSelection (selection) {
+      console.log(selection)
+      db.put(selection.id, selection, {'valueEncoding': 'json'}, function (err) {
+        if (err) return console.log('Ooops!', err) // some kind of I/O error
+        console.log('Stored ' + selection.id + ' away...')
+      })
+    }
+
+    if (this.props.location) {
+      pdfjs.getFingerprint(url.getPDFURL(window.location.href),
+        function setDocumentId (err, fingerprint) {
+          if (err) { console.log('Could not properly get PDF fingerprint') }
+          // throw (new Error('Could not get the PDF fingerprint'))
+
+          saveSelection(selection)
         }
-
-        console.log(selection)
-        db.put(selection.id, selection, {'valueEncoding': 'json'}, function (err) {
-          if (err) return console.log('Ooops!', err) // some kind of I/O error
-          console.log('Stored ' + selection.id + ' away...')
-        })
-      }
-    )
+      )
+    } else {
+      saveSelection(selection)
+    }
 
     // chrome.storage.sync.set({'value': text.startContainer.data}, function() {
     //   // Notify that we saved.
