@@ -9,8 +9,8 @@ var url = require('../lib/url-checks')
 var pdfjs = require('beagle-pdf')
 var cesc = require('chrome-ext-screen-capture')
 
-var GrabText = React.createClass({
-  displayName: 'GrabText',
+var Highlight = React.createClass({
+  displayName: 'Highlight',
   getInitialState: function () {
     return {text: false}
   },
@@ -92,10 +92,10 @@ var GrabText = React.createClass({
   render: function () {
     return (
       <button className="btn btn-success btn-block" type="button" onClick={this.handleClick}>
-        Save Text
+        Highlight
       </button>
     )
   }
 })
 
-module.exports = GrabText
+module.exports = Highlight

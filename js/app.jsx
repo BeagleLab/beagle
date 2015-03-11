@@ -3,7 +3,7 @@ var Sidebar = require('./components/sidebar.jsx')
 var Accordion = require('react-bootstrap').Accordion
 var Panel = require('react-bootstrap').Panel
 var Forms = require('./views/forms.jsx').Forms
-var GrabText = require('./views/grabText.jsx')
+var Highlight = require('./views/highlight.jsx')
 var Publication = require('./views/publication.jsx')
 var RetrieveValue = require('./views/retrieveValue.jsx')
 
@@ -24,7 +24,7 @@ module.exports = React.createClass({
 
 				<br />
 				<br /> */}
-				<GrabText fingerprint={this.props.fingerprint} location={this.props.location} />
+				<Highlight fingerprint={this.props.fingerprint} location={this.props.location} />
 				<br/>
 				<br />
 
