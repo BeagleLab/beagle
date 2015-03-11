@@ -1,11 +1,13 @@
 var React = require('react')
-var Sidebar = require('./components/sidebar.jsx')
+
 var Accordion = require('react-bootstrap').Accordion
-var Panel = require('react-bootstrap').Panel
 var Forms = require('./views/forms.jsx').Forms
 var Highlight = require('./views/highlight.jsx')
+var Panel = require('react-bootstrap').Panel
 var Publication = require('./views/publication.jsx')
 var RetrieveValue = require('./views/retrieveValue.jsx')
+var Screenshot = require('./views/screenshot.jsx')
+var Sidebar = require('./components/sidebar.jsx')
 
 // var Cite = require('./components/cite.jsx')
 // var Graph = require('./views/graph.jsx')
@@ -20,13 +22,11 @@ module.exports = React.createClass({
     return (
 			<Sidebar staticPath={this.props.staticPath} >
 
-				{/* <Save />
+				{/* <Save /> */}
 
-				<br />
-				<br /> */}
-				<Highlight fingerprint={this.props.fingerprint} location={this.props.location} />
-				<br/>
-				<br />
+				<Highlight location={this.props.location} />
+
+        <Screenshot fingerprint={this.props.fingerprint} location={this.props.location} />
 
 				<Forms fingerprint={this.props.fingerprint} />
 
