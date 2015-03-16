@@ -191,10 +191,11 @@ var Forms = React.createClass({
           // Log the results for now. TODO: Send to view
           var urlHtml = url.getPDFURL(window.location.href)
 
-          var messageText = 'Hi Richard.' +
-            '\n\nI was feeding this cat and then I thought this:' +
+          // Todo: add in names
+          var messageText = 'Hi friend,' +
+            '\n\nPersonal Message:' +
             '\n\n\t' + data.message +
-            '\n\n Here are the purrs that happened:'
+            '\n\nHighlights:'
 
           // TODO Allow user to select snippets to send.
           _.each(payload, function(annotation) {
@@ -202,8 +203,7 @@ var Forms = React.createClass({
           })
 
           messageText += '\n If you want to see it, go here: ' + urlHtml +
-            '\n Well, hope that helped with the sciencing.' +
-            '\n\n For great good,\n - Richard'
+            '\n\n For Science,\n - Richard' // Todo - add in username
 
           console.log("Message: ", messageText)
 
@@ -211,7 +211,7 @@ var Forms = React.createClass({
               from: 'richard@beagle.io',
               // cc: 'richard.littauer@gmail.com',
               to: data.email, // An array if you have multiple recipients.
-              subject: data.subject || 'Hey you, awesome!',
+              subject: data.subject || 'Notes from Beagle',
               text: messageText
           }, function (err, info) {
             if (err) {
