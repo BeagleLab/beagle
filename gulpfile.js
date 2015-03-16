@@ -24,9 +24,9 @@ var watchify = require('watchify')
 
 var paths = {
   'build': 'build/',
-  'main': 'main.js',
+  'main': 'main',
+  'background': 'background',
   'jsPath': './js/',
-  'background': 'background.js',
   'js': ['js/**/*.js', 'js/**/*.jsx', '!js/milestones/**/*'],
   'img': ['static/**/*.png', 'static/**/*.jpg', '!static/content/**'],
   'milestones': ['js/milestones/**/*.*'],
@@ -57,7 +57,7 @@ var b = browserify({
     'packageCache': {},
     'fullPaths': true,
     // Browserify options
-    'entries': [paths.jsPath + 'main.js'],
+    'entries': [paths.jsPath + paths.main + '.js'],
     'noParse': ['react.js', 'jquery.js', 'pdf.combined.js'],
     'transform': [reactify]
   })
@@ -67,7 +67,7 @@ var b = browserify({
 gulp.task('brundle', function () {
   return b.bundle()
     .on('error', gutil.log.bind(gutil, 'Browserify Error'))
-    .pipe(source('main.min.js'))
+    .pipe(source(paths.main + '.min.js'))
     // If you want your source maps up in your console
     // .pipe(buffer())
     // .pipe(sourcemaps.init({loadMaps: true}))
@@ -81,7 +81,7 @@ var bundler = watchify(b)
 function bundle () {
   return bundler.bundle()
     // .on('error', gutil.log.bind(gutil, 'Browserify Error'))
-    .pipe(source('main.min.js'))
+    .pipe(source(paths.main + '.min.js'))
     // If you want your source maps up in your console
     // .pipe(buffer())
     // .pipe(sourcemaps.init({loadMaps: true}))
