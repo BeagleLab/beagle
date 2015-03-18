@@ -41,7 +41,7 @@
     "react-bootstrap": "^0.16.1",
     "react-router": "^0.12.4",
     "reactify": "^1.0.0",
-    "standard": "^3.0.0-beta",
+    "standard": "^3.1.2",
     "uniq": "^1.0.1",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
