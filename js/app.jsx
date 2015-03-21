@@ -24,7 +24,7 @@ module.exports = React.createClass({
 
 				{/* <Save /> */}
 
-				<Highlight location={this.props.location} />
+				<Highlight location={this.props.location} fingerprint={this.props.fingerprint} />
 
         <Screenshot fingerprint={this.props.fingerprint} location={this.props.location} />
 

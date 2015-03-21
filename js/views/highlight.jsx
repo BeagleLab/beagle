@@ -40,7 +40,6 @@ var Highlight = React.createClass({
     if (this.props.location) {
       var pdfCoords = pdfjs.getHightlightCoords()
       pdfjs.showHighlight(pdfCoords)
-
     }
 
     var selection = {
@@ -52,7 +51,7 @@ var Highlight = React.createClass({
       'htmlCoords': htmlCoords,
 
       // We could also use the text as a hash, too.
-      'id': crypto.randomBytes(20).toString('hex'),
+      'id': (this.props.fingerprint) ? this.props.fingerprint : crypto.randomBytes(20).toString('hex'),
 
       // This is the url for the PDF itself, in case other people use it
       'url': (this.props.location) ? url.getPDFURL(window.location.href) : window.location.href,
