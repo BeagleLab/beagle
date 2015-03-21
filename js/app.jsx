@@ -8,6 +8,7 @@ var Publication = require('./views/publication.jsx')
 var RetrieveValue = require('./views/retrieveValue.jsx')
 var Screenshot = require('./views/screenshot.jsx')
 var Sidebar = require('./components/sidebar.jsx')
+var TwitterShare = require('./views/TwitterShare.jsx')
 
 // var Cite = require('./components/cite.jsx')
 // var Graph = require('./views/graph.jsx')
@@ -27,6 +28,8 @@ module.exports = React.createClass({
 				<Highlight location={this.props.location} fingerprint={this.props.fingerprint} />
 
         <Screenshot fingerprint={this.props.fingerprint} location={this.props.location} />
+
+        <TwitterShare data={this.props.data.publication} />
 
 				<Forms fingerprint={this.props.fingerprint} />
 
