@@ -29,7 +29,7 @@ module.exports = React.createClass({
 
         <Screenshot fingerprint={this.props.fingerprint} location={this.props.location} />
 
-        <TwitterShare data={this.props.data.publication} />
+        {/* <TwitterShare data={this.props.data.publication} /> */}
 
 				<Forms fingerprint={this.props.fingerprint} />
 

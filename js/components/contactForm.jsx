@@ -1,5 +1,7 @@
 var React = require('react')
 var _ = require('lodash')
+var RenderTextInput = require('./renderTextInput.jsx')
+var RenderTextarea = require('./renderTextarea.jsx')
 
 var ContactForm = React.createClass({
 
@@ -51,15 +53,16 @@ var ContactForm = React.createClass({
  render: function () {
     var propKeys = _.keys(this.props)
     var rows = []
+    var props = this.props
     propKeys.forEach(function (prop) {
-      if (this.props[prop] && this.props[prop].renderType === 'renderTextarea') {
-        rows.push(this.renderTextarea(this.props[prop].propKey, this.props[prop].placeholder))
+      console.log('this.props', this.props)
+      if (props[prop] && props[prop].renderType === 'renderTextarea') {
+        rows.push(<RenderTextarea id={props[prop].propKey} label={props[prop].placeholder} />)
       }
-      if (this.props[prop] && this.props[prop].renderType === 'renderTextInput') {
-        rows.push(this.renderTextInput(this.props[prop].propKey, this.props[prop].placeholder))
+      if (props[prop] && props[prop].renderType === 'renderTextInput') {
+        rows.push(<RenderTextInput id={props[prop].propKey} label={props[prop].placeholder} />)
       }
     })
-
 
     return (
       <div className="form-horizontal">
@@ -73,18 +76,6 @@ var ContactForm = React.createClass({
           values: ['Yes', 'No']
         , defaultCheckedValue: 'No'
         })} */
-
-  renderTextInput: function (id, label) {
-    return this.renderField(id, label,
-      <input type="text" className="form-control" id={id} ref={id}/>
-    )
-  },
-
-  renderTextarea: function (id, label) {
-    return this.renderField(id, label,
-      <textarea className="form-control" id={id} ref={id}/>
-    )
-  },
 
   renderSelect: function (id, label, values) {
     var options = values.map(function (value) {
