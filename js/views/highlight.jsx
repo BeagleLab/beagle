@@ -3,6 +3,7 @@
 var React = require('react')
 var rangy = require('rangy')({'alertOnFail': false})
 var level = require('level-browserify')
+var PouchDB = require('pouchdb');
 var db = level('./mydb')
 var crypto = require('crypto')
 var url = require('../lib/url-checks')
