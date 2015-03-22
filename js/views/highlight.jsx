@@ -3,8 +3,8 @@
 var React = require('react')
 var rangy = require('rangy')({'alertOnFail': false})
 var level = require('level-browserify')
-var PouchDB = require('pouchdb');
 var db = level('./mydb')
+// var PouchDB = require('pouchdb');
 var crypto = require('crypto')
 var url = require('../lib/url-checks')
 var pdfjs = require('beagle-pdf')
@@ -43,6 +43,8 @@ var Highlight = React.createClass({
       pdfjs.showHighlight(pdfCoords)
     }
 
+    var documentId = (this.props.fingerprint) ? this.props.fingerprint : window.location.href
+
     var selection = {
       //  Should probably be called 'selection', not 'text'
       'text': text,
@@ -52,21 +54,28 @@ var Highlight = React.createClass({
       'htmlCoords': htmlCoords,
 
       // We could also use the text as a hash, too.
-      'id': (this.props.fingerprint) ? this.props.fingerprint : crypto.randomBytes(20).toString('hex'),
+      'id': crypto.randomBytes(20).toString('hex'),
 
       // This is the url for the PDF itself, in case other people use it
       'url': (this.props.location) ? url.getPDFURL(window.location.href) : window.location.href,
 
       // This is canonically the PDF id; else, just the name of the url should work.
       // TODO Hash this
-      'document_id': (this.props.fingerprint) ? this.props.fingerprint : window.location.href
+      'documentId': documentId
     }
 
     function saveSelection (selection) {
-      console.log(selection)
-      db.put(selection.id, selection, {'valueEncoding': 'json'}, function (err) {
-        if (err) return console.log('Ooops!', err) // some kind of I/O error
-        console.log('Stored ' + selection.id + ' away...')
+      db.get(documentId, {'valueEncoding': 'json'}, function (err, value) {
+        if (err && err.name !== 'NotFoundError') {
+          return console.log('Failed to get ' + documentId + 'from db', err)
+        }
+        value = (value) ? value : {}
+        var selectionId = selection.id
+        value[selectionId] = selection
+        db.put(documentId, value, {'valueEncoding': 'json'}, function (err) {
+          if (err) return console.log('Failed to save selection', err)
+          console.log('Stored ' + selection.id + ' away...', value)
+        })
       })
     }
 

@@ -14,6 +14,9 @@ var PDFJS = require('beagle-pdf')
 var sidebarOpen = false
 var sidebarId = 'beagle-sidebar'
 
+var level = require('level-browserify')
+var db = level('./mydb')
+
 // console.log('Main.js is being called from inside bundle.min.js')
 
 function getModules (requestModules, cb) {
@@ -185,14 +188,29 @@ function buildView (options) {
     console.log('pdf location', options)
 
     PDFJS.getFingerprint(options.pdfLocation, function (err, fingerprint) {
-      if (err) {
-        throw (new Error('Could not get the PDF fingerprint'))
-      }
+      if (err) { throw (new Error('Could not get the PDF fingerprint')) }
+
       var val = {
         'fingerprint': fingerprint,
         'staticPath': '../../',
         'location': options.pdfLocation
       }
+
+      // TODO Load in the previous highlights here
+
+      db.get(fingerprint, {'valueEncoding': 'json'}, function (err, value) {
+        if (err) { return console.log('Failed to get fingerperint', err) }
+
+        console.log('Got ', fingerprint)
+
+        for (var key in value) {
+          if (key !== 'id') {
+            if (value[key].pdfCoords) {
+              PDFJS.showHighlight(value[key].pdfCoords)
+            }
+          }
+        }
+      })
 
       PDFJS.readPDFText(options.pdfLocation, options, function (err, data) {
         if (err === 'Failed to find a DOI.') {
