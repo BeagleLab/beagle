@@ -125,14 +125,15 @@ var Forms = React.createClass({
 , render: function() {
     var submitted
     if (this.state.submitted !== null) {
-      submitted = <div className="alert alert-success">
+      submitted = <div className="alert alert-success email-sent">
         We have sent that email for you!
         {/* <p>ContactForm data:</p>
          <pre><code>{JSON.stringify(this.state.submitted, null, '  ')}</code></pre> */}
       </div>
-      setTimeout(function () {
-        submitted = null
-      }, 5000)
+      // setTimeout(function () {
+      //   this.setState({'submitted': null})
+      //   submitted = null
+      // }, 1000)
     }
 
     var style = {
@@ -168,8 +169,8 @@ var Forms = React.createClass({
           <div className="panel-footer">
           </div>
         </div> */}
-        </Panel>
         {submitted}
+        </Panel>
     </Accordion>
     )
   }
