@@ -1,11 +1,13 @@
 'use strict'
 
 var React = require('react')
-var pdfjs = require('beagle-pdf')
 var cesc = require('chrome-ext-screen-capture')
 
 var Screenshot = React.createClass({
   displayName: 'Screenshot',
+  getInitialState: function () {
+    return { noSelection: null }
+  },
   handleClick: function (event) {
     try {
       // Get coordinates based on type of document
@@ -14,26 +16,38 @@ var Screenshot = React.createClass({
 
       // Take a screenshot
       cesc.takeScreenshot(function (canvas) {
-        var imgURL = cesc.renderPreview(coordinates, canvas, {padding: 20})
+        var imgUrl = cesc.renderPreview(coordinates, canvas, {padding: 20})
           .toDataURL('image/png')
-        console.log('Check this out', imgURL)
+        chrome.tabs.create({ url: imgUrl })
       })
+
+      this.setState({noSelection: null})
     } catch (e) {
-      console.log('It looks like you are traversing an embedded PDF.')
-      console.log('These are currently not selectable. Please report this.')
-      console.log(e.name, e.message)
+      var style = {
+        color: 'red',
+        padding: '5px 10px',
+        textAlign: 'center'
+      }
+
+      this.setState({noSelection: <p style={style}>You need to select text first!</p>})
+      // console.log('It looks like you are traversing an embedded PDF.')
+      // console.log('These are currently not selectable. Please report this.')
+      // console.log(e.name, e.message)
       return
     }
   },
   render: function () {
     return (
-      <button
-        className="btn btn-success btn-block"
-        onClick={this.handleClick}
-        type="button"
-      >
-        Log Screenshot
-      </button>
+      <div>
+        <button
+          className="btn btn-success btn-block screenshot-button"
+          onClick={this.handleClick}
+          type="button"
+        >
+          Take a Screenshot
+        </button>
+        {this.state.noSelection}
+      </div>
     )
   }
 })
