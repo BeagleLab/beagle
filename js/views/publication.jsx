@@ -16,10 +16,10 @@ module.exports = React.createClass({
     return (
       <div>
         { dummyWarning }
-        <ul>
-          <li id='title'>{this.props.data.title}</li>
-          <li>{this.props.data.journal}</li>
-          <li>{this.props.data.doi}</li>
+        <ul className='publication-details'>
+          <li id='title'><b>Title</b>: {this.props.data.title}</li>
+          <li><b>Journal</b>: {this.props.data.journal}</li>
+          <li><b>DOI</b>: {this.props.data.doi}</li>
         </ul>
       </div>
     )
