@@ -29,8 +29,8 @@ module.exports = React.createClass({
         <Forms fingerprint={this.props.fingerprint} />
 
         <Accordion>
-          <Panel header="Publication Details" eventKey='2' activeKey={false}>
-            <Publication data={this.props.data.publication} />
+          <Panel header="Publication Details" activeKey='1'>
+            <Publication data={this.props.data.publication} eventKey='1' />
           </Panel>
         </Accordion>
 
