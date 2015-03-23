@@ -133,7 +133,7 @@ var Forms = React.createClass({
 
 		return (
       <Accordion>
-        <Panel header="Share by email" eventKey='1' activeKey={true}>
+        <Panel header="Share by email" className='share-panel' eventKey='1' activeKey={true}>
 					{/* <label className="checkbox-inline">
 						<input type="checkbox"
 							checked={this.state.subject}
