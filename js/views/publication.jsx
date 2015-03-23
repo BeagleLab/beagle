@@ -2,7 +2,10 @@ var React = require('react')
 
 module.exports = React.createClass({
 	displayName: 'Publication',
-  render: function() {
+  propTypes: {
+   data: React.PropTypes.object
+  },
+  render: function () {
     return (
         <ul>
           <li id='title'>{this.props.data.title}</li>
@@ -10,5 +13,5 @@ module.exports = React.createClass({
           <li>{this.props.data.doi}</li>
         </ul>
     )
- 	}
+  }
 })
