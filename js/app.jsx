@@ -36,12 +36,11 @@ module.exports = React.createClass({
 					</Panel>
 				</Accordion>
 
-				<Accordion>
+				{/* <Accordion>
 					<Panel header="Snippets">
 						<RetrieveValue fingerprint={this.props.fingerprint} data={this.props.data} />
 					</Panel>
-				</Accordion>
-
+				</Accordion> */}
 
 				{/* <Accordion>
 					<Panel header="Table of Contents" eventKey='3'>
