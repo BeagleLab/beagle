@@ -58,11 +58,11 @@ var ContactForm = React.createClass({
 
 , render: function() {
     return <div className="form-horizontal">
-      {this.props.subject && this.renderTextInput('subject', 'Subject')}
-      {this.renderTextInput('email', 'Email')}
-      {this.renderTextInput('message', 'message')}
+      {this.props.subject && this.renderTextInput('subject', 'Subject', 'For science!')}
+      {this.renderTextInput('email', 'Email', 'Who should this go to?')}
+      {this.renderTextarea('message', 'Body', 'What do you want to say?')}
       {/*
-				To be used when attaching PDFs is an option.
+        To be used when attaching PDFs is an option.
       {this.renderRadioInlines('currentCustomer', 'Are you currently a ' + this.props.company + ' Customer?', {
         values: ['Yes', 'No']
       , defaultCheckedValue: 'No'
@@ -70,15 +70,15 @@ var ContactForm = React.createClass({
     </div>
   }
 
-, renderTextInput: function(id, label) {
+, renderTextInput: function(id, label, placeholder) {
     return this.renderField(id, label,
-      <input type="text" className="form-control" id={id} ref={id}/>
+      <input type="text" className="form-control" id={id} ref={id} placeholder={placeholder} />
     )
   }
 
-, renderTextarea: function(id, label) {
+, renderTextarea: function(id, label, placeholder) {
     return this.renderField(id, label,
-      <textarea className="form-control" id={id} ref={id}/>
+      <textarea className="form-control" id={id} ref={id} placeholder={placeholder} />
     )
   }
 
@@ -115,36 +115,46 @@ var ContactForm = React.createClass({
 })
 
 var Forms = React.createClass({
-	getInitialState: function() {
-		return {
-			subject: true
-		, submitted: null
-		}
-	}
+  getInitialState: function() {
+    return {
+      subject: true
+    , submitted: null
+    }
+  }
 
 , render: function() {
-		var submitted
-		if (this.state.submitted !== null) {
-			submitted = <div className="alert alert-success">
-				<p>ContactForm data:</p>
-				<pre><code>{JSON.stringify(this.state.submitted, null, '  ')}</code></pre>
-			</div>
-		}
+    var submitted
+    if (this.state.submitted !== null) {
+      submitted = <div className="alert alert-success">
+        We have sent that email for you!
+        {/* <p>ContactForm data:</p>
+         <pre><code>{JSON.stringify(this.state.submitted, null, '  ')}</code></pre> */}
+      </div>
+      setTimeout(function () {
+        submitted = null
+      }, 5000)
+    }
 
-		return (
+    var style = {
+      color: 'green',
+      textAlign: 'center'
+    }
+
+    return (
       <Accordion>
         <Panel header="Share by email" className='share-panel' eventKey='1' activeKey={true}>
-					{/* <label className="checkbox-inline">
-						<input type="checkbox"
-							checked={this.state.subject}
-							onChange={this.handleChange.bind(this, 'subject')}
-						/> Subject
-					</label> */}
-  				<ContactForm ref="contactForm"
-  					subject={this.state.subject}
-  				/>
-					<button type="button" className="btn btn-primary btn-block" onClick={this.handleSubmit}>
-            Submit
+          {/* <label className="checkbox-inline">
+            <input type="checkbox"
+              checked={this.state.subject}
+              onChange={this.handleChange.bind(this, 'subject')}
+            /> Subject
+          </label> */}
+          <p style={style} >Send an email with your highlights.</p>
+          <ContactForm ref="contactForm"
+            subject={this.state.subject}
+          />
+          <button type="button" className="btn btn-primary btn-block" onClick={this.handleSubmit}>
+            Send
           </button>
 
         {/* <div className="panel panel-default">
@@ -156,56 +166,58 @@ var Forms = React.createClass({
           <div className="panel-body">
           </div>
           <div className="panel-footer">
-  				</div>
-  			</div> */}
+          </div>
+        </div> */}
         </Panel>
-  			{submitted}
+        {submitted}
     </Accordion>
     )
-	}
+  }
 
 , handleChange: function(field, e) {
-		var nextState = {}
-		nextState[field] = e.target.checked
-		this.setState(nextState)
-	}
+    var nextState = {}
+    nextState[field] = e.target.checked
+    this.setState(nextState)
+  }
 
-, handleSubmit: function() {
+, handleSubmit: function () {
     var fingerprint = this.props.fingerprint
 
-		if (this.refs.contactForm.isValid()) {
-			var data = this.refs.contactForm.getFormData();
-
+    if (this.refs.contactForm.isValid()) {
+      var data = this.refs.contactForm.getFormData()
 
       var payload = []
 
       // Read the entire database. TODO: Change this, it is not efficient.
       db.createReadStream()
-        .on('data', function(data){
-          // If a comment is attached to the PDF you're looking at, get it
-          if (JSON.parse(data.value).document_id === fingerprint) {
-            payload.push(data)
+        .on('data', function (data) {
+          data = JSON.parse(data.value)
+          for (var key in data) {
+            if (data[key]['documentId'] === fingerprint) {
+              payload.push(data[key]['text'])
+              console.log('payload', payload)
+            }
           }
         })
-        .on('close', function(){
+        .on('close', function () {
           // Log the results for now. TODO: Send to view
           var urlHtml = url.getPDFURL(window.location.href)
 
           // Todo: add in names
-          var messageText = 'Hi friend,' +
+          var messageText = 'Hi,' +
             '\n\nPersonal Message:' +
             '\n\n\t' + data.message +
-            '\n\nHighlights:'
+            '\n\nHighlights:\n'
 
           // TODO Allow user to select snippets to send.
-          _.each(payload, function(annotation) {
-            messageText += '\n> ' + JSON.parse(annotation.value).text + '\n'
+          _.each(payload, function (highlight) {
+            messageText += '\n\t' + highlight + '\n'
           })
 
-          messageText += '\n If you want to see it, go here: ' + urlHtml +
+          messageText += '\n If you want to see these highlighted, use Beagle and go here: ' + urlHtml +
             '\n\n For Science,\n - Richard' // Todo - add in username
 
-          console.log("Message: ", messageText)
+          console.log('Message: ', messageText)
 
           nodemailerMailgun.sendMail({
               from: 'richard@beagle.io',
@@ -215,17 +227,16 @@ var Forms = React.createClass({
               text: messageText
           }, function (err, info) {
             if (err) {
-              console.log('Error: ' + err);
-            }
-            else {
-              console.log('Response: ' + info);
+              console.log('Error: ' + err)
+            } else {
+              console.log('Response: ' + info)
             }
           })
           console.log('Database exhausted.')
         })
-			this.setState({'submitted': data})
-		}
-	}
+      this.setState({'submitted': data})
+    }
+  }
 })
 
 var trim = function() {
