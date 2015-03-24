@@ -1,6 +1,8 @@
 beagle
 ======
 
+[![Join the chat at https://gitter.im/BeagleLab/beagle](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/BeagleLab/beagle?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 [![license](http://img.shields.io/badge/license-MIT-red.svg?style=flat)](https://raw.githubusercontent.com/BeagleLab/beagle/master/LICENSE)
 
 Navigating the sea of publications
