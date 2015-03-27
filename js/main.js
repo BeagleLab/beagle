@@ -215,7 +215,9 @@ function buildView (options) {
 
       PDFJS.readPDFText(options.pdfLocation, options, function (err, data) {
         if (err === 'Failed to find a DOI.') {
-          console.log('Failed to find a DOI.')
+          console.log(err)
+        } else if (err === 'Not connected to the internet.') {
+          console.log(err)
         } else if (err !== null) {
           throw (new Error('Could not read the PDF'))
         }
