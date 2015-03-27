@@ -138,6 +138,7 @@ function buildStaticAssets (options) {
 
   // Start the CSS
   var concatCSS = document.createElement('style')
+  // TODO Grab these locally.
   concatCSS.innerHTML += '@import url("https://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css");'
   concatCSS.innerHTML += '@import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css");'
 
