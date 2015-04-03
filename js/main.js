@@ -15,7 +15,7 @@ var sidebarOpen = false
 var sidebarId = 'beagle-sidebar'
 
 var level = require('level-browserify')
-var db = level('./mydb')
+var db = level('http://54.164.111.240:5984/test')
 
 // console.log('Main.js is being called from inside bundle.min.js')
 
