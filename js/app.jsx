@@ -7,6 +7,7 @@ var Panel = require('react-bootstrap').Panel
 var Publication = require('./views/publication.jsx')
 var Screenshot = require('./views/screenshot.jsx')
 var Sidebar = require('./components/sidebar.jsx')
+var PDFUrlLink = require('./views/pdfUrlLink.jsx')
 
 // var Cite = require('./components/cite.jsx')
 // var Graph = require('./views/graph.jsx')
@@ -58,6 +59,7 @@ module.exports = React.createClass({
         <Save />
 
         <SignOut /> */}
+        <PDFUrlLink location={this.props.location} />
 			</Sidebar>
 		)
   }
