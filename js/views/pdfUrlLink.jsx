@@ -20,7 +20,7 @@ var PDFUrlLink = React.createClass({
       }
 
       location = (<div style={style}>
-          Location: {urlLink}
+         {urlLink}
         </div>)
     }
 
