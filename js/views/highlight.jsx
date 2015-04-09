@@ -2,9 +2,12 @@
 
 var React = require('react')
 var rangy = require('rangy')({'alertOnFail': false})
-var level = require('level-browserify')
-var db = level('http://54.164.111.240:5984/test')
-// var PouchDB = require('pouchdb');
+// var level = require('level-browserify')
+// var db = level('http://54.164.111.240:5984/test')
+// var db = new PouchDB('http://54.164.111.240:5984/test')
+var PouchDB = require('pouchdb')
+var db = new PouchDB('test')
+
 var crypto = require('crypto')
 var url = require('../lib/url-checks')
 var pdfjs = require('beagle-pdf')
@@ -65,16 +68,27 @@ var Highlight = React.createClass({
     }
 
     function saveSelection (selection) {
-      db.get(documentId, {'valueEncoding': 'json'}, function (err, value) {
-        if (err && err.name !== 'NotFoundError') {
+      db.get(documentId, function (err, value) {
+        if (err && err.name !== 'not_found') {
           return console.log('Failed to get ' + documentId + 'from db', err)
         }
-        value = (value) ? value : {}
-        var selectionId = selection.id
-        value[selectionId] = selection
-        db.put(documentId, value, {'valueEncoding': 'json'}, function (err) {
-          if (err) return console.log('Failed to save selection', err)
-          console.log('Stored ' + selection.id + ' away...', value)
+        /* Instantiate the object if it doesn't exist yet */
+        value = value || {}
+        value._id = documentId
+
+        /* Add in the selection to the selections array */
+        value.selections = value.selections || []
+        value.selections.push(selection)
+
+        /* Get rid of prototypes so we can put this to the database */
+        value = JSON.parse(JSON.stringify(value))
+
+        db.put(value, function (err, response) {
+          if (err) { console.log('Failed to save selection', err) }
+          console.log('Stored ' + response.id + ' away...', response)
+
+          PouchDB.sync('test', 'http://54.164.111.240:5984/test')
+
         })
       })
     }
@@ -83,7 +97,6 @@ var Highlight = React.createClass({
       pdfjs.getFingerprint(url.getPDFURL(window.location.href),
         function setDocumentId (err, fingerprint) {
           if (err) { console.log('Could not properly get PDF fingerprint') }
-          // throw (new Error('Could not get the PDF fingerprint'))
 
           saveSelection(selection)
         }

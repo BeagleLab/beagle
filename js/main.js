@@ -14,8 +14,18 @@ var PDFJS = require('beagle-pdf')
 var sidebarOpen = false
 var sidebarId = 'beagle-sidebar'
 
-var level = require('level-browserify')
-var db = level('http://54.164.111.240:5984/test')
+// var level = require('level-browserify')
+var PouchDB = require('pouchdb')
+var db = new PouchDB('test')
+
+PouchDB.sync('test', 'http://54.164.111.240:5984/test')
+
+// DEV: This is how you clear the database
+// db.destroy().then(function () {
+//   console.log('Done')
+// }).catch(function (err) {
+//   console.log('err', err)
+// })
 
 // console.log('Main.js is being called from inside bundle.min.js')
 
@@ -198,18 +208,17 @@ function buildView (options) {
 
       // TODO Load in the previous highlights here
 
-      db.get(fingerprint, {'valueEncoding': 'json'}, function (err, value) {
-        if (err) { return console.log('Failed to get fingerperint', err) }
+      db.get(fingerprint, function (err, response) {
+        if (err) { return console.log('Fingerprint not found in db', err) }
 
-        console.log('Got ', fingerprint)
+        console.log('Fingerprint found in db', fingerprint, response)
 
-        for (var key in value) {
-          if (key !== 'id') {
-            if (value[key].pdfCoords) {
-              PDFJS.showHighlight(value[key].pdfCoords)
-            }
+        _.forEach(response.selections, function (selection) {
+          // TODO Load in HTMLCoord highlights, too
+          if (selection.pdfCoords) {
+            PDFJS.showHighlight(selection.pdfCoords)
           }
-        }
+        })
       })
 
       PDFJS.readPDFText(options.pdfLocation, options, function (err, data) {
