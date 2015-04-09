@@ -206,20 +206,29 @@ function buildView (options) {
         'location': options.pdfLocation
       }
 
+      window.beagle = {
+        'pdf': val
+      }
+
       // TODO Load in the previous highlights here
+      var displayHighlights = function () {
+        db.get(fingerprint, function (err, response) {
+          if (err) { return console.log('Fingerprint not found in db', err) }
 
-      db.get(fingerprint, function (err, response) {
-        if (err) { return console.log('Fingerprint not found in db', err) }
+          console.log('Fingerprint found in db', fingerprint, response)
 
-        console.log('Fingerprint found in db', fingerprint, response)
-
-        _.forEach(response.selections, function (selection) {
-          // TODO Load in HTMLCoord highlights, too
-          if (selection.pdfCoords) {
-            PDFJS.showHighlight(selection.pdfCoords)
-          }
+          _.forEach(response.selections, function (selection) {
+            // TODO Load in HTMLCoord highlights, too
+            if (selection.pdfCoords) {
+              PDFJS.showHighlight(selection.pdfCoords)
+            }
+          })
         })
-      })
+      }
+
+      displayHighlights()
+
+      window.addEventListener('scalechange', displayHighlights(), true)
 
       PDFJS.readPDFText(options.pdfLocation, options, function (err, data) {
         if (err === 'Failed to find a DOI.') {
