@@ -15,7 +15,7 @@ var Screenshot = React.createClass({
         document.getSelection().getRangeAt(0).getBoundingClientRect()
 
       // Take a screenshot
-      cesc.takeScreenshot(function (canvas) {
+      cesc.takeScreenshot({'format': 'jpeg', 'quality': 1000}, function (canvas) {
         var imgUrl = cesc.renderPreview(coordinates, canvas, {padding: 20})
           .toDataURL('image/png')
         chrome.tabs.create({ url: imgUrl })
