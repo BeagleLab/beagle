@@ -14,10 +14,13 @@ var pdfjs = require('beagle-pdf')
 var cesc = require('chrome-ext-screen-capture')
 
 function saveSelection (documentId, selection) {
-  db.get(documentId, function (err, value) {
-    if (err && err.name !== 'not_found') {
-      return console.log('Failed to get ' + documentId + 'from db', err)
-    }
+  console.log('Inside saveSelection')
+
+  db.get(documentId).then(function (value) {
+    // if (err && err.name !== 'not_found') {
+    //   return console.log('Failed to get ' + documentId + 'from db', err)
+    // }
+
     /* Instantiate the object if it doesn't exist yet */
     value = value || {}
     value._id = documentId
@@ -29,13 +32,17 @@ function saveSelection (documentId, selection) {
     /* Get rid of prototypes so we can put this to the database */
     value = JSON.parse(JSON.stringify(value))
 
-    db.put(value, function (err, response) {
-      if (err) { console.log('Failed to save selection', err) }
-      console.log('Stored ' + response.id + ' away...', response)
+    console.log('value', value)
+    return db.put(value)
+  }).then(function (response) {
+    console.log('response', response)
 
-      PouchDB.sync('test', 'http://54.164.111.240:5984/test')
+    // if (err) { console.log('Failed to save selection', err) }
+    // console.log('Stored ' + response.id + ' away...', response)
 
-    })
+    // PouchDB.sync('test', 'http://54.164.111.240:5984/test')
+  }).catch(function (err) {
+    console.log(err)
   })
 }
 
@@ -95,7 +102,6 @@ var Highlight = React.createClass({
           pdfjs.getFingerprint(url.getPDFURL(window.location.href),
             function setDocumentId (err, fingerprint) {
               if (err) { console.log('Could not properly get PDF fingerprint') }
-
               saveSelection(documentId, selection)
             }
           )
