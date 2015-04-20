@@ -37,6 +37,7 @@ var paths = {
     '!static/content/**/*.*',
     'node_modules/beagle-style/style.min.css',
     'examples/example.pdf'
+    'lib/**/*.*'
   ],
   'sass': ['scss/**/main.scss'],
   'iframeSass': ['scss/**/iframe.scss'],

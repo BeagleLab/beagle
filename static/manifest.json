@@ -22,6 +22,10 @@
 	"offline_enabled": false,
 	"permissions": [
 		"<all_urls>",
+    "https://www.googleapis.com/auth/contacts.readonly",
+    "https://www.google.com/accounts/OAuthGetRequestToken",
+    "https://www.google.com/accounts/OAuthAuthorizeToken",
+    "https://www.google.com/accounts/OAuthGetAccessToken",
 		"contentSettings",
 		"tabs",
 		"storage"
@@ -36,11 +40,14 @@
 	},
   "content_scripts": [{
     "matches": [
-      "<all_urls>"
+      "<all_urls>",
+      "https://github.com/robots.txt*"
     ],
     "js": [
-      "main.min.js"
-    ]
+      "main.min.js",
+      "static/injection.js"
+    ],
+    "run_at": "document_start"
   }],
 
 	"web_accessible_resources": [
