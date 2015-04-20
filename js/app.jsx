@@ -8,6 +8,7 @@ var Publication = require('./views/publication.jsx')
 var Screenshot = require('./views/screenshot.jsx')
 var Sidebar = require('./components/sidebar.jsx')
 var PDFUrlLink = require('./views/pdfUrlLink.jsx')
+var Slack = require('./views/slack.jsx').SendSlack
 
 // var Cite = require('./components/cite.jsx')
 // var Graph = require('./views/graph.jsx')
@@ -34,6 +35,8 @@ module.exports = React.createClass({
             <Publication data={this.props.data.publication} eventKey='1' />
           </Panel>
         </Accordion>
+
+        <Slack fingerprint={this.props.fingerprint} />
 
         {/* <Accordion>
           <Panel header="Snippets">

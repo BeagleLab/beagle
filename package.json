@@ -6,6 +6,7 @@
   "dependencies": {
     "beagle-altmetrics": "0.0.3",
     "brfs": "^1.4.0",
+    "browser-node-slack": "0.0.1",
     "browserify": "^9.0.3",
     "chrome-ext-screen-capture": "^1.0.0",
     "crypto": "0.0.3",
