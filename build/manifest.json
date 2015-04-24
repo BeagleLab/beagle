@@ -30,7 +30,7 @@
 
 	"background": {
 		"persistent": true,
-    "scripts": [
+		"scripts": [
       "static/oauth.js",
       "background.min.js"
     ]
