@@ -11,13 +11,15 @@ var ContactForm = React.createClass({
 
   getDefaultProps: function () {
     return {
-      text: false
+      text: false,
+      channel: '#general'
     }
   },
 
   getFormData: function () {
     return {
-      text: this.refs.text.getDOMNode().value
+      text: this.refs.text.getDOMNode().value,
+      channel: this.refs.channel.getDOMNode().value
     }
   },
 
@@ -26,7 +28,7 @@ var ContactForm = React.createClass({
   },
 
   isValid: function () {
-    var fields = ['text']
+    var fields = ['text', 'channel']
     var errors = {}
 
     fields.forEach(function (field) {
@@ -50,7 +52,9 @@ var ContactForm = React.createClass({
   render: function () {
     return (
       <div className="form-horizontal">
+      {this.renderTextinput}
         {this.renderTextarea('text', 'Message', 'What do you want to say?')}
+        {this.renderTextInput('channel', 'Channel', 'Channel')}
       </div>
     )
   },
@@ -58,6 +62,12 @@ var ContactForm = React.createClass({
   renderTextarea: function (id, label, placeholder) {
     return this.renderField(id, label,
       <textarea className="form-control" id={id} ref={id} placeholder={placeholder} />
+    )
+  },
+
+  renderTextInput: function (id, label, placeholder) {
+    return this.renderField(id, label,
+      <input type="text" className="form-control" id={id} ref={id} placeholder={placeholder} />
     )
   },
 
@@ -76,7 +86,6 @@ var ContactForm = React.createClass({
 var SendSlack = React.createClass({
   getInitialState: function () {
     return {
-      subject: true,
       submitted: null
     }
   },
@@ -100,7 +109,7 @@ var SendSlack = React.createClass({
       <Accordion>
         <Panel header="Send to Slack" className='share-panel' eventKey='1' activeKey={true}>
           <p style={style} >Send a note to slack with your highlights.</p>
-          <ContactForm ref="contactForm" text={this.state.text} />
+          <ContactForm ref="contactForm" text={this.state.text} channel={this.state.channel} />
           <button type="button" className="btn btn-primary btn-block" onClick={this.handleSubmit}>
             Send
           </button>
@@ -120,7 +129,7 @@ var SendSlack = React.createClass({
 
       slack.send({
           text: data.text,
-          channel: '#general',
+          channel: data.channel,
           username: 'bot'
       })
 
