@@ -36,6 +36,9 @@ var ContactForm = React.createClass({
       if (!value) {
         errors[field] = 'This field is required'
       }
+      if (field === 'channel' && value[0] !== '#') {
+        errors[field] = 'The channel must start with a hashtag!'
+      }
     }.bind(this))
 
     this.setState({errors: errors})
@@ -54,7 +57,7 @@ var ContactForm = React.createClass({
       <div className="form-horizontal">
       {this.renderTextinput}
         {this.renderTextarea('text', 'Message', 'What do you want to say?')}
-        {this.renderTextInput('channel', 'Channel', 'Channel')}
+        {this.renderTextInput('channel', 'Channel', '#general')}
       </div>
     )
   },
@@ -67,7 +70,7 @@ var ContactForm = React.createClass({
 
   renderTextInput: function (id, label, placeholder) {
     return this.renderField(id, label,
-      <input type="text" className="form-control" id={id} ref={id} placeholder={placeholder} />
+      <input type="text" className="form-control" id={id} ref={id} placeholder={placeholder}/>
     )
   },
 
@@ -191,12 +194,11 @@ var trim = (function () {
   }
 })()
 
-function $c(staticClassName, conditionalClassNames) {
+function $c (staticClassName, conditionalClassNames) {
   var classNames = []
-  if (typeof conditionalClassNames == 'undefined') {
+  if (typeof conditionalClassNames === 'undefined') {
     conditionalClassNames = staticClassName
-  }
-  else {
+  } else {
     classNames.push(staticClassName)
   }
   for (var className in conditionalClassNames) {
