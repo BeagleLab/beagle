@@ -5,6 +5,7 @@
   "main": "./js/main.js",
   "dependencies": {
     "beagle-altmetrics": "0.0.3",
+    "beagle-pdf": "0.0.7",
     "brfs": "^1.4.0",
     "browser-node-slack": "0.0.1",
     "browserify": "^9.0.3",
