@@ -19,15 +19,15 @@ You will need to install [node](http://nodejs.org/). This will come with npm pre
 
 When you have edited `main.js` or any dependency of it, run:
 
-`gulp`.
+`$ gulp`
 
-This will set up a watcher on the code - when you make changes, it will reflect those changes in `build`, which you need to manually refresh from the Chrome Extensions page. Once 'default' has finished, you should cancel out it by pressing Ctrl+C. 
-
-Let us know what else you'd need to do here, I suspect there is more. 
+This will set up a watcher on the code - when you make changes, it will reflect those changes in `build`, which you need to manually refresh from the Chrome Extensions page. Once 'default' has finished, you should cancel out it by pressing Ctrl+C if you're not interested in watching it for more changes.  
 
 This will ensure that everything is compiled into bundle.js. You may need to run `npm install browserify -g` first. After it states `default done`, go to the Chrome Extensions page, and refresh it. Refresh the page your .pdf or browser is loaded on before clicking the Beagle icon, as well. Everything should be all set.
 
 On changes, all of your edits will be automagically bundled for you. Just refresh the extension and the page you're testing on.
+
+Let us know what else you'd need to do here, I suspect there is more. 
 
 ### Style
 
