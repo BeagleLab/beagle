@@ -31,6 +31,6 @@ On changes, all of your edits will be automagically bundled for you. Just refres
 
 ### Style
 
-Make sure your text editor can use the .editorconfig file. For more, see [editorconfig](https://github.com/sindresorhus/editorconfig-sublime). 
+We use feross's [standard](https://github.com/feross/standard). Please use a hinter or linter which adheres to it - if you need help, ask @RichardLitt. 
 
-Run JSHint on everything, if possible. 
+When in doubt, plunk it into a new module. 
