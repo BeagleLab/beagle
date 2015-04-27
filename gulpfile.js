@@ -34,6 +34,7 @@ var paths = {
   'static': [
     'static/**/*.css',
     'static/**/*.js',
+    'static/**/*.json',
     '!static/content/**/*.*',
     'node_modules/beagle-style/style.min.css',
     'examples/example.pdf'
