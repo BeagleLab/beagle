@@ -27,6 +27,8 @@ This will ensure that everything is compiled into bundle.js. You may need to run
 
 On changes, all of your edits will be automagically bundled for you. Just refresh the extension and the page you're testing on.
 
+Here is a screencast of me going over all of the code, if that's helpful: https://www.screenmailer.com/v/jDCSGJmBaNZpVw4
+
 Let us know what else you'd need to do here, I suspect there is more. 
 
 ### Style
