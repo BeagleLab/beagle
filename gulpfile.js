@@ -35,7 +35,7 @@ var paths = {
     'static/**/*.css',
     'static/**/*.js',
     '!static/content/**/*.*',
-    '../beagle-style/style.min.css',
+    'node_modules/beagle-style/style.min.css',
     'examples/example.pdf'
   ],
   'sass': ['scss/**/main.scss'],
