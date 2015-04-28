@@ -39,6 +39,7 @@
       "<all_urls>"
     ],
     "js": [
+      "static/hello.js",
       "main.min.js"
     ]
   }],
