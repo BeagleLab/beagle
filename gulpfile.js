@@ -107,7 +107,7 @@ gulp.task('static', function () {
     .pipe(gulp.dest('build/static/'))
 })
 
-gulp.task('move', function () {
+gulp.task('manifest', function () {
   return gulp.src(paths.manifest)
     .pipe(gulp.dest('build'))
 })
@@ -164,14 +164,34 @@ gulp.task('watch', function () {
   // gulp.watch(paths.js, ['js'])
   // gulp.watch(paths.milestones, ['milestones'])
   gulp.watch(paths.css, ['static'])
+  gulp.watch(paths.manifest, ['manifest'])
   gulp.watch(paths.sass, ['sass'])
   gulp.watch(paths.iframeSass, ['iframeSass'])
   gulp.watch(paths.img, ['img'])
   gulp.watch(paths.html, ['html'])
 })
 
-gulp.task('bundle', ['brundle', 'move', 'static', 'sass', 'iframeSass', 'img', 'html', 'content'], function(){
+gulp.task('bundle', [
+  'brundle',
+  'static',
+  'manifest',
+  'sass',
+  'iframeSass',
+  'img',
+  'html',
+  'content'
+  ], function () {
   this.stop()
 })
 
-gulp.task('default', ['watch', 'watchify', 'move', 'static', 'sass', 'iframeSass', 'img', 'html', 'server'])
+gulp.task('default', [
+  'watch',
+  'watchify',
+  'static',
+  'manifest',
+  'sass',
+  'iframeSass',
+  'img',
+  'html',
+  'server'
+])
