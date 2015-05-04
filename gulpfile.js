@@ -64,7 +64,7 @@ var b = browserify({
   .transform('brfs', { global: true })
 
 // For one-off bundling. browserify bundle - brundle is a joke.
-gulp.task('brundle', function() {
+gulp.task('brundle', function () {
   return b.bundle()
     .on('error', gutil.log.bind(gutil, 'Browserify Error'))
     .pipe(source('main.min.js'))
