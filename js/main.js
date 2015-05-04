@@ -29,6 +29,13 @@ PouchDB.sync('test', 'http://54.164.111.240:5984/test')
 
 // console.log('Main.js is being called from inside bundle.min.js')
 
+chrome.identity.getAuthToken({ 'interactive': true }, function(token) {
+  // Use the token.
+  console.log('This is working?', token)
+});
+
+
+
 function getModules (requestModules, cb) {
   // Get the current list of used modules
   chrome.storage.sync.get('modules', function (result) {

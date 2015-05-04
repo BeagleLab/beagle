@@ -24,7 +24,8 @@
 		"<all_urls>",
 		"contentSettings",
 		"tabs",
-		"storage"
+		"storage",
+    "identity"
 	],
 	"content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
 
@@ -42,6 +43,13 @@
       "main.min.js"
     ]
   }],
+
+  "oauth2": {
+    "client_id": "832850147593-lg2rcqi06nioh5g57rqrt0nolnqv3c5c.apps.googleusercontent.com",
+    "scopes": [
+      "https://www.googleapis.com/auth/contacts.readonly"
+    ]
+  },
 
 	"web_accessible_resources": [
 		"images/*",
