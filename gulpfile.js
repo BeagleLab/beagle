@@ -17,7 +17,6 @@ var reactify = require('reactify')
 var sass = require('gulp-sass')
 var source = require('vinyl-source-stream')
 var sourcemaps = require('gulp-sourcemaps')
-var _ = require('lodash')
 var watchify = require('watchify')
 
 // TODO Export style automatically
