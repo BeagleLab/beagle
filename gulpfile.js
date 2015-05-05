@@ -2,9 +2,7 @@
 
 // var buffer = require('vinyl-buffer')
 // var fs = require('fs')
-// var g_if = require('gulp-if')
 // var react = require('gulp-react')
-// var uglify = require('gulp-uglify')
 var browserify = require('browserify')
 var concat = require('gulp-concat')
 var connect = require('gulp-connect')
@@ -18,6 +16,7 @@ var sass = require('gulp-sass')
 var source = require('vinyl-source-stream')
 var sourcemaps = require('gulp-sourcemaps')
 var watchify = require('watchify')
+var argv = require('minimist')(process.argv.slice(2))
 
 // TODO Export style automatically
 // var style = require('beagle-style')
@@ -57,7 +56,7 @@ var b = browserify({
     'packageCache': {},
     'fullPaths': true,
     // Browserify options
-    'entries': [paths.jsPath + paths.main + '.js'],
+    'entries': [paths.jsPath + (argv.path === 'background' ? paths.background : paths.main) + '.js'],
     'noParse': ['react.js', 'jquery.js', 'pdf.combined.js'],
     'transform': [reactify]
   })
@@ -67,7 +66,9 @@ var b = browserify({
 gulp.task('brundle', function () {
   return b.bundle()
     .on('error', gutil.log.bind(gutil, 'Browserify Error'))
-    .pipe(source(paths.main + '.min.js'))
+    .pipe(source(
+      argv.path === 'background' ? paths.background + '.min.js' : paths.main + '.min.js'
+    ))
     // If you want your source maps up in your console
     // .pipe(buffer())
     // .pipe(sourcemaps.init({loadMaps: true}))
@@ -81,7 +82,9 @@ var bundler = watchify(b)
 function bundle () {
   return bundler.bundle()
     // .on('error', gutil.log.bind(gutil, 'Browserify Error'))
-    .pipe(source(paths.main + '.min.js'))
+    .pipe(source(
+      argv.path === 'background' ? paths.background + '.min.js' : paths.main + '.min.js'
+    ))
     // If you want your source maps up in your console
     // .pipe(buffer())
     // .pipe(sourcemaps.init({loadMaps: true}))
