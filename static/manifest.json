@@ -41,7 +41,7 @@
       "http://www.google.com/robots.txt*"
     ],
     "js": [
-      "static/oauth2/oauth2_inject.js",
+      "oauth2/oauth2_inject.js",
       "main.min.js"
     ],
   	"run_at": "document_start"
