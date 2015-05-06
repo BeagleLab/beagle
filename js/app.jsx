@@ -3,6 +3,7 @@ var React = require('react')
 var Accordion = require('react-bootstrap').Accordion
 var Forms = require('./views/forms.jsx').Forms
 var Highlight = require('./views/highlight.jsx')
+var Login = require('./views/login.jsx')
 var Panel = require('react-bootstrap').Panel
 var Publication = require('./views/publication.jsx')
 var Screenshot = require('./views/screenshot.jsx')
@@ -23,6 +24,8 @@ module.exports = React.createClass({
   render: function () {
     return (
 			<Sidebar staticPath={this.props.staticPath} >
+
+        <Login />
 
         <Highlight location={this.props.location} fingerprint={this.props.fingerprint} />
 
