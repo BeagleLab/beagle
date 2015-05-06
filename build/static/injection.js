@@ -1,1 +1,1 @@
-window.location = chrome.extension.getURL('libs/chrome-ex-oauth2/oauth2.html') + window.location.href.substring(window.location.href.indexOf('?'));
+window.location = chrome.extension.getURL('oauth2.html') + window.location.href.substring(window.location.href.indexOf('?'));
