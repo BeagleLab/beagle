@@ -36,11 +36,14 @@
 	},
   "content_scripts": [{
     "matches": [
-      "<all_urls>"
+      "<all_urls>",
+      "http://www.google.com/robots.txt*"
     ],
     "js": [
+      "static/oauth2/oauth2_inject.js",
       "main.min.js"
-    ]
+    ],
+  	"run_at": "document_start"
   }],
 
 	"web_accessible_resources": [
