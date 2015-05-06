@@ -29,17 +29,6 @@ PouchDB.sync('test', 'http://54.164.111.240:5984/test')
 
 // console.log('Main.js is being called from inside bundle.min.js')
 
-var googleAuth = new OAuth2('google', {
-  client_id: '17755888930840',
-  client_secret: 'b4a5741bd3d6de6ac591c7b0e279c9f',
-  api_scope: 'https://www.googleapis.com/auth/tasks'
-})
-
-googleAuth.authorize(function () {
-  var toekn = googleAuth.getAccessToken()
-  console.log('Inside authorize', toekn)
-})
-
 function getModules (requestModules, cb) {
   // Get the current list of used modules
   chrome.storage.sync.get('modules', function (result) {
