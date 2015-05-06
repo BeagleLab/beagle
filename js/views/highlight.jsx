@@ -19,105 +19,91 @@ var Highlight = React.createClass({
     return {text: false}
   },
   handleClick: function (event) {
-
-    var googleAuth = new OAuth2('google', {
-      client_id: '832850147593-mg2vg2j8j65t3djpsifme57pljgimbl9.apps.googleusercontent.com',
-      client_secret: 'mU0P3j2ooRYMHOTT185g2f-b',
-      api_scope: 'https://www.googleapis.com/auth/tasks'
-    })
-
-    console.log('Google auth')
-    console.log('token1', googleAuth.getAccessToken())
-
-    googleAuth.authorize(function () {
-      console.log('token outside', googleAuth.getAccessToken())
-    })
-
     // In case we end up using it in the view (not currently)
-    // this.setState({text: !this.state.text})
+    this.setState({text: !this.state.text})
 
-    // // Get the coordinates we need and the text itself
-    // var text = rangy.getSelection().toString()
+    // Get the coordinates we need and the text itself
+    var text = rangy.getSelection().toString()
 
-    // try {
-    //   var htmlCoords = document.getSelection().getRangeAt(0).getBoundingClientRect()
+    try {
+      var htmlCoords = document.getSelection().getRangeAt(0).getBoundingClientRect()
 
-    //   // Take a screenshot
-    //   cesc.takeScreenshot(function (canvas) {
-    //     var imgURL = cesc.renderPreview(htmlCoords, canvas, {padding: 20}).toDataURL('image/png')
-    //     console.log('Check this out', imgURL)
-    //   })
-    // } catch (e) {
-    //   console.log('It looks like you are traversing an embedded PDF.')
-    //   console.log('These are currently not selectable. Please report this.')
-    //   console.log(e.name, e.message)
-    //   return
-    // }
+      // Take a screenshot
+      cesc.takeScreenshot(function (canvas) {
+        var imgURL = cesc.renderPreview(htmlCoords, canvas, {padding: 20}).toDataURL('image/png')
+        console.log('Check this out', imgURL)
+      })
+    } catch (e) {
+      console.log('It looks like you are traversing an embedded PDF.')
+      console.log('These are currently not selectable. Please report this.')
+      console.log(e.name, e.message)
+      return
+    }
 
-    // // Get the PDF coordinates and highlight, if exists
-    // if (this.props.location) {
-    //   var pdfCoords = pdfjs.getHightlightCoords()
-    //   pdfjs.showHighlight(pdfCoords)
-    // }
+    // Get the PDF coordinates and highlight, if exists
+    if (this.props.location) {
+      var pdfCoords = pdfjs.getHightlightCoords()
+      pdfjs.showHighlight(pdfCoords)
+    }
 
-    // var documentId = (this.props.fingerprint) ? this.props.fingerprint : window.location.href
+    var documentId = (this.props.fingerprint) ? this.props.fingerprint : window.location.href
 
-    // var selection = {
-    //   //  Should probably be called 'selection', not 'text'
-    //   'text': text,
+    var selection = {
+      //  Should probably be called 'selection', not 'text'
+      'text': text,
 
-    //   // Store both coordinates for later
-    //   'pdfCoords': (this.props.location) ? pdfCoords : null,
-    //   'htmlCoords': htmlCoords,
+      // Store both coordinates for later
+      'pdfCoords': (this.props.location) ? pdfCoords : null,
+      'htmlCoords': htmlCoords,
 
-    //   // We could also use the text as a hash, too.
-    //   'id': crypto.randomBytes(20).toString('hex'),
+      // We could also use the text as a hash, too.
+      'id': crypto.randomBytes(20).toString('hex'),
 
-    //   // This is the url for the PDF itself, in case other people use it
-    //   'url': (this.props.location) ? url.getPDFURL(window.location.href) : window.location.href,
+      // This is the url for the PDF itself, in case other people use it
+      'url': (this.props.location) ? url.getPDFURL(window.location.href) : window.location.href,
 
-    //   // This is canonically the PDF id; else, just the name of the url should work.
-    //   // TODO Hash this
-    //   'documentId': documentId
-    // }
+      // This is canonically the PDF id; else, just the name of the url should work.
+      // TODO Hash this
+      'documentId': documentId
+    }
 
-    // function saveSelection (selection) {
-    //   db.get(documentId, function (err, value) {
-    //     if (err && err.name !== 'not_found') {
-    //       return console.log('Failed to get ' + documentId + 'from db', err)
-    //     }
-    //     /* Instantiate the object if it doesn't exist yet */
-    //     value = value || {}
-    //     value._id = documentId
+    function saveSelection (selection) {
+      db.get(documentId, function (err, value) {
+        if (err && err.name !== 'not_found') {
+          return console.log('Failed to get ' + documentId + 'from db', err)
+        }
+        /* Instantiate the object if it doesn't exist yet */
+        value = value || {}
+        value._id = documentId
 
-    //     /* Add in the selection to the selections array */
-    //     value.selections = value.selections || []
-    //     value.selections.push(selection)
+        /* Add in the selection to the selections array */
+        value.selections = value.selections || []
+        value.selections.push(selection)
 
-    //     /* Get rid of prototypes so we can put this to the database */
-    //     value = JSON.parse(JSON.stringify(value))
+        /* Get rid of prototypes so we can put this to the database */
+        value = JSON.parse(JSON.stringify(value))
 
-    //     db.put(value, function (err, response) {
-    //       if (err) { console.log('Failed to save selection', err) }
-    //       console.log('Stored ' + response.id + ' away...', response)
+        db.put(value, function (err, response) {
+          if (err) { console.log('Failed to save selection', err) }
+          console.log('Stored ' + response.id + ' away...', response)
 
-    //       PouchDB.sync('test', 'http://54.164.111.240:5984/test')
+          PouchDB.sync('test', 'http://54.164.111.240:5984/test')
 
-    //     })
-    //   })
-    // }
+        })
+      })
+    }
 
-    // if (this.props.location) {
-    //   pdfjs.getFingerprint(url.getPDFURL(window.location.href),
-    //     function setDocumentId (err, fingerprint) {
-    //       if (err) { console.log('Could not properly get PDF fingerprint') }
+    if (this.props.location) {
+      pdfjs.getFingerprint(url.getPDFURL(window.location.href),
+        function setDocumentId (err, fingerprint) {
+          if (err) { console.log('Could not properly get PDF fingerprint') }
 
-    //       saveSelection(selection)
-    //     }
-    //   )
-    // } else {
-    //   saveSelection(selection)
-    // }
+          saveSelection(selection)
+        }
+      )
+    } else {
+      saveSelection(selection)
+    }
   },
   render: function () {
     return (
