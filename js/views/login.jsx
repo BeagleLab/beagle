@@ -2,6 +2,7 @@
 'use strict'
 
 var React = require('react')
+var r = require('jquery')
 
 var Login = React.createClass({
   displayName: 'Login',

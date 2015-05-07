@@ -13,7 +13,6 @@ var url = require('./lib/url-checks')
 var PDFJS = require('beagle-pdf')
 var sidebarOpen = false
 var sidebarId = 'beagle-sidebar'
-var $ = require('jquery')
 
 // var level = require('level-browserify')
 var PouchDB = require('pouchdb')
