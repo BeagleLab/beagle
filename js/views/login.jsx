@@ -18,7 +18,7 @@ var Login = React.createClass({
       OAuth.initialize('IHLK6uDxpnuH1S71dCwbf30bjBM')
       console.log('Hi mom!')
       //Using popup
-      OAuth.popup('facebook')
+      OAuth.popup('github')
           .done(function (result) {
             console.log('Hi mom!!', result)
             //use result.access_token in your API request
