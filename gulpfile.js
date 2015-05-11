@@ -174,7 +174,7 @@ gulp.task('watch', function () {
   gulp.watch(paths.css, ['static'])
   gulp.watch(paths.manifest, ['manifest'])
   // gulp.watch(paths.sass, ['sass'])
-  gulp.watch(paths.iframeSass, ['iframeSass'])
+  // gulp.watch(paths.iframeSass, ['iframeSass'])
   gulp.watch(paths.img, ['img'])
   gulp.watch(paths.html, ['html'])
 })
@@ -185,7 +185,7 @@ gulp.task('bundle', [
   'manifest',
   // 'sass',
   'css',
-  'iframeSass',
+  // 'iframeSass',
   'img',
   'html',
   'pdfjs'
@@ -200,7 +200,7 @@ gulp.task('default', [
   'manifest',
   // 'sass',
   'css',
-  'iframeSass',
+  // 'iframeSass',
   'img',
   'html',
   'server'
