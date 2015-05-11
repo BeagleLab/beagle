@@ -14,13 +14,7 @@ var pdfjs = require('beagle-pdf')
 var cesc = require('chrome-ext-screen-capture')
 
 function saveSelection (documentId, selection) {
-  console.log('Inside saveSelection')
-
-  db.get(documentId).then(function (value) {
-    // if (err && err.name !== 'not_found') {
-    //   return console.log('Failed to get ' + documentId + 'from db', err)
-    // }
-
+  function putSelection (value) {
     /* Instantiate the object if it doesn't exist yet */
     value = value || {}
     value._id = documentId
@@ -34,16 +28,24 @@ function saveSelection (documentId, selection) {
 
     console.log('value', value)
     return db.put(value)
-  }).then(function (response) {
-    console.log('response', response)
+  }
 
-    // if (err) { console.log('Failed to save selection', err) }
-    // console.log('Stored ' + response.id + ' away...', response)
+  db.get(documentId)
+    .then(putSelection)
+    .catch(function (err) {
+      if (err && err.name === 'not_found') {
+        console.log('Failed to get ' + documentId + 'from db', err)
+        return putSelection()
+      }
+    })
+    .then(function (response) {
+      console.log('Stored ' + response.id + ' away...', response)
 
-    // PouchDB.sync('test', 'http://54.164.111.240:5984/test')
-  }).catch(function (err) {
-    console.log(err)
-  })
+      PouchDB.sync('test', 'http://54.164.111.240:5984/test')
+    })
+    .catch(function (err) {
+      console.log('Failed to save selection', err)
+    })
 }
 
 var Highlight = React.createClass({
