@@ -40,7 +40,7 @@ var paths = {
   ],
   'sass': ['scss/**/main.scss'],
   'iframeSass': ['scss/**/iframe.scss'],
-  'html': ['html/**/*.html'],
+  'html': ['static/html/**/*.html'],
   'manifest': ['static/manifest.json'],
   'content': ['static/content/**/*']
 }
