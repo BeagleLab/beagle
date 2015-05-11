@@ -1,9 +1,9 @@
 var React = require('react')
 var Sidebar = require('../components/sidebar.jsx')
-var Annotations = require('../views/annotations.jsx')
+var Annotations = require('../components/annotations.jsx')
 var Cite = require('../components/cite.jsx')
-var Graph = require('../views/graph.jsx')
-var Publication = require('../views/publication.jsx')
+var Graph = require('../components/graph.jsx')
+var Publication = require('../components/publication.jsx')
 var Save = require('../components/save.jsx')
 var Tags = require('../components/tags.jsx')
 

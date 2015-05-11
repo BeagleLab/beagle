@@ -1,23 +1,23 @@
 var React = require('react')
 
 var Accordion = require('react-bootstrap').Accordion
-var Forms = require('./views/forms.jsx').Forms
-var Highlight = require('./views/highlight.jsx')
-var Login = require('./views/login.jsx')
 var Panel = require('react-bootstrap').Panel
-var Publication = require('./views/publication.jsx')
-var Screenshot = require('./views/screenshot.jsx')
+var Forms = require('./components/forms.jsx').Forms
+var Highlight = require('./components/highlight.jsx')
+var Login = require('./components/login.jsx')
+var Publication = require('./components/publication.jsx')
+var Screenshot = require('./components/screenshot.jsx')
 var Sidebar = require('./components/sidebar.jsx')
-var PDFUrlLink = require('./views/pdfUrlLink.jsx')
-var Slack = require('./views/slack.jsx').SendSlack
+var PDFUrlLink = require('./components/pdfUrlLink.jsx')
+var Slack = require('./components/slack.jsx').SendSlack
 
 // var Cite = require('./components/cite.jsx')
-// var Graph = require('./views/graph.jsx')
-// var RetrieveValue = require('./views/retrieveValue.jsx')
+// var Graph = require('./components/graph.jsx')
+// var RetrieveValue = require('./components/retrieveValue.jsx')
 // var Save = require('./components/save.jsx')
 // var SignOut = require('./components/signOut.jsx')
 // var Tags = require('./components/tags.jsx')
-// var Toc = require('./views/toc.jsx')
+// var Toc = require('./components/toc.jsx')
 
 module.exports = React.createClass({
 

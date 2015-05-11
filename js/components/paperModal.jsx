@@ -1,11 +1,11 @@
 /** @jsx React.DOM */
 var React = require('react');
 var Csv = require('../utilities/csv.jsx')
-var Graph = require('../views/graph.jsx')
-var Tags = require('../components/tags.jsx')
-var Cite = require('../components/cite.jsx')
-var Champion = require('../components/champion.jsx')
-var Modal = require('../components/modal.jsx')
+var Graph = require('./graph.jsx')
+var Tags = require('./tags.jsx')
+var Cite = require('./cite.jsx')
+var Champion = require('./champion.jsx')
+var Modal = require('./modal.jsx')
 
 
 var PaperModal = React.createClass({
