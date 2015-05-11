@@ -2,6 +2,7 @@ var React = require('react')
 // var db = require('level-browserify')('./mydb')
 var Accordion = require('react-bootstrap').Accordion
 var Panel = require('react-bootstrap').Panel
+var $c = require('../utilities/classNames.js')
 
 var Slack = require('browser-node-slack')
 var slack = new Slack('https://hooks.slack.com/services/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')
@@ -147,21 +148,6 @@ var trim = (function () {
     return string.replace(TRIM_RE, '')
   }
 })()
-
-function $c (staticClassName, conditionalClassNames) {
-  var classNames = []
-  if (typeof conditionalClassNames === 'undefined') {
-    conditionalClassNames = staticClassName
-  } else {
-    classNames.push(staticClassName)
-  }
-  for (var className in conditionalClassNames) {
-    if (!!conditionalClassNames[className]) {
-      classNames.push(className)
-    }
-  }
-  return classNames.join(' ')
-}
 
 module.exports.ContactForm = exports.ContactForm = ContactForm
 module.exports.SendSlack = exports.SendSlack = SendSlack

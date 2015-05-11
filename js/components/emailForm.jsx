@@ -4,6 +4,7 @@ var url = require('../lib/url-checks')
 var Accordion = require('react-bootstrap').Accordion
 var Panel = require('react-bootstrap').Panel
 var _ = require('lodash')
+var $c = require('../utilities/classNames.js')
 
 var nodemailer = require('nodemailer')
 // This is your API key that you retrieve from www.mailgun.com/cp (free up to 10K monthly emails)
@@ -252,22 +253,6 @@ var trim = (function () {
     return string.replace(TRIM_RE, '')
   }
 })()
-
-function $c (staticClassName, conditionalClassNames) {
-  var classNames = []
-  if (typeof conditionalClassNames === 'undefined') {
-    conditionalClassNames = staticClassName
-  } else {
-    classNames.push(staticClassName)
-  }
-
-  for (var className in conditionalClassNames) {
-    if (!!conditionalClassNames[className]) {
-      classNames.push(className)
-    }
-  }
-  return classNames.join(' ')
-}
 
 module.exports.ContactForm = exports.ContactForm = ContactForm
 module.exports.Forms = exports.Forms = Forms
