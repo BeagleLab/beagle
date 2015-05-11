@@ -12,7 +12,7 @@ var gulp = require('gulp')
 var gutil = require('gulp-util')
 var imagemin = require('gulp-imagemin')
 var reactify = require('reactify')
-var sass = require('gulp-sass')
+// var sass = require('gulp-sass')
 var source = require('vinyl-source-stream')
 var sourcemaps = require('gulp-sourcemaps')
 var watchify = require('watchify')
@@ -37,6 +37,7 @@ var paths = {
     '!static/pdfjs/**/*.*',
     'node_modules/beagle-style/style.min.css'
   ],
+  'css': ['scss/**/*.css'],
   'sass': ['scss/**/main.scss'],
   'iframeSass': ['scss/**/iframe.scss'],
   'html': ['static/html/**/*.html'],
@@ -119,24 +120,29 @@ gulp.task('pdfjs', function () {
     .pipe(gulp.dest('build/pdfjs'))
 })
 
-gulp.task('sass', function () {
-  return gulp.src(paths.sass)
-    .pipe(sourcemaps.init())
-      .pipe(sass())
-      .pipe(cssmin())
-      .pipe(concat('bundle.min.css'))
-    .pipe(sourcemaps.write())
-    .pipe(gulp.dest('build/'))
-})
+// gulp.task('sass', function () {
+//   return gulp.src(paths.sass)
+//     .pipe(sourcemaps.init())
+//       .pipe(sass())
+//       .pipe(cssmin())
+//       .pipe(concat('bundle.min.css'))
+//     .pipe(sourcemaps.write())
+//     .pipe(gulp.dest('build/'))
+// })
 
-gulp.task('iframeSass', function () {
-  return gulp.src(paths.iframeSass)
-    .pipe(sourcemaps.init())
-      .pipe(sass())
-      .pipe(cssmin())
-      .pipe(concat('iframe.min.css'))
-    .pipe(sourcemaps.write())
-    .pipe(gulp.dest('build/'))
+// gulp.task('iframeSass', function () {
+//   return gulp.src(paths.iframeSass)
+//     .pipe(sourcemaps.init())
+//       .pipe(sass())
+//       .pipe(cssmin())
+//       .pipe(concat('iframe.min.css'))
+//     .pipe(sourcemaps.write())
+//     .pipe(gulp.dest('build/'))
+// })
+
+gulp.task('css', function () {
+  return gulp.src(paths.css)
+    .pipe(gulp.dest('build'))
 })
 
 gulp.task('img', function () {
@@ -167,7 +173,7 @@ gulp.task('watch', function () {
   // gulp.watch(paths.milestones, ['milestones'])
   gulp.watch(paths.css, ['static'])
   gulp.watch(paths.manifest, ['manifest'])
-  gulp.watch(paths.sass, ['sass'])
+  // gulp.watch(paths.sass, ['sass'])
   gulp.watch(paths.iframeSass, ['iframeSass'])
   gulp.watch(paths.img, ['img'])
   gulp.watch(paths.html, ['html'])
@@ -177,7 +183,8 @@ gulp.task('bundle', [
   'brundle',
   'static',
   'manifest',
-  'sass',
+  // 'sass',
+  'css',
   'iframeSass',
   'img',
   'html',
@@ -191,7 +198,8 @@ gulp.task('default', [
   'watchify',
   'static',
   'manifest',
-  'sass',
+  // 'sass',
+  'css',
   'iframeSass',
   'img',
   'html',
