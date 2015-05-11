@@ -39,7 +39,6 @@ var TagsModal = require('../components/tagsModal.jsx')
 // var Tags = require('../components/tags.jsx')
 // var TagsList = require('../components/tagsList.jsx')
 // var TagsListWrapper = require('../components/tagsListWrapper.jsx')
-// var TfIdf = require('../components/tfIdf.jsx')
 // var Toc = require('../components/toc.jsx')
 
 function inject (id) {
