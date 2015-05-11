@@ -2,7 +2,7 @@ var React = require('react')
 var domready = require('domready')
 var $ = require('jquery')
 
-// var data = require('../lib/sampleData.js')
+// var data = require('../data/sampleData.js')
 
 var App = require('../app.jsx')
 
