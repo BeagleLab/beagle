@@ -1,38 +1,42 @@
 var React = require('react')
-var Save = require('../components/save.jsx')
 var PublicationsList = require('../components/publicationsList.jsx')
 var Contact = require('../components/contact.jsx')
 var Modal = require('../components/modal.jsx')
+// var Save = require('../components/save.jsx')
 
 module.exports = React.createClass({
 	displayName: 'Author Modal',
-	render: function() {
-		return (
-      <Modal>
-        <div className="profile-header">
-          <img className="profile-image" src={this.props.data.author.photo} />
-          <div className="profile-header-info">
-            <h3>{this.props.data.author.name}</h3>
-            <ul className="no-bullet">
-              <li>{this.props.data.author.university}</li>
-              <li>{this.props.data.author.department}</li>
-            </ul>
+  propTypes: {
+    data: React.PropTypes.object
+  },
+	render: function () {
+    return (
+    <Modal>
+      <div className="profile-header">
+        <img className="profile-image" src={this.props.data.author.photo} />
 
-            <Contact data={this.props.data} /><br />
+        <div className="profile-header-info">
+          <h3>{this.props.data.author.name}</h3>
+          <ul className="no-bullet">
+          <li>{this.props.data.author.university}</li>
+          <li>{this.props.data.author.department}</li>
+          </ul>
 
-            <div className='graph-container'>
-            	<img className='graph' src={this.props.data.author.graph} />
-            </div>
+          <Contact data={this.props.data} /><br />
 
+          <div className='graph-container'>
+            <img className='graph' src={this.props.data.author.graph} />
           </div>
-          <div className="publications">
 
-            <h5>Publications</h5>
-            <PublicationsList data={this.props.data.author.publications} />
-
-          </div>
         </div>
-      </Modal>
-		)
-	}
+        <div className="publications">
+
+          <h5>Publications</h5>
+          <PublicationsList data={this.props.data.author.publications} />
+
+        </div>
+      </div>
+    </Modal>
+    )
+  }
 })

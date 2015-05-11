@@ -16,22 +16,22 @@ var mg = require('nodemailer-mailgun-transport')({
 var nodemailerMailgun = nodemailer.createTransport(mg)
 
 var ContactForm = React.createClass({
-  getDefaultProps: function() {
+  getDefaultProps: function () {
     return {
       subject: false
     }
-  }
+  },
 
-, getInitialState: function() {
+  getInitialState: function () {
     return {errors: {}}
-  }
+  },
 
-, isValid: function() {
+  isValid: function () {
     var fields = ['email', 'message']
     if (this.props.subject) fields.push('subject')
 
     var errors = {}
-    fields.forEach(function(field) {
+    fields.forEach(function (field) {
       var value = trim(this.refs[field].getDOMNode().value)
       if (!value) {
         errors[field] = 'This field is required'
@@ -45,45 +45,47 @@ var ContactForm = React.createClass({
       break
     }
     return isValid
-  }
+  },
 
-, getFormData: function() {
+  getFormData: function () {
     var data = {
-      email: this.refs.email.getDOMNode().value
-    , message: this.refs.message.getDOMNode().value
+      email: this.refs.email.getDOMNode().value,
+      message: this.refs.message.getDOMNode().value
     }
     if (this.props.subject) data.subject = this.refs.subject.getDOMNode().value
     return data
-  }
+  },
 
-, render: function() {
-    return <div className="form-horizontal">
-      {this.props.subject && this.renderTextInput('subject', 'Subject', 'For science!')}
-      {this.renderTextInput('email', 'Email', 'Who should this go to?')}
-      {this.renderTextarea('message', 'Body', 'What do you want to say?')}
-      {/*
-        To be used when attaching PDFs is an option.
-      {this.renderRadioInlines('currentCustomer', 'Are you currently a ' + this.props.company + ' Customer?', {
-        values: ['Yes', 'No']
-      , defaultCheckedValue: 'No'
-      })} */}
-    </div>
-  }
+  render: function () {
+    return (
+      <div className="form-horizontal">
+        {this.props.subject && this.renderTextInput('subject', 'Subject', 'For science!')}
+        {this.renderTextInput('email', 'Email', 'Who should this go to?')}
+        {this.renderTextarea('message', 'Body', 'What do you want to say?')}
+        {/*
+          To be used when attaching PDFs is an option.
+        {this.renderRadioInlines('currentCustomer', 'Are you currently a ' + this.props.company + ' Customer?', {
+          values: ['Yes', 'No']
+        , defaultCheckedValue: 'No'
+        })} */}
+      </div>
+    )
+  },
 
-, renderTextInput: function(id, label, placeholder) {
+  renderTextInput: function (id, label, placeholder) {
     return this.renderField(id, label,
       <input type="text" className="form-control" id={id} ref={id} placeholder={placeholder} />
     )
-  }
+  },
 
-, renderTextarea: function(id, label, placeholder) {
+  renderTextarea: function (id, label, placeholder) {
     return this.renderField(id, label,
       <textarea className="form-control" id={id} ref={id} placeholder={placeholder} />
     )
-  }
+  },
 
-, renderSelect: function(id, label, values) {
-    var options = values.map(function(value) {
+  renderSelect: function (id, label, values) {
+    var options = values.map(function (value) {
       return <option value={value}>{value}</option>
     })
     return this.renderField(id, label,
@@ -91,38 +93,42 @@ var ContactForm = React.createClass({
         {options}
       </select>
     )
-  }
+  },
 
-, renderRadioInlines: function(id, label, kwargs) {
-    var radios = kwargs.values.map(function(value) {
-      var defaultChecked = (value == kwargs.defaultCheckedValue)
-      return <label className="radio-inline">
-        <input type="radio" ref={id + value} name={id} value={value} defaultChecked={defaultChecked}/>
-        {value}
-      </label>
+  renderRadioInlines: function (id, label, kwargs) {
+    var radios = kwargs.values.map(function (value) {
+      var defaultChecked = (value === kwargs.defaultCheckedValue)
+      return (
+        <label className="radio-inline">
+          <input type="radio" ref={id + value} name={id} value={value} defaultChecked={defaultChecked}/>
+          {value}
+        </label>
+      )
     })
     return this.renderField(id, label, radios)
-  }
+  },
 
-, renderField: function(id, label, field) {
-    return <div className={$c('form-group', {'has-error': id in this.state.errors})}>
-      <label htmlFor={id} className="col-sm-4 control-label">{label}</label>
-      <div className="col-sm-6">
-        {field}
+  renderField: function (id, label, field) {
+    return (
+      <div className={$c('form-group', {'has-error': id in this.state.errors})}>
+        <label htmlFor={id} className="col-sm-4 control-label">{label}</label>
+        <div className="col-sm-6">
+          {field}
+        </div>
       </div>
-    </div>
+    )
   }
 })
 
 var Forms = React.createClass({
-  getInitialState: function() {
+  getInitialState: function () {
     return {
-      subject: true
-    , submitted: null
+      subject: true,
+      submitted: null
     }
-  }
+  },
 
-, render: function() {
+  render: function () {
     var submitted
     if (this.state.submitted !== null) {
       submitted = <div className="alert alert-success email-sent">
@@ -173,15 +179,15 @@ var Forms = React.createClass({
         </Panel>
     </Accordion>
     )
-  }
+  },
 
-, handleChange: function(field, e) {
+  handleChange: function (field, e) {
     var nextState = {}
     nextState[field] = e.target.checked
     this.setState(nextState)
-  }
+  },
 
-, handleSubmit: function () {
+  handleSubmit: function () {
     var fingerprint = this.props.fingerprint
 
     if (this.refs.contactForm.isValid()) {
@@ -240,21 +246,21 @@ var Forms = React.createClass({
   }
 })
 
-var trim = function() {
+var trim = (function () {
   var TRIM_RE = /^\s+|\s+$/g
-  return function trim(string) {
+  return function trim (string) {
     return string.replace(TRIM_RE, '')
   }
-}()
+})()
 
-function $c(staticClassName, conditionalClassNames) {
+function $c (staticClassName, conditionalClassNames) {
   var classNames = []
-  if (typeof conditionalClassNames == 'undefined') {
+  if (typeof conditionalClassNames === 'undefined') {
     conditionalClassNames = staticClassName
-  }
-  else {
+  } else {
     classNames.push(staticClassName)
   }
+
   for (var className in conditionalClassNames) {
     if (!!conditionalClassNames[className]) {
       classNames.push(className)

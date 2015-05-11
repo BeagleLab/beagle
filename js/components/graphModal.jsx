@@ -4,7 +4,7 @@ var PublicationList = require('../components/publicationsList.jsx')
 
 module.exports = React.createClass({
 	displayName: 'Graph Modal',
-  render: function() {
+  render: function () {
     return (
       <Modal>
         <h4 className="gray">Publication Graph</h4>
@@ -22,4 +22,3 @@ module.exports = React.createClass({
     )
   }
 })
-

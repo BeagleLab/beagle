@@ -1,3 +1,5 @@
+/*globals OAuth */
+
 'use strict'
 
 var React = require('react')
@@ -17,17 +19,17 @@ var Login = React.createClass({
       // OAauth Code goes here.
       OAuth.initialize('IHLK6uDxpnuH1S71dCwbf30bjBM')
       console.log('Hi mom!')
-      //Using popup
+      // Using popup
       OAuth.popup('github')
           .done(function (result) {
             console.log('Hi mom!!', result)
-            //use result.access_token in your API request
-            //or use result.get|post|put|del|patch|me methods (see below)
+            // use result.access_token in your API request
+            // or use result.get|post|put|del|patch|me methods (see below)
           })
           .fail(function (err) {
             console.log('Oh.', err)
-            //handle error with err
-      })
+            // handle error with err
+          })
 
       // style.color = 'green'
       // this.setState({success: <p style={style}>You are now logged in!</p>})

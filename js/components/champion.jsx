@@ -2,7 +2,7 @@ var React = require('react')
 
 module.exports = React.createClass({
 	displayName: 'Champion',
-  render: function() {
+  render: function () {
     return (
       <div className="btn-group">
         <a href="mailto:?subject=Champion: This is an awesome Article" className="btn btn-default" data-toggle="tooltip" data-placement="top" title="Champion this article"><i className="fa fa-shield"></i> Champion</a>

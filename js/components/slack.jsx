@@ -136,52 +136,6 @@ var SendSlack = React.createClass({
           username: 'bot'
       })
 
-      // Read the entire database. TODO: Change this, it is not efficient.
-      // db.createReadStream()
-      //   .on('data', function (data) {
-      //     data = JSON.parse(data.value)
-      //     for (var key in data) {
-      //       if (data[key]['documentId'] === fingerprint) {
-      //         payload.push(data[key]['text'])
-      //         console.log('payload', payload)
-      //       }
-      //     }
-      //   })
-      //   .on('close', function () {
-      //     // Log the results for now. TODO: Send to view
-      //     // var urlHtml = url.getPDFURL(window.location.href)
-
-      //     // Todo: add in names
-      //     // var messageText = 'Hi,' +
-      //     //   '\n\nPersonal Message:' +
-      //     //   '\n\n\t' + data.message +
-      //     //   '\n\nHighlights:\n'
-
-      //     // // TODO Allow user to select snippets to send.
-      //     // _.each(payload, function (highlight) {
-      //     //   messageText += '\n\t' + highlight + '\n'
-      //     // })
-
-      //     // messageText += '\n If you want to see these highlighted, use Beagle and go here: ' + urlHtml +
-      //     //   '\n\n For Science,\n - Richard' // Todo - add in username
-
-      //     // console.log('Message: ', messageText)
-
-      //     // nodemailerMailgun.sendMail({
-      //     //     from: 'richard@beagle.io',
-      //     //     // cc: 'richard.littauer@gmail.com',
-      //     //     to: data.email, // An array if you have multiple recipients.
-      //     //     subject: data.subject || 'Notes from Beagle',
-      //     //     text: messageText
-      //     // }, function (err, info) {
-      //     //   if (err) {
-      //     //     console.log('Error: ' + err)
-      //     //   } else {
-      //     //     console.log('Response: ' + info)
-      //     //   }
-      //     // })
-      //     console.log('Database exhausted.')
-      //   })
       this.setState({'submitted': data})
     }
   }

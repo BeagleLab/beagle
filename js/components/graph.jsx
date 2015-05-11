@@ -2,7 +2,7 @@ var React = require('react')
 
 module.exports = React.createClass({
 	displayName: 'Graph',
-  render: function() {
+  render: function () {
     return (
       <div>
         <a href="#publication-graph" role="button" className="alert alert-info" data-toggle="tooltip" data-placement="top" title="View citations">
@@ -10,7 +10,7 @@ module.exports = React.createClass({
         </a>
         <a href="#publication-graph" role="button" className="alert alert-info" data-toggle="tooltip" data-placement="top" title="View references">
           <i className='fa fa-share-alt'></i> Cites: {this.props.data.cites.length}
-	      </a>
+        </a>
         <a href="#publication-graph" role="button" className="alert alert-info" data-toggle="tooltip" data-placement="top" title="View closely related papers">
           <i className='fa fa-share-alt'></i> Related to: {this.props.data.related.length}
         </a>

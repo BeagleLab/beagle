@@ -1,5 +1,5 @@
 /** @jsx React.DOM */
-var React = require('react');
+var React = require('react')
 var Button = require('react-bootstrap').Button
 
 var SignOut = React.createClass({
@@ -7,6 +7,6 @@ var SignOut = React.createClass({
   render: function () {
     return <Button bsSize="xsmall" className='sign-out'>Sign out</Button>
   }
-});
+})
 
-module.exports = SignOut;
+module.exports = SignOut
