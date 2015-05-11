@@ -34,14 +34,14 @@ var paths = {
     'static/**/*.js',
     'static/**/*.json',
     '!static/manifest.json',
-    '!static/content/**/*.*',
+    '!static/pdfjs/**/*.*',
     'node_modules/beagle-style/style.min.css'
   ],
   'sass': ['scss/**/main.scss'],
   'iframeSass': ['scss/**/iframe.scss'],
   'html': ['static/html/**/*.html'],
   'manifest': ['static/manifest.json'],
-  'content': ['static/content/**/*']
+  'pdfjs': ['static/pdfjs/**/*']
 }
 
 gulp.task('clean', function (cb) {
@@ -114,9 +114,9 @@ gulp.task('manifest', function () {
     .pipe(gulp.dest('build'))
 })
 
-gulp.task('content', function () {
-  return gulp.src(paths['content'], { base: './static/content/'})
-    .pipe(gulp.dest('build/content'))
+gulp.task('pdfjs', function () {
+  return gulp.src(paths['pdfjs'], { base: './static/pdfjs/'})
+    .pipe(gulp.dest('build/pdfjs'))
 })
 
 gulp.task('sass', function () {
@@ -181,7 +181,7 @@ gulp.task('bundle', [
   'iframeSass',
   'img',
   'html',
-  'content'
+  'pdfjs'
   ], function () {
   this.stop()
 })
