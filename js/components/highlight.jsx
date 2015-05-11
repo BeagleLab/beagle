@@ -10,7 +10,7 @@ var db = new PouchDB('test')
 
 var crypto = require('crypto')
 var url = require('../lib/url-checks')
-var pdfjs = require('beagle-pdf')
+var PDFJS = require('beagle-pdf')
 var cesc = require('chrome-ext-screen-capture')
 
 var Highlight = React.createClass({
@@ -94,7 +94,7 @@ var Highlight = React.createClass({
     }
 
     if (this.props.location) {
-      pdfjs.getFingerprint(url.getPDFURL(window.location.href),
+      PDFJS.getFingerprint(url.getPDFURL(window.location.href),
         function setDocumentId (err, fingerprint) {
           if (err) { console.log('Could not properly get PDF fingerprint') }
 
