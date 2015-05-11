@@ -50,7 +50,7 @@
 
 	"web_accessible_resources": [
 		"images/*",
-		"content/*",
+		"pdfjs/*",
 		"lib/*"
 	]
 }

@@ -253,7 +253,7 @@ function buildView (options) {
 }
 
 // If we're loading Beagle in viewer.html
-if (window.location.pathname === '/content/web/viewer.html') {
+if (window.location.pathname === '/pdfjs/web/viewer.html') {
   console.log('In the PDF.js viewer')
 
   domready(function () {

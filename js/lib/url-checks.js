@@ -3,7 +3,7 @@ var extensionURL = function (path) {
 }
 
 var getPDFViewerURL = function (url) {
-  var PDF_VIEWER_URL = extensionURL('/content/web/viewer.html')
+  var PDF_VIEWER_URL = extensionURL('/pdfjs/web/viewer.html')
   return PDF_VIEWER_URL + '?file=' + encodeURIComponent(url)
 }
 
