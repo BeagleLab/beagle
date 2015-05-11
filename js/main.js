@@ -20,15 +20,6 @@ var db = new PouchDB('test')
 
 PouchDB.sync('test', 'http://54.164.111.240:5984/test')
 
-// DEV: This is how you clear the database
-// db.destroy().then(function () {
-//   console.log('Done')
-// }).catch(function (err) {
-//   console.log('err', err)
-// })
-
-// console.log('Main.js is being called from inside bundle.min.js')
-
 function getModules (requestModules, cb) {
   // Get the current list of used modules
   chrome.storage.sync.get('modules', function (result) {

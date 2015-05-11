@@ -36,3 +36,16 @@ Let us know what else you'd need to do here, I suspect there is more.
 We use feross's [standard](https://github.com/feross/standard). Please use a hinter or linter which adheres to it - if you need help, ask @RichardLitt. 
 
 When in doubt, plunk it into a new module. 
+
+### Notes
+
+If you need to destroy the test databse, run:
+
+```js
+// DEV: This is how you clear the database
+db.destroy().then(function () {
+  console.log('Done')
+}).catch(function (err) {
+  console.log('err', err)
+})
+```
