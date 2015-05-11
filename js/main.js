@@ -218,6 +218,7 @@ function buildView (options) {
           console.log('Fingerprint found in db', fingerprint, response)
 
           _.forEach(response.selections, function (selection) {
+            console.log('Response selections', selection)
             // TODO Load in HTMLCoord highlights, too
             if (selection.pdfCoords) {
               PDFJS.showHighlight(selection.pdfCoords)
