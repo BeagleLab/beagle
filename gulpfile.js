@@ -27,7 +27,7 @@ var paths = {
   'background': 'background',
   'jsPath': './js/',
   'js': ['js/**/*.js', 'js/**/*.jsx', '!js/milestones/**/*'],
-  'img': ['static/**/*.png', 'static/**/*.jpg', '!static/content/**'],
+  'img': ['static/images/**/*'],
   'milestones': ['js/milestones/**/*.*'],
   'static': [
     'static/**/*.css',
@@ -35,8 +35,7 @@ var paths = {
     'static/**/*.json',
     '!static/manifest.json',
     '!static/content/**/*.*',
-    'node_modules/beagle-style/style.min.css',
-    'examples/example.pdf'
+    'node_modules/beagle-style/style.min.css'
   ],
   'sass': ['scss/**/main.scss'],
   'iframeSass': ['scss/**/iframe.scss'],
