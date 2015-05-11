@@ -2,7 +2,7 @@ var React = require('react')
 
 var Accordion = require('react-bootstrap').Accordion
 var Panel = require('react-bootstrap').Panel
-var Forms = require('./components/forms.jsx').Forms
+var Forms = require('./components/emailForm.jsx').Forms
 var Highlight = require('./components/highlight.jsx')
 var Login = require('./components/login.jsx')
 var Publication = require('./components/publication.jsx')
