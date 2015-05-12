@@ -27,20 +27,16 @@ var paths = {
   'background': 'background',
   'jsPath': './js/',
   'js': ['js/**/*.js', 'js/**/*.jsx', '!js/milestones/**/*'],
-  'img': ['static/images/**/*'],
   'milestones': ['js/milestones/**/*.*'],
-  'static': [
-    'static/**/*.css',
-    'static/**/*.js',
-    'static/**/*.json',
-    '!static/manifest.json',
-    '!static/pdfjs/**/*.*',
+  'assets': [
+    'assets/static/**/*',
     'node_modules/beagle-style/style.min.css'
   ],
-  'css': ['css/**/*.css'],
-  'html': ['static/html/**/*.html'],
-  'manifest': ['static/manifest.json'],
-  'pdfjs': ['static/pdfjs/**/*']
+  'img': ['assets/images/**/*'],
+  'css': ['assets/css/**/*.css'],
+  'html': ['assets/html/**/*.html'],
+  'manifest': ['assets/manifest.json'],
+  'pdfjs': ['assets/pdfjs/**/*']
 }
 
 gulp.task('clean', function (cb) {
@@ -103,9 +99,9 @@ bundler.on('log', gutil.log)
 //     .pipe(gulp.dest('build/milestones/'))
 // })
 
-gulp.task('static', function () {
-  return gulp.src(paths.static)
-    .pipe(gulp.dest('build/static/'))
+gulp.task('assets', function () {
+  return gulp.src(paths.assets)
+    .pipe(gulp.dest('build/assets/'))
 })
 
 gulp.task('manifest', function () {
@@ -114,7 +110,7 @@ gulp.task('manifest', function () {
 })
 
 gulp.task('pdfjs', function () {
-  return gulp.src(paths['pdfjs'], { base: './static/pdfjs/'})
+  return gulp.src(paths['pdfjs'], { base: './assets/pdfjs/'})
     .pipe(gulp.dest('build/pdfjs'))
 })
 
@@ -151,8 +147,8 @@ gulp.task('server', function () {
 })
 
 gulp.task('watch', function () {
-  gulp.watch(paths.manifest, ['static'])
-  gulp.watch(paths.css, ['static'])
+  gulp.watch(paths.assets, ['assets'])
+  gulp.watch(paths.css, ['css'])
   gulp.watch(paths.manifest, ['manifest'])
   gulp.watch(paths.img, ['img'])
   gulp.watch(paths.html, ['html'])
@@ -160,7 +156,7 @@ gulp.task('watch', function () {
 
 gulp.task('bundle', [
   'brundle',
-  'static',
+  'assets',
   'manifest',
   'css',
   'img',
@@ -173,7 +169,7 @@ gulp.task('bundle', [
 gulp.task('default', [
   'watch',
   'watchify',
-  'static',
+  'assets',
   'manifest',
   'css',
   'img',
