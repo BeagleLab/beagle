@@ -7,12 +7,12 @@ var browserify = require('browserify')
 var concat = require('gulp-concat')
 var connect = require('gulp-connect')
 var cssmin = require('gulp-cssmin')
+var rename = require('gulp-rename')
 var del = require('del')
 var gulp = require('gulp')
 var gutil = require('gulp-util')
 var imagemin = require('gulp-imagemin')
 var reactify = require('reactify')
-// var sass = require('gulp-sass')
 var source = require('vinyl-source-stream')
 var sourcemaps = require('gulp-sourcemaps')
 var watchify = require('watchify')
@@ -37,9 +37,7 @@ var paths = {
     '!static/pdfjs/**/*.*',
     'node_modules/beagle-style/style.min.css'
   ],
-  'css': ['scss/**/*.css'],
-  'sass': ['scss/**/main.scss'],
-  'iframeSass': ['scss/**/iframe.scss'],
+  'css': ['css/**/*.css'],
   'html': ['static/html/**/*.html'],
   'manifest': ['static/manifest.json'],
   'pdfjs': ['static/pdfjs/**/*']
@@ -120,28 +118,13 @@ gulp.task('pdfjs', function () {
     .pipe(gulp.dest('build/pdfjs'))
 })
 
-// gulp.task('sass', function () {
-//   return gulp.src(paths.sass)
-//     .pipe(sourcemaps.init())
-//       .pipe(sass())
-//       .pipe(cssmin())
-//       .pipe(concat('bundle.min.css'))
-//     .pipe(sourcemaps.write())
-//     .pipe(gulp.dest('build/'))
-// })
-
-// gulp.task('iframeSass', function () {
-//   return gulp.src(paths.iframeSass)
-//     .pipe(sourcemaps.init())
-//       .pipe(sass())
-//       .pipe(cssmin())
-//       .pipe(concat('iframe.min.css'))
-//     .pipe(sourcemaps.write())
-//     .pipe(gulp.dest('build/'))
-// })
-
 gulp.task('css', function () {
   return gulp.src(paths.css)
+    .pipe(sourcemaps.init())
+    .pipe(cssmin())
+    .pipe(rename({suffix: '.min'}))
+    // .pipe(concat('beagle.min.css'))
+    .pipe(sourcemaps.write())
     .pipe(gulp.dest('build'))
 })
 
@@ -169,12 +152,8 @@ gulp.task('server', function () {
 
 gulp.task('watch', function () {
   gulp.watch(paths.manifest, ['static'])
-  // gulp.watch(paths.js, ['js'])
-  // gulp.watch(paths.milestones, ['milestones'])
   gulp.watch(paths.css, ['static'])
   gulp.watch(paths.manifest, ['manifest'])
-  // gulp.watch(paths.sass, ['sass'])
-  // gulp.watch(paths.iframeSass, ['iframeSass'])
   gulp.watch(paths.img, ['img'])
   gulp.watch(paths.html, ['html'])
 })
@@ -183,9 +162,7 @@ gulp.task('bundle', [
   'brundle',
   'static',
   'manifest',
-  // 'sass',
   'css',
-  // 'iframeSass',
   'img',
   'html',
   'pdfjs'
@@ -198,9 +175,7 @@ gulp.task('default', [
   'watchify',
   'static',
   'manifest',
-  // 'sass',
   'css',
-  // 'iframeSass',
   'img',
   'html',
   'server'

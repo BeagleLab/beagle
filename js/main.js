@@ -145,7 +145,7 @@ function buildStaticAssets (options) {
   // Get the global CSS
   // May be better for this to be async. For now, there are no tests
   // it loads or not. The encoding ensures string return, not buffer.
-  concatCSS.innerHTML += fs.readFileSync(__dirname + '/../build/bundle.min.css', 'utf8')
+  concatCSS.innerHTML += fs.readFileSync(__dirname + '/../build/main.min.css', 'utf8')
 
   // Grab CSS files from style module. CSS and HTML shouldn't be exported from
   // other submodules, in order to make sure that everything is modular.
