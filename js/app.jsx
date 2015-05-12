@@ -2,7 +2,7 @@ var React = require('react')
 
 var Accordion = require('react-bootstrap').Accordion
 var Panel = require('react-bootstrap').Panel
-var Forms = require('./components/emailForm.jsx').Forms
+var EmailForm = require('./components/emailForm.jsx')
 var Highlight = require('./components/highlight.jsx')
 var Login = require('./components/login.jsx')
 var Publication = require('./components/publication.jsx')
@@ -31,7 +31,7 @@ module.exports = React.createClass({
 
         <Screenshot fingerprint={this.props.fingerprint} location={this.props.location} />
 
-        <Forms fingerprint={this.props.fingerprint} />
+        <EmailForm fingerprint={this.props.fingerprint} />
 
         <Accordion>
           <Panel header="Publication" activeKey='1'>

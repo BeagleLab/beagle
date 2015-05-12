@@ -121,7 +121,13 @@ var ContactForm = React.createClass({
   }
 })
 
-var Forms = React.createClass({
+var EmailForm = React.createClass({
+  displayName: 'Email Form',
+
+  propTypes: {
+   fingerprint: React.PropTypes.string
+  },
+
   getInitialState: function () {
     return {
       subject: true,
@@ -254,5 +260,4 @@ var trim = (function () {
   }
 })()
 
-module.exports.ContactForm = exports.ContactForm = ContactForm
-module.exports.Forms = exports.Forms = Forms
+module.exports = exports = EmailForm
