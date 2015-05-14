@@ -36,7 +36,7 @@
     "optional": "^0.1.3",
     "path": "^0.11.14",
     "pdfjs-dist": "^1.0.1185",
-    "pouchdb": "^3.3.1",
+    "pouchdb": "^3.5.0",
     "protocol-parser": "^0.0.7",
     "rangy": "git://github.com:RichardLitt/rangy.git#748582f",
     "react": "^0.12.2",
