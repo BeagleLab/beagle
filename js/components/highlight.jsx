@@ -42,8 +42,8 @@ var Highlight = React.createClass({
 
     // Get the PDF coordinates and highlight, if exists
     if (this.props.location) {
-      var pdfCoords = pdfjs.getHightlightCoords()
-      pdfjs.showHighlight(pdfCoords)
+      var pdfCoords = PDFJS.getHightlightCoords()
+      PDFJS.showHighlight(pdfCoords)
     }
 
     var documentId = (this.props.fingerprint) ? this.props.fingerprint : window.location.href
