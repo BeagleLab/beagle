@@ -186,7 +186,7 @@ function buildView (options) {
   // // isn't an error or a change in getPdfDocumentLocation() or options, it just
   // // doesn't fire the callback.
   if (options.pdfLocation) {
-    console.log('pdf location', options)
+    // console.log('pdf location', options)
 
     PDFJS.getFingerprint(options.pdfLocation, function (err, fingerprint) {
       if (err) { throw (new Error('Could not get the PDF fingerprint')) }
@@ -201,12 +201,10 @@ function buildView (options) {
         'pdf': val
       }
 
-      // TODO Load in the previous highlights here
       var displayHighlights = function () {
         db.get(fingerprint, function (err, response) {
           if (err) { return console.log('Fingerprint not found in db', err) }
-
-          console.log('Fingerprint found in db', fingerprint, response)
+          // console.log('Fingerprint found in db', fingerprint, response)
 
           _.forEach(response.selections, function (selection) {
             // TODO Load in HTMLCoord highlights, too
@@ -217,8 +215,7 @@ function buildView (options) {
         })
       }
 
-      displayHighlights()
-
+      // Called on initial load
       window.addEventListener('scalechange', displayHighlights(), true)
 
       PDFJS.readPDFText(options.pdfLocation, options, function (err, data) {
@@ -230,7 +227,7 @@ function buildView (options) {
 
         val.data = (data) ? {'publication': data} : sampleData.data
 
-        console.log('PDF data and fingerprint', val)
+        // console.log('PDF data and fingerprint', val)
 
         React.render(
           App(val),
@@ -254,7 +251,7 @@ function buildView (options) {
 
 // If we're loading Beagle in viewer.html
 if (window.location.pathname === '/pdfjs/web/viewer.html') {
-  console.log('In the PDF.js viewer')
+  // console.log('In the PDF.js viewer')
 
   domready(function () {
     getModules(['altmetrics'], function (modules) {
