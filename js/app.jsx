@@ -10,6 +10,7 @@ var Screenshot = require('./components/screenshot.jsx')
 var Sidebar = require('./components/sidebar.jsx')
 var PDFUrlLink = require('./components/pdfUrlLink.jsx')
 var Slack = require('./components/slack.jsx').SendSlack
+var Conversation = require('./components/conversation.jsx')
 
 // var Cite = require('./components/cite.jsx')
 // var Graph = require('./components/graph.jsx')
@@ -18,6 +19,8 @@ var Slack = require('./components/slack.jsx').SendSlack
 // var SignOut = require('./components/signOut.jsx')
 // var Tags = require('./components/tags.jsx')
 // var Toc = require('./components/toc.jsx')
+
+var user = require('./data/sampleData.js').user
 
 module.exports = React.createClass({
 
@@ -30,6 +33,8 @@ module.exports = React.createClass({
         <Highlight location={this.props.location} fingerprint={this.props.fingerprint} />
 
         <Screenshot fingerprint={this.props.fingerprint} location={this.props.location} />
+
+        <Conversation user={user} />
 
         <EmailForm fingerprint={this.props.fingerprint} />
 
