@@ -1,5 +1,20 @@
 var data = {}
 
+var user = {
+  'email': 'test@gmail.com',
+  'department': 'Physics',
+  'graph': 'images/graph.png',
+  'name': 'Richard Feynman',
+  'photo': 'http://upload.wikimedia.org/wikipedia/en/4/42/Richard_Feynman_Nobel.jpg',
+  'publications': [
+    'Lectures on Physics 1',
+    'Lectures on Physics 2',
+    'Lectures on Physics 3'
+  ],
+  'university': 'CIT',
+  'website': '#website'
+}
+
 data.data = {
   title: 'This is an example title',
   publication: {
@@ -75,4 +90,5 @@ data.data = {
   }
 }
 
-module.exports = data
+module.exports.data = exports.data = data
+module.exports.user = exports.user = user
