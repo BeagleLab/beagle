@@ -4,8 +4,8 @@
   "description": "Navigating research",
   "main": "./js/main.js",
   "dependencies": {
-    "beagle-altmetrics": "0.0.3",
-    "beagle-pdf": "0.0.7",
+    "beagle-altmetrics": "0.0.4",
+    "beagle-pdf": "0.0.8",
     "beagle-style": "0.0.1",
     "brfs": "^1.4.0",
     "browser-node-slack": "0.0.1",
