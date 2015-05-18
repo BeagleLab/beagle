@@ -3,10 +3,11 @@
 // var buffer = require('vinyl-buffer')
 // var fs = require('fs')
 // var react = require('gulp-react')
+// var concat = require('gulp-concat')
 var browserify = require('browserify')
-var concat = require('gulp-concat')
 var connect = require('gulp-connect')
 var cssmin = require('gulp-cssmin')
+var envify = require('envify/custom')
 var rename = require('gulp-rename')
 var del = require('del')
 var gulp = require('gulp')
@@ -52,7 +53,7 @@ var b = browserify({
     // Browserify options
     'entries': [paths.jsPath + (argv.path === 'background' ? paths.background : paths.main) + '.js'],
     'noParse': ['react.js', 'jquery.js', 'pdf.combined.js'],
-    'transform': [reactify]
+    'transform': [[reactify], ['envify', {'global': true, '_': 'purge', NODE_ENV: 'production'}]]
   })
   .transform('brfs', { global: true })
 
