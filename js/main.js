@@ -206,10 +206,18 @@ function buildView (options) {
           if (err) { return console.log('Fingerprint not found in db', err) }
           // console.log('Fingerprint found in db', fingerprint, response)
 
-          _.forEach(response.selections, function (selection) {
+          // TODO Remove highlights so that we don't get them every time,
+          // and so that once rendered, they aren't rendered again.
+          if (!window.beagle.highlights) {
+            window.beagle.highlights = response.selections
+          }
+
+          _.forEach(window.beagle.highlights, function (selection, i) {
             // TODO Load in HTMLCoord highlights, too
-            if (selection.pdfCoords) {
-              PDFJS.showHighlight(selection.pdfCoords)
+            if (selection.pdfCoords && !selection.rendered) {
+              PDFJS.showHighlight(selection.pdfCoords, function () {
+                selection.rendered = true
+              })
             }
           })
         })
@@ -217,6 +225,11 @@ function buildView (options) {
 
       // Called on initial load
       window.addEventListener('scalechange', displayHighlights(), true)
+
+      // Called on scroll, repeatedly
+      window.watchScroll(window.PDFViewerApplication.pdfViewer.container, function () {
+        displayHighlights()
+      })
 
       PDFJS.readPDFText(options.pdfLocation, options, function (err, data) {
         if (err === 'Failed to find a DOI.') {
