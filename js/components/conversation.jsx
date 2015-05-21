@@ -1,5 +1,5 @@
 var React = require('react')
-// var UserBar = require('./userBar.jsx')
+var Sharing = require('./sharing.jsx')
 
 var Conversation = React.createClass({
   displayName: 'Conversation',
@@ -69,8 +69,7 @@ var Conversation = React.createClass({
           <textarea type="input" style={inputTitleStyle} placeholder="Share an insight" onChange={this.handleText} defaultValue={text} />
         }
 
-        {/* TODO Add share component here */}
-        {/* <UserBar user={this.props.user} /> */}
+        <Sharing />
 
         <button className="btn btn-default" style={submitButtonStyle} onClick={this.onClick}>Start new conversation</button>
 
