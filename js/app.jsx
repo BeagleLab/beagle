@@ -20,9 +20,16 @@ var Conversation = require('./components/conversation.jsx')
 // var Tags = require('./components/tags.jsx')
 // var Toc = require('./components/toc.jsx')
 
-var user = require('./data/sampleData.js').user
+// var user = require('./data/sampleData.js').user
 
 module.exports = React.createClass({
+  displayName: 'App',
+  propTypes: {
+    staticPath: React.PropTypes.object,
+    location: React.PropTypes.object,
+    fingerprint: React.PropTypes.object,
+    data: React.PropTypes.object
+  },
 
   render: function () {
     return (
@@ -39,7 +46,7 @@ module.exports = React.createClass({
         <EmailForm fingerprint={this.props.fingerprint} />
 
         <Accordion>
-          <Panel header="Publication" activeKey='1'>
+          <Panel header='Publication' activeKey='1'>
             <Publication data={this.props.data.publication} eventKey='1' />
           </Panel>
         </Accordion>
