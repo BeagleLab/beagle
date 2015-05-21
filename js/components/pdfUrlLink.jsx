@@ -15,7 +15,6 @@ var PDFUrlLink = React.createClass({
       var urlLink = url.getPDFURL(window.location.href)
 
       var style = {
-        'position': 'absolute',
         'bottom': '15px'
       }
 
