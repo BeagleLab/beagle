@@ -24,7 +24,7 @@
 var account = {
   "_id": "hash1234",
   "name": "Richard Feynman",
-  "avatar": "url",
+  "avatar": "http://upload.wikimedia.org/wikipedia/en/4/42/Richard_Feynman_Nobel.jpg",
   "email": "richard.feynamn@caltech.com"
 }
 
