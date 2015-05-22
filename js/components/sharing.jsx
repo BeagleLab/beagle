@@ -1,5 +1,8 @@
 var React = require('react')
 var PermissionsDropdown = require('./permissionsDropdown.jsx')
+var UserBar = require('./userBar.jsx')
+
+var account = require('../data/schema.js').account
 
 var Sharing = React.createClass({
   displayName: 'Sharing',
@@ -42,6 +45,8 @@ var Sharing = React.createClass({
         <button className='btn btn-primary' style={submitButtonStyle} onClick={this.onClick}>
           <i className='fa fa-plus'></i> Add
         </button>
+
+        <UserBar secondaryText='email' account={account} />
 
       </div>
     )
