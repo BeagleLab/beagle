@@ -1,4 +1,4 @@
-// Everything is an "entity". it has an ID.
+// Everything is an 'entity'. it has an ID.
 // type Entity struct {
   // ID EntityID
 // }
@@ -6,7 +6,6 @@
 // EntityIDs are just strings.
 // (will be a UUID or something like it)
 // type EntityID string
-
 
 // An AccountID is just an EntityID.
 // type AccountID EntityID
@@ -22,10 +21,10 @@
 // }
 
 var account = {
-  "_id": "hash1234",
-  "name": "Richard Feynman",
-  "avatar": "http://upload.wikimedia.org/wikipedia/en/4/42/Richard_Feynman_Nobel.jpg",
-  "email": "richard.feynamn@caltech.com"
+  '_id': 'hash1234',
+  'name': 'Richard Feynman',
+  'avatar': 'http://upload.wikimedia.org/wikipedia/en/4/42/Richard_Feynman_Nobel.jpg',
+  'email': 'richard.feynamn@caltech.com'
 }
 
 // User is an individual user, a Person.
@@ -35,10 +34,10 @@ var account = {
 // }
 
 var user = {
-  "account": "hash1234",
-  "oauthTokens": [
-    "lksjfsa;djl",
-    "sdlkfjlsjss"
+  'account': 'hash1234',
+  'oauthTokens': [
+    'lksjfsa;djl',
+    'sdlkfjlsjss'
   ]
 }
 
@@ -51,14 +50,13 @@ var user = {
 
 // TODO Should members be IDs?
 var group = {
-  "_id": "hash5678",
-  "owner": "hash1234",
-  "members": [
-    "Richard Feynman",
-    "Noam Chompsky"
+  '_id': 'hash5678',
+  'owner': 'hash1234',
+  'members': [
+    'Richard Feynman',
+    'Noam Chompsky'
   ]
 }
-
 
 // Conversation is a semantic grouping of entities,
 // users/groups discussing a topic, through messages
@@ -72,14 +70,14 @@ var group = {
 // }
 
 var conversation = {
-  "_id": "1234hash",
-  "title": "Surely you're joking!",
-  "owner": [
-    "hash1234"
+  '_id': '1234hash',
+  'title': "Surely you're joking!",
+  'owner': [
+    'hash1234'
   ],
-  "participants": [
-    "Richard Feynman",
-    "Noam Chompsky"
+  'participants': [
+    'Richard Feynman',
+    'Noam Chompsky'
   ]
 }
 
@@ -94,17 +92,16 @@ var conversation = {
 // }
 
 var note = {
-  "_id": "hash4567",
-  "text": "Ever since I was little, I have always loved the sound of my own voice.",
-  "owner": [
-    "Richard Feynman"
+  '_id': 'hash4567',
+  'text': 'Ever since I was little, I have always loved the sound of my own voice.',
+  'owner': [
+    'Richard Feynman'
   ],
-  "participants": [
-    "Richard Feynman",
-    "Noam Chompsky"
+  'participants': [
+    'Richard Feynman',
+    'Noam Chompsky'
   ]
 }
-
 
 // Type of permission.
 // type PermType int
@@ -127,7 +124,6 @@ var permission = 1
 // var (
 //   EntityPermissions map[AccountID][EntityID]PermType
 // )
-
 
 module.exports.account = exports.account = account
 module.exports.user = exports.user = user
