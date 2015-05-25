@@ -83,6 +83,11 @@ module.exports.conversation = exports.conversation = {
   'participants': [
     'Richard Feynman',
     'Noam Chompsky'
+  ],
+  'notes': [
+    'hash4567',
+    'hash1234',
+    'hash3244'
   ]
 }
 
