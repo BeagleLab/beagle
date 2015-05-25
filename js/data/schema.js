@@ -20,7 +20,7 @@
 //   Email  string // email associated with account
 // }
 
-var account = {
+module.exports.account = exports.account = {
   '_id': 'hash1234',
   'name': 'Richard Feynman',
   'avatar': 'http://upload.wikimedia.org/wikipedia/en/4/42/Richard_Feynman_Nobel.jpg',
@@ -33,7 +33,7 @@ var account = {
 //   OAuthTokens []string
 // }
 
-var user = {
+module.exports.user = exports.user = {
   'account': 'hash1234',
   'oauthTokens': [
     'lksjfsa;djl',
@@ -49,7 +49,7 @@ var user = {
 // }
 
 // TODO Should members be IDs?
-var group = {
+module.exports.group = exports.group = {
   '_id': 'hash5678',
   'owner': 'hash1234',
   'members': [
@@ -69,7 +69,7 @@ var group = {
 //   Participants Membership
 // }
 
-var conversation = {
+module.exports.conversation = exports.conversation = {
   '_id': '1234hash',
   'title': "Surely you're joking!",
   'owner': [
@@ -91,7 +91,7 @@ var conversation = {
 //   Participants Membership
 // }
 
-var note = {
+module.exports.note = exports.note = {
   '_id': 'hash4567',
   'text': 'Ever since I was little, I have always loved the sound of my own voice.',
   'owner': [
@@ -113,7 +113,7 @@ var note = {
 // )
 
 // This is read
-var permission = 1
+module.exports.permission = exports.permission = 1
 
 // Membership is a group of users that belong to an entity,
 // with associated permissions. For example, the participants
@@ -124,10 +124,3 @@ var permission = 1
 // var (
 //   EntityPermissions map[AccountID][EntityID]PermType
 // )
-
-module.exports.account = exports.account = account
-module.exports.user = exports.user = user
-module.exports.group = exports.group = group
-module.exports.conversation = exports.conversation = conversation
-module.exports.note = exports.note = note
-module.exports.permission = exports.permission = permission
