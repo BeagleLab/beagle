@@ -131,7 +131,7 @@ module.exports.mediaTypes = exports.mediaTypes = [
 module.exports.mediaObject = exports.mediaObject = {
   'title': 'Boy with apple',
   'type': 'image',
-  'authors': 'Johannes Van Hoyt The Younger', // ID?
+  'authors': ['Johannes Van Hoyt The Younger', 'Pliny the Elder'], // ID?
   'sourceURL': 'http://www.mrtaylor.co.uk/static/images/appleboy_c.jpg',
   'metadata': {
     'bleep': 'blorp'
