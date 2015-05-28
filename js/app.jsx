@@ -23,7 +23,6 @@ var Conversation = require('./components/conversationChain.jsx')
 // var Toc = require('./components/toc.jsx')
 
 // var account = require('./data/schema.js').account
-var conversationData = require('./data/schema.js').conversationData
 
 module.exports = React.createClass({
   displayName: 'App',
@@ -44,7 +43,7 @@ module.exports = React.createClass({
 
         <Screenshot fingerprint={this.props.fingerprint} location={this.props.location} />
 
-        <Conversation conversation={conversationData} />
+        <Conversation />
 
         <EmailForm fingerprint={this.props.fingerprint} />
 
