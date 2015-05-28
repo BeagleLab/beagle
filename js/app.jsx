@@ -12,7 +12,7 @@ var PDFUrlLink = require('./components/pdfUrlLink.jsx')
 var Slack = require('./components/slack.jsx').SendSlack
 // var Conversation = require('./components/conversation.jsx')
 // var Comment = require('./components/comment.jsx')
-var Conversation = require('./components/conversationChain.jsx')
+// var Conversation = require('./components/conversationChain.jsx')
 
 // var Cite = require('./components/cite.jsx')
 // var Graph = require('./components/graph.jsx')
@@ -43,16 +43,10 @@ module.exports = React.createClass({
 
         <Screenshot fingerprint={this.props.fingerprint} location={this.props.location} />
 
-        <Conversation />
+
+        <Publication eventKey='1' />
 
         <EmailForm fingerprint={this.props.fingerprint} />
-
-        <Accordion>
-          <Panel header='Publication' activeKey='1'>
-            <Publication data={this.props.data.publication} eventKey='1' />
-          </Panel>
-        </Accordion>
-
         <Slack fingerprint={this.props.fingerprint} />
 
         {/* <Accordion>
@@ -60,6 +54,11 @@ module.exports = React.createClass({
             <RetrieveValue fingerprint={this.props.fingerprint} data={this.props.data} />
           </Panel>
         </Accordion>
+
+        <Accordion>
+          <Panel header='Publication' activeKey='1'>
+          </Panel>
+        </Accordion>}
 
         <Accordion>
           <Panel header="Table of Contents" eventKey='3'>
