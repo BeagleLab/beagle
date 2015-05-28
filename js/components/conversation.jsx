@@ -3,11 +3,17 @@ var Sharing = require('./sharing.jsx')
 
 var Conversation = React.createClass({
   displayName: 'Conversation',
+  propTypes: {
+    conversation: React.PropTypes.object
+  },
+  // TODO It seems to me that the title should be tied to the first note.
+  // As we have it, a conversation object has a title, but no text, just an array of notes
+  // I'm not sure this is right.
   getInitialState: function () {
     return {
-      submitted: false,
-      text: null,
-      title: null
+      submitted: true,
+      text: this.props.conversation.text || 'Error: Text not found',
+      title: this.props.conversation.title || 'No Title'
     }
   },
   onClick: function () {

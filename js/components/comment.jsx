@@ -4,12 +4,13 @@ var UserBar = require('./userBar.jsx')
 var Comment = React.createClass({
   displayName: 'Comment',
   propTypes: {
-    account: React.PropTypes.object
+    account: React.PropTypes.object,
+    text: React.PropTypes.string
   },
   getInitialState: function () {
     return {
-      submitted: false,
-      text: null
+      submitted: true,
+      text: this.props.text || null
     }
   },
   onClick: function () {
