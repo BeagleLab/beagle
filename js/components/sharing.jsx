@@ -17,8 +17,8 @@ var Sharing = React.createClass({
   render: function () {
     var conversationStyle = {
       padding: '10px 0px',
-      borderTop: '2px solid #AE8DC7',
-      borderBottom: '2px solid #AE8DC7'
+      // borderTop: '2px solid #AE8DC7',
+      // borderBottom: '2px solid #AE8DC7'
     }
 
     var submitButtonStyle = {
@@ -38,7 +38,7 @@ var Sharing = React.createClass({
     return (
       <div style={conversationStyle}>
 
-        <input type='text' style={inputStyle} />
+        <input type='text' style={inputStyle} placeholder='Share with...' />
 
         <PermissionsDropdown />
 
