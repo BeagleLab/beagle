@@ -26,7 +26,7 @@
 		"tabs",
 		"storage"
 	],
-	"content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+	"content_security_policy": "script-src 'self' 'unsafe-eval' https://api.instagram.com; object-src 'self'",
 
 	"background": {
 		"persistent": true,

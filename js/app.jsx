@@ -22,6 +22,10 @@ var Slack = require('./components/slack.jsx').SendSlack
 // var Tags = require('./components/tags.jsx')
 // var Toc = require('./components/toc.jsx')
 
+React.initializeTouchEvents(true);
+var InstaType = require('instatype')
+var CustomFunctions = require('./lib/searchContactsFunctions.jsx')
+CustomFunctions.selectedHandler( { id : 478987666 } );
 // var account = require('./data/schema.js').account
 
 module.exports = React.createClass({
@@ -43,6 +47,12 @@ module.exports = React.createClass({
 
         <Screenshot fingerprint={this.props.fingerprint} location={this.props.location} />
 
+        <InstaType
+          placeholder="Search instagram users"
+          requestHandler={CustomFunctions.requestHandler}
+          selectedHandler={CustomFunctions.selectedHandler}
+          loadingIcon="../../images/loading.gif"
+          limit={6} />
 
         <Publication eventKey='1' />
 
