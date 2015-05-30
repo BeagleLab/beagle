@@ -1,6 +1,7 @@
 var React = require('react')
 var DropdownButton = require('react-bootstrap').DropdownButton
 var MenuItem = require('react-bootstrap').MenuItem
+var scholarLink = require('google-scholar-link')
 
 var data = require('../data/schema.js').mediaObject
 
@@ -50,8 +51,7 @@ module.exports = React.createClass({
           <MenuItem eventKey={1}>Copy link to Beagle</MenuItem>
           {/* TODO Add the DOI object in the current schema to metadata */}
           <MenuItem eventKey={2}>{this.state.data.metadata.doi}</MenuItem>
-          {/* TODO Make a google scholar link module: https://scholar.google.com/scholar?hl=en&q= + query */}
-          <MenuItem eventKey={3}>Google Scholar</MenuItem>
+          <MenuItem eventKey={3}><a href={scholarLink(this.state.data.title, {'author': this.state.data.authors})} target='_blank'>Google Scholar</a></MenuItem>
           {/* TODO Make a cite component */}
           <MenuItem eventKey={4}>Cite</MenuItem>
         </DropdownButton>
