@@ -18,6 +18,16 @@ var Sharing = React.createClass({
   // Customize this function to reformat the data returned by your endpoint
   requestHandler: function (query, limit, callback) {
 
+    // On type, get all emails from the user
+    // var associates = require('../data/schema.js').associates
+
+    // console.log('query', query)
+    // Search for emails that come from the user, and for the Google Contacts API results
+    // Search for relevant emails in the user object
+    // Search for relevant emails from the Google Contacts API
+    // Display the top 10
+    // Repeat on type
+
     // var endpoint = 'https://api.instagram.com/v1/users/search';
     // var requestParams = {
     //   client_id: window.instagramClientId,
