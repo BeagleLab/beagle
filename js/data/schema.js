@@ -204,6 +204,16 @@ module.exports.permission = exports.permission = 'read'
 //   Type string
 // }
 
+// Associates are a group of emails that a user commonly
+// emails. If a user shares an object or emails a new user
+// from the platform, their email is added to this list to help
+// with offline sharing and email lookup time.
+// type Associates struct {
+//   ID Entity
+//   Owner   []AccountID
+//   Emails []string
+// }
+
 // // set of lower level functions.
 
 // // newID creates a new universal and uniformly distributed identifier.
