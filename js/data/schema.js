@@ -214,6 +214,16 @@ module.exports.permission = exports.permission = 'read'
 //   Emails []string
 // }
 
+module.exports.associates = exports.associates = {
+  '_id': 'jljfjslfjljslf',
+  'owner': 'richard.feynman@caltech.edu',
+  'emails': [
+    'Werner.Herzog@cinema.cinema',
+    'Slavoj.Zizek@philo.web',
+    'Bruce.Chatwin@travel.org'
+  ]
+}
+
 // // set of lower level functions.
 
 // // newID creates a new universal and uniformly distributed identifier.
