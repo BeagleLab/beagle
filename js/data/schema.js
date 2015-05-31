@@ -138,6 +138,20 @@ module.exports.mediaObject = exports.mediaObject = {
   }
 }
 
+// Dummy examples
+module.exports.mediaImage = exports.image = exports.mediaObject
+module.exports.mediaPublication = exports.publication = {
+  'title': 'A Structure for Deoxyribose Nucleic Acid',
+  'type': 'publication',
+  'authors': ['Francis Crick', 'James Watson'],
+  'sourceURL': 'http://www.nature.com/nature/dna50/watsoncrick.pdf',
+  'metadata': {
+    'doi': '10.1038/171737a0',
+    'shareCount': '10684',
+    'commentCount': '82' // TODO Get this programmatically
+  }
+}
+
 // A Note is a piece of text related to a conversation.
 // type Note struct {
 //   ID Entity

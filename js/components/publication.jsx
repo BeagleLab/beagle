@@ -3,15 +3,12 @@ var DropdownButton = require('react-bootstrap').DropdownButton
 var MenuItem = require('react-bootstrap').MenuItem
 var scholarLink = require('google-scholar-link')
 
-var data = require('../data/schema.js').mediaObject
+var data = require('../data/schema.js').mediaPublication
 
 // TODO Display conditionally depending on MediaTypes
 // TODO Add Comment Count and Share Count appropriately
 data.commentCount = '8'
 data.shareCount = '2181'
-data.metadata = {
-  doi: '10.100/100.100'
-}
 
 module.exports = React.createClass({
   displayName: 'Publication',
@@ -49,7 +46,6 @@ module.exports = React.createClass({
         <DropdownButton title={'Tools'} style={ddStyle} className='pull-right'>
           {/* TODO Make a link module */}
           <MenuItem eventKey={1}>Copy link to Beagle</MenuItem>
-          {/* TODO Add the DOI object in the current schema to metadata */}
           <MenuItem eventKey={2}>{this.state.data.metadata.doi}</MenuItem>
           <MenuItem eventKey={3}><a href={scholarLink(this.state.data.title, {'author': this.state.data.authors})} target='_blank'>Google Scholar</a></MenuItem>
           {/* TODO Make a cite component */}
