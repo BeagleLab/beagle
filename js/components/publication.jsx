@@ -6,9 +6,6 @@ var scholarLink = require('google-scholar-link')
 var data = require('../data/schema.js').mediaPublication
 
 // TODO Display conditionally depending on MediaTypes
-// TODO Add Comment Count and Share Count appropriately
-data.commentCount = '8'
-data.shareCount = '2181'
 
 module.exports = React.createClass({
   displayName: 'Publication',
@@ -31,6 +28,19 @@ module.exports = React.createClass({
     var ddStyle = {
       marginTop: '-15px'
     }
+
+    // There has got to be an easier way to do this.
+    var countsCommentIcon, countsBreak, countsShareIcon
+    if (this.state.data.metadata.commentCount) {
+      countsCommentIcon = (<i className='fa fa-comment'></i>)
+    }
+    if (this.state.data.metadata.commentCount && this.state.data.metadata.shareCount) {
+      countsBreak = (<br />)
+    }
+    if (this.state.data.metadata.shareCount) {
+      countsShareIcon = (<i className='fa fa-share'></i>)
+    }
+
     return (
       <div>
         { dummyWarning }
@@ -39,8 +49,8 @@ module.exports = React.createClass({
         {/* TODO Add in avatar pictures for authors if possible */}
         <p>{this.state.data.authors.join(', ')}</p>
         <span style={{height: '40px', width: '20%'}}>
-          <i className='fa fa-comment'></i> {this.state.data.commentCount} <br />
-          <i className='fa fa-share'></i> {this.state.data.shareCount}
+          {countsCommentIcon} {this.state.data.metadata.commentCount} {countsBreak}
+          {countsShareIcon} {this.state.data.metadata.shareCount}
         </span>
         {/* TODO Add icons */}
         <DropdownButton title={'Tools'} style={ddStyle} className='pull-right'>
