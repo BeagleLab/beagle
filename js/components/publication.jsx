@@ -2,6 +2,7 @@ var React = require('react')
 var DropdownButton = require('react-bootstrap').DropdownButton
 var MenuItem = require('react-bootstrap').MenuItem
 var scholarLink = require('google-scholar-link')
+var staticPath = require('../utilities/staticPath.js')
 
 var data = require('../data/schema.js').mediaPublication
 
@@ -27,6 +28,13 @@ module.exports = React.createClass({
 
     var ddStyle = {
       marginTop: '-15px'
+    },
+    dropdownIcons = {
+      maxWidth: '20px',
+      paddingRight: '3px'
+    },
+    menuItemStyle = {
+      padding: '3px 0px'
     }
 
     // There has got to be an easier way to do this.
@@ -54,12 +62,12 @@ module.exports = React.createClass({
         </span>
         {/* TODO Add icons */}
         <DropdownButton title={'Tools'} style={ddStyle} className='pull-right'>
-          {/* TODO Make a link module */}
-          <MenuItem eventKey={1}>Copy link to Beagle</MenuItem>
-          <MenuItem eventKey={2}>{this.state.data.metadata.doi}</MenuItem>
-          <MenuItem eventKey={3}><a href={scholarLink(this.state.data.title, {'author': this.state.data.authors})} target='_blank'>Google Scholar</a></MenuItem>
-          {/* TODO Make a cite component */}
-          <MenuItem eventKey={4}>Cite</MenuItem>
+          <MenuItem eventKey={1} style={menuItemStyle} ><img style={dropdownIcons} src={staticPath(null, 'images/doi.png')} />{this.state.data.metadata.doi}</MenuItem>
+          <MenuItem eventKey={2} style={menuItemStyle} href={scholarLink(this.state.data.title, {'author': this.state.data.authors})} target='_new'><img style={dropdownIcons} src={staticPath(null, 'images/google_scholar.png')} /> Google Scholar</MenuItem>
+          {/* TODO Make a link module
+          <MenuItem eventKey={1}>Copy link to Beagle</MenuItem> */}
+          {/* TODO Make a cite component
+          <MenuItem eventKey={4}>Cite</MenuItem> */}
         </DropdownButton>
       </div>
     )

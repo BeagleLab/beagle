@@ -1,28 +1,24 @@
 var React = require('react')
 var Alert = require('./alert.jsx')
+var staticPath = require('../utilities/staticPath.js')
 
 module.exports = React.createClass({
   displayName: 'Sidebar',
+  propTypes: {
+    staticPath: React.PropTypes.string,
+    data: React.PropTypes.object
+  },
   getInitialState: function () {
-    var staticPath
-    if (this.props.staticPath) {
-      staticPath = this.props.staticPath + 'images/noun_11582.png'
-    } else if (chrome && chrome.extension) {
-      staticPath = chrome.extension.getURL('images/noun_11582.png')
-    } else {
-      staticPath = 'images/noun_11582.png'
-    }
-
     return {
-      'staticPath': staticPath
+      'staticPath': staticPath(this.props.staticPath, 'images/noun_11582.png')
     }
   },
 
   render: function () {
     return (
-      <div className="scinav sidebar">
-        <div className="pane-bg glass"></div>
-        <div className="pane">
+      <div className='scinav sidebar'>
+        <div className='pane-bg glass'></div>
+        <div className='pane'>
           <img src={this.state.staticPath} alt='HMS Beagle' className='beagle-icon' />
           <h2 className='beagle-header'>Beagle</h2>
 
