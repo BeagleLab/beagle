@@ -38,6 +38,7 @@ module.exports = React.createClass({
     }
 
     // There has got to be an easier way to do this.
+    // TODO Get comment and share counts programmatically
     var countsCommentIcon, countsBreak, countsShareIcon
     if (this.state.data.metadata.commentCount) {
       countsCommentIcon = (<i className='fa fa-comment'></i>)
