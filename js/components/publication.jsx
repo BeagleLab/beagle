@@ -52,15 +52,14 @@ module.exports = React.createClass({
     return (
       <div>
         { dummyWarning }
-        {/* TODO Add in the preview?*/}
+        {/* TODO Display a preview image of the document currently being shown. */}
         <h4>{this.state.data.title}</h4>
-        {/* TODO Add in avatar pictures for authors if possible */}
+        {/* TODO Display an avatar of the authors, if they are Beagle members or if an avatar can be sourced */}
         <p>{this.state.data.authors.join(', ')}</p>
         <span style={{height: '40px', width: '20%'}}>
           {countsCommentIcon} {this.state.data.metadata.commentCount} {countsBreak}
           {countsShareIcon} {this.state.data.metadata.shareCount}
         </span>
-        {/* TODO Add icons */}
         <DropdownButton title={'Tools'} style={ddStyle} className='pull-right'>
           <MenuItem eventKey={1} style={menuItemStyle} ><img style={dropdownIcons} src={staticPath(null, 'images/doi.png')} />{this.state.data.metadata.doi}</MenuItem>
           <MenuItem eventKey={2} style={menuItemStyle} href={scholarLink(this.state.data.title, {'author': this.state.data.authors})} target='_new'><img style={dropdownIcons} src={staticPath(null, 'images/google_scholar.png')} /> Google Scholar</MenuItem>
