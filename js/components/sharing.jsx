@@ -1,6 +1,7 @@
 var React = require('react')
 var PermissionsDropdown = require('./permissionsDropdown.jsx')
 var UserBar = require('./userBar.jsx')
+var authenticate = require('../utilities/authenticate.js')
 
 var account = require('../data/schema.js').account
 var InstaType = require('instatype')

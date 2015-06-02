@@ -1,8 +1,7 @@
-/*globals OAuth */
-
 'use strict'
 
 var React = require('react')
+var authenticate = require('../utilities/authenticate.js')
 
 var Login = React.createClass({
   displayName: 'Login',
@@ -16,22 +15,8 @@ var Login = React.createClass({
     }
 
     try {
-      // OAauth Code goes here.
-      OAuth.initialize('IHLK6uDxpnuH1S71dCwbf30bjBM')
-      // Using popup
-      OAuth.popup('google').done(function (result) {
-        console.log(result)
-        result.me().done(function (me) {
-          console.log('Me', me)
 
-          if (me.email) {
-            result.get('https://www.google.com/m8/feeds/contacts/' + me.email + '/full?alt=json&max-results=5000').done(function (contacts) {
-              console.log('Contacts!', contacts)
-            })
-          }
-
-        })
-      })
+      authenticate.google()
 
       // style.color = 'green'
       // this.setState({success: <p style={style}>You are now logged in!</p>})
