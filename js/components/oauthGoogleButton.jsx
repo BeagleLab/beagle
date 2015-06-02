@@ -53,12 +53,12 @@ var Login = React.createClass({
     return (
       <div>
         <button
-          className="btn btn-success screenshot-button"
-          type="button"
+          className='btn btn-success screenshot-button'
+          type='button'
           onClick={this.handleClick}
           style={style}
         >
-          <i className="fa fa-google"></i>
+          <i className='fa fa-google'></i>
         </button>
         {this.state.success}
       </div>
