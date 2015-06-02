@@ -18,6 +18,12 @@ var Sharing = React.createClass({
 
   // Customize this function to reformat the data returned by your endpoint
   requestHandler: function (query, limit, callback) {
+    // var endpoint = 'https://api.instagram.com/v1/users/search';
+    // var requestParams = {
+    //   client_id: window.instagramClientId,
+    //   q: query,
+    //   count: limit
+    // };
 
     // On type, get all emails from the user
     // var associates = require('../data/schema.js').associates
@@ -28,13 +34,6 @@ var Sharing = React.createClass({
     // Search for relevant emails from the Google Contacts API
     // Display the top 10
     // Repeat on type
-
-    // var endpoint = 'https://api.instagram.com/v1/users/search';
-    // var requestParams = {
-    //   client_id: window.instagramClientId,
-    //   q: query,
-    //   count: limit
-    // };
 
     var endpoint, requestParams
 
@@ -50,24 +49,22 @@ var Sharing = React.createClass({
       callback(renamedData)
     }
 
-    request(endpoint, requestParams, wrappedCallback)
+    this.request(endpoint, requestParams, wrappedCallback)
   },
 
   // Customize this function to do something when a result is selected
   selectedHandler: function (result) {
-
-    var endpoint, requestParams
-
-    request(endpoint, requestParams, function (data) {
-      // Render
-    })
+    // var endpoint, requestParams
+    // request(endpoint, requestParams, function (data) {
+    //   // Render
+    // })
   },
 
   // Customize this function to use your favorite JSONP library
   request: function (endpoint, requestParams, callback) {
 
     // Tiny JSONP Library: https://github.com/OscarGodson/JSONP
-    JSONP(endpoint, requestParams, callback)
+    // JSONP(endpoint, requestParams, callback)
 
     /*
     // JQuery
@@ -128,7 +125,7 @@ var Sharing = React.createClass({
     return (
       <div style={conversationStyle}>
 
-        <InstaType
+         <InstaType
           placeholder='Share with...'
           style={inputStyle}
           type='text'
