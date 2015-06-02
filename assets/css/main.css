@@ -10,3 +10,12 @@
   width: 20%;
   z-index: 999999;
 }
+
+/* React Components */
+/* TODO Find a way of injecting this with the component */
+.react-comp-publication .dropdown-menu>li>a {
+  padding: 3px 10px;
+}
+.react-comp-publication ul {
+  padding-left: 0px !important;
+}

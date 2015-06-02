@@ -51,7 +51,7 @@ module.exports = React.createClass({
     }
 
     return (
-      <div>
+      <div className='react-comp-publication'>
         { dummyWarning }
         {/* TODO Display a preview image of the document currently being shown. */}
         <h4>{this.state.data.title}</h4>
