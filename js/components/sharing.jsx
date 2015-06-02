@@ -2,6 +2,7 @@ var React = require('react')
 var PermissionsDropdown = require('./permissionsDropdown.jsx')
 var UserBar = require('./userBar.jsx')
 var authenticate = require('../utilities/authenticate.js')
+var _ = require('lodash')
 
 var account = require('../data/schema.js').account
 var InstaType = require('instatype')
@@ -26,7 +27,22 @@ var Sharing = React.createClass({
     // };
 
     // On type, get all emails from the user
-    // var associates = require('../data/schema.js').associates
+    // if (window.contacts) {
+    //   // authenticate.google() Too slow for dev
+    // } else {
+    // Get all emails already used in Beagle
+    // TODO Add in schema call here
+    var associates = require('../data/schema.js').associates
+    // Get all Google Contacts results
+    // TODO Evaluate security risk of binding this to window
+    console.log('All contacts:', window.contacts)
+    // Search for relevant emails in the user object
+    // let s = query
+    _.each(associates.emails, function (associate) {
+      console.log('Associatate', associate, associates)
+      // console.log()
+    })
+    // }
 
     // console.log('query', query)
     // Search for emails that come from the user, and for the Google Contacts API results
