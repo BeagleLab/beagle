@@ -5,6 +5,7 @@
 // var react = require('gulp-react')
 // var concat = require('gulp-concat')
 var browserify = require('browserify')
+var babelify = require('babelify')
 var connect = require('gulp-connect')
 var cssmin = require('gulp-cssmin')
 var envify = require('envify/custom')
@@ -48,6 +49,7 @@ gulp.task('clean', function (cb) {
 var b = browserify({
     // Required watchify args
     'cache': {},
+    'debug': true,
     'packageCache': {},
     'fullPaths': true,
     // Browserify options
