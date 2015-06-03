@@ -2,8 +2,6 @@ var React = require('react')
 var domready = require('domready')
 var $ = require('jquery')
 
-// var data = require('../data/sampleData.js')
-
 var App = require('../app.jsx')
 
 // React modules

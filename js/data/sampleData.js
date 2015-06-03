@@ -1,3 +1,5 @@
+// This file is now deprecated.
+
 var data = {}
 
 var user = {

@@ -9,7 +9,6 @@ var style = require('beagle-style')
 var React = require('react')
 var App = React.createFactory(require('./app.jsx'))
 var linkHandler = require('./utilities/linkhandler.js')
-var sampleData = require('./data/sampleData.js').data
 var url = require('./lib/url-checks')
 var PDFJS = require('beagle-pdf')
 var sidebarOpen = false
@@ -192,14 +191,11 @@ function buildView (options) {
     PDFJS.getFingerprint(options.pdfLocation, function (err, fingerprint) {
       if (err) { throw (new Error('Could not get the PDF fingerprint')) }
 
-      var val = {
-        'fingerprint': fingerprint,
-        'staticPath': '../../',
-        'location': options.pdfLocation
-      }
+      options.fingerprint = fingerprint
+      options.staticPath = '../../'
 
       window.beagle = {
-        'pdf': val
+        'pdf': options
       }
 
       var displayHighlights = function () {
@@ -232,26 +228,15 @@ function buildView (options) {
         displayHighlights()
       })
 
-      PDFJS.readPDFText(options.pdfLocation, options, function (err, data) {
-        if (err === 'Failed to find a DOI.') {
-          console.log('Failed to find a DOI.')
-        } else if (err !== null) {
-          throw (new Error('Could not read the PDF'))
-        }
-
-        val.data = (data) ? {'publication': data} : sampleData.data
-
-        // console.log('PDF data and fingerprint', val)
-
-        React.render(
-          App(val),
-          parent.getElementById('react')
-        )
-      })
+      React.render(
+        App(options),
+        parent.getElementById('react')
+      )
     })
-  } else {
+  } else { // If not a PDF
+    // Deal with any issues in data in the React app.
     React.render(
-      App(sampleData),
+      App(options),
       parent.getElementById('react')
     )
   }

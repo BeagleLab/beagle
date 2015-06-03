@@ -1,7 +1,8 @@
 var React = require('react')
+var PDFJS = require('beagle-pdf')
 
-var Accordion = require('react-bootstrap').Accordion
-var Panel = require('react-bootstrap').Panel
+// var Accordion = require('react-bootstrap').Accordion
+// var Panel = require('react-bootstrap').Panel
 var EmailForm = require('./components/emailForm.jsx')
 var Highlight = require('./components/highlight.jsx')
 var Login = require('./components/login.jsx')
@@ -24,13 +25,48 @@ var Slack = require('./components/slack.jsx').SendSlack
 
 // var account = require('./data/schema.js').account
 
+var publication = require('./data/schema.js').mediaPublication
+
 module.exports = React.createClass({
   displayName: 'App',
   propTypes: {
     staticPath: React.PropTypes.object,
-    location: React.PropTypes.object,
+    pdfLocation: React.PropTypes.object,
     fingerprint: React.PropTypes.object,
-    data: React.PropTypes.object
+    docType: React.PropTypes.string,
+    modules: React.PropTypes.object
+  },
+
+  // TODO Add in loading state so dummy data isn't needed here.
+  getInitialState: function () {
+    return {
+      'publication': publication
+    }
+  },
+
+  componentWillMount: function () {
+    PDFJS.readPDFText(this.props.pdfLocation, {'modules': this.props.modules}, function (err, data) {
+      if (err === 'Failed to find a DOI.') {
+        console.log('Failed to find a DOI.')
+      } else if (err !== null) {
+        throw (new Error('Could not read the PDF'))
+      }
+
+      if (!data) {
+        this.setState({publication: publication})
+      }
+
+      // TODO This is dummy data
+      data.metadata = publication.metadata
+      // TODO altmetrics doesn't return authors?!!!!
+      data.authors = publication.authors
+
+      this.setState({
+        publication: data
+      })
+
+      // console.log('PDF data and fingerprint', val)
+    }.bind(this))
   },
 
   render: function () {
@@ -39,12 +75,11 @@ module.exports = React.createClass({
 
         <Login />
 
-        <Highlight location={this.props.location} fingerprint={this.props.fingerprint} />
+        <Highlight location={this.props.pdfLocation} fingerprint={this.props.fingerprint} />
 
-        <Screenshot fingerprint={this.props.fingerprint} location={this.props.location} />
+        <Screenshot fingerprint={this.props.fingerprint} location={this.props.pdfLocation} />
 
-
-        <Publication eventKey='1' />
+        <Publication eventKey='1' data={this.state.publication} />
 
         <EmailForm fingerprint={this.props.fingerprint} />
         <Slack fingerprint={this.props.fingerprint} />
@@ -78,7 +113,7 @@ module.exports = React.createClass({
         <Save />
 
         <SignOut /> */}
-        <PDFUrlLink location={this.props.location} />
+        <PDFUrlLink location={this.props.pdfLocation} />
 			</Sidebar>
 		)
   }
