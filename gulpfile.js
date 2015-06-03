@@ -11,6 +11,7 @@ var envify = require('envify/custom')
 var rename = require('gulp-rename')
 var del = require('del')
 var gulp = require('gulp')
+var jasmine = require('gulp-jasmine')
 var gutil = require('gulp-util')
 var imagemin = require('gulp-imagemin')
 var reactify = require('reactify')
@@ -37,7 +38,8 @@ var paths = {
   'css': ['assets/css/**/*.css'],
   'html': ['assets/html/**/*.html'],
   'manifest': ['assets/manifest.json'],
-  'pdfjs': ['assets/pdfjs/**/*']
+  'pdfjs': ['assets/pdfjs/**/*'],
+  'test': ['spec/test.js']
 }
 
 gulp.task('clean', function (cb) {
@@ -137,6 +139,11 @@ gulp.task('html', function () {
     .pipe(gulp.dest('build/'))
 })
 
+gulp.task('test', function () {
+  return gulp.src(paths.test)
+    .pipe(jasmine())
+})
+
 // Here for allviews and milestones
 gulp.task('server', function () {
   connect.server({
@@ -153,10 +160,12 @@ gulp.task('watch', function () {
   gulp.watch(paths.manifest, ['manifest'])
   gulp.watch(paths.img, ['img'])
   gulp.watch(paths.html, ['html'])
+  gulp.watch(paths.test, ['test'])
 })
 
 gulp.task('bundle', [
   'brundle',
+  'test',
   'assets',
   'manifest',
   'css',
@@ -168,6 +177,7 @@ gulp.task('bundle', [
 })
 
 gulp.task('default', [
+  'test',
   'watch',
   'watchify',
   'assets',

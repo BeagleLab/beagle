@@ -246,6 +246,9 @@ module.exports.permission = exports.permission = 'read'
 //   return id
 // }
 
+module.exports.newID = exports.newID = function () {
+  return 'string'
+}
 // // newUser makes and stores a new user account.
 // func newUser(name, avatar, email string) (User, error) {
 //   // validate name
