@@ -1,3 +1,4 @@
+/* globals chrome */
 'use strict'
 
 var fs = require('fs')
@@ -60,7 +61,7 @@ function handleRequest (request, sender, sendResponse) {
     if (!sidebarOpen) {
       // Get modules from background script and local storage,
       // Go on to build the sidebar
-      getModules(request.modules, function(data) {
+      getModules(request.modules, function (data) {
         parsePDF({'modules': data})
       })
     } else {
