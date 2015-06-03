@@ -233,7 +233,8 @@ function buildView (options) {
         parent.getElementById('react')
       )
     })
-  } else { // If not a PDF
+  } else {
+    // If not a PDF
     // Deal with any issues in data in the React app.
     React.render(
       App(options),

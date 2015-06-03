@@ -45,28 +45,30 @@ module.exports = React.createClass({
   },
 
   componentWillMount: function () {
-    PDFJS.readPDFText(this.props.pdfLocation, {'modules': this.props.modules}, function (err, data) {
-      if (err === 'Failed to find a DOI.') {
-        console.log('Failed to find a DOI.')
-      } else if (err !== null) {
-        throw (new Error('Could not read the PDF'))
-      }
+    if (this.props.pdfLocation) {
+      PDFJS.readPDFText(this.props.pdfLocation, {'modules': this.props.modules}, function (err, data) {
+        if (err === 'Failed to find a DOI.') {
+          console.log('Failed to find a DOI.')
+        } else if (err !== null) {
+          throw (new Error('Could not read the PDF'))
+        }
 
-      if (!data) {
-        this.setState({publication: publication})
-      }
+        if (!data) {
+          this.setState({publication: publication})
+        }
 
-      // TODO This is dummy data
-      data.metadata = publication.metadata
-      // TODO altmetrics doesn't return authors?!!!!
-      data.authors = publication.authors
+        // TODO This is dummy data
+        data.metadata = publication.metadata
+        // TODO altmetrics doesn't return authors?!!!!
+        data.authors = publication.authors
 
-      this.setState({
-        publication: data
-      })
+        this.setState({
+          publication: data
+        })
 
-      // console.log('PDF data and fingerprint', val)
-    }.bind(this))
+        // console.log('PDF data and fingerprint', val)
+      }.bind(this))
+    }
   },
 
   render: function () {
