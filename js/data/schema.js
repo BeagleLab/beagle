@@ -2,6 +2,7 @@ var crypto = require('crypto')
 var validator = require('validator')
 var PouchDB = require('pouchdb')
 var db = new PouchDB('test')
+var _ = require('lodash')
 
 // Everything is an 'entity'. it has an ID.
 // type Entity struct {
@@ -288,12 +289,19 @@ module.exports.newID = exports.newID = function newID () {
 //     Emails: []string{email},
 //   }
 
-module.exports.newUser = exports.newUser = function newUser (name, email, avatar, options) {
+module.exports.newAccount = exports.newAccount = function newAccount (name, email, avatar, options) {
   if (!name || typeof (name) !== 'string') return
   if (!email || !validator.isEmail(email)) return
+  // Avatar should be not mandatory
   // if (!avatar) return
-  db.get(email).then(function (doc) {
-    return 'That email is already in use!'
+  db.query({map: function (doc) {
+    if (doc.primaryEmail) {
+      emit(doc.primaryEmail, null)
+    }
+  }}, {key: email}).then(function (response) {
+    _.each(response.rows, function (user) {
+      return 'That email is already in use!'
+    })
   }).catch(function () {
     console.log('Creating new user')
     var user = {
@@ -303,9 +311,8 @@ module.exports.newUser = exports.newUser = function newUser (name, email, avatar
       'avatar': avatar || null,
       'emails': options.emails || null
     }
-    db.put(email, user)
+    // db.put(email, user)
   })
-
 }
 
 //   // let's talk about elsewhere how to put to the db, globals are not great,
