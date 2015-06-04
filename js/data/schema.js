@@ -1,3 +1,5 @@
+var crypto = require('crypto')
+
 // Everything is an 'entity'. it has an ID.
 // type Entity struct {
   // ID EntityID
@@ -218,19 +220,19 @@ module.exports.permission = exports.permission = 'read'
 //   Type string
 // }
 
-// // set of lower level functions.
+// set of lower level functions.
 
-// // newID creates a new universal and uniformly distributed identifier.
-// // we can't just use the hash of the data, because we'd like to link
-// // to things even if the data changes.
-// //
-// // UUID is not secure: it is guessable, so since links may be used
-// // in "anyone with the link" type permissions, we'd like an unguessable
-// // identifier.
-// //
-// // So, we'll use hash functions. to preserve upgradeability, we'll use
-// // multihash -- https://github.com/jbenet/multihash -- and settle on using
-// // sha256-256 (i.e. 256 at 256 bits.
+// newID creates a new universal and uniformly distributed identifier.
+// we can't just use the hash of the data, because we'd like to link
+// to things even if the data changes.
+//
+// UUID is not secure: it is guessable, so since links may be used
+// in "anyone with the link" type permissions, we'd like an unguessable
+// identifier.
+//
+// So, we'll use hash functions. to preserve upgradeability, we'll use
+// multihash -- https://github.com/jbenet/multihash -- and settle on using
+// sha256-256 (i.e. 256 at 256 bits.
 // func newID() string {
 
 //   // we first read some cryptographically secure randomness.
@@ -246,9 +248,17 @@ module.exports.permission = exports.permission = 'read'
 //   return id
 // }
 
-module.exports.newID = exports.newID = function () {
-  return 'string'
+module.exports.newID = exports.newID = function newID () {
+  // See http://stackoverflow.com/a/14869745
+  // TODO: Things I don't understand:
+  //  - Is this base32?
+  //  - Why did @jbenet hash the randomness?
+  //  - Is this better? I think so, if only because of the huge amount
+  //  of possibilities.
+  var id = crypto.randomBytes(20).toString('hex')
+  return id
 }
+
 // // newUser makes and stores a new user account.
 // func newUser(name, avatar, email string) (User, error) {
 //   // validate name
