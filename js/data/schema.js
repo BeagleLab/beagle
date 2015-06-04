@@ -1,4 +1,7 @@
 var crypto = require('crypto')
+var validator = require('validator')
+var PouchDB = require('pouchdb')
+var db = new PouchDB('test')
 
 // Everything is an 'entity'. it has an ID.
 // type Entity struct {
@@ -284,6 +287,26 @@ module.exports.newID = exports.newID = function newID () {
 //     PrimaryEmail: email,
 //     Emails: []string{email},
 //   }
+
+module.exports.newUser = exports.newUser = function newUser (name, email, avatar, options) {
+  if (!name || typeof (name) !== 'string') return
+  if (!email || !validator.isEmail(email)) return
+  // if (!avatar) return
+  db.get(email).then(function (doc) {
+    return 'That email is already in use!'
+  }).catch(function () {
+    console.log('Creating new user')
+    var user = {
+      '_id': this.newID(),
+      'name': name,
+      'email': email,
+      'avatar': avatar || null,
+      'emails': options.emails || null
+    }
+    db.put(email, user)
+  })
+
+}
 
 //   // let's talk about elsewhere how to put to the db, globals are not great,
 //   // we just do it here for simplicity.
