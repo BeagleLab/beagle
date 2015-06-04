@@ -55,16 +55,14 @@ module.exports = React.createClass({
 
         if (!data) {
           this.setState({publication: publication})
+        } else {
+          // TODO This is dummy data
+          data.metadata = publication.metadata
+          // TODO altmetrics doesn't return authors?!!!!
+          data.authors = publication.authors
+
+          this.setState({publication: data})
         }
-
-        // TODO This is dummy data
-        data.metadata = publication.metadata
-        // TODO altmetrics doesn't return authors?!!!!
-        data.authors = publication.authors
-
-        this.setState({
-          publication: data
-        })
 
         // console.log('PDF data and fingerprint', val)
       }.bind(this))
