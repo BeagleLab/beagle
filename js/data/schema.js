@@ -302,14 +302,19 @@ module.exports.newAccount = exports.newAccount = function newAccount (name, emai
   }
   // Avatar should be not mandatory
   // if (!avatar) return
-  db.query({map: function (doc) {
+
+  db.query({map: function map (doc) {
     if (doc.primaryEmail) {
       emit(doc.primaryEmail, null)
     }
-  }}, {key: email}).then(function (response) {
-    _.each(response.rows, function (user) {
-      return 'That email is already in use!'
-    })
+  }}, {key: email, include_docs: true}).then(function (response) {
+    if (response.rows.length !== 0) {
+      _.each(response.rows, function (row) {
+        console.log('That user already exists. ID:', row.id)
+      })
+    } else {
+      throw new Error('That email is not in use.')
+    }
   }).catch(function () {
     console.log('Creating new user')
     var user = {
@@ -319,9 +324,18 @@ module.exports.newAccount = exports.newAccount = function newAccount (name, emai
       'avatar': avatar || null,
       'emails': options.emails || null
     }
-    // db.put(email, user)
+    db.put(user).then(function (response) {
+      return console.log('Created user', response)
+    })
   })
 }
+
+// db.put(module.exports.account)
+
+// db.get('hash1234').then(function (res) {
+//   console.log('res', res)
+// })
+// exports.newAccount('Richard Littauer', 'richard.feynman@caltech.edu')
 
 //   // let's talk about elsewhere how to put to the db, globals are not great,
 //   // we just do it here for simplicity.
