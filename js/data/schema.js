@@ -33,9 +33,9 @@ module.exports.account = exports.account = {
   '_id': 'hash1234',
   'name': 'Richard Feynman',
   'avatar': 'http://upload.wikimedia.org/wikipedia/en/4/42/Richard_Feynman_Nobel.jpg',
-  'primaryEmail': 'richard.feynman@caltech.com',
+  'primaryEmail': 'richard.feynman@caltech.edu',
   'emails': [
-    'richard.feynman@caltech.com',
+    'richard.feynman@caltech.edu',
     'richard.is.the.best@gmail.com'
   ]
 }
