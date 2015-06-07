@@ -1,3 +1,5 @@
+/*globals emit */
+
 var crypto = require('crypto')
 var validator = require('validator')
 var PouchDB = require('pouchdb')
