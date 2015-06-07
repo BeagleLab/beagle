@@ -304,6 +304,11 @@ module.exports.newAccount = exports.newAccount = function newAccount (name, emai
   // if (!avatar) return
 
   db.query({map: function map (doc) {
+    // TODO Make it search secondary emails, too.
+    // For some reason, this doesn't work - it has to be the key
+    // Either that, or I've been messing something up in the promises.
+    // var merged = [doc.primaryEmail].concat(doc.emails)
+    // emit(merged)
     if (doc.primaryEmail) {
       emit(doc.primaryEmail, null)
     }
