@@ -292,8 +292,14 @@ module.exports.newID = exports.newID = function newID () {
 //   }
 
 module.exports.newAccount = exports.newAccount = function newAccount (name, email, avatar, options) {
-  if (!name || typeof (name) !== 'string') return
-  if (!email || !validator.isEmail(email)) return
+  if (!name || typeof (name) !== 'string') {
+    console.log('Name not provided, or not a string')
+    return null
+  }
+  if (!email || !validator.isEmail(email)) {
+    console.log('Email not provided or not valid')
+    return null
+  }
   // Avatar should be not mandatory
   // if (!avatar) return
   db.query({map: function (doc) {
