@@ -342,12 +342,6 @@ module.exports.newAccount = exports.newAccount = function newAccount (name, emai
   })
 }
 
-// db.put(module.exports.account)
-
-// db.get('hash1234').then(function (res) {
-//   console.log('res', res)
-// })
-// exports.newAccount('Richard Littauer', 'richard.feynman@caltech.edu')
 
 //   // let's talk about elsewhere how to put to the db, globals are not great,
 //   // we just do it here for simplicity.
