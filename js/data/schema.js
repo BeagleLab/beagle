@@ -502,6 +502,19 @@ module.exports.StartBlankConversation = exports.StartBlankConversation = functio
 //   return notes
 // }
 
+// TODO Test this.
+module.exports.getConversationPosts = exports.getConversationPosts = function getConversationPosts (conversation, cb) {
+  db.query({map: function map (doc) {
+    if (doc.type && doc.type === 'note') {
+      emit(doc, null)
+    }
+  }}, {key: conversation.id, include_docs: true}).then(function (response) {
+    cb(null, response)
+  }).catch(function (err) {
+    cb(err)
+  })
+}
+
 // // GetConverationsForUser queries the database for all conversations that a user is a part of.
 // // This includes conversations the user created
 // func GetConversationsForUser(user User) ([]Conversation) {
