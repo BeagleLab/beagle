@@ -429,6 +429,30 @@ module.exports.newConversation = exports.newConversation = function newConversat
 //   return n
 // }
 
+module.exports.newNote = exports.newNote = function newNote (author, conversation, text, cb) {
+  // TODO Check that author exists
+  if (!beagleValidator.author(author)) return cb('Author not valid')
+  if (!beagleValidator.conversation(conversation)) return cb('Conversation not valid')
+  if (!text || typeof text !== 'string') return cb('Text not valid')
+
+  var note = {
+    '_id': this.newID(),
+    'text': text,
+    'author': author.id,
+    'conversation': conversation.id,
+    'participants': false // TODO What are members, again? How does this work?
+  }
+
+  db.put(note, function (err, response) {
+    if (err) {
+      console.log('Error saving note', err)
+      return cb('Error saving note')
+    }
+    console.log('Saved note', response)
+    // TODO Check that this is the same syntactically as db.put(c) && return(c)
+    return cb(null, note)
+  })
+}
 
 // // StartBlankConversation is what we do when users want to start a conversation
 // // from scratch, unassociated with media. that is, it's not coming from a paper,
