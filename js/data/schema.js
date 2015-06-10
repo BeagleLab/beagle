@@ -529,6 +529,19 @@ module.exports.getConversationPosts = exports.getConversationPosts = function ge
 //   return convs
 // }
 
+// TODO test
+module.exports.getConversationsForUser = function (user, cb) {
+  db.query({map: function map (doc) {
+    if (doc.type && doc.type === 'conversation') {
+      emit(doc.membership, null)
+    }
+  }}, {key: user.id, include_docs: true}).then(function (response) {
+    cb(null, response)
+  }).catch(function (err) {
+    cb(err)
+  })
+}
+
 // // PostToConversation adds a note to a conversation
 // // TODO: generalize to include other things to link in (papers, etc)
 // func PostToConversation(author User, conv Conversation, noteText string) (Note, error) {
