@@ -389,6 +389,27 @@ module.exports.signUp = exports.signUp = function signUp (username, password, op
 //   return c
 // }
 
+module.exports.newConversation = function newConversation (author, title) {
+  if (!author || typeof author !== 'object' || !author.id) return 'Author is not valid'
+  if (!title || typeof title !== 'string') return 'Title is not valid'
+
+  var conversation = {
+    '_id': this.newID(),
+    'title': title,
+    'owner': [author.id]
+  }
+
+  db.put(conversation, function (err, response) {
+    if (err) {
+      console.log('Error saving conversation', err)
+      return
+    }
+    console.log('Saved conversation', response)
+    // TODO Check that this is the same syntactically as db.put(c) && return(c)
+    return conversation
+  })
+}
+
 // // newNote makes a new note and stores it.
 // func newNote(author User, conv Conversation, text string) Note {
 //   // validate author
