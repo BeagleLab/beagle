@@ -474,6 +474,18 @@ module.exports.newNote = exports.newNote = function newNote (author, conversatio
 //   return c, n
 // }
 
+module.exports.StartBlankConversation = exports.StartBlankConversation = function StartBlankConversation (author, title, text, cb) {
+  this.newConversation(author, title, function (err, conversation) {
+    if (err) {
+      cb('Error saving conversation')
+    }
+    this.newNote(author, conversation, text, function (err, note) {
+      if (err) cb('Error saving note')
+      return cb(null, {conversation: conversation, note: note})
+    })
+  })
+}
+
 // // GetConversationPosts returns all the Notes, and MediaObjects related to a given conversation
 // // these should be sorted chronologically
 // func GetConversationPosts(c Conversation) []*Entity {
