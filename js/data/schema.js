@@ -575,18 +575,21 @@ module.exports.postToConversation = function postToConversation (author, convers
   })
 }
 
-// TODO this function
-// function permHigher(userID, permission) {
-//   db.get(author.id, function(err, response) {
-//     if (err) cb('Author not found')
-//     if (author.permission) {
-//       switch (permission) {
-//         case "read" :
-//           if (author.permission == 'read') return
-//       }
-//     }
-//   })
-// }
+module.exports.permHigher = exports.permHigher = function permHigher (userID, permission, cb) {
+  db.get(userID, function (err, response, cb) {
+    if (err) return cb('Author not found')
+    if (response.permission) {
+      switch (permission) {
+        case 'read' :
+          return cb(null, (response.permission === 'read'))
+        case 'write' :
+          return cb(null, (response.permission === 'read' || response.permission === 'write'))
+        case 'share' :
+          return cb(null, (response.permission))
+      }
+    }
+  })
+}
 
 // func permHigher(a, b PermType) bool {
 //   // check "read", "write", "share" matches.
