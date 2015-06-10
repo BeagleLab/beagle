@@ -342,6 +342,31 @@ module.exports.newAccount = exports.newAccount = function newAccount (name, emai
   })
 }
 
+// Using nolanlawson/pouchdb-authentication
+module.exports.signUp = exports.signUp = function signUp (username, password, options, cb) {
+  options = options || {}
+  if (!options.email || !validator.isEmail(options.email)) {
+    throw new Error('Email not provided or not valid')
+  }
+  // TODO Include options.avatar, options.emails
+  // TODO How do I include IDs in here? Do I even need to?
+  return db.signup(username, password, options, function (err, response) {
+    if (err) {
+      if (err.name === 'conflict') {
+        console.log('err', err)
+        // "batman" already exists, choose another username
+      } else if (err.name === 'forbidden') {
+        console.log('err', err)
+        // invalid username
+      } else {
+        console.log('Hooray!', err)
+        // HTTP error, cosmic rays, etc.
+      }
+    } else {
+      console.log('response', response)
+    }
+  })
+}
 
 //   // let's talk about elsewhere how to put to the db, globals are not great,
 //   // we just do it here for simplicity.
