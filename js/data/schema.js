@@ -354,18 +354,17 @@ module.exports.signUp = exports.signUp = function signUp (username, password, op
   return db.signup(username, password, options, function (err, response) {
     if (err) {
       if (err.name === 'conflict') {
-        console.log('err', err)
         // "batman" already exists, choose another username
+        cb('User already exists, choose another username')
       } else if (err.name === 'forbidden') {
-        console.log('err', err)
         // invalid username
+        cb('Invalid username')
       } else {
-        console.log('Hooray!', err)
         // HTTP error, cosmic rays, etc.
+        cb('HTTP error, cosmic rays')
       }
-    } else {
-      console.log('response', response)
     }
+    return cb(null, response)
   })
 }
 
@@ -390,9 +389,9 @@ module.exports.signUp = exports.signUp = function signUp (username, password, op
 //   return c
 // }
 
-module.exports.newConversation = function newConversation (author, title) {
-  if (!author || typeof author !== 'object' || !author.id) return 'Author is not valid'
-  if (!title || typeof title !== 'string') return 'Title is not valid'
+module.exports.newConversation = exports.newConversation = function newConversation (author, title, cb) {
+  if (!author || typeof author !== 'object' || !author.id) return cb('Author is not valid')
+  if (!title || typeof title !== 'string') return cb('Title is not valid')
 
   var conversation = {
     '_id': this.newID(),
@@ -403,11 +402,11 @@ module.exports.newConversation = function newConversation (author, title) {
   db.put(conversation, function (err, response) {
     if (err) {
       console.log('Error saving conversation', err)
-      return
+      return cb('Error saving conversation')
     }
     console.log('Saved conversation', response)
     // TODO Check that this is the same syntactically as db.put(c) && return(c)
-    return conversation
+    return cb(null, conversation)
   })
 }
 
