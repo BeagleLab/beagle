@@ -561,6 +561,19 @@ module.exports.getConversationsForUser = function (user, cb) {
 //   return n
 // }
 
+module.exports.postToConversation = function postToConversation (author, conversation, text, cb) {
+  if (!beagleValidator.author) cb('Author not valid')
+  if (!beagleValidator.conversation) cb('Conversation not valid')
+  if (!text || typeof text !== 'string') cb('Text not valid')
+
+  // TODO Permissions
+
+  this.newNote(author, conversation, text, function (err, response) {
+    if (err) cb('Failed to save note')
+    console.log('Added note to conversation')
+    cb(null, response)
+  })
+}
 // func permHigher(a, b PermType) bool {
 //   // check "read", "write", "share" matches.
 // }
