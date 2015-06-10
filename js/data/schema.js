@@ -222,11 +222,6 @@ module.exports.permission = exports.permission = 'read'
 //   EntityPermissions map[AccountID][EntityID]PermType
 // )
 
-// Membership is a group of users that belong to an entity,
-// with associated permissions. For example, the participants
-// of a conversation, or the members of a group.
-// type Membership map[AccountID]Permission
-
 // // links
 // type Link struct {
 //   Src  EntityID
