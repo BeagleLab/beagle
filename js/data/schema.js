@@ -73,10 +73,10 @@ module.exports.user = exports.user = {
 module.exports.group = exports.group = {
   '_id': 'hash5678',
   'owner': 'hash1234',
-  'members': [
-    'Richard Feynman',
-    'Noam Chompsky'
-  ]
+  'members': {
+    'hash1234': 'share',
+    'sdfasdfa': 'read'
+  }
 }
 
 // Conversation is a semantic grouping of entities,
@@ -96,10 +96,10 @@ module.exports.conversation = exports.conversation = {
   'owner': [
     'hash1234'
   ],
-  'participants': [
-    'Richard Feynman',
-    'Noam Chompsky'
-  ],
+  'participants': {
+    'hash1234': 'read',
+    'lsdjfsls': 'write'
+  },
   'notes': [
     'hash4567',
     'hash1234',
@@ -221,6 +221,11 @@ module.exports.permission = exports.permission = 'read'
 // var (
 //   EntityPermissions map[AccountID][EntityID]PermType
 // )
+
+// This is only an example, using Richard Feynman's ID.
+module.exports.membership = exports.membership = {
+  'hash1234': 'read'
+}
 
 // // links
 // type Link struct {
@@ -435,7 +440,10 @@ module.exports.newNote = exports.newNote = function newNote (author, conversatio
     'text': text,
     'author': author.id,
     'conversation': conversation.id,
-    'participants': false // TODO What are members, again? How does this work?
+    'participants': {
+      'hash1234': 'share',
+      'sdlkjfla': 'read'
+    }
   }
 
   db.put(note, function (err, response) {
@@ -561,7 +569,9 @@ module.exports.postToConversation = function postToConversation (author, convers
   if (!beagleValidator.conversation) cb('Conversation not valid')
   if (!text || typeof text !== 'string') cb('Text not valid')
 
-  // TODO Permissions
+  if (!this.permHigher(conversation.participants[author.id], 'write')) {
+    return cb('No permission to post')
+  }
 
   this.newNote(author, conversation, text, function (err, response) {
     if (err) cb('Failed to save note')
@@ -570,20 +580,19 @@ module.exports.postToConversation = function postToConversation (author, convers
   })
 }
 
-module.exports.permHigher = exports.permHigher = function permHigher (userID, permission, cb) {
-  db.get(userID, function (err, response, cb) {
-    if (err) return cb('Author not found')
-    if (response.permission) {
-      switch (permission) {
-        case 'read' :
-          return cb(null, (response.permission === 'read'))
-        case 'write' :
-          return cb(null, (response.permission === 'read' || response.permission === 'write'))
-        case 'share' :
-          return cb(null, (response.permission))
-      }
-    }
-  })
+module.exports.permHigher = exports.permHigher = function permHigher (userPermissions, permission, cb) {
+  var permissions = ['read', 'write', 'share']
+  if (!userPermissions || typeof userPermissions !== 'string') throw new Error('userPermissions not valid')
+  if (!_.includes(permissions, permission)) throw new Error('Permission not valid')
+
+  switch (permission) {
+    case 'read' :
+      return cb(null, (userPermissions === 'read'))
+    case 'write' :
+      return cb(null, (userPermissions === 'read' || userPermissions === 'write'))
+    case 'share' :
+      return cb(null, (userPermissions))
+  }
 }
 
 // func permHigher(a, b PermType) bool {
