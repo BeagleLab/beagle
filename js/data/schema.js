@@ -3,6 +3,7 @@
 var crypto = require('crypto')
 var validator = require('validator')
 var _ = require('lodash')
+var beagleValidator = require('../utilities/beagleValidator.js')
 
 var PouchDB = require('pouchdb')
 PouchDB.plugin(require('pouchdb-authentication'))
