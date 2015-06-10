@@ -574,6 +574,20 @@ module.exports.postToConversation = function postToConversation (author, convers
     cb(null, response)
   })
 }
+
+// TODO this function
+// function permHigher(userID, permission) {
+//   db.get(author.id, function(err, response) {
+//     if (err) cb('Author not found')
+//     if (author.permission) {
+//       switch (permission) {
+//         case "read" :
+//           if (author.permission == 'read') return
+//       }
+//     }
+//   })
+// }
+
 // func permHigher(a, b PermType) bool {
 //   // check "read", "write", "share" matches.
 // }
