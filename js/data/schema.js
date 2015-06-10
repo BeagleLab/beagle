@@ -2,10 +2,11 @@
 
 var crypto = require('crypto')
 var validator = require('validator')
-var PouchDB = require('pouchdb')
 var db = new PouchDB('test')
 var _ = require('lodash')
 
+var PouchDB = require('pouchdb')
+PouchDB.plugin(require('pouchdb-authentication'))
 // Everything is an 'entity'. it has an ID.
 // type Entity struct {
   // ID EntityID

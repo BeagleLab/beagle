@@ -34,6 +34,7 @@
     "optional": "https://registry.npmjs.org/optional/-/optional-0.1.3.tgz",
     "path": "^0.11.14",
     "pouchdb": "^3.5.0",
+    "pouchdb-authentication": "^0.4.0",
     "protocol-parser": "^0.0.7",
     "rangy": "git://github.com:RichardLitt/rangy.git#748582f",
     "react": "^0.13.3",
