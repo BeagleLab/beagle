@@ -1,6 +1,7 @@
 /*globals describe, it, expect */
 
 var schema = require('../js/data/schema.js')
+var galapagos = require('../js/utilities/galapagos.js')
 
 describe('The schema', function () {
   it('has a function called newID, which returns a string', function () {

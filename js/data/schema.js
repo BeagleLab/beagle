@@ -3,7 +3,7 @@
 var crypto = require('crypto')
 var validator = require('validator')
 var _ = require('lodash')
-var beagleValidator = require('../utilities/beagleValidator.js')
+var galapagos = require('../utilities/galapagos.js')
 
 var PouchDB = require('pouchdb')
 PouchDB.plugin(require('pouchdb-authentication'))
@@ -431,8 +431,8 @@ module.exports.newConversation = exports.newConversation = function newConversat
 
 module.exports.newNote = exports.newNote = function newNote (author, conversation, text, cb) {
   // TODO Check that author exists
-  if (!beagleValidator.author(author)) return cb('Author not valid')
-  if (!beagleValidator.conversation(conversation)) return cb('Conversation not valid')
+  if (!galapagos.isAuthor(author)) return cb('Author not valid')
+  if (!galapagos.isConversation(conversation)) return cb('Conversation not valid')
   if (!text || typeof text !== 'string') return cb('Text not valid')
 
   var note = {
@@ -565,8 +565,8 @@ module.exports.getConversationsForUser = function (user, cb) {
 // }
 
 module.exports.postToConversation = function postToConversation (author, conversation, text, cb) {
-  if (!beagleValidator.author) cb('Author not valid')
-  if (!beagleValidator.conversation) cb('Conversation not valid')
+  if (!galapagos.isAuthor) cb('Author not valid')
+  if (!galapagos.isConversation) cb('Conversation not valid')
   if (!text || typeof text !== 'string') cb('Text not valid')
 
   if (!this.permHigher(conversation.participants[author.id], 'write')) {
@@ -582,7 +582,7 @@ module.exports.postToConversation = function postToConversation (author, convers
 
 // check that permission a >= b
 module.exports.permissionMatch = exports.permissionMatch = function permissionMatch (a, b, cb) {
-  if (!beagleValidator.permission(a) || !beagleValidator.permission(b)) throw new Error('Permission not valid')
+  if (!galapagos.isPermission(a) || !galapagos.isPermission(b)) throw new Error('Permission not valid')
 
   switch (a) {
   case 'read':
