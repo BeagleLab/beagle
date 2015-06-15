@@ -580,21 +580,16 @@ module.exports.postToConversation = function postToConversation (author, convers
   })
 }
 
-module.exports.permHigher = exports.permHigher = function permHigher (userPermissions, permission, cb) {
-  var permissions = ['read', 'write', 'share']
-  if (!userPermissions || typeof userPermissions !== 'string') throw new Error('userPermissions not valid')
-  if (!_.includes(permissions, permission)) throw new Error('Permission not valid')
+// check that permission a >= b
+module.exports.permissionMatch = exports.permissionMatch = function permissionMatch (a, b, cb) {
+  if (!beagleValidator.permission(a) || !beagleValidator.permission(b)) throw new Error('Permission not valid')
 
-  switch (permission) {
-    case 'read' :
-      return cb(null, (userPermissions === 'read'))
-    case 'write' :
-      return cb(null, (userPermissions === 'read' || userPermissions === 'write'))
-    case 'share' :
-      return cb(null, (userPermissions))
+  switch (a) {
+  case 'read':
+    return cb(null, b === 'read')  // r >= r
+  case 'write':
+    return cb(null, b === 'read' || b === 'write') // w >= rw
+  case 'share':
+    return cb(null, true) // s >= rws
   }
 }
-
-// func permHigher(a, b PermType) bool {
-//   // check "read", "write", "share" matches.
-// }

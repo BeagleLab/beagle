@@ -1,4 +1,5 @@
 // This is a validator for the schema.
+var _ = require('lodash')
 
 module.exports.beagleValidator = exports.beagleValidator = {
   author: function (author) {
@@ -14,6 +15,12 @@ module.exports.beagleValidator = exports.beagleValidator = {
     if (!conversation.title || !conversation.owner) {
       throw new Error('Conversation is not valid')
     }
+    return true
+  },
+  permission: function (a) {
+    var permissions = ['read', 'write', 'share']
+    if (!a || typeof a !== 'string') return false
+    if (!_.includes(permissions, a)) return false
     return true
   }
 }
