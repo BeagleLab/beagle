@@ -18,6 +18,21 @@ describe('The galapagos validator', function () {
       expect(function () {galapagos.isEntity({id: false}) }).toThrow(new Error('Entity does not have an id'))
     })
   })
+
+  describe('tests permissions', function () {
+    it('expects a permision as argument', function () {
+      expect(galapagos.isPermission()).toBe(false)
+    })
+
+    it('expects a string', function () {
+      expect(galapagos.isPermission(12)).toBe(false)
+    })
+
+    it('expects a valid permission name', function () {
+      expect(galapagos.isPermission('see')).toBe(false)
+      expect(galapagos.isPermission('read')).toBe(true)
+    })
+  })
 })
 
 describe('The schema', function () {
