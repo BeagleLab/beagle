@@ -54,9 +54,10 @@ var b = browserify({
     'fullPaths': true,
     // Browserify options
     'entries': [paths.jsPath + (argv.path === 'background' ? paths.background : paths.main) + '.js'],
-    'noParse': ['react.js', 'jquery.js', 'pdf.combined.js'],
-    'transform': [[reactify], ['envify', {'global': true, '_': 'purge', NODE_ENV: 'production'}]]
+    'noParse': ['react.js', 'jquery.js', 'pdf.combined.js']
   })
+  .transform('reactify')
+  .transform('envify', {global: true, _: 'purge', NODE_ENV: 'production'}) // See https://github.com/hughsk/envify/issues/27 for more
   .transform('brfs', { global: true })
 
 // For one-off bundling. browserify bundle - brundle is a joke.
