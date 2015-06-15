@@ -3,6 +3,23 @@
 var schema = require('../js/data/schema.js')
 var galapagos = require('../js/utilities/galapagos.js')
 
+describe('The galapagos validator', function () {
+  describe('tests entities', function () {
+    it('expects a non-empty object', function () {
+      expect(function () {galapagos.isEntity() }).toThrow(new TypeError('Entity is not an object'))
+      expect(function () {galapagos.isEntity({}) }).toThrow(new Error('Entity does not have an id'))
+    })
+    it('expects an id', function () {
+      expect(galapagos.isEntity({id: 'id'})).toBe(true)
+    })
+    it('expects the id to be a string', function () {
+      expect(galapagos.isEntity({id: 'id'})).toBe(true)
+      expect(function () {galapagos.isEntity({id: 1})}).toThrow(new TypeError('Entity id is not a string'))
+      expect(function () {galapagos.isEntity({id: false}) }).toThrow(new Error('Entity does not have an id'))
+    })
+  })
+})
+
 describe('The schema', function () {
   it('has a function called newID, which returns a string', function () {
     expect(typeof (schema.newID()) === 'string').toBe(true)
