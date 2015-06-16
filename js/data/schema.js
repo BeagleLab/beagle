@@ -458,17 +458,18 @@ module.exports.newConversation = exports.newConversation = function newConversat
 //   return n
 // }
 
-module.exports.newNote = exports.newNote = function newNote (author, conversation, text, cb) {
+module.exports.newNote = exports.newNote = function newNote (options, cb) {
   // TODO Check that author exists
-  if (!galapagos.isUser(author)) return cb('Author not valid')
-  if (!galapagos.isConversation(conversation)) return cb('Conversation not valid')
-  if (!text || typeof text !== 'string') return cb('Text not valid')
+  if (!galapagos.isUser(options.author)) return cb('Author not valid')
+  if (!galapagos.isConversation(options.conversation)) return cb('Conversation not valid')
+  if (!options.text || typeof options.text !== 'string') return cb('Text is not valid')
+  if (!cb) throw new TypeError('undefined is not a function')
 
   var note = {
     '_id': this.newID(),
-    'text': text,
-    'author': author.id,
-    'conversation': conversation.id,
+    'text': options.text,
+    'author': options.author.id,
+    'conversation': options.conversation.id,
     'participants': {
       'hash1234': 'share',
       'sdlkjfla': 'read'
@@ -482,7 +483,7 @@ module.exports.newNote = exports.newNote = function newNote (author, conversatio
     }
     console.log('Saved note', response)
     // TODO Check that this is the same syntactically as db.put(c) && return(c)
-    return cb(null, note)
+    return cb(null, response)
   })
 }
 
