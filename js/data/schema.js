@@ -38,7 +38,7 @@ var db = new PouchDB('http://54.164.111.240:5984/test')
 // }
 
 module.exports.account = exports.account = {
-  '_id': 'hash1234',
+  'id': 'hash1234',
   'name': 'Richard Feynman',
   'avatar': 'http://upload.wikimedia.org/wikipedia/en/4/42/Richard_Feynman_Nobel.jpg',
   'primaryEmail': 'richard.feynman@caltech.edu',
@@ -418,14 +418,15 @@ module.exports.logIn = exports.logIn = function logIn (accessToken, account, cb)
 //   return c
 // }
 
-module.exports.newConversation = exports.newConversation = function newConversation (author, title, cb) {
-  if (!author || typeof author !== 'object' || !author.id) return cb('Author is not valid')
-  if (!title || typeof title !== 'string') return cb('Title is not valid')
+module.exports.newConversation = exports.newConversation = function newConversation (options, cb) {
+  if (!galapagos.isUser(options.author)) return cb('Author is not valid')
+  if (!options.title || typeof options.title !== 'string') return cb('Title is not valid')
+  if (!cb) throw new TypeError('undefined is not a function')
 
   var conversation = {
     '_id': this.newID(),
-    'title': title,
-    'owner': [author.id]
+    'title': options.title,
+    'owner': [options.author.id]
   }
 
   db.put(conversation, function (err, response) {
