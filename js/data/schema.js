@@ -343,8 +343,8 @@ module.exports.newAccount = exports.newAccount = function newAccount (name, emai
 // Using nolanlawson/pouchdb-authentication
 module.exports.signUp = exports.signUp = function signUp (account, cb) {
   if (!account.username && !account.password && !account.email) throw new Error('Name, password, and email fields are mandatory')
-  if (!cb) throw new Error('Callback not provided')
   if (!validator.isEmail(account.email)) throw new Error('Email not provided or not valid')
+  if (!cb) { throw new Error('Callback not provided') }
 
   // Make sure that options.emails also includes default email
   if (!account.emails) {
@@ -434,7 +434,7 @@ module.exports.newConversation = exports.newConversation = function newConversat
       console.log('Error saving conversation', err)
       return cb('Error saving conversation')
     }
-    console.log('Saved conversation', response)
+    // console.log('Saved conversation', response)
     // TODO Check that this is the same syntactically as db.put(c) && return(c)
     return cb(null, conversation)
   })
@@ -464,7 +464,7 @@ module.exports.newNote = exports.newNote = function newNote (options, cb) {
   if (!galapagos.isUser(options.author)) return cb('Author not valid')
   if (!galapagos.isConversation(options.conversation)) return cb('Conversation not valid')
   if (!options.text || typeof options.text !== 'string') return cb('Text is not valid')
-  if (!cb) throw new TypeError('undefined is not a function')
+  if (!cb) { throw new Error('Callback is not defined') }
 
   var note = {
     '_id': this.newID(),
@@ -482,7 +482,7 @@ module.exports.newNote = exports.newNote = function newNote (options, cb) {
       console.log('Error saving note', err)
       return cb('Error saving note')
     }
-    console.log('Saved note', response)
+    // console.log('Saved note', response)
     // TODO Check that this is the same syntactically as db.put(c) && return(c)
     return cb(null, response)
   })
@@ -524,7 +524,6 @@ module.exports.startBlankConversation = exports.startBlankConversation = functio
     if (err) {
       cb('Error saving conversation')
     }
-    console.log('conversation', conversation)
     that.newNote({
       author: options.author,
       conversation: conversation,
