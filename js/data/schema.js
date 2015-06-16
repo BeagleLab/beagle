@@ -506,12 +506,28 @@ module.exports.newNote = exports.newNote = function newNote (author, conversatio
 //   return c, n
 // }
 
-module.exports.startBlankConversation = exports.startBlankConversation = function startBlankConversation (author, title, text, cb) {
-  this.newConversation(author, title, function (err, conversation) {
+module.exports.startBlankConversation = exports.startBlankConversation = function startBlankConversation (options, cb) {
+  if (!options.author) {
+    throw new Error('Author was not provided!')
+  }
+  if (!options.title) {
+    throw new Error('Title was not provided!')
+  }
+  if (!options.text) {
+    throw new Error('Text was not provided')
+  }
+  var that = this;
+
+  this.newConversation({author: options.author, title: options.title}, function (err, conversation) {
     if (err) {
       cb('Error saving conversation')
     }
-    this.newNote(author, conversation, text, function (err, note) {
+    console.log('conversation', conversation)
+    that.newNote({
+      author: options.author,
+      conversation: conversation,
+      text: options.text
+    }, function (err, note) {
       if (err) cb('Error saving note')
       return cb(null, {conversation: conversation, note: note})
     })
