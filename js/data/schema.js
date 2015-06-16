@@ -344,14 +344,20 @@ module.exports.newAccount = exports.newAccount = function newAccount (name, emai
 }
 
 // Using nolanlawson/pouchdb-authentication
-module.exports.signUp = exports.signUp = function signUp (username, password, options, cb) {
-  options = options || {}
-  if (!options.email || !validator.isEmail(options.email)) {
-    throw new Error('Email not provided or not valid')
+module.exports.signUp = exports.signUp = function signUp (account, cb) {
+  if (!account.username && !account.password && !account.email) throw new Error('Name, password, and email fields are mandatory')
+  if (!cb) throw new Error('Callback not provided')
+  if (!validator.isEmail(account.email)) throw new Error('Email not provided or not valid')
+
+  // Make sure that options.emails also includes default email
+  if (!account.emails) {
+    account.emails = [account.email]
+  } else if (!_.includes(account.emails, account.email)) {
+    account.emails.push(account.email)
   }
-  // TODO Include options.avatar, options.emails
+
   // TODO How do I include IDs in here? Do I even need to?
-  return db.signup(username, password, options, function (err, response) {
+  return db.signUp(account.username, account.password, account, function (err, response) {
     if (err) {
       if (err.name === 'conflict') {
         // "batman" already exists, choose another username
@@ -365,6 +371,32 @@ module.exports.signUp = exports.signUp = function signUp (username, password, op
       }
     }
     return cb(null, response)
+  })
+}
+
+module.exports.logIn = exports.logIn = function logIn (accessToken, account, cb) {
+  account = account || {}
+
+  function map (doc) {
+    if (doc.oauthTokens) {
+      _.forEach(doc.oauthTokens, function (token) {
+        if (token === accessToken) {
+          emit(doc.oauthTokens, {_id: doc.account})
+        }
+      })
+    }
+  }
+
+  db.query(map, {include_docs: true}).then(function (result) {
+    // Log in
+    console.log('Result', result)
+    // db.login({
+    //   // TODO Log in without passwords?
+    // })
+    // Create account if does not exist
+  }).catch(function (err) {
+    // Catch errors
+    console.log('Err', err)
   })
 }
 

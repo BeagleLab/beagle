@@ -41,14 +41,45 @@ describe('The schema', function () {
   })
 })
 
-describe('Schema.newAccount', function () {
-  it('will check if name is valid', function () {
-    expect(schema.newAccount(10, 'test@test.com')).toBe(null)
-  })
+  describe('has a method signUp', function () {
+    it('expects a name, password, and email', function () {
+      expect(function () {
+        schema.signUp({name: 'Mittens'})
+      }).toThrowError('Name, password, and email fields are mandatory')
+    })
 
-  // Will check if email is valid
-  // Will check if email exists
-  // Will check if name exists
-  // Will not create a new account if a user exists
-  // Will create a new account if a user does not exist
+    it('expects a callback', function () {
+      expect(function () {
+        schema.signUp({
+          name: 'Mittens',
+          password: 'kittehs',
+          email: 'cat@cat.com'
+        })
+      }).toThrowError('Callback not provided')
+
+      expect(function () {
+        schema.signUp({
+          name: 'Mittens',
+          password: 'kittehs',
+          email: 'cat@cat.com'
+        }, function () {})
+      }).not.toThrow()
+    })
+
+    it('will check if email is valid', function () {
+      expect(function () {
+        schema.signUp({
+          name: 'User',
+          password: 'password',
+          email: 'testtest.com'
+        }, function () {}
+      )}).toThrowError('Email not provided or not valid')
+    })
+
+    // Will check if email exists
+    // Will check if name exists
+    // Will not create a new account if a user exists
+    // Will create a new account if a user does not exist
+  })
 })
+
