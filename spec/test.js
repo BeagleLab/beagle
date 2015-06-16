@@ -144,6 +144,31 @@ describe('The schema', function () {
     })
   })
 
+  describe('has a method startBlankConversation', function () {
+    it('which requires an options object with author', function () {
+      expect(function () { schema.startBlankConversation({}, function () {})}).toThrowError('Author was not provided!')
+    })
+    it('which requires an options object with title', function () {
+      expect(function () { schema.startBlankConversation({author: 'Abraham'}, function () {})}).toThrowError('Title was not provided!')
+    })
+    it('which requires an options object with text', function () {
+      expect(function () { schema.startBlankConversation({author: 'Abraham', title: 'Gettysburg Address'}, function () {})}).toThrowError('Text was not provided')
+    })
+
+    // Broken
+    it('which saves a conversation', function () {
+      expect(function () {
+        schema.startBlankConversation({
+          author: schema.account,
+          title: 'Example',
+          text: 'Text'
+        }, function (err, data) {
+          return data
+        })
+      }).toBe(false)
+    })
+  })
+
   describe('has a method signUp', function () {
     it('expects a name, password, and email', function () {
       expect(function () {
