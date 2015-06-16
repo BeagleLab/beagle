@@ -2,6 +2,10 @@
 // expect("Did the HMS Beagle go to the Galapagos?").toBe(true)
 
 var _ = require('lodash')
+var PouchDB = require('pouchdb')
+PouchDB.plugin(require('pouchdb-authentication'))
+var db = new PouchDB('http://54.164.111.240:5984/test')
+// var db = new PouchDB('local_db')
 
 module.exports = exports = {
   isEntity: function (e) {

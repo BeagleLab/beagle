@@ -9,10 +9,10 @@ var PouchDB = require('pouchdb')
 PouchDB.plugin(require('pouchdb-authentication'))
 var db = new PouchDB('http://54.164.111.240:5984/test')
 
-// Create a local DB for testing and usage offline, but use the other DB as much as possible
-// TODO Check what happens on connection loss.
-var local = new PouchDB('local_db')
-local.sync(db, {live: true, retry: true}).on('error', console.log.bind(console))
+// // Create a local DB for testing and usage offline, but use the other DB as much as possible
+// // TODO Check what happens on connection loss.
+// var local = new PouchDB('local_db')
+// local.sync(db, {live: true, retry: true}).on('error', console.log.bind(console))
 
 // Everything is an 'entity'. it has an ID.
 // type Entity struct {
