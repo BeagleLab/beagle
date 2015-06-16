@@ -431,7 +431,7 @@ module.exports.newConversation = exports.newConversation = function newConversat
 
 module.exports.newNote = exports.newNote = function newNote (author, conversation, text, cb) {
   // TODO Check that author exists
-  if (!galapagos.isAuthor(author)) return cb('Author not valid')
+  if (!galapagos.isUser(author)) return cb('Author not valid')
   if (!galapagos.isConversation(conversation)) return cb('Conversation not valid')
   if (!text || typeof text !== 'string') return cb('Text not valid')
 
@@ -477,7 +477,7 @@ module.exports.newNote = exports.newNote = function newNote (author, conversatio
 //   return c, n
 // }
 
-module.exports.StartBlankConversation = exports.StartBlankConversation = function StartBlankConversation (author, title, text, cb) {
+module.exports.startBlankConversation = exports.startBlankConversation = function startBlankConversation (author, title, text, cb) {
   this.newConversation(author, title, function (err, conversation) {
     if (err) {
       cb('Error saving conversation')
@@ -565,7 +565,7 @@ module.exports.getConversationsForUser = function (user, cb) {
 // }
 
 module.exports.postToConversation = function postToConversation (author, conversation, text, cb) {
-  if (!galapagos.isAuthor) cb('Author not valid')
+  if (!galapagos.isUser) cb('Author not valid')
   if (!galapagos.isConversation) cb('Conversation not valid')
   if (!text || typeof text !== 'string') cb('Text not valid')
 

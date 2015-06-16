@@ -10,11 +10,20 @@ module.exports = exports = {
     if (e !== null && typeof e.id !== 'string') throw new TypeError('Entity id is not a string')
     return true
   },
-  isAuthor: function (author) {
-    // TODO Add a db call
-    if (!author) throw new Error('Author is null')
-    if (!author.id) throw new Error('Author is not a db object')
-    return true
+  isUser: function (author) {
+    if (!this.isEntity(author)) throw new Error('Author not a valid entity')
+
+    return db.getUser(author.name, function (err, response) {
+      if (err) {
+        if (err.name === 'not_found') {
+          return false
+        } else {
+          return false
+        }
+      } else {
+        return true
+      }
+    })
   },
   isConversation: function (conversation) {
     // TODO Add in db check for conversation
