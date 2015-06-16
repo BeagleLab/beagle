@@ -36,10 +36,11 @@ describe('The galapagos validator', function () {
 })
 
 describe('The schema', function () {
-  it('has a function called newID, which returns a string', function () {
-    expect(typeof (schema.newID()) === 'string').toBe(true)
+  describe('has a function called newID', function () {
+    it('returns a string', function () {
+      expect(typeof (schema.newID()) === 'string').toBe(true)
+    })
   })
-})
 
   describe('has a method signUp', function () {
     it('expects a name, password, and email', function () {
