@@ -142,7 +142,7 @@ gulp.task('html', function () {
 
 gulp.task('test', function () {
   return gulp.src(paths.test)
-    .pipe(jasmine())
+    .pipe(jasmine({verbose: true}))
 })
 
 // Here for allviews and milestones
