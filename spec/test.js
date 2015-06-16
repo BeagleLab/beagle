@@ -80,6 +80,70 @@ describe('The schema', function () {
       }).toBe(false)
     })
   })
+
+  describe('has a method newNote', function () {
+    describe('which requires an options object', function () {
+      it('with an author as a valid entity', function () {
+        expect(function () {
+          schema.newNote({author: {id: 2, name: 'Abraham'}})
+        }).toThrow(new TypeError('Entity id is not a string'))
+      })
+
+      // TODO Expects the author to be in the database
+
+      it('with a conversation', function () {
+        expect(function () {
+          schema.newNote({author: schema.account}, function (err) { if (err) return err})
+        }).toThrow(new Error('Conversation is null'))
+
+        expect(schema.newNote({author: schema.account, conversation: schema.conversation}, function (err) {
+          if (err) {
+            return err
+          }
+          return true
+        })).toBe('Text is not valid')
+      })
+
+      it('with a text field', function () {
+        expect(schema.newNote({
+          author: schema.account,
+          conversation: schema.conversation,
+          title: null
+        }, function (err) {
+          if (err) {
+            return err
+          }
+        })).toBe('Text is not valid')
+      })
+    })
+
+    it('which requires a callback', function () {
+      expect(function () {
+        schema.newNote({
+          author: schema.account,
+          conversation: schema.conversation,
+          text: 'Text'
+        })
+      }).toThrow(new TypeError('undefined is not a function'))
+    })
+
+    it('which saves a note', function () {
+      // TODO Check this. I'm not sure it works.
+      expect(function () {
+        schema.newNote({
+          author: schema.account,
+          conversation: schema.conversation,
+          text: 'text'
+        }, function (err, res) {
+          if (err) {
+            return err
+          }
+          return res.ok
+        }
+      )}).toBe(false)
+    })
+  })
+
   describe('has a method signUp', function () {
     it('expects a name, password, and email', function () {
       expect(function () {
