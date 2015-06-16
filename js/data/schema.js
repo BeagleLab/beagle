@@ -209,9 +209,6 @@ module.exports.annotation = exports.annotation = {
 //   SharePerm PermType = "share"
 // )
 
-// This is read
-module.exports.permission = exports.permission = 'read'
-
 // Membership is a group of users that belong to an entity,
 // with associated permissions. For example, the participants
 // of a conversation, or the members of a group.
