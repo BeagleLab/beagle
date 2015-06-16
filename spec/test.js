@@ -42,6 +42,44 @@ describe('The schema', function () {
     })
   })
 
+  describe('has a method newConversation', function () {
+    describe('which requires an options object', function () {
+      it('with an author as a valid entity', function () {
+        expect(function () {
+          schema.newConversation({author: {id: 2, name: 'Abraham'}})
+        }).toThrow(new TypeError('Entity id is not a string'))
+      })
+
+      // TODO Expects the author to be in the database
+
+      it('with a title', function () {
+        expect(schema.newConversation({author: schema.account}, function (err) { if (err) return err})).toBe('Title is not valid')
+      })
+      it('with a title as a string', function () {
+        expect(schema.newConversation({author: schema.account, title: 1012}, function (err) {
+          if (err) {
+            return err
+          }
+        })).toBe('Title is not valid')
+      })
+    })
+
+    it('which requires a callback', function () {
+      expect(function () {schema.newConversation({author: schema.account, title: 'Title'})}).toThrow(new TypeError('undefined is not a function'))
+    })
+
+    // TODO Check this. I'm not sure it works.
+    it('which saves a conversation', function () {
+      expect(function () {
+        schema.newConversation({author: schema.account, title: 'Title'}, function (err, res) {
+          if (err) {
+            return err
+          }
+          return res.ok
+        })
+      }).toBe(false)
+    })
+  })
   describe('has a method signUp', function () {
     it('expects a name, password, and email', function () {
       expect(function () {
