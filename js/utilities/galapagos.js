@@ -15,24 +15,27 @@ module.exports = exports = {
     return true
   },
   isUser: function (author) {
-    if (!this.isEntity(author)) throw new Error('Author not a valid entity')
+    if (!this.isEntity(author)) {
+      throw new Error('Author not a valid entity')
+    }
 
-    return db.getUser(author.name, function (err, response) {
-      if (err) {
-        if (err.name === 'not_found') {
-          return false
-        } else {
-          return false
-        }
-      } else {
-        return true
-      }
-    })
+    return true
+    // return db.getUser(author.name, function (err, response) {
+    //   if (err) {
+    //     if (err.name === 'not_found') {
+    //       return false
+    //     } else {
+    //       return false
+    //     }
+    //   } else {
+    //     return true
+    //   }
+    // })
   },
   isConversation: function (conversation) {
     // TODO Add in db check for conversation
     if (!conversation) throw new Error('Conversation is null')
-    if (!conversation.id) throw new Error('Conversation does not exist')
+    if (!conversation._id) throw new Error('Conversation does not exist')
     if (!conversation.title || !conversation.owner) {
       throw new Error('Conversation is not valid')
     }
