@@ -20,6 +20,8 @@ var sourcemaps = require('gulp-sourcemaps')
 var watchify = require('watchify')
 var argv = require('minimist')(process.argv.slice(2))
 
+var mocha = require('gulp-mocha')
+
 // TODO Export style automatically
 // var style = require('beagle-style')
 
@@ -141,8 +143,8 @@ gulp.task('html', function () {
 })
 
 gulp.task('test', function () {
-  return gulp.src(paths.test)
-    .pipe(jasmine({verbose: true}))
+  return gulp.src(paths.test, {read: false})
+    .pipe(mocha({reporter: 'nyan'}));
 })
 
 // Here for allviews and milestones

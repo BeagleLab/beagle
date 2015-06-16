@@ -2,35 +2,36 @@
 
 var schema = require('../js/data/schema.js')
 var galapagos = require('../js/utilities/galapagos.js')
+var assert = require('assert')
 
 describe('The galapagos validator', function () {
   describe('tests entities', function () {
     it('expects a non-empty object', function () {
-      expect(function () {galapagos.isEntity() }).toThrow(new TypeError('Entity is not an object'))
-      expect(function () {galapagos.isEntity({}) }).toThrow(new Error('Entity does not have an id'))
+      assert.throws(galapagos.isEntity, TypeError, 'Entity is not an object')
+      assert.throws(function () {galapagos.isEntity({}) }, Error, 'Entity does not have an id')
     })
     it('expects an id', function () {
-      expect(galapagos.isEntity({id: 'id'})).toBe(true)
+      assert.equal(galapagos.isEntity({id: 'id'}), true)
     })
     it('expects the id to be a string', function () {
-      expect(galapagos.isEntity({id: 'id'})).toBe(true)
-      expect(function () {galapagos.isEntity({id: 1})}).toThrow(new TypeError('Entity id is not a string'))
-      expect(function () {galapagos.isEntity({id: false}) }).toThrow(new Error('Entity does not have an id'))
+      assert.equal(galapagos.isEntity({id: 'id'}), true)
+      assert.throws(function () {galapagos.isEntity({id: 1})}, TypeError, 'Entity id is not a string')
+      assert.throws(function () {galapagos.isEntity({id: false}) }, Error, 'Entity does not have an id')
     })
   })
 
   describe('tests permissions', function () {
     it('expects a permision as argument', function () {
-      expect(galapagos.isPermission()).toBe(false)
+      assert.equal(galapagos.isPermission(), false)
     })
 
     it('expects a string', function () {
-      expect(galapagos.isPermission(12)).toBe(false)
+      assert.equal(galapagos.isPermission(12), false)
     })
 
     it('expects a valid permission name', function () {
-      expect(galapagos.isPermission('see')).toBe(false)
-      expect(galapagos.isPermission('read')).toBe(true)
+      assert.equal(galapagos.isPermission('see'), false)
+      assert.equal(galapagos.isPermission('read'), true)
     })
   })
 })
@@ -38,74 +39,67 @@ describe('The galapagos validator', function () {
 describe('The schema', function () {
   describe('has a function called newID', function () {
     it('returns a string', function () {
-      expect(typeof (schema.newID()) === 'string').toBe(true)
+      assert.equal(typeof (schema.newID()) === 'string', true)
     })
   })
 
   describe('has a method newConversation', function () {
     describe('which requires an options object', function () {
       it('with an author as a valid entity', function () {
-        expect(function () {
+        assert.throws(function () {
           schema.newConversation({author: {id: 2, name: 'Abraham'}})
-        }).toThrow(new TypeError('Entity id is not a string'))
+        }, TypeError, 'Entity id is not a string')
       })
 
       // TODO Expects the author to be in the database
 
       it('with a title', function () {
-        expect(schema.newConversation({author: schema.account}, function (err) { if (err) return err})).toBe('Title is not valid')
+        assert.equal(schema.newConversation({author: schema.account}, function (err) { if (err) return err}), 'Title is not valid')
       })
       it('with a title as a string', function () {
-        expect(schema.newConversation({author: schema.account, title: 1012}, function (err) {
+        assert.equal(schema.newConversation({author: schema.account, title: 1012}, function (err) {
           if (err) {
             return err
           }
-        })).toBe('Title is not valid')
+        }), 'Title is not valid')
       })
     })
 
     it('which requires a callback', function () {
-      expect(function () {schema.newConversation({author: schema.account, title: 'Title'})}).toThrow(new TypeError('undefined is not a function'))
+      assert.throws(function () {schema.newConversation({author: schema.account, title: 'Title'})}, TypeError, 'undefined is not a function')
     })
 
     // TODO Check this. I'm not sure it works.
-    it('which saves a conversation', function () {
-      expect(function () {
-        schema.newConversation({author: schema.account, title: 'Title'}, function (err, res) {
-          if (err) {
-            return err
-          }
-          return res.ok
-        })
-      }).toBe(false)
+    it('which saves a conversation', function (done) {
+      schema.newConversation({author: schema.account, title: 'Title'}, done)
     })
   })
 
   describe('has a method newNote', function () {
     describe('which requires an options object', function () {
       it('with an author as a valid entity', function () {
-        expect(function () {
+        assert.throws(function () {
           schema.newNote({author: {id: 2, name: 'Abraham'}})
-        }).toThrow(new TypeError('Entity id is not a string'))
+        }, TypeError, 'Entity id is not a string')
       })
 
       // TODO Expects the author to be in the database
 
       it('with a conversation', function () {
-        expect(function () {
+        assert.throws(function () {
           schema.newNote({author: schema.account}, function (err) { if (err) return err})
-        }).toThrow(new Error('Conversation is null'))
+        }, Error, 'Conversation is null')
 
-        expect(schema.newNote({author: schema.account, conversation: schema.conversation}, function (err) {
+        assert.equal(schema.newNote({author: schema.account, conversation: schema.conversation}, function (err) {
           if (err) {
             return err
           }
           return true
-        })).toBe('Text is not valid')
+        }), 'Text is not valid')
       })
 
       it('with a text field', function () {
-        expect(schema.newNote({
+        assert.equal(schema.newNote({
           author: schema.account,
           conversation: schema.conversation,
           title: null
@@ -113,96 +107,84 @@ describe('The schema', function () {
           if (err) {
             return err
           }
-        })).toBe('Text is not valid')
+        }), 'Text is not valid')
       })
     })
 
     it('which requires a callback', function () {
-      expect(function () {
+      assert.throws(function () {
         schema.newNote({
           author: schema.account,
           conversation: schema.conversation,
           text: 'Text'
         })
-      }).toThrow(new TypeError('undefined is not a function'))
+      }, Error, 'Callback is not defined')
     })
 
-    it('which saves a note', function () {
-      // TODO Check this. I'm not sure it works.
-      expect(function () {
-        schema.newNote({
-          author: schema.account,
-          conversation: schema.conversation,
-          text: 'text'
-        }, function (err, res) {
-          if (err) {
-            return err
-          }
-          return res.ok
-        }
-      )}).toBe(false)
+    it('which saves a note', function (done) {
+      schema.newNote({
+        author: schema.account,
+        conversation: schema.conversation,
+        text: 'text'
+      }, done)
     })
   })
 
   describe('has a method startBlankConversation', function () {
     it('which requires an options object with author', function () {
-      expect(function () { schema.startBlankConversation({}, function () {})}).toThrowError('Author was not provided!')
+      assert.throws(function () { schema.startBlankConversation({}, function () {})}, Error, 'Author was not provided!')
     })
     it('which requires an options object with title', function () {
-      expect(function () { schema.startBlankConversation({author: 'Abraham'}, function () {})}).toThrowError('Title was not provided!')
+      assert.throws(function () { schema.startBlankConversation({author: 'Abraham'}, function () {})}, Error, 'Title was not provided!')
     })
     it('which requires an options object with text', function () {
-      expect(function () { schema.startBlankConversation({author: 'Abraham', title: 'Gettysburg Address'}, function () {})}).toThrowError('Text was not provided')
+      assert.throws(function () { schema.startBlankConversation({author: 'Abraham', title: 'Gettysburg Address'}, function () {})}, Error, 'Text was not provided')
     })
 
     // Broken
-    it('which saves a conversation', function () {
-      expect(function () {
-        schema.startBlankConversation({
-          author: schema.account,
-          title: 'Example',
-          text: 'Text'
-        }, function (err, data) {
-          return data
-        })
-      }).toBe(false)
+    it('which saves a conversation', function (done) {
+      schema.startBlankConversation({
+        author: schema.account,
+        title: 'Example',
+        text: 'Text'
+      }, done)
     })
   })
 
   describe('has a method signUp', function () {
     it('expects a name, password, and email', function () {
-      expect(function () {
+      assert.throws(function () {
         schema.signUp({name: 'Mittens'})
-      }).toThrowError('Name, password, and email fields are mandatory')
+      }, Error, 'Name, password, and email fields are mandatory')
     })
 
     it('expects a callback', function () {
-      expect(function () {
+      assert.throws(function () {
         schema.signUp({
           name: 'Mittens',
           password: 'kittehs',
           email: 'cat@cat.com'
         })
-      }).toThrowError('Callback not provided')
-
-      expect(function () {
-        schema.signUp({
-          name: 'Mittens',
-          password: 'kittehs',
-          email: 'cat@cat.com'
-        }, function () {})
-      }).not.toThrow()
+      }, Error, 'Callback not provided')
     })
 
     it('will check if email is valid', function () {
-      expect(function () {
+      assert.throws(function () {
         schema.signUp({
           name: 'User',
           password: 'password',
           email: 'testtest.com'
         }, function () {}
-      )}).toThrowError('Email not provided or not valid')
+      )}, Error, 'Email not provided or not valid')
     })
+
+    // it('will sign up a user', function(done) {
+    //   schema.signUp({
+    //     name: 'Mittens',
+    //     password: 'kittehs',
+    //     email: 'cat@cat.com'
+    //   }, done)
+    // })
 
     // Will check if email exists
     // Will check if name exists

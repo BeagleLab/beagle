@@ -47,6 +47,8 @@
     "watchify": "^3.2.1"
   },
   "devDependencies": {
+    "gulp-mocha": "^2.1.1",
+    "mocha": "^2.2.5",
     "standard": "^3.9.0"
   },
   "eslintConfig": {
