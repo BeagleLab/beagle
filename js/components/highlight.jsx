@@ -1,7 +1,7 @@
 'use strict'
 
 var React = require('react')
-var rangy = require('rangy')({'alertOnFail': false})
+var rangy = require('rangy')
 // var level = require('level-browserify')
 // var db = level('http://54.164.111.240:5984/test')
 // var db = new PouchDB('http://54.164.111.240:5984/test')
