@@ -384,20 +384,18 @@ module.exports.signUp = exports.signUp = function signUp (account, cb) {
   })
 }
 
-module.exports.logIn = exports.logIn = function logIn (accessToken, account, cb) {
-  account = account || {}
+module.exports.logIn = exports.logIn = function logIn (oauthInfo, cb) {
 
-  function map (doc) {
+  // Naming the anonymous function as function  map () will break CouchDB.
+  db.query(function (doc, emit) {
     if (doc.oauthTokens) {
       _.forEach(doc.oauthTokens, function (token) {
-        if (token === accessToken) {
+        if (token === oauthInfo.token) {
           emit(doc.oauthTokens, {_id: doc.account})
         }
       })
     }
-  }
-
-  db.query(map, {include_docs: true}).then(function (result) {
+  }).then(function (result) {
     // Log in
     console.log('Result', result)
     // db.login({
@@ -409,6 +407,8 @@ module.exports.logIn = exports.logIn = function logIn (accessToken, account, cb)
     console.log('Err', err)
   })
 }
+
+module.exports.login = module.exports.logIn
 
 //   // let's talk about elsewhere how to put to the db, globals are not great,
 //   // we just do it here for simplicity.
