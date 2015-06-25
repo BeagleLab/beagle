@@ -279,11 +279,13 @@ module.exports.newID = exports.newID = function newID () {
 // Returns a dummy object; might be good to also save this object to the DB,
 // but I think that should properly be done only after the user has been saved to the
 // db. This means remembering to do that, though.
-module.exports.newUser = exports.newUser = function newUser (oauthToken) {
+module.exports.newUser = exports.newUser = function newUser (oauthInfo) {
   return {
     id: this.newID(),
+    type: 'LINK',
+    email: oauthInfo.email,
     oauthTokens: [
-      oauthToken
+      oauthInfo.oauthToken
     ]
   }
 }
@@ -393,12 +395,10 @@ module.exports.logIn = exports.logIn = function logIn (oauthInfo, cb) {
 
   // Naming the anonymous function as function  map () will break CouchDB.
   db.query(function (doc, emit) {
-    if (doc.oauthTokens) {
-      _.forEach(doc.oauthTokens, function (token) {
-        if (token === oauthInfo.token) {
-          emit(doc.oauthTokens, {_id: doc.account})
-        }
-      })
+    if (doc.type === 'LINK') {
+      if (doc.email === oauthInfo.email) {
+        emit(doc)
+      }
     }
   }).then(function (result) {
     // Log in
@@ -408,7 +408,11 @@ module.exports.logIn = exports.logIn = function logIn (oauthInfo, cb) {
 
     // If there are no results, create a user object with an id and oauth arr
     if (result.total_rows === 0) {
-      user = module.exports.newUser(oauthInfo.token)
+      user = module.exports.newUser(oauthInfo)
+      console.log('Testing params in new object thing', {
+        userId: user.id,
+        oauthInfo: oauthInfo
+      })
       request({
         uri: BeagleProxyAPI + '/signup',
         method: 'GET',
@@ -418,9 +422,9 @@ module.exports.logIn = exports.logIn = function logIn (oauthInfo, cb) {
         }
       }, function (err, res) {
         if (err) {
-          console.log('Err with getting user info')
+          console.log('Err with getting user info', err)
         } else {
-          console.log('Result of logging in:', res)
+          console.log('Result of signing up:', res)
 
           // Create the link document
           db.put(user).then(function (response) {
@@ -432,7 +436,24 @@ module.exports.logIn = exports.logIn = function logIn (oauthInfo, cb) {
       })
     // If there are results, sign in with given ID as beagleUsername
     } else {
-      // What do the results look like?
+      console.log('Testing params', {
+        userId: result.id,
+        oauthInfo: oauthInfo }
+      )
+      // request({
+      //   uri: BeagleProxyAPI + 'login',
+      //   method: 'GET',
+      //   form: {
+      //     userId: result.id,
+      //     oauthInfo: oauthInfo
+      //   }
+      // }, function (err, res) {
+      //   if (err) {
+      //     console.log('Error logging in', err)
+      //   } else {
+      //     console.log('Result of logging in', res)
+      //   }
+      // })
     }
   }).catch(function (err) {
     // Catch errors

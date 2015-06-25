@@ -28,7 +28,8 @@ var Login = React.createClass({
           schema.logIn({
             token: result.access_token,
             provider: 'google',
-            id: me.id
+            id: me.id,
+            email: me.email
           }, function (err, res) {
             if (err) {
               console.log('Error with native log in', err)
