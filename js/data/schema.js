@@ -270,6 +270,19 @@ module.exports.newID = exports.newID = function newID () {
   return id
 }
 
+// Should perhaps be renamed newUserLink
+// Returns a dummy object; might be good to also save this object to the DB,
+// but I think that should properly be done only after the user has been saved to the
+// db. This means remembering to do that, though.
+module.exports.newUser = exports.newUser = function newUser (oauthToken) {
+  return {
+    id: this.newID(),
+    oauthTokens: [
+      oauthToken
+    ]
+  }
+}
+
 // // newUser makes and stores a new user account.
 // func newUser(name, avatar, email string) (User, error) {
 //   // validate name

@@ -1,4 +1,4 @@
-/*globals describe, it, expect */
+/*globals describe, it */
 
 var schema = require('../js/data/schema.js')
 var galapagos = require('../js/utilities/galapagos.js')
@@ -40,6 +40,24 @@ describe('The schema', function () {
   describe('has a function called newID', function () {
     it('returns a string', function () {
       assert.equal(typeof (schema.newID()) === 'string', true)
+    })
+  })
+
+  describe('has a method called newUser', function () {
+    it('returns an object', function () {
+      assert.equal(typeof (schema.newUser('test')) === 'object', true)
+    })
+
+    it('with an id', function () {
+      assert.equal(typeof (schema.newUser('test').id) === 'string', true)
+    })
+
+    it('with an array of oauth tokens', function () {
+      assert.equal(schema.newUser('test').oauthTokens[0] === 'test', true)
+    })
+
+    it('which is a valid user', function () {
+      assert.equal(galapagos.isUser(schema.newUser('test')), true)
     })
   })
 
