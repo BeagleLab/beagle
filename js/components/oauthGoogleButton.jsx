@@ -3,6 +3,7 @@
 'use strict'
 
 var React = require('react')
+var schema = require('../data/schema.js')
 
 var Login = React.createClass({
   displayName: 'Login',
@@ -24,11 +25,23 @@ var Login = React.createClass({
         result.me().done(function (me) {
           console.log('Me', me)
 
-          if (me.email) {
-            result.get('https://www.google.com/m8/feeds/contacts/' + me.email + '/full?alt=json&max-results=5000').done(function (contacts) {
-              console.log('Contacts!', contacts)
-            })
-          }
+          schema.logIn({
+            token: result.access_token,
+            provider: 'google',
+            id: me.id
+          }, function (err, res) {
+            if (err) {
+              console.log('Error with native log in', err)
+            } else {
+              console.log('Result', result)
+            }
+          })
+
+          // if (me.email) {
+          //   result.get('https://www.google.com/m8/feeds/contacts/' + me.email + '/full?alt=json&max-results=5000').done(function (contacts) {
+          //     console.log('Contacts!', contacts)
+          //   })
+          // }
 
         })
       })

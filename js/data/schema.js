@@ -5,9 +5,14 @@ var validator = require('validator')
 var _ = require('lodash')
 var galapagos = require('../utilities/galapagos.js')
 
+var PouchDBURL = 'http://54.164.111.240:5984/test'
+var BeagleProxyAPI = 'https://beagle-mailinglist.herokuapp.com'
+
 var PouchDB = require('pouchdb')
 PouchDB.plugin(require('pouchdb-authentication'))
-var db = new PouchDB('http://54.164.111.240:5984/test')
+var db = new PouchDB(PouchDBURL)
+
+var request = require('request')
 
 // // Create a local DB for testing and usage offline, but use the other DB as much as possible
 // // TODO Check what happens on connection loss.
@@ -398,10 +403,37 @@ module.exports.logIn = exports.logIn = function logIn (oauthInfo, cb) {
   }).then(function (result) {
     // Log in
     console.log('Result', result)
-    // db.login({
-    //   // TODO Log in without passwords?
-    // })
-    // Create account if does not exist
+
+    var user
+
+    // If there are no results, create a user object with an id and oauth arr
+    if (result.total_rows === 0) {
+      user = module.exports.newUser(oauthInfo.token)
+      request({
+        uri: BeagleProxyAPI + '/signup',
+        method: 'GET',
+        form: {
+          userId: user.id,
+          oauthInfo: oauthInfo
+        }
+      }, function (err, res) {
+        if (err) {
+          console.log('Err with getting user info')
+        } else {
+          console.log('Result of logging in:', res)
+
+          // Create the link document
+          db.put(user).then(function (response) {
+            console.log('Created link object')
+          }).catch(function (err) {
+            console.log(err)
+          })
+        }
+      })
+    // If there are results, sign in with given ID as beagleUsername
+    } else {
+      // What do the results look like?
+    }
   }).catch(function (err) {
     // Catch errors
     console.log('Err', err)
