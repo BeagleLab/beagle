@@ -279,16 +279,17 @@ module.exports.newID = exports.newID = function newID () {
 // Returns a dummy object; might be good to also save this object to the DB,
 // but I think that should properly be done only after the user has been saved to the
 // db. This means remembering to do that, though.
-module.exports.newUser = exports.newUser = function newUser (oauthInfo) {
-  return {
-    id: this.newID(),
-    type: 'LINK',
-    email: oauthInfo.email,
-    oauthTokens: [
-      oauthInfo.oauthToken
-    ]
-  }
+function LinkObject (oauthInfo) {
+  console.log(oauthInfo)
+  this._id = exports.newID()
+  this.type = 'LINK'
+  this.email = oauthInfo.email
+  this.oauthTokens = [
+      oauthInfo.token
+  ]
 }
+
+module.exports.LinkObject = exports.LinkObject = LinkObject
 
 // // newUser makes and stores a new user account.
 // func newUser(name, avatar, email string) (User, error) {
