@@ -168,46 +168,5 @@ describe('The schema', function () {
       }, done)
     })
   })
-
-  describe('has a method signUp', function () {
-    it('expects a name, password, and email', function () {
-      assert.throws(function () {
-        schema.signUp({name: 'Mittens'})
-      }, Error, 'Name, password, and email fields are mandatory')
-    })
-
-    it('expects a callback', function () {
-      assert.throws(function () {
-        schema.signUp({
-          name: 'Mittens',
-          password: 'kittehs',
-          email: 'cat@cat.com'
-        })
-      }, Error, 'Callback not provided')
-    })
-
-    it('will check if email is valid', function () {
-      assert.throws(function () {
-        schema.signUp({
-          name: 'User',
-          password: 'password',
-          email: 'testtest.com'
-        }, function () {}
-      )}, Error, 'Email not provided or not valid')
-    })
-
-    // it('will sign up a user', function(done) {
-    //   schema.signUp({
-    //     name: 'Mittens',
-    //     password: 'kittehs',
-    //     email: 'cat@cat.com'
-    //   }, done)
-    // })
-
-    // Will check if email exists
-    // Will check if name exists
-    // Will not create a new account if a user exists
-    // Will create a new account if a user does not exist
-  })
 })
 

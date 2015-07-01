@@ -361,37 +361,7 @@ module.exports.newAccount = exports.newAccount = function newAccount (name, emai
   })
 }
 
-// Using nolanlawson/pouchdb-authentication
-module.exports.signUp = exports.signUp = function signUp (account, cb) {
-  if (!account.username && !account.password && !account.email) throw new Error('Name, password, and email fields are mandatory')
-  if (!validator.isEmail(account.email)) throw new Error('Email not provided or not valid')
-  if (!cb) { throw new Error('Callback not provided') }
-
-  // Make sure that options.emails also includes default email
-  if (!account.emails) {
-    account.emails = [account.email]
-  } else if (!_.includes(account.emails, account.email)) {
-    account.emails.push(account.email)
-  }
-
-  // TODO How do I include IDs in here? Do I even need to?
-  return db.signUp(account.username, account.password, account, function (err, response) {
-    if (err) {
-      if (err.name === 'conflict') {
-        // "batman" already exists, choose another username
-        cb('User already exists, choose another username')
-      } else if (err.name === 'forbidden') {
-        // invalid username
-        cb('Invalid username')
-      } else {
-        // HTTP error, cosmic rays, etc.
-        cb('HTTP error, cosmic rays')
-      }
-    }
-    return cb(null, response)
-  })
-}
-
+// Both the signup and the login functions
 module.exports.logIn = exports.logIn = function logIn (oauthInfo, cb) {
 
   // Naming the anonymous function as function  map () will break CouchDB.
