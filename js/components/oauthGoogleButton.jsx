@@ -23,13 +23,13 @@ var Login = React.createClass({
       OAuth.popup('google').done(function (result) {
         console.log(result)
         result.me().done(function (me) {
-          console.log('Me', me)
+          console.log('Console me: ', me)
 
           schema.logIn({
-            token: result.access_token,
             provider: 'google',
-            id: me.id,
-            email: me.email
+            account: me.id,
+            email: me.email,
+            token: result.access_token
           }, function (err, res) {
             if (err) {
               console.log('Error with native log in', err)
