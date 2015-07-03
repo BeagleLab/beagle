@@ -193,66 +193,63 @@ function buildView (options) {
     // console.log('pdf location', options)
 
     PDFJS.getFingerprint(options.pdfLocation, function (err, fingerprint) {
-      if (err) { throw (new Error('Could not get the PDF fingerprint')) }
+      if (err) {
+        console.log('Error: Could not get the PDF fingerprint')
+      } else {
+        options.fingerprint = fingerprint
+        options.staticPath = '../../'
 
-      options.fingerprint = fingerprint
-      options.staticPath = '../../'
-
-      window.beagle = {
-        'pdf': options
-      }
-
-      var highlightsExist
-
-      var displayHighlights = function () {
-        if (highlightsExist !== false) {
-          db.get(fingerprint, function (err, response) {
-            if (err) {
-              highlightsExist = false
-              return console.log('Fingerprint not found in db', err)
-            } else {
-              highlightsExist = true
-              // console.log('Fingerprint found in db', fingerprint, response)
-
-              if (!window.beagle.highlights) {
-                window.beagle.highlights = response.selections
-              }
-
-              _.forEach(window.beagle.highlights, function (selection, i) {
-                // TODO Load in HTMLCoord highlights, too
-                if (selection.pdfCoords && !selection.rendered) {
-                  PDFJS.showHighlight(selection.pdfCoords, function () {
-                    selection.rendered = true
-                    return
-                  })
-                }
-              })
-            }
-          })
+        window.beagle = {
+          'pdf': options
         }
+
+        var highlightsExist
+
+        var displayHighlights = function () {
+          if (highlightsExist !== false) {
+            db.get(fingerprint, function (err, response) {
+              if (err) {
+                highlightsExist = false
+                return console.log('Fingerprint not found in db', err)
+              } else {
+                highlightsExist = true
+                // console.log('Fingerprint found in db', fingerprint, response)
+
+                if (!window.beagle.highlights) {
+                  window.beagle.highlights = response.selections
+                }
+
+                _.forEach(window.beagle.highlights, function (selection, i) {
+                  // TODO Load in HTMLCoord highlights, too
+                  if (selection.pdfCoords && !selection.rendered) {
+                    PDFJS.showHighlight(selection.pdfCoords, function () {
+                      selection.rendered = true
+                      return
+                    })
+                  }
+                })
+              }
+            })
+          }
+        }
+
+        // Called on initial load
+        window.addEventListener('scalechange', displayHighlights(), true)
+
+        // Called on scroll, repeatedly
+        window.watchScroll(window.PDFViewerApplication.pdfViewer.container, function () {
+          displayHighlights()
+        })
       }
-
-      // Called on initial load
-      window.addEventListener('scalechange', displayHighlights(), true)
-
-      // Called on scroll, repeatedly
-      window.watchScroll(window.PDFViewerApplication.pdfViewer.container, function () {
-        displayHighlights()
-      })
-
-      React.render(
-        App(options),
-        parent.getElementById('react')
-      )
     })
-  } else {
-    // If not a PDF
-    // Deal with any issues in data in the React app.
-    React.render(
-      App(options),
-      parent.getElementById('react')
-    )
   }
+
+  // If not a PDF or if PDF broken, no fingerprint will be added.
+  // Deal with any issues in data in the React app.
+  React.render(
+    App(options),
+    parent.getElementById('react')
+  )
 
   linkHandler()
 
