@@ -265,7 +265,7 @@ module.exports.membership = exports.membership = {
 //   return id
 // }
 
-module.exports.newID = exports.newID = function newID () {
+function newID () {
   // See http://stackoverflow.com/a/14869745
   // TODO: Things I don't understand:
   //  - Is this base32?
@@ -276,13 +276,15 @@ module.exports.newID = exports.newID = function newID () {
   return id
 }
 
+module.exports.newID = exports.newID = newID()
+
 // Should perhaps be renamed newUserLink
 // Returns a dummy object; might be good to also save this object to the DB,
 // but I think that should properly be done only after the user has been saved to the
 // db. This means remembering to do that, though.
 function LinkObject (oauthInfo) {
   console.log(oauthInfo)
-  this._id = exports.newID()
+  this._id = newID()
   this.type = 'LINK'
   this.email = oauthInfo.email
   this.oauthTokens = [
