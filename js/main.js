@@ -201,26 +201,34 @@ function buildView (options) {
         'pdf': options
       }
 
+      var highlightsExist
+
       var displayHighlights = function () {
-        db.get(fingerprint, function (err, response) {
-          if (err) { return console.log('Fingerprint not found in db', err) }
-          // console.log('Fingerprint found in db', fingerprint, response)
+        if (highlightsExist !== false) {
+          db.get(fingerprint, function (err, response) {
+            if (err) {
+              highlightsExist = false
+              return console.log('Fingerprint not found in db', err)
+            } else {
+              highlightsExist = true
+              // console.log('Fingerprint found in db', fingerprint, response)
 
-          // TODO Remove highlights so that we don't get them every time,
-          // and so that once rendered, they aren't rendered again.
-          if (!window.beagle.highlights) {
-            window.beagle.highlights = response.selections
-          }
+              if (!window.beagle.highlights) {
+                window.beagle.highlights = response.selections
+              }
 
-          _.forEach(window.beagle.highlights, function (selection, i) {
-            // TODO Load in HTMLCoord highlights, too
-            if (selection.pdfCoords && !selection.rendered) {
-              PDFJS.showHighlight(selection.pdfCoords, function () {
-                selection.rendered = true
+              _.forEach(window.beagle.highlights, function (selection, i) {
+                // TODO Load in HTMLCoord highlights, too
+                if (selection.pdfCoords && !selection.rendered) {
+                  PDFJS.showHighlight(selection.pdfCoords, function () {
+                    selection.rendered = true
+                    return
+                  })
+                }
               })
             }
           })
-        })
+        }
       }
 
       // Called on initial load
