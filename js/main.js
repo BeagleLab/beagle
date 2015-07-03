@@ -16,7 +16,8 @@ var sidebarId = 'beagle-sidebar'
 
 // var level = require('level-browserify')
 var PouchDB = require('pouchdb')
-var db = new PouchDB('http://54.164.111.240:5984/test')
+var PouchDBUrl = require('./env.js').PouchDBUrl
+var db = new PouchDB(PouchDBUrl)
 
 // Create a local DB for testing and usage offline, but use the other DB as much as possible
 // TODO Check what happens on connection loss.

@@ -5,13 +5,13 @@ var validator = require('validator')
 var _ = require('lodash')
 var galapagos = require('../utilities/galapagos.js')
 
-var PouchDBURL = 'http://54.164.111.240:5984/test'
+var PouchDBUrl = require('../env.js').PouchDBUrl
 // var BeagleProxyAPI = 'http://localhost:5000'
 var BeagleProxyAPI = 'https://beagle-proxy-server.herokuapp.com'
 
 var PouchDB = require('pouchdb')
 PouchDB.plugin(require('pouchdb-authentication'))
-var db = new PouchDB(PouchDBURL)
+var db = new PouchDB(PouchDBUrl)
 
 var request = require('request')
 

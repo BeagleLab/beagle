@@ -2,11 +2,9 @@
 
 var React = require('react')
 var rangy = require('rangy')
-// var level = require('level-browserify')
-// var db = level('http://54.164.111.240:5984/test')
-// var db = new PouchDB('http://54.164.111.240:5984/test')
 var PouchDB = require('pouchdb')
-var db = new PouchDB('test')
+var PouchDBUrl = require('../env.js').PouchDBUrl
+var db = new PouchDB(PouchDBUrl)
 
 var crypto = require('crypto')
 var url = require('../lib/url-checks')
@@ -87,7 +85,7 @@ var Highlight = React.createClass({
           if (err) { console.log('Failed to save selection', err) }
           console.log('Stored ' + response.id + ' away...', response)
 
-          PouchDB.sync('test', 'http://54.164.111.240:5984/test')
+          // PouchDB.sync('test', PouchDBUrl)
 
         })
       })

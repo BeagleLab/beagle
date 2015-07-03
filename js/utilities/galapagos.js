@@ -4,7 +4,8 @@
 var _ = require('lodash')
 var PouchDB = require('pouchdb')
 PouchDB.plugin(require('pouchdb-authentication'))
-var db = new PouchDB('http://54.164.111.240:5984/test')
+var PouchDBUrl = require('../env.js').PouchDBUrl
+var db = new PouchDB(PouchDBUrl)
 // var db = new PouchDB('local_db')
 
 module.exports = exports = {
