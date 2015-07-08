@@ -20,7 +20,7 @@ var Login = React.createClass({
       // OAauth Code goes here.
       OAuth.initialize('IHLK6uDxpnuH1S71dCwbf30bjBM')
       // Using popup
-      OAuth.popup('google').done(function (result) {
+      OAuth.popup('google', {cache: true}).done(function (result) {
         console.log(result)
         result.me().done(function (me) {
           console.log('Console me: ', me)
