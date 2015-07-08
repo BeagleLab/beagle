@@ -42,6 +42,7 @@
     "react-bootstrap": "^0.22.3",
     "react-router": "^0.13.3",
     "reactify": "^1.1.1",
+    "tough-cookie": "^2.0.0",
     "validator": "^3.40.0",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.2.1"

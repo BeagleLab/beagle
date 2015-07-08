@@ -1,4 +1,4 @@
-/*globals emit */
+/*globals emit, localStorage */
 
 var crypto = require('crypto')
 var validator = require('validator')
@@ -13,7 +13,7 @@ var PouchDB = require('pouchdb')
 PouchDB.plugin(require('pouchdb-authentication'))
 var db = new PouchDB(PouchDBUrl)
 
-var request = require('request')
+var request = require('request').defaults({jar: true})
 
 // // Create a local DB for testing and usage offline, but use the other DB as much as possible
 // // TODO Check what happens on connection loss.
@@ -366,73 +366,111 @@ module.exports.LinkObject = exports.LinkObject = LinkObject
 
 // Both the signup and the login functions
 module.exports.logIn = exports.logIn = function logIn (oauthInfo, cb) {
+  // Get current session using getSession currently does not work. See issue:
+  // db.getSession(function (err, response) {
 
-  // Naming the anonymous function as function  map () will break CouchDB.
-  db.query(function (doc, emit) {
-    if (doc.type === 'LINK') {
-      if (doc.email === oauthInfo.email) {
+  if (localStorage.userId !== 'undefined') {
+    console.log(localStorage.userId)
+    return localStorage.userId
+  } else {
+    // Bug: Naming the anonymous function as `function  map ()` will break CouchDB.
+    db.query({map: function (doc) {
+      if (doc.type === 'LINK') {
         emit(doc)
       }
-    }
-  }).then(function (result) {
-    // Log in
-    console.log('Result', result)
+    }}).then(function (result) {
+      // If there is a link object, sign in with given ID as beagleUsername
+      if (result.total_rows !== 0) {
+        // console.log('Log the user in', result)
+        result.rows.some(function (link) {
+          // console.log('Hello', link)
+          if (oauthInfo.email === link.key.email) {
+            request({
+              uri: BeagleProxyAPI + '/login',
+              method: 'POST',
+              form: {
+                userId: oauthInfo.email,
+                oauthInfo: oauthInfo
+              }
+            }, function (err, res, body) {
+              if (err) {
+                console.log('Error logging in', err)
+              } else if (res.statusCode !== 200) {
+                console.log('Invalid status code from server', res)
+              } else {
+                console.log('Result of logging in', body)
 
-    var user
+                console.log('body.name', oauthInfo.email)
 
-    // If there are no results, create a user object with an id and oauth arr
-    if (result.total_rows === 0) {
-      user = module.exports.newUser(oauthInfo)
-      console.log('Testing params in new object thing', {
-        userId: user.id,
-        oauthInfo: oauthInfo
-      })
-      request({
-        uri: BeagleProxyAPI + '/signup',
-        method: 'GET',
-        form: {
-          userId: user.id,
-          oauthInfo: oauthInfo
-        }
-      }, function (err, res) {
-        if (err) {
-          console.log('Err with getting user info', err)
-        } else {
-          console.log('Result of signing up:', res)
+                // TODO Cache this instead of just popping it on window
+                localStorage.userId = oauthInfo.email
+                return localStorage.userId
 
-          // Create the link document
-          db.put(user).then(function (response) {
-            console.log('Created link object')
-          }).catch(function (err) {
-            console.log(err)
-          })
-        }
-      })
-    // If there are results, sign in with given ID as beagleUsername
-    } else {
-      console.log('Testing params', {
-        userId: result.id,
-        oauthInfo: oauthInfo }
-      )
-      // request({
-      //   uri: BeagleProxyAPI + 'login',
-      //   method: 'GET',
-      //   form: {
-      //     userId: result.id,
-      //     oauthInfo: oauthInfo
-      //   }
-      // }, function (err, res) {
-      //   if (err) {
-      //     console.log('Error logging in', err)
-      //   } else {
-      //     console.log('Result of logging in', res)
-      //   }
-      // })
-    }
-  }).catch(function (err) {
-    // Catch errors
-    console.log('Err', err)
-  })
+                // Again, db.getSession is not working right now.
+                // db.getSession(function (err, response) {
+                //   if (err) {
+                //     console.log('Err', err)
+                //   } else if (!response.userCtx.name) {
+                //     console.log('Nobody is logged in, still,', err, response)
+                //   } else {
+                //     console.log('User', response.userCtx)
+                //   }
+                // })
+
+                // Add the Oauth token to the link object
+                // TODO Do this - right now, the OAuth tokens aren't even being used.
+                // db.get(oauth.email).
+              }
+              return true
+            })
+          }
+          return false
+        })
+      // If there are no results, create a user object with an id and oauth arr
+      } else {
+        request({
+          uri: BeagleProxyAPI + '/signUp',
+          method: 'POST',
+          form: {
+            userId: oauthInfo.email,
+            oauthInfo: oauthInfo
+          }
+        }, function (err, res, body) {
+          if (err) {
+            console.log('Err with getting user info', err, res)
+          } else if (res.statusCode !== 200) {
+            console.log(res.statusCode, body)
+          } else {
+            console.log('Result of signing up:', body)
+
+            var user = new LinkObject(oauthInfo)
+
+            // Create the link document
+            db.put(user).then(function (response) {
+              console.log('Created link object', response)
+
+              localStorage.userId = oauthInfo.email
+              return localStorage.userId
+              // db.getSession(function (err, response) {
+              //   if (err) {
+              //     console.log('Err', err)
+              //   } else if (!response.userCtx.name) {
+              //     console.log('Nobody is logged in, still', err, response)
+              //   } else {
+              //     console.log('User', response.userCtx)
+              //   }
+              // })
+            }).catch(function (err) {
+              console.log(err)
+            })
+          }
+        })
+      }
+    }).catch(function (err) {
+      // Catch errors
+      console.log('Err', err)
+    })
+  }
 }
 
 module.exports.login = module.exports.logIn
