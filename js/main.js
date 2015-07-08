@@ -207,7 +207,7 @@ function buildView (options) {
 
         var displayHighlights = function () {
           if (highlightsExist !== false) {
-            db.get(fingerprint, function (err, response) {
+            db.allDocs({include_docs: true, keys: [fingerprint]}, function (err, response) {
               if (err) {
                 highlightsExist = false
                 return console.log('Fingerprint not found in db', err)
@@ -216,7 +216,7 @@ function buildView (options) {
                 // console.log('Fingerprint found in db', fingerprint, response)
 
                 if (!window.beagle.highlights) {
-                  window.beagle.highlights = response.selections
+                  window.beagle.highlights = response.rows[0].doc.selections
                 }
 
                 _.forEach(window.beagle.highlights, function (selection, i) {

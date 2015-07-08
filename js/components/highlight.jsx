@@ -66,27 +66,33 @@ var Highlight = React.createClass({
     }
 
     function saveSelection (selection) {
-      db.get(documentId, function (err, value) {
+      db.allDocs({include_docs: true, key: documentId}, function (err, value) {
         if (err && err.name !== 'not_found') {
           return console.log('Failed to get ' + documentId + 'from db', err)
+        } else if (err) {
+          return console.log(err)
         }
+
         /* Instantiate the object if it doesn't exist yet */
-        value = value || {}
-        value._id = documentId
+        var doc = value.rows[0].doc || {}
+        doc._id = documentId
+        if (value.rows[0] && value.rows[0].value && value.rows[0].value.rev) {
+          doc._rev = value.rows[0].value.rev
+        }
 
         /* Add in the selection to the selections array */
-        value.selections = value.selections || []
-        value.selections.push(selection)
+        doc.selections = doc.selections || []
+        doc.selections.push(selection)
 
         /* Get rid of prototypes so we can put this to the database */
-        value = JSON.parse(JSON.stringify(value))
+        doc = JSON.parse(JSON.stringify(doc))
 
-        db.put(value, function (err, response) {
-          if (err) { console.log('Failed to save selection', err) }
-          console.log('Stored ' + response.id + ' away...', response)
-
-          // PouchDB.sync('test', PouchDBUrl)
-
+        db.put(doc, function (err, response) {
+          if (err) {
+            console.log('Failed to save selection', err)
+          } else {
+            console.log('Stored ' + response.id + ' away...', response)
+          }
         })
       })
     }
