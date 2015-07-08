@@ -276,14 +276,13 @@ function newID () {
   return id
 }
 
-module.exports.newID = exports.newID = newID()
+module.exports.newID = exports.newID = newID
 
 // Should perhaps be renamed newUserLink
 // Returns a dummy object; might be good to also save this object to the DB,
 // but I think that should properly be done only after the user has been saved to the
 // db. This means remembering to do that, though.
 function LinkObject (oauthInfo) {
-  console.log(oauthInfo)
   this._id = newID()
   this.type = 'LINK'
   this.email = oauthInfo.email

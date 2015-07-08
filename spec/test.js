@@ -43,21 +43,25 @@ describe('The schema', function () {
     })
   })
 
-  describe('has a method called newUser', function () {
+  describe('has a constructor called LinkObject', function () {
     it('returns an object', function () {
-      assert.equal(typeof (schema.newUser('test')) === 'object', true)
+      assert.equal(typeof (new schema.LinkObject('test')) === 'object', true)
     })
 
     it('with an id', function () {
-      assert.equal(typeof (schema.newUser('test').id) === 'string', true)
+      assert.equal(typeof (new schema.LinkObject('test')._id) === 'string', true)
     })
 
     it('with an array of oauth tokens', function () {
-      assert.equal(schema.newUser('test').oauthTokens[0] === 'test', true)
+      assert.equal(new schema.LinkObject({token: 'test'}).oauthTokens[0] === 'test', true)
     })
 
-    it('which is a valid user', function () {
-      assert.equal(galapagos.isUser(schema.newUser('test')), true)
+    it('which is of type Link', function () {
+      assert.equal((new schema.LinkObject({email: 'richard@test.com', token: 'test'}).type === 'LINK'), true)
+    })
+
+    it('which has an email field', function () {
+      assert.equal((new schema.LinkObject({email: 'richard@test.com', token: 'test'}).email === 'richard@test.com'), true)
     })
   })
 
