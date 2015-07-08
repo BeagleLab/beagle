@@ -241,15 +241,21 @@ function buildView (options) {
           displayHighlights()
         })
       }
+
+      React.render(
+        App(options),
+        parent.getElementById('react')
+      )
     })
+  } else {
+    // If not a PDF or if PDF broken, no fingerprint will be added.
+    // Deal with any issues in data in the React app.
+    React.render(
+      App(options),
+      parent.getElementById('react')
+    )
   }
 
-  // If not a PDF or if PDF broken, no fingerprint will be added.
-  // Deal with any issues in data in the React app.
-  React.render(
-    App(options),
-    parent.getElementById('react')
-  )
 
   linkHandler()
 
