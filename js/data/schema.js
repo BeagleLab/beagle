@@ -320,49 +320,49 @@ module.exports.LinkObject = exports.LinkObject = LinkObject
 //     Emails: []string{email},
 //   }
 
-module.exports.newAccount = exports.newAccount = function newAccount (name, email, avatar, options) {
-  if (!name || typeof (name) !== 'string') {
-    console.log('Name not provided, or not a string')
-    return null
-  }
-  if (!email || !validator.isEmail(email)) {
-    console.log('Email not provided or not valid')
-    return null
-  }
-  // Avatar should be not mandatory
-  // if (!avatar) return
+// module.exports.newAccount = exports.newAccount = function newAccount (name, email, avatar, options) {
+//   if (!name || typeof (name) !== 'string') {
+//     console.log('Name not provided, or not a string')
+//     return null
+//   }
+//   if (!email || !validator.isEmail(email)) {
+//     console.log('Email not provided or not valid')
+//     return null
+//   }
+//   // Avatar should be not mandatory
+//   // if (!avatar) return
 
-  db.query({map: function map (doc) {
-    // TODO Make it search secondary emails, too.
-    // For some reason, this doesn't work - it has to be the key
-    // Either that, or I've been messing something up in the promises.
-    // var merged = [doc.primaryEmail].concat(doc.emails)
-    // emit(merged)
-    if (doc.primaryEmail) {
-      emit(doc.primaryEmail, null)
-    }
-  }}, {key: email, include_docs: true}).then(function (response) {
-    if (response.rows.length !== 0) {
-      _.each(response.rows, function (row) {
-        console.log('That user already exists. ID:', row.id)
-      })
-    } else {
-      throw new Error('That email is not in use.')
-    }
-  }).catch(function () {
-    console.log('Creating new user')
-    var user = {
-      '_id': this.newID(),
-      'name': name,
-      'email': email,
-      'avatar': avatar || null,
-      'emails': options.emails || null
-    }
-    db.put(user).then(function (response) {
-      return console.log('Created user', response)
-    })
-  })
-}
+//   db.query({map: function map (doc) {
+//     // TODO Make it search secondary emails, too.
+//     // For some reason, this doesn't work - it has to be the key
+//     // Either that, or I've been messing something up in the promises.
+//     // var merged = [doc.primaryEmail].concat(doc.emails)
+//     // emit(merged)
+//     if (doc.primaryEmail) {
+//       emit(doc.primaryEmail, null)
+//     }
+//   }}, {key: email, include_docs: true}).then(function (response) {
+//     if (response.rows.length !== 0) {
+//       _.each(response.rows, function (row) {
+//         console.log('That user already exists. ID:', row.id)
+//       })
+//     } else {
+//       throw new Error('That email is not in use.')
+//     }
+//   }).catch(function () {
+//     console.log('Creating new user')
+//     var user = {
+//       '_id': this.newID(),
+//       'name': name,
+//       'email': email,
+//       'avatar': avatar || null,
+//       'emails': options.emails || null
+//     }
+//     db.put(user).then(function (response) {
+//       return console.log('Created user', response)
+//     })
+//   })
+// }
 
 // Both the signup and the login functions
 module.exports.logIn = exports.logIn = function logIn (oauthInfo, cb) {
