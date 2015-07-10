@@ -15,7 +15,7 @@ var Login = React.createClass({
     return (
       <div className={style}>
         {/* <GitHub /> */}
-        <Google />
+        <Google setAvatar={this.setAvatar} />
       </div>
     )
   }

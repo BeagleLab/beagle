@@ -1,4 +1,4 @@
-/*globals OAuth */
+/*globals OAuth, localStorage */
 
 'use strict'
 
@@ -25,6 +25,11 @@ var Login = React.createClass({
         result.me().done(function (me) {
           console.log('Console me: ', me)
 
+          if (me.avatar) {
+            localStorage.avatar = me.avatar
+            this.props.setAvatar(me.avatar)
+          }
+
           schema.logIn({
             provider: 'google',
             account: me.id,
@@ -33,6 +38,7 @@ var Login = React.createClass({
           }, function (err, res) {
             if (err) {
               console.log('Error with native log in', err)
+              localStorage.removeItem('avatar')
             } else {
               console.log('Result', result)
             }

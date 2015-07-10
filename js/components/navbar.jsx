@@ -1,3 +1,6 @@
+/* globals localStorage */
+'use strict'
+
 var React = require('React')
 var Login = require('./login.jsx')
 var staticPath = require('../utilities/staticPath.js')
@@ -8,9 +11,25 @@ var Navbar = React.createClass({
     staticPath: React.PropTypes.string
   },
   getInitialState: function () {
-    return {
-      'staticPath': staticPath(this.props.staticPath, 'images/noun_11582.png')
+
+    function checkAvatar () {
+      if (localStorage.userId && localStorage.avatar) {
+        return localStorage.avatar
+      } else {
+        localStorage.removeItem('avatar')
+        return null
+      }
     }
+
+    return {
+      'staticPath': staticPath(this.props.staticPath, 'images/noun_11582.png'),
+      'avatar': checkAvatar()
+    }
+  },
+  setAvatar: function (val) {
+    this.setState({
+      avatar: val
+    })
   },
   render: function () {
 
@@ -39,13 +58,22 @@ var Navbar = React.createClass({
       'margin-right': 5
     }
 
+    var avatarStyle = {
+      margin: 0,
+      height: 32,
+      float: 'right'
+    }
+
     return (
       <div style={style}>
         <div style={title} >
           <img src={this.state.staticPath} alt='HMS Beagle' style={imgStyle} />
           Beagle
         </div>
-        <Login />
+        { this.state.avatar ?
+          <img style={avatarStyle} src={this.state.avatar} /> :
+          <Login setAvatar={this.setAvatar} />
+        }
       </div>
     )
   }
