@@ -51,7 +51,7 @@ module.exports = React.createClass({
     if (this.props.pdfLocation) {
       PDFJS.readPDFText(this.props.pdfLocation, {'modules': this.props.modules}, function (err, data) {
         if (err === 'Failed to find a DOI.') {
-          console.log('Failed to find a DOI.')
+          console.log('This document does not have a DOI.')
         } else if (err !== null) {
           throw (new Error('Could not read the PDF'))
         }
