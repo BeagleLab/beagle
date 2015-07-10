@@ -75,9 +75,8 @@ module.exports = React.createClass({
 
         <Login />
 
-        <Highlight location={this.props.pdfLocation} fingerprint={this.props.fingerprint} />
+        <Toolbar location={this.props.pdfLocation} fingerprint={this.props.fingerprint} />
 
-        <Screenshot fingerprint={this.props.fingerprint} location={this.props.pdfLocation} />
 
         <Publication eventKey='1' data={this.state.publication} />
 

@@ -113,9 +113,9 @@ var Highlight = React.createClass({
   },
   render: function () {
     return (
-      <button className="btn btn-success btn-block" type="button" onClick={this.handleClick}>
+      <div onClick={this.handleClick}>
         Highlight
-      </button>
+      </div>
     )
   }
 })
