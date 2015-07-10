@@ -1,3 +1,5 @@
+/* globals chrome */
+
 'use strict'
 
 var React = require('react')
@@ -11,8 +13,7 @@ var Screenshot = React.createClass({
   handleClick: function (event) {
     try {
       // Get coordinates based on type of document
-      var coordinates =
-        document.getSelection().getRangeAt(0).getBoundingClientRect()
+      var coordinates = document.getSelection().getRangeAt(0).getBoundingClientRect()
 
       // Take a screenshot
       cesc.takeScreenshot({'format': 'jpeg', 'quality': 1000}, function (canvas) {
@@ -37,16 +38,11 @@ var Screenshot = React.createClass({
     }
   },
   render: function () {
+    // TODO Add back in noSelection error.
     return (
-      <div>
-        <button
-          className="btn btn-success btn-block screenshot-button"
-          onClick={this.handleClick}
-          type="button"
-        >
-          Take a Screenshot
-        </button>
-        {this.state.noSelection}
+      <div onClick={this.handleClick}>
+          Screenshot
+        {/* this.state.noSelection */}
       </div>
     )
   }

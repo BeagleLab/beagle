@@ -4,17 +4,18 @@ var PDFJS = require('beagle-pdf')
 // var Accordion = require('react-bootstrap').Accordion
 // var Panel = require('react-bootstrap').Panel
 var EmailForm = require('./components/emailForm.jsx')
-var Highlight = require('./components/highlight.jsx')
-var Login = require('./components/login.jsx')
 var Publication = require('./components/publication.jsx')
-var Screenshot = require('./components/screenshot.jsx')
 var Sidebar = require('./components/sidebar.jsx')
 var PDFUrlLink = require('./components/pdfUrlLink.jsx')
 var Slack = require('./components/slack.jsx').SendSlack
-// var Conversation = require('./components/conversation.jsx')
+var Conversation = require('./components/conversation.jsx')
+var Toolbar = require('./components/toolbar.jsx')
+var Navbar = require('./components/navbar.jsx')
 // var Comment = require('./components/comment.jsx')
 // var Conversation = require('./components/conversationChain.jsx')
 
+// var Highlight = require('./components/highlight.jsx')
+// var Screenshot = require('./components/screenshot.jsx')
 // var Cite = require('./components/cite.jsx')
 // var Graph = require('./components/graph.jsx')
 // var RetrieveValue = require('./components/retrieveValue.jsx')
@@ -22,6 +23,8 @@ var Slack = require('./components/slack.jsx').SendSlack
 // var SignOut = require('./components/signOut.jsx')
 // var Tags = require('./components/tags.jsx')
 // var Toc = require('./components/toc.jsx')
+
+// var conversation = require('./data/schema.js').conversation
 
 // var account = require('./data/schema.js').account
 
@@ -71,13 +74,13 @@ module.exports = React.createClass({
 
   render: function () {
     return (
-			<Sidebar staticPath={this.props.staticPath} >
+			<Sidebar >
 
-        <Login />
+        <Navbar staticPath={this.props.staticPath} />
 
-        <Highlight location={this.props.pdfLocation} fingerprint={this.props.fingerprint} />
+        <Toolbar location={this.props.pdfLocation} fingerprint={this.props.fingerprint} />
 
-        <Screenshot fingerprint={this.props.fingerprint} location={this.props.pdfLocation} />
+        {/* <Conversation conversation={conversation} /> */}
 
         <Publication eventKey='1' data={this.state.publication} />
 

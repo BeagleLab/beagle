@@ -60,9 +60,10 @@ var Login = React.createClass({
   },
   render: function () {
     var style = {
-      backgroundColor: 'CornflowerBlue',
-      margin: '5px',
-      float: 'left'
+      backgroundColor: 'grey',
+      margin: '2px 5px',
+      float: 'right',
+      'fontSize': '10'
     }
     return (
       <div>
@@ -72,7 +73,7 @@ var Login = React.createClass({
           onClick={this.handleClick}
           style={style}
         >
-          <i className="fa fa-google"></i>
+          Login <i className="fa fa-google"></i>
         </button>
         {this.state.success}
       </div>
