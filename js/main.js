@@ -215,7 +215,7 @@ function buildView (options) {
                 highlightsExist = true
                 // console.log('Fingerprint found in db', fingerprint, response)
 
-                if (!window.beagle.highlights) {
+                if (!window.beagle.highlights && !response.rows[0].error) {
                   window.beagle.highlights = response.rows[0].doc.selections
                 }
 
