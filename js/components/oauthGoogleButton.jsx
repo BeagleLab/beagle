@@ -7,6 +7,9 @@ var schema = require('../data/schema.js')
 
 var Login = React.createClass({
   displayName: 'Login',
+  propTypes: {
+    setAvatar: React.PropTypes.func
+  },
   getInitialState: function () {
     return { success: null }
   },
@@ -74,12 +77,12 @@ var Login = React.createClass({
     return (
       <div>
         <button
-          className="btn btn-success screenshot-button"
-          type="button"
+          className='btn btn-success screenshot-button'
+          type='button'
           onClick={this.handleClick}
           style={style}
         >
-          Login <i className="fa fa-google"></i>
+          Login <i className='fa fa-google'></i>
         </button>
         {this.state.success}
       </div>

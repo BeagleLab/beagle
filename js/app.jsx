@@ -20,7 +20,6 @@ var Navbar = require('./components/navbar.jsx')
 // var Graph = require('./components/graph.jsx')
 // var RetrieveValue = require('./components/retrieveValue.jsx')
 // var Save = require('./components/save.jsx')
-// var SignOut = require('./components/signOut.jsx')
 // var Tags = require('./components/tags.jsx')
 // var Toc = require('./components/toc.jsx')
 
@@ -113,9 +112,8 @@ module.exports = React.createClass({
         <h6>Cite</h6>
         <Cite />
 
-        <Save />
+        <Save /> */}
 
-        <SignOut /> */}
         <PDFUrlLink location={this.props.pdfLocation} />
 			</Sidebar>
 		)
