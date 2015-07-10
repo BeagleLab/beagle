@@ -165,9 +165,9 @@ gulp.task('watch', function () {
   gulp.watch(paths.test, ['test'])
 })
 
+  // 'test',
 gulp.task('bundle', [
   'brundle',
-  'test',
   'assets',
   'manifest',
   'css',
@@ -178,8 +178,8 @@ gulp.task('bundle', [
   this.stop()
 })
 
+  // 'test',
 gulp.task('default', [
-  'test',
   'watch',
   'watchify',
   'assets',
