@@ -11,15 +11,19 @@ var Conversation = React.createClass({
   // I'm not sure this is right.
   getInitialState: function () {
     return {
-      submitted: true,
-      text: this.props.conversation.text || 'Error: Text not found',
-      title: this.props.conversation.title || 'No Title'
+      submitted: false,
+      text: null, // this.props.conversation && this.props.conversation.text || 'Error: Text not found',
+      title: null, // this.props.conversation && this.props.conversation.title || 'No Title',
+      hideButton: false
     }
   },
   onClick: function () {
     // TODO Add in db.put() call here. Perhaps on handleChange, too.
 
     this.setState({ submitted: !this.state.submitted })
+  },
+  showForm: function() {
+    this.setState({hideButton: !this.state.hideButton})
   },
   handleTitle: function (event) {
     this.setState({ title: event.target.value })
@@ -30,6 +34,7 @@ var Conversation = React.createClass({
   },
 
   render: function () {
+
     var conversationStyle = {
       margin: '5px 0px',
       border: '1px solid #999',
@@ -64,21 +69,19 @@ var Conversation = React.createClass({
 
     return (
       <div style={conversationStyle}>
-
-        { this.state.submitted ?
+        { (this.state.submitted) ?
           <p style={titleStyle}>{title}</p> :
           <input type='input' style={inputTitleStyle} placeholder='Conversation Title' onChange={this.handleTitle} defaultValue={title} />
         }
 
-        { this.state.submitted ?
+        { (this.state.submitted) ?
           <p style={textStyle}>{text}</p> :
           <textarea type='input' style={inputTitleStyle} placeholder='Share an insight' onChange={this.handleText} defaultValue={text} />
         }
 
         <Sharing />
 
-        <button className='btn btn-default' style={submitButtonStyle} onClick={this.onClick}>Start new conversation</button>
-
+        <button className='btn btn-default' style={submitButtonStyle} showForm={this.showForm} onClick={this.onClick}>Start new conversation</button>
       </div>
     )
   }

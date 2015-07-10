@@ -2,6 +2,7 @@ var React = require('react')
 var ReactBootstrap = require('react-bootstrap')
 var ButtonToolbar = ReactBootstrap.ButtonToolbar
 var Button = ReactBootstrap.Button
+
 var Highlight = require('./highlight.jsx')
 var Screenshot = require('./screenshot.jsx')
 
@@ -9,16 +10,20 @@ var Toolbar = React.createClass({
   displayName: 'Toolbar',
   propTypes: {
     location: React.PropTypes.object,
-    fingerprint: React.PropTypes.object
+    fingerprint: React.PropTypes.object,
+    showConversation: React.PropTypes.func
     // notate: React.PropTypes.boolean,
     // highlight: React.PropTypes.boolean,
     // screenshot: React.PropTypes.boolean,
     // flag: React.PropTypes.boolean
   },
+  showConversation: function () {
+    this.props.showConversation()
+  },
   render: function () {
     return (
       <ButtonToolbar>
-        <Button>
+        <Button onClick={this.showConversation} >
           Note
         </Button>
         <Button>

@@ -8,7 +8,6 @@ var Publication = require('./components/publication.jsx')
 var Sidebar = require('./components/sidebar.jsx')
 var PDFUrlLink = require('./components/pdfUrlLink.jsx')
 var Slack = require('./components/slack.jsx').SendSlack
-var Conversation = require('./components/conversation.jsx')
 var Toolbar = require('./components/toolbar.jsx')
 var Navbar = require('./components/navbar.jsx')
 // var Comment = require('./components/comment.jsx')
@@ -23,7 +22,8 @@ var Navbar = require('./components/navbar.jsx')
 // var Tags = require('./components/tags.jsx')
 // var Toc = require('./components/toc.jsx')
 
-// var conversation = require('./data/schema.js').conversation
+var Conversation = require('./components/conversation.jsx')
+// var note = require('./data/schema.js').note
 
 // var account = require('./data/schema.js').account
 // var publication = require('./data/schema.js').mediaPublication
@@ -41,8 +41,15 @@ module.exports = React.createClass({
   // TODO Add in loading state so dummy data isn't needed here.
   getInitialState: function () {
     return {
-      'publication': null
+      'publication': null,
+      'showConversation': null
     }
+  },
+
+  showConversation: function () {
+    this.setState({
+      'showConversation': !this.state.showConversation
+    })
   },
 
   componentWillMount: function () {
@@ -63,16 +70,34 @@ module.exports = React.createClass({
   },
 
   render: function () {
+
+    var conversationComp = null
+
+    if (this.state.showConversation) {
+      conversationComp = <Conversation />
+    }
+
     return (
 			<Sidebar >
 
         <Navbar staticPath={this.props.staticPath} />
 
-        <Toolbar location={this.props.pdfLocation} fingerprint={this.props.fingerprint} />
-
-        {/* <Conversation conversation={conversation} /> */}
+        <Toolbar location={this.props.pdfLocation} fingerprint={this.props.fingerprint} showConversation={this.showConversation} />
 
         <Publication eventKey='1' data={this.state.publication} />
+
+        <br />
+        <br />
+
+        {conversationComp}
+
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
 
         <EmailForm fingerprint={this.props.fingerprint} />
         <Slack fingerprint={this.props.fingerprint} />
