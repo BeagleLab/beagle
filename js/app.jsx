@@ -26,8 +26,7 @@ var Navbar = require('./components/navbar.jsx')
 // var conversation = require('./data/schema.js').conversation
 
 // var account = require('./data/schema.js').account
-
-var publication = require('./data/schema.js').mediaPublication
+// var publication = require('./data/schema.js').mediaPublication
 
 module.exports = React.createClass({
   displayName: 'App',
@@ -42,7 +41,7 @@ module.exports = React.createClass({
   // TODO Add in loading state so dummy data isn't needed here.
   getInitialState: function () {
     return {
-      'publication': publication
+      'publication': null
     }
   },
 
@@ -52,21 +51,13 @@ module.exports = React.createClass({
         if (err === 'Failed to find a DOI.') {
           console.log('This document does not have a DOI.')
         } else if (err !== null) {
-          throw (new Error('Could not read the PDF'))
+          console.log('Could not read the PDF')
         }
 
-        if (!data) {
-          this.setState({publication: publication})
-        } else {
-          // TODO This is dummy data
-          data.metadata = publication.metadata
-          // TODO altmetrics doesn't return authors?!!!!
-          data.authors = publication.authors
-
+        if (data) {
+          // TODO Get metadata about shares as well as authors from an external API
           this.setState({publication: data})
         }
-
-        // console.log('PDF data and fingerprint', val)
       }.bind(this))
     }
   },
