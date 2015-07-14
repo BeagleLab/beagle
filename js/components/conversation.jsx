@@ -4,7 +4,8 @@ var Sharing = require('./sharing.jsx')
 var Conversation = React.createClass({
   displayName: 'Conversation',
   propTypes: {
-    conversation: React.PropTypes.object
+    conversation: React.PropTypes.object,
+    account: React.PropTypes.object
   },
   // TODO It seems to me that the title should be tied to the first note.
   // As we have it, a conversation object has a title, but no text, just an array of notes
@@ -22,7 +23,7 @@ var Conversation = React.createClass({
 
     this.setState({ submitted: !this.state.submitted })
   },
-  showForm: function() {
+  showForm: function () {
     this.setState({hideButton: !this.state.hideButton})
   },
   handleTitle: function (event) {
@@ -79,7 +80,7 @@ var Conversation = React.createClass({
           <textarea type='input' style={inputTitleStyle} placeholder='Share an insight' onChange={this.handleText} defaultValue={text} />
         }
 
-        <Sharing />
+        <Sharing account={this.props.account} />
 
         <button className='btn btn-default' style={submitButtonStyle} showForm={this.showForm} onClick={this.onClick}>Start new conversation</button>
       </div>

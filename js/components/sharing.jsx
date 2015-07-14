@@ -2,13 +2,13 @@ var React = require('react')
 var PermissionsDropdown = require('./permissionsDropdown.jsx')
 var UserBar = require('./userBar.jsx')
 
-var account = require('../data/schema.js').account
-
 var Sharing = React.createClass({
   displayName: 'Sharing',
+  propTypes: {
+    'account': React.PropTypes.object
+  },
   getInitialState: function () {
-    return {
-    }
+    return {}
   },
   onClick: function () {
     // TODO Add in db.put() call here
@@ -16,7 +16,7 @@ var Sharing = React.createClass({
 
   render: function () {
     var conversationStyle = {
-      padding: '10px 0px',
+      padding: '10px 0px'
       // borderTop: '2px solid #AE8DC7',
       // borderBottom: '2px solid #AE8DC7'
     }
@@ -46,7 +46,7 @@ var Sharing = React.createClass({
           <i className='fa fa-plus'></i> Add
         </button>
 
-        <UserBar secondaryText='email' account={account} />
+        <UserBar secondaryText='email' account={this.props.account} />
 
       </div>
     )

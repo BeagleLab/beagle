@@ -35,14 +35,16 @@ module.exports = React.createClass({
     pdfLocation: React.PropTypes.object,
     fingerprint: React.PropTypes.object,
     docType: React.PropTypes.string,
-    modules: React.PropTypes.object
+    modules: React.PropTypes.object,
+    account: React.PropTypes.object
   },
 
   // TODO Add in loading state so dummy data isn't needed here.
   getInitialState: function () {
     return {
       'publication': null,
-      'showConversation': null
+      'showConversation': null,
+      'account': this.props.account
     }
   },
 
@@ -74,13 +76,13 @@ module.exports = React.createClass({
     var conversationComp = null
 
     if (this.state.showConversation) {
-      conversationComp = <Conversation />
+      conversationComp = <Conversation account={this.state.account} />
     }
 
     return (
 			<Sidebar >
 
-        <Navbar staticPath={this.props.staticPath} />
+        <Navbar staticPath={this.props.staticPath} account={this.state.account} />
 
         <Toolbar location={this.props.pdfLocation} fingerprint={this.props.fingerprint} showConversation={this.showConversation} />
 

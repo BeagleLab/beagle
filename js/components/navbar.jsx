@@ -1,4 +1,3 @@
-/* globals localStorage */
 'use strict'
 
 var React = require('React')
@@ -8,22 +7,13 @@ var staticPath = require('../utilities/staticPath.js')
 var Navbar = React.createClass({
   displayName: 'Navbar',
   propTypes: {
-    staticPath: React.PropTypes.string
+    staticPath: React.PropTypes.string,
+    account: React.PropTypes.object
   },
   getInitialState: function () {
-
-    function checkAvatar () {
-      if (localStorage.userId && localStorage.avatar) {
-        return localStorage.avatar
-      } else {
-        localStorage.removeItem('avatar')
-        return null
-      }
-    }
-
     return {
       'staticPath': staticPath(this.props.staticPath, 'images/noun_11582.png'),
-      'avatar': checkAvatar()
+      'avatar': this.props.account.avatar
     }
   },
   setAvatar: function (val) {

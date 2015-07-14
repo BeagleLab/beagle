@@ -1,4 +1,4 @@
-/* globals chrome */
+/* globals chrome, localStorage */
 'use strict'
 
 var fs = require('fs')
@@ -182,8 +182,18 @@ function buildView (options) {
     console.log(options.protocols, !_.isEmpty(options.protocols))
   }
 
-  var parent = (options.doctype === 'pdf') ? document :
-    document.getElementById(sidebarId).contentDocument
+  var parent = (options.doctype === 'pdf') ? document : document.getElementById(sidebarId).contentDocument
+
+  if (localStorage.userId && localStorage.avatar) {
+    // TODO email and userId should not be synonymous.
+    options.account = {
+      'userId': localStorage.userId,
+      'avatar': localStorage.avatar,
+      'email': localStorage.userId
+    }
+  } else {
+    options.account = {}
+  }
 
   // Get Data
   // // PDFJS will not execute the callback a second time. I've no idea why. There
@@ -255,7 +265,6 @@ function buildView (options) {
       parent.getElementById('react')
     )
   }
-
 
   linkHandler()
 
