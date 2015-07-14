@@ -78,7 +78,7 @@ module.exports.user = exports.user = {
 // TODO Should members be IDs?
 module.exports.group = exports.group = {
   '_id': 'hash5678',
-  'owner': 'hash1234',
+  'author': 'hash1234',
   'members': {
     'hash1234': 'share',
     'sdfasdfa': 'read'
@@ -99,7 +99,7 @@ module.exports.group = exports.group = {
 module.exports.conversation = exports.conversation = {
   '_id': '1234hash',
   'title': "Surely you're joking!",
-  'owner': [
+  'author': [
     'hash1234'
   ],
   'participants': {
@@ -503,7 +503,7 @@ module.exports.newConversation = exports.newConversation = function newConversat
   var conversation = {
     '_id': this.newID(),
     'title': options.title,
-    'owner': [options.author.id]
+    'author': [options.author.id || options.author.userId]
   }
 
   db.put(conversation, function (err, response) {
