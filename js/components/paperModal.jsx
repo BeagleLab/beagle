@@ -1,4 +1,3 @@
-/** @jsx React.DOM */
 var React = require('react')
 var Csv = require('../utilities/csv.jsx')
 var Graph = require('./graph.jsx')

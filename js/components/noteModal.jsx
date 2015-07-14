@@ -1,4 +1,3 @@
-/** @jsx React.DOM */
 var React = require('react')
 var Modal = require('../components/modal.jsx')
 var Input = require('react-bootstrap').Input
