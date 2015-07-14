@@ -1,5 +1,6 @@
 var React = require('react')
 var Sharing = require('./sharing.jsx')
+var schema = require('../data/schema.js')
 
 var Conversation = React.createClass({
   displayName: 'Conversation',
@@ -15,11 +16,38 @@ var Conversation = React.createClass({
       submitted: false,
       text: null, // this.props.conversation && this.props.conversation.text || 'Error: Text not found',
       title: null, // this.props.conversation && this.props.conversation.title || 'No Title',
-      hideButton: false
+      hideButton: false,
+      author: this.props.account
     }
   },
   onClick: function () {
-    // TODO Add in db.put() call here. Perhaps on handleChange, too.
+    // Shim the author ID.
+    // TODO Make sure that userId and id should be the same
+    var author = {}
+    if (this.state.author) {
+      author.id = this.state.author.userId
+    } else {
+      // TODO Log in the user programmatically automatically
+      throw new Error('You must log in before saving a conversation')
+    }
+
+    var that = this
+
+    // Save the conversation
+    schema.startBlankConversation({
+      'title': this.state.title,
+      'text': this.state.text,
+      'author': author
+    }, function (err, data) {
+      if (err) {
+        console.log(err)
+      } else {
+        // TODO Should we save the conversation in the view somehow?
+        console.log(data)
+        that.setState({conversation: data.conversation})
+        that.setState({note: data.note})
+      }
+    })
 
     this.setState({ submitted: !this.state.submitted })
   },

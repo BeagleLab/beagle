@@ -501,7 +501,7 @@ module.exports.newConversation = exports.newConversation = function newConversat
   if (!cb) throw new TypeError('undefined is not a function')
 
   var conversation = {
-    '_id': this.newID(),
+    '_id': newID(),
     'title': options.title,
     'author': [options.author.id || options.author.userId]
   }
@@ -513,7 +513,7 @@ module.exports.newConversation = exports.newConversation = function newConversat
     }
     // console.log('Saved conversation', response)
     // TODO Check that this is the same syntactically as db.put(c) && return(c)
-    return cb(null, conversation)
+    return cb(null, response, conversation)
   })
 }
 
@@ -544,7 +544,7 @@ module.exports.newNote = exports.newNote = function newNote (options, cb) {
   if (!cb) { throw new Error('Callback is not defined') }
 
   var note = {
-    '_id': this.newID(),
+    '_id': newID(),
     'text': options.text,
     'author': options.author.id,
     'conversation': options.conversation.id,
@@ -559,9 +559,33 @@ module.exports.newNote = exports.newNote = function newNote (options, cb) {
       console.log('Error saving note', err)
       return cb('Error saving note')
     }
-    // console.log('Saved note', response)
-    // TODO Check that this is the same syntactically as db.put(c) && return(c)
-    return cb(null, response)
+
+    db.get(note.conversation, function (err, conversation) {
+      if (err) {
+        console.log('Unable to get conversation for storing note')
+        console.log(err)
+      } else {
+
+        if (conversation.notes) {
+          conversation.notes.append(response.id)
+        } else {
+          conversation.notes = [
+            response.id
+          ]
+        }
+
+        console.log('Conversation with notes', conversation)
+        db.put(conversation, function (err, res) {
+          if (err) {
+            console.log('Unable to add note to conversation')
+          } else {
+            console.log('Successfully added note to conversation')
+            return cb(null, res)
+          }
+        })
+      }
+    })
+    console.log('Saved note', response)
   })
 }
 
@@ -595,20 +619,43 @@ module.exports.startBlankConversation = exports.startBlankConversation = functio
   if (!options.text) {
     throw new Error('Text was not provided')
   }
-  var that = this;
+  var that = this
 
-  this.newConversation({author: options.author, title: options.title}, function (err, conversation) {
+  var conversation = {
+    author: options.author,
+    title: options.title,
+    participants: (options.participants) ? options.participants : {
+      [options.author.id]: 'share'
+    }
+  }
+
+  this.newConversation(conversation, function (err, response) {
     if (err) {
       cb('Error saving conversation')
+    } else {
+
+      console.log('response', response)
+      conversation.id = response.id
+
+      var note = {
+        author: options.author,
+        conversation: conversation,
+        text: options.text,
+        participants: options.participants
+      }
+
+      console.log('Note', note)
+
+      that.newNote(note, function (err, data) {
+        if (err) {
+          cb('Error saving note')
+        } else {
+          note.id = data.id
+          note.rev = data.rev
+          return cb(null, data)
+        }
+      })
     }
-    that.newNote({
-      author: options.author,
-      conversation: conversation,
-      text: options.text
-    }, function (err, note) {
-      if (err) cb('Error saving note')
-      return cb(null, {conversation: conversation, note: note})
-    })
   })
 }
 

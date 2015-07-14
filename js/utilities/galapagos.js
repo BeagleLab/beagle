@@ -36,7 +36,7 @@ module.exports = exports = {
   isConversation: function (conversation) {
     // TODO Add in db check for conversation
     if (!conversation) throw new Error('Conversation is null')
-    if (!conversation._id) throw new Error('Conversation does not exist')
+    if (!conversation.id) throw new Error('Conversation does not exist')
     if (!conversation.title || !conversation.author) {
       throw new Error('Conversation is not valid')
     }
