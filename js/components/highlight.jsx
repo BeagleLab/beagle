@@ -74,12 +74,16 @@ var Highlight = React.createClass({
         }
 
         var row = value.rows[0]
-
+        var doc
+        if (row) {
+          doc = row.doc
+          if (row.value && row.value.rev) {
+            doc._rev = row.value.rev
+          }
         /* Instantiate the object if it doesn't exist yet */
-        var doc = row.doc || {}
-        doc._id = documentId
-        if (row.value && row.value.rev) {
-          doc._rev = row.value.rev
+        } else {
+          doc = {}
+          doc._id = documentId
         }
 
         /* Add in the selection to the selections array */
