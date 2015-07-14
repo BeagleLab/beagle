@@ -15,7 +15,6 @@ module.exports = React.createClass({
     return {}
   },
   render: function () {
-    console.log('this.props.data', this.props.data)
     var dummyWarning
 
     if (!this.props.data || this.props.data.id === '000000') {
