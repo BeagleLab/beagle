@@ -13,6 +13,10 @@ var cesc = require('chrome-ext-screen-capture')
 
 var Highlight = React.createClass({
   displayName: 'Highlight',
+  propTypes: {
+    location: React.PropTypes.object,
+    fingerprint: React.PropTypes.object
+  },
   getInitialState: function () {
     return {text: false}
   },
