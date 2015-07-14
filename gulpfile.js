@@ -4,6 +4,7 @@
 // var fs = require('fs')
 // var react = require('gulp-react')
 // var concat = require('gulp-concat')
+var babelify = require("babelify")
 var browserify = require('browserify')
 var connect = require('gulp-connect')
 var cssmin = require('gulp-cssmin')
@@ -51,6 +52,7 @@ gulp.task('clean', function (cb) {
 var b = browserify({
     // Required watchify args
     'cache': {},
+    'debug': false,
     'packageCache': {},
     'fullPaths': true,
     // Browserify options
@@ -58,6 +60,7 @@ var b = browserify({
     'noParse': ['react.js', 'jquery.js', 'pdf.combined.js']
   })
   .transform('reactify')
+  .transform('babelify', { blacklist: ['validation.react'] })
   .transform('envify', {global: true, _: 'purge', NODE_ENV: 'production'}) // See https://github.com/hughsk/envify/issues/27 for more
   .transform('brfs', { global: true })
 
