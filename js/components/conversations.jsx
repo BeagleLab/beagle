@@ -53,8 +53,7 @@ module.exports = exports = React.createClass({
               <div style={listingStyle}>
                 <p style={titleStyle}>{conversation.title}</p>
                 <div style={imageWrapperStyle}>
-                  {/* Todo: Limit to 8 or so avatars */}
-                  {conversation.avatars.map(function (avatar) {
+                  {conversation.avatars.slice(0, 5).map(function (avatar) {
                     return <img style={imgStyle} key={avatars.indexOf(avatar)} src={avatar} />
                   })}
                 </div>
