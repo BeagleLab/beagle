@@ -1,4 +1,4 @@
-var React = require('react')
+var React = require('react/addons')
 var PouchDBUrl = require('../env.js').PouchDBUrl
 var PouchDB = require('pouchdb')
 PouchDB.plugin(require('pouchdb-authentication'))
@@ -34,28 +34,39 @@ module.exports = exports = React.createClass({
     if (props) {
       clone = _.each(props.slice(), function (conversation) {
         conversation.avatars = []
-        _.each(_.keys(conversation.participants), function (key) {
-          if (conversation.participants.hasOwnProperty(key)) {
-            // Suggestion: Only show avatars for participants who have actively contributed to conversation
-            let getAvatar = db.getUser(key).then(function (res) {
-              // TODO Add in popovers with the user name if they have one, and link to a profile section
-              if (res.avatar) {
-                conversation.avatars.push(res.avatar)
-                return
-              }
-            }).catch(function (err) {
-              if (err.status === 404) {
-                if (conversation.avatars.indexOf(dummyImage) === -1) {
-                  conversation.avatars.push(dummyImage)
-                }
-                return
-              } else {
-                console.log(err)
+
+        _.each(conversation.notes, function (note) {
+          let getAvatar = db.get(note).then(function (response) {
+            return _.each(_.keys(response.participants), function (key) {
+              if (response.participants.hasOwnProperty(key)) {
+                return key
               }
             })
-            userPromises.push(getAvatar)
-          }
+          }).then(function (keys) {
+            // Suggestion: Only show avatars for participants who have actively contributed to conversation
+            return _.each(keys, function (key) {
+              db.getUser(key).then(function (res) {
+                // TODO Add in popovers with the user name if they have one, and link to a profile section
+                console.log('key', res)
+                if (res.avatar) {
+                  conversation.avatars.push(res.avatar)
+                  return
+                }
+              }).catch(function (err) {
+                if (err.status === 404) {
+                  if (conversation.avatars.indexOf(dummyImage) === -1) {
+                    conversation.avatars.push(dummyImage)
+                  }
+                  return
+                } else {
+                  console.log(err)
+                }
+              })
+            })
+          })
+          userPromises.push(getAvatar)
         })
+
       })
     }
 
