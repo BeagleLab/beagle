@@ -569,8 +569,7 @@ module.exports.newNote = exports.newNote = function newNote (options, cb) {
     'conversation': options.conversation.id,
     'created': moment(),
     'participants': {
-      'hash1234': 'share',
-      'sdlkjfla': 'read'
+      [options.author.id]: 'share'
     }
   }
 
