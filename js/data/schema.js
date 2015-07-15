@@ -101,6 +101,7 @@ module.exports.group = exports.group = {
 
 module.exports.conversation = exports.conversation = {
   '_id': '1234hash',
+  'type': 'conversation',
   'title': "Surely you're joking!",
   'created': moment(),
   'author': [
@@ -192,6 +193,7 @@ module.exports.mediaPublication = exports.publication = {
 module.exports.note = exports.note = {
   '_id': 'hash4567',
   'created': moment(),
+  'type': 'note',
   'text': 'Ever since I was little, I have always loved the sound of my own voice.',
   'author': [
     'Richard Feynman'
@@ -207,10 +209,13 @@ module.exports.note = exports.note = {
 //   Author AccountID // author of the annotation
 // }
 
+// TODO Look at pouchdb-annotation before running this
+
 module.exports.annotation = exports.annotation = {
   '_id': 'ranodmhash',
   'source': 'asdfjlw',
   'author': 'lksdjfsl',
+  'type': 'annotation',
   'created': moment()
 }
 
@@ -511,10 +516,13 @@ module.exports.newConversation = exports.newConversation = function newConversat
 
   var conversation = {
     '_id': newID(),
+    'type': 'conversation',
     'title': options.title,
     'created': moment(),
     'author': options.author.id || options.author.userId
   }
+
+  // TODO Run through galapagos before putting
 
   db.put(conversation, function (err, response) {
     if (err) {
@@ -556,6 +564,7 @@ module.exports.newNote = exports.newNote = function newNote (options, cb) {
   var note = {
     '_id': newID(),
     'text': options.text,
+    'type': 'note',
     'author': options.author.id,
     'conversation': options.conversation.id,
     'created': moment(),
@@ -564,6 +573,8 @@ module.exports.newNote = exports.newNote = function newNote (options, cb) {
       'sdlkjfla': 'read'
     }
   }
+
+  // TODO Run through galapgagos before putting
 
   db.put(note, function (err, response) {
     if (err) {
@@ -635,11 +646,14 @@ module.exports.startBlankConversation = exports.startBlankConversation = functio
   var conversation = {
     author: options.author,
     title: options.title,
+    type: 'conversation',
     created: moment(),
     participants: (options.participants) ? options.participants : {
       [options.author.id]: 'share'
     }
   }
+
+  // TODO Run through galapagos before putting
 
   this.newConversation(conversation, function (err, response) {
     if (err) {
@@ -653,11 +667,12 @@ module.exports.startBlankConversation = exports.startBlankConversation = functio
         author: options.author,
         conversation: conversation,
         text: options.text,
+        type: 'note',
         created: moment(),
         participants: options.participants
       }
 
-      console.log('Note', note)
+      // TODO Run through galapagos before putting
 
       that.newNote(note, function (err, data) {
         if (err) {
@@ -719,7 +734,7 @@ module.exports.getConversationPosts = exports.getConversationPosts = function ge
 module.exports.getConversationsForUser = function (user, cb) {
   return db.query(
     function (doc) {
-      if (doc.author) {
+      if (doc.author && doc.type === 'conversation') {
         emit(doc.author)
       }
     },
