@@ -6,15 +6,6 @@ var Note = require('./note.jsx')
 // Here, I have loaded them directly. See getInitialState for where the props should
 // come from.
 
-var conversationData = [require('../data/schema.js').note, {
-      '_id': 'hash45sf67',
-      'text': 'Ever sincesdfs I was little, I have always loved the sound of my own voice.',
-      'author': [
-        'Noam Chomsky'
-      ],
-      'conversation': 'asfjklsjglw'
-    }]
-
 // TODO Change naming scheme. Conversation should refer to all notes together, while
 // the initial note should have the title. This is a difficult naming area. Bring up with team.
 var initialNote = require('../data/schema.js').conversation
@@ -28,17 +19,17 @@ var initialNote = require('../data/schema.js').conversation
 module.exports = React.createClass({
   displayName: 'Conversation Chain',
   propTypes: {
-    conversation: React.PropTypes.object
+    conversations: React.PropTypes.array
   },
   getInitialState: function () {
     return {
-      conversation: conversationData // this.props.conversationData
+      conversations: this.props.conversations
     }
   },
 
   render: function () {
     // Helper def. Ignore.
-    var list = this.state.conversation
+    var list = this.state.conversations
 
     function getAccountFromNote (author) {
       // TODO Get the authors account here

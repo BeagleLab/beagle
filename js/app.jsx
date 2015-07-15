@@ -10,9 +10,16 @@ var PDFUrlLink = require('./components/pdfUrlLink.jsx')
 var Slack = require('./components/slack.jsx').SendSlack
 var Toolbar = require('./components/toolbar.jsx')
 var Navbar = require('./components/navbar.jsx')
-// var Conversation = require('./components/conversationChain.jsx')
-
 // var Note = require('./components/note.jsx')
+// var Conversations = require('./components/conversationChain.jsx')
+// var conversationData = [require('./data/schema.js').note, {
+//       '_id': 'hash45sf67',
+//       'text': 'Ever sincesdfs I was little, I have always loved the sound of my own voice.',
+//       'author': [
+//         'Noam Chomsky'
+//       ],
+//       'conversation': 'asfjklsjglw'
+//     }]
 // var Highlight = require('./components/highlight.jsx')
 // var Screenshot = require('./components/screenshot.jsx')
 // var Cite = require('./components/cite.jsx')
@@ -25,6 +32,20 @@ var Navbar = require('./components/navbar.jsx')
 var Conversation = require('./components/conversation.jsx')
 // var note = require('./data/schema.js').note
 
+var Conversations = require('./components/conversations.jsx')
+// Dummy Data
+var conversationData = require('./data/schema.js').conversation
+// TODO: Create this programmatically from account data
+conversationData.avatars = [
+  'http://upload.wikimedia.org/wikipedia/en/4/42/Richard_Feynman_Nobel.jpg',
+  'http://upload.wikimedia.org/wikipedia/en/4/42/Richard_Feynman_Nobel.jpg'
+]
+// TODO Add date to the conversation schema
+conversationData.date = '9 minutes'
+// TODO Get programmatically
+conversationData.commentNumber = '234'
+
+var conversationsData = [conversationData, conversationData]
 // var account = require('./data/schema.js').account
 // var publication = require('./data/schema.js').mediaPublication
 
@@ -95,6 +116,7 @@ module.exports = React.createClass({
 
         <br />
         <br />
+        <Conversations conversations={conversationsData} />
         <br />
         <br />
         <br />
