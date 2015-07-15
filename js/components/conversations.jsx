@@ -2,7 +2,6 @@ var React = require('react')
 
 // TODO: On Load:
 // Get the conversations needed
-// Get all notes from a conversation, make them commentNumber
 // Get the date of the first (or last?) note in each conversation
 // Sort conversations by date last interacted with
 // Get the account details for each participant in a conversation
@@ -61,7 +60,7 @@ module.exports = exports = React.createClass({
                 </div>
                 <span style={dateStyle}>Updated {conversation.date} ago</span>
                 <div style={commentStyle}>
-                  <i className='fa fa-comment'></i>{conversation.commentNumber}
+                  <i className='fa fa-comment'></i> {conversation.notes.length}
                 </div>
               </div>
             )
