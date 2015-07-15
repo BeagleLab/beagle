@@ -13,16 +13,15 @@ var Conversation = React.createClass({
       submitted: false,
       text: null, // this.props.conversation && this.props.conversation.text || 'Error: Text not found',
       title: null, // this.props.conversation && this.props.conversation.title || 'No Title',
-      hideButton: false,
-      author: this.props.account
+      hideButton: false
     }
   },
   onClick: function () {
     // TODO Make sure that userId and id should be the same
     // Shim the author ID.
     var author = {}
-    if (this.state.author) {
-      author.id = this.state.author.userId
+    if (this.props.account) {
+      author.id = this.props.account.userId
     } else {
       // TODO Log in the user programmatically automatically
       throw new Error('You must log in before saving a conversation')
