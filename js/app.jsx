@@ -10,9 +10,9 @@ var PDFUrlLink = require('./components/pdfUrlLink.jsx')
 var Slack = require('./components/slack.jsx').SendSlack
 var Toolbar = require('./components/toolbar.jsx')
 var Navbar = require('./components/navbar.jsx')
-// var Comment = require('./components/comment.jsx')
 // var Conversation = require('./components/conversationChain.jsx')
 
+// var Note = require('./components/note.jsx')
 // var Highlight = require('./components/highlight.jsx')
 // var Screenshot = require('./components/screenshot.jsx')
 // var Cite = require('./components/cite.jsx')

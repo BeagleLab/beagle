@@ -1,8 +1,8 @@
 var React = require('react')
 var UserBar = require('./userBar.jsx')
 
-var Comment = React.createClass({
-  displayName: 'Comment',
+var Note = React.createClass({
+  displayName: 'Note',
   propTypes: {
     account: React.PropTypes.object,
     text: React.PropTypes.string
@@ -86,7 +86,7 @@ var Comment = React.createClass({
       rendered = (
         <div>
           <textarea type='input' style={inputStyle} placeholder='Share an insight' onChange={this.handleChange} defaultValue={text} />
-          <button className='btn btn-default' style={submitButtonStyle} onClick={this.onClick}>Comment</button>
+          <button className='btn btn-default' style={submitButtonStyle} onClick={this.onClick}>Note</button>
         </div>
       )
     }
@@ -106,4 +106,4 @@ var Comment = React.createClass({
   }
 })
 
-module.exports = exports = Comment
+module.exports = exports = Note

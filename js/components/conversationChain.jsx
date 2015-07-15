@@ -1,6 +1,6 @@
 var React = require('react')
 var Conversation = require('./conversation.jsx')
-var Comment = require('./comment.jsx')
+var Note = require('./note.jsx')
 
 // Note: The props here need to be sent normally when this component is called.
 // Here, I have loaded them directly. See getInitialState for where the props should
@@ -19,9 +19,9 @@ var conversationData = [require('../data/schema.js').note, {
 // the initial note should have the title. This is a difficult naming area. Bring up with team.
 var initialNote = require('../data/schema.js').conversation
 
-// I've currently got a different component (conversation) for the initial comment.
+// I've currently got a different component (conversation) for the initial note.
 // That should probably be changed or refined, to allow editing the title.
-// Here, I show the first conversation, and then subsequent comments from this.props.conversation
+// Here, I show the first conversation, and then subsequent notes from this.props.conversation
 // Which ought to be an array of notes that can then be displayed in the sidebar. The thing is,
 // I'm not sure how to get these notes without building out an API for the in schema.js
 
@@ -56,14 +56,16 @@ module.exports = React.createClass({
       borderLeft: '3px solid #eee'
     }
 
+    console.log('conversations', this.state.conversations)
+
     return (
       <div>
         <Conversation conversation={initialNote} />
-        {this.state.conversation.map(function (comment) {
+        {this.state.conversations.map(function (note) {
           return (
             <span>
               <hr style={joiner} />
-              <Comment account={getAccountFromNote(comment.author)} key={list.indexOf(comment)} text={comment.text} />
+              <Note account={getAccountFromNote(note.author)} key={list.indexOf(note)} text={note.text} />
             </span>
           )
         })}
