@@ -2,9 +2,7 @@
 
 var React = require('react')
 var rangy = require('rangy')
-var PouchDB = require('pouchdb')
-var PouchDBUrl = require('../env.js').PouchDBUrl
-var db = new PouchDB(PouchDBUrl)
+var schema = require('../data/schema.js')
 
 var crypto = require('crypto')
 var url = require('../lib/url-checks')
@@ -69,54 +67,16 @@ var Highlight = React.createClass({
       'documentId': documentId
     }
 
-    function saveSelection (selection) {
-      db.allDocs({include_docs: true, key: documentId}, function (err, value) {
-        if (err && err.name !== 'not_found') {
-          return console.log('Failed to get ' + documentId + 'from db', err)
-        } else if (err) {
-          return console.log(err)
-        }
-
-        var row = value.rows[0]
-        var doc
-        if (row) {
-          doc = row.doc
-          if (row.value && row.value.rev) {
-            doc._rev = row.value.rev
-          }
-        /* Instantiate the object if it doesn't exist yet */
-        } else {
-          doc = {}
-          doc._id = documentId
-        }
-
-        /* Add in the selection to the selections array */
-        doc.selections = doc.selections || []
-        doc.selections.push(selection)
-
-        /* Get rid of prototypes so we can put this to the database */
-        doc = JSON.parse(JSON.stringify(doc))
-
-        db.put(doc, function (err, response) {
-          if (err) {
-            console.log('Failed to save selection', err)
-          } else {
-            console.log('Stored ' + response.id + ' away...', response)
-          }
-        })
-      })
-    }
-
     if (this.props.location) {
       PDFJS.getFingerprint(url.getPDFURL(window.location.href),
         function setDocumentId (err, fingerprint) {
           if (err) { console.log('Could not properly get PDF fingerprint') }
 
-          saveSelection(selection)
+          schema.saveSelection(selection, documentId)
         }
       )
     } else {
-      saveSelection(selection)
+      schema.saveSelection(selection, documentId)
     }
   },
   render: function () {
