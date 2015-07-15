@@ -1,9 +1,10 @@
 /*globals emit, localStorage */
 
 var crypto = require('crypto')
-var validator = require('validator')
-var _ = require('lodash')
+// var validator = require('validator')
+// var _ = require('lodash')
 var galapagos = require('../utilities/galapagos.js')
+var moment = require('moment')
 
 var PouchDBUrl = require('../env.js').PouchDBUrl
 // var BeagleProxyAPI = 'http://localhost:5000'
@@ -48,6 +49,7 @@ module.exports.account = exports.account = {
   'name': 'Richard Feynman',
   'avatar': 'http://upload.wikimedia.org/wikipedia/en/4/42/Richard_Feynman_Nobel.jpg',
   'primaryEmail': 'richard.feynman@caltech.edu',
+  'created': moment(),
   'emails': [
     'richard.feynman@caltech.edu',
     'richard.is.the.best@gmail.com'
@@ -79,6 +81,7 @@ module.exports.user = exports.user = {
 module.exports.group = exports.group = {
   '_id': 'hash5678',
   'author': 'hash1234',
+  'created': moment(),
   'members': {
     'hash1234': 'share',
     'sdfasdfa': 'read'
@@ -99,6 +102,7 @@ module.exports.group = exports.group = {
 module.exports.conversation = exports.conversation = {
   '_id': '1234hash',
   'title': "Surely you're joking!",
+  'created': moment(),
   'author': [
     'hash1234'
   ],
@@ -153,6 +157,7 @@ module.exports.mediaTypes = exports.mediaTypes = [
 module.exports.mediaObject = exports.mediaObject = {
   'title': 'Boy with apple',
   'type': 'image',
+  'created': moment(),
   'authors': ['Johannes Van Hoyt The Younger', 'Pliny the Elder'], // ID?
   'sourceURL': 'http://www.mrtaylor.co.uk/static/images/appleboy_c.jpg',
   'metadata': {
@@ -165,6 +170,7 @@ module.exports.mediaImage = exports.image = exports.mediaObject
 module.exports.mediaPublication = exports.publication = {
   'title': 'A Structure for Deoxyribose Nucleic Acid',
   'type': 'publication',
+  'created': moment(),
   'authors': ['Francis Crick', 'James Watson'],
   'sourceURL': 'http://www.nature.com/nature/dna50/watsoncrick.pdf',
   'metadata': {
@@ -185,6 +191,7 @@ module.exports.mediaPublication = exports.publication = {
 
 module.exports.note = exports.note = {
   '_id': 'hash4567',
+  'created': moment(),
   'text': 'Ever since I was little, I have always loved the sound of my own voice.',
   'author': [
     'Richard Feynman'
@@ -203,7 +210,8 @@ module.exports.note = exports.note = {
 module.exports.annotation = exports.annotation = {
   '_id': 'ranodmhash',
   'source': 'asdfjlw',
-  'author': 'lksdjfsl'
+  'author': 'lksdjfsl',
+  'created': moment()
 }
 
 // Type of permission. (this could be an int but may be )
@@ -286,6 +294,7 @@ function LinkObject (oauthInfo) {
   this._id = newID()
   this.type = 'LINK'
   this.email = oauthInfo.email
+  this.created = moment(),
   this.oauthTokens = [
       oauthInfo.token
   ]
@@ -503,6 +512,7 @@ module.exports.newConversation = exports.newConversation = function newConversat
   var conversation = {
     '_id': newID(),
     'title': options.title,
+    'created': moment(),
     'author': options.author.id || options.author.userId
   }
 
@@ -548,6 +558,7 @@ module.exports.newNote = exports.newNote = function newNote (options, cb) {
     'text': options.text,
     'author': options.author.id,
     'conversation': options.conversation.id,
+    'created': moment(),
     'participants': {
       'hash1234': 'share',
       'sdlkjfla': 'read'
@@ -624,6 +635,7 @@ module.exports.startBlankConversation = exports.startBlankConversation = functio
   var conversation = {
     author: options.author,
     title: options.title,
+    created: moment(),
     participants: (options.participants) ? options.participants : {
       [options.author.id]: 'share'
     }
@@ -641,6 +653,7 @@ module.exports.startBlankConversation = exports.startBlankConversation = functio
         author: options.author,
         conversation: conversation,
         text: options.text,
+        created: moment(),
         participants: options.participants
       }
 
