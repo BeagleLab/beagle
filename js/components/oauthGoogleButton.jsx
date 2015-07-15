@@ -37,6 +37,7 @@ var Login = React.createClass({
             provider: 'google',
             account: me.id,
             email: me.email,
+            avatar: me.avatar,
             token: result.access_token
           }, function (err, res) {
             if (err) {
