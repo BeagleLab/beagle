@@ -35,15 +35,9 @@ var Conversation = require('./components/conversation.jsx')
 var Conversations = require('./components/conversations.jsx')
 // Dummy Data
 var conversationData = require('./data/schema.js').conversation
-// TODO: Create this programmatically from account data
-conversationData.avatars = [
-  'http://upload.wikimedia.org/wikipedia/en/4/42/Richard_Feynman_Nobel.jpg',
-  'http://upload.wikimedia.org/wikipedia/en/4/42/Richard_Feynman_Nobel.jpg'
-]
+
 // TODO Add date to the conversation schema
 conversationData.date = '9 minutes'
-// TODO Get programmatically
-conversationData.commentNumber = '234'
 
 var conversationsData = [conversationData, conversationData]
 // var account = require('./data/schema.js').account

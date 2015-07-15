@@ -8,9 +8,6 @@ var Conversation = React.createClass({
     conversation: React.PropTypes.object,
     account: React.PropTypes.object
   },
-  // TODO It seems to me that the title should be tied to the first note.
-  // As we have it, a conversation object has a title, but no text, just an array of notes
-  // I'm not sure this is right.
   getInitialState: function () {
     return {
       submitted: false,
@@ -21,8 +18,8 @@ var Conversation = React.createClass({
     }
   },
   onClick: function () {
-    // Shim the author ID.
     // TODO Make sure that userId and id should be the same
+    // Shim the author ID.
     var author = {}
     if (this.state.author) {
       author.id = this.state.author.userId
