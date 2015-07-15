@@ -71,6 +71,7 @@ module.exports = exports = React.createClass({
     }
 
     Promise.all(userPromises).then(function () {
+      console.log('clone', clone)
       this.setState({conversations: clone})
     }.bind(this)).catch(function (err) {
       console.log('Catch promise err', err)
@@ -109,11 +110,13 @@ module.exports = exports = React.createClass({
             <div style={listingStyle}>
               <p style={titleStyle}>{conversation.title}</p>
               <div style={imageWrapperStyle}>
-                { (conversation.avatars) ?
+              {/* TODO For some reason, the avatars aren't loading console.log(conversation) */}
+                {
                   conversation.avatars.slice(0, 5).map(function (avatar) {
-                    return <img style={imgStyle} key={conversation.avatars.indexOf(avatar)} src={avatar} />
-                  }) : null
-                }
+                  return (
+                    <img style={imgStyle} key={conversation.avatars.indexOf(avatar)} src={avatar} />
+                  )
+                }) }
               </div>
               <span style={dateStyle}>Updated {conversation.date} ago</span>
               <div style={commentStyle}>
