@@ -503,7 +503,7 @@ module.exports.newConversation = exports.newConversation = function newConversat
   var conversation = {
     '_id': newID(),
     'title': options.title,
-    'author': [options.author.id || options.author.userId]
+    'author': options.author.id || options.author.userId
   }
 
   db.put(conversation, function (err, response) {
@@ -704,12 +704,19 @@ module.exports.getConversationPosts = exports.getConversationPosts = function ge
 
 // TODO test
 module.exports.getConversationsForUser = function (user, cb) {
-  db.query({map: function map (doc) {
-    if (doc.type && doc.type === 'conversation') {
-      emit(doc.membership, null)
-    }
-  }}, {key: user.id, include_docs: true}).then(function (response) {
-    cb(null, response)
+  return db.query(
+    function (doc) {
+      if (doc.author) {
+        emit(doc.author)
+      }
+    },
+    {include_docs: true, key: user.userId}
+  ).then(function (response) {
+    // response.doc should have the whole doc
+    // response.key should === user.userId (because of the above query param)
+    // response.value should === null
+    // response.id should === doc._id
+    return response
   }).catch(function (err) {
     cb(err)
   })

@@ -21,35 +21,43 @@ module.exports = exports = React.createClass({
     }
   },
   componentWillMount: function () {
+    this.getAvatars(this.props.conversations)
+  },
+  componentWillReceiveProps: function (nextProps) {
+    console.log('next', nextProps.conversations)
+    this.getAvatars(nextProps.conversations)
+  },
+  getAvatars: function (props) {
     let dummyImage = 'http://upload.wikimedia.org/wikipedia/en/4/42/Richard_Feynman_Nobel.jpg'
     let userPromises = []
-    let clone = _.each(this.state.conversations.slice(), function (conversation) {
-      conversation.avatars = []
-      _.each(_.keys(conversation.participants), function (key) {
-        if (conversation.participants.hasOwnProperty(key)) {
-          // Suggestion: Only show avatars for participants who have actively contributed to conversation
-          let getAvatar = db.getUser(key).then(function (err, res) {
-            // TODO Add in popovers with the user name if they have one, and link to a profile section
-            if (res.avatar) {
-              conversation.avatars.push(res.avatar)
-              return
-            } else if (err) {
-              console.log(err)
-            }
-          }).catch(function (err) {
-            if (err.status === 404) {
-              if (conversation.avatars.indexOf(dummyImage) === -1) {
-                conversation.avatars.push(dummyImage)
+    let clone
+    if (props) {
+      clone = _.each(props.slice(), function (conversation) {
+        conversation.avatars = []
+        _.each(_.keys(conversation.participants), function (key) {
+          if (conversation.participants.hasOwnProperty(key)) {
+            // Suggestion: Only show avatars for participants who have actively contributed to conversation
+            let getAvatar = db.getUser(key).then(function (res) {
+              // TODO Add in popovers with the user name if they have one, and link to a profile section
+              if (res.avatar) {
+                conversation.avatars.push(res.avatar)
+                return
               }
-              return
-            } else {
-              console.log(err)
-            }
-          })
-          userPromises.push(getAvatar)
-        }
+            }).catch(function (err) {
+              if (err.status === 404) {
+                if (conversation.avatars.indexOf(dummyImage) === -1) {
+                  conversation.avatars.push(dummyImage)
+                }
+                return
+              } else {
+                console.log(err)
+              }
+            })
+            userPromises.push(getAvatar)
+          }
+        })
       })
-    })
+    }
 
     Promise.all(userPromises).then(function () {
       this.setState({conversations: clone})
@@ -80,6 +88,8 @@ module.exports = exports = React.createClass({
       color: 'gray',
       margin: '7px 0px'
     }
+
+    console.log('conversations', this.state.conversations)
 
     return (
       <div>

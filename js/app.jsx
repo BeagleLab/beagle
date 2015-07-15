@@ -1,4 +1,4 @@
-var React = require('react')
+var React = require('react/addons')
 var PDFJS = require('beagle-pdf')
 
 // var Accordion = require('react-bootstrap').Accordion
@@ -10,6 +10,7 @@ var PDFUrlLink = require('./components/pdfUrlLink.jsx')
 var Slack = require('./components/slack.jsx').SendSlack
 var Toolbar = require('./components/toolbar.jsx')
 var Navbar = require('./components/navbar.jsx')
+var schema = require('./data/schema.js')
 // var Note = require('./components/note.jsx')
 // var Conversations = require('./components/conversationChain.jsx')
 // var conversationData = [require('./data/schema.js').note, {
@@ -59,7 +60,8 @@ module.exports = React.createClass({
     return {
       'publication': null,
       'showConversation': null,
-      'account': this.props.account
+      'account': this.props.account,
+      'conversations': []
     }
   },
 
@@ -83,6 +85,17 @@ module.exports = React.createClass({
           this.setState({publication: data})
         }
       }.bind(this))
+    }
+    if (this.props.account) {
+      schema.getConversationsForUser(this.props.account).then(function (response) {
+        if (response.rows) {
+          this.setState({conversations: response.rows.map(function (row) {
+            return row.doc
+          })})
+        }
+      }.bind(this)).catch(function (err) {
+        console.log('err', err)
+      })
     }
   },
 
@@ -110,7 +123,7 @@ module.exports = React.createClass({
 
         <br />
         <br />
-        <Conversations conversations={conversationsData} />
+        <Conversations conversations={this.state.conversations} />
         <br />
         <br />
         <br />
