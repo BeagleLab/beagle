@@ -494,7 +494,15 @@ module.exports.logIn = exports.logIn = function logIn (oauthInfo, cb) {
   }
 }
 
-module.exports.login = module.exports.logIn
+module.exports.login = exports.logIn
+
+module.exports.getUserDetails = exports.getUserDetails = function getUserDetails (user) {
+  return db.getUser(user).then(function (response) {
+    return response
+  }).catch(function (err) {
+    return err
+  })
+}
 
 //   // let's talk about elsewhere how to put to the db, globals are not great,
 //   // we just do it here for simplicity.

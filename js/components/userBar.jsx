@@ -37,6 +37,16 @@ var UserBar = React.createClass({
    secondaryText: React.PropTypes.string,
    conversation: React.PropTypes.participants
   },
+  // componentWillMount: function () {
+  //   // TODO Get users who exist from DB
+  //   _.each(this.props.participants, function (participant) {
+  //     schema.getUserDetails(participant).then(function (response) {
+  //       console.log('response', response)
+  //     }).catch(function (err) {
+  //       console.log('err', err)
+  //     })
+  //   })
+  // },
   shimObjectToArray: function (object) {
     var arr = []
     if (object) {
