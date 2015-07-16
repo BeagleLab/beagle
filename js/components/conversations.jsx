@@ -144,8 +144,6 @@ module.exports = exports = React.createClass({
       )
     }
 
-    console.log('Conve', this.state.showConversation, this.state.conversations)
-
     return (
       <div>
         {ConversationList}

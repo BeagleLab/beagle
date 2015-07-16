@@ -7,7 +7,8 @@ var Sharing = React.createClass({
   propTypes: {
     'account': React.PropTypes.object,
     'shares': React.PropTypes.object,
-    'addShares': React.PropTypes.function
+    'addShares': React.PropTypes.func,
+    'conversation': React.PropTypes.object
   },
   getInitialState: function () {
     return {}
@@ -18,7 +19,6 @@ var Sharing = React.createClass({
   handleShares: function (event) {
     this.setState({shareInput: event.target.value})
   },
-
   render: function () {
     var conversationStyle = {
       padding: '10px 0px'
@@ -51,7 +51,7 @@ var Sharing = React.createClass({
           <i className='fa fa-plus'></i> Add
         </button>
 
-        <UserBar secondaryText='email' account={this.props.account} />
+        <UserBar secondaryText='email' account={this.props.account} conversation={this.props.conversation} />
 
       </div>
     )

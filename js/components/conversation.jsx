@@ -123,7 +123,7 @@ var Conversation = React.createClass({
         <div>
             <p style={titleStyle}>{this.state.conversation.title}</p>
             <p style={textStyle}>{this.state.conversation.text}</p>
-            <Sharing account={this.props.account} shares={this.state.shares} addShares={this.addShares} />
+            <Sharing conversation={this.state.conversation} account={this.props.account} shares={this.state.shares} addShares={this.addShares} />
         </div>
       )
     } else {
@@ -131,7 +131,7 @@ var Conversation = React.createClass({
         <div>
             <input type='input' style={inputTitleStyle} placeholder='Conversation Title' onChange={this.handleTitle} defaultValue={this.state.conversation.title} />
             <textarea type='input' style={inputTitleStyle} placeholder='Share an insight' onChange={this.handleText} defaultValue={this.state.conversation.text} />
-            <Sharing account={this.props.account} shares={this.state.shares} addShares={this.addShares} />
+            <Sharing conversation={this.state.conversation} account={this.props.account} shares={this.state.shares} addShares={this.addShares} />
             <button className='btn btn-default' style={submitButtonStyle} showForm={this.showForm} onClick={this.onClick}>Start new conversation</button>
         </div>
       )
