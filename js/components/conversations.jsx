@@ -17,15 +17,18 @@ module.exports = exports = React.createClass({
   },
   getInitialState: function () {
     return {
-      conversations: this.props.conversations
+      conversations: []
     }
   },
   componentWillMount: function () {
     this.getAvatars(this.props.conversations)
   },
   componentWillReceiveProps: function (nextProps) {
-    console.log('next', nextProps.conversations)
+    // console.log('next', nextProps.conversations)
     this.getAvatars(nextProps.conversations)
+  },
+  componentDidUpdate: function () {
+    console.log('State updated', this.state.conversations)
   },
   getAvatars: function (props) {
     let dummyImage = 'http://upload.wikimedia.org/wikipedia/en/4/42/Richard_Feynman_Nobel.jpg'
@@ -47,7 +50,7 @@ module.exports = exports = React.createClass({
             return _.each(keys, function (key) {
               db.getUser(key).then(function (res) {
                 // TODO Add in popovers with the user name if they have one, and link to a profile section
-                console.log('key', res)
+                // console.log('key', res)
                 if (res.avatar) {
                   conversation.avatars.push(res.avatar)
                   return
@@ -71,7 +74,6 @@ module.exports = exports = React.createClass({
     }
 
     Promise.all(userPromises).then(function () {
-      console.log('clone', clone)
       this.setState({conversations: clone})
     }.bind(this)).catch(function (err) {
       console.log('Catch promise err', err)
@@ -101,7 +103,7 @@ module.exports = exports = React.createClass({
       margin: '7px 0px'
     }
 
-    console.log('conversations', this.state.conversations)
+    // console.log('conversations', this.state.conversations)
 
     return (
       <div>
