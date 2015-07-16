@@ -1,4 +1,4 @@
-var React = require('react')
+var React = require('react/addons')
 var Sharing = require('./sharing.jsx')
 var schema = require('../data/schema.js')
 
@@ -61,8 +61,6 @@ var Conversation = React.createClass({
       if (err) {
         console.log(err)
       } else {
-        // TODO Should we save the conversation in the view somehow?
-        console.log(data)
         that.setState({conversation: data.conversation})
         that.setState({note: data.note})
       }
@@ -74,15 +72,11 @@ var Conversation = React.createClass({
     this.setState({hideButton: !this.state.hideButton})
   },
   handleTitle: function (event) {
-    let conversation = this.state.conversation
-    conversation.title = event.target.value
-    this.setState({conversation: conversation})
+    this.setState({conversation: React.addons.update(this.state.conversation, {title: {$set: event.target.value}})})
   },
 
   handleText: function (event) {
-    let conversation = this.state.conversation
-    conversation.text = event.target.value
-    this.setState({conversation: conversation})
+    this.setState({conversation: React.addons.update(this.state.conversation, {text: {$set: event.target.value}})})
   },
 
   addShares: function (shares) {
