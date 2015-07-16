@@ -63,17 +63,15 @@ module.exports = React.createClass({
 
   showConversation: function () {
     this.setState({
-      'conversation': null
-    })
-    this.setState({
-      'showConversation': !this.state.showConversation
+      'conversation': null,
+      'showConversation': (this.state.showConversation) ? null : true
     })
   },
 
   setConversation: function (conversation) {
     this.setState({
       'conversation': conversation,
-      'showConversation': !this.state.showConversation
+      'showConversation': (this.state.showConversation) ? null : true
     })
   },
 

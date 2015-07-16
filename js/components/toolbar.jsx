@@ -17,13 +17,10 @@ var Toolbar = React.createClass({
     // screenshot: React.PropTypes.boolean,
     // flag: React.PropTypes.boolean
   },
-  showConversation: function () {
-    this.props.showConversation()
-  },
   render: function () {
     return (
       <ButtonToolbar>
-        <Button onClick={this.showConversation} >
+        <Button onClick={this.props.showConversation} >
           Note
         </Button>
         <Button>

@@ -31,9 +31,7 @@ module.exports = exports = React.createClass({
     if (nextProps.conversations) {
       this.getAvatars(nextProps.conversations)
     }
-    if (nextProps.showConversation) {
-      this.setState({showConversation: nextProps.showConversation})
-    }
+    this.setState({showConversation: nextProps.showConversation})
   },
   // componentDidUpdate: function () {
   //   console.log('State updated', this.state.conversations)
@@ -118,7 +116,7 @@ module.exports = exports = React.createClass({
 
     var ConversationList
 
-    if (!this.state.showConversation && this.state.conversations) {
+    if (this.state.showConversation === null && this.state.conversations) {
       var _this = this
       ConversationList = (
         <div>
@@ -145,6 +143,8 @@ module.exports = exports = React.createClass({
         </div>
       )
     }
+
+    console.log('Conve', this.state.showConversation, this.state.conversations)
 
     return (
       <div>
