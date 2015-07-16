@@ -2,7 +2,7 @@
 
 var crypto = require('crypto')
 // var validator = require('validator')
-// var _ = require('lodash')
+var _ = require('lodash')
 var galapagos = require('../utilities/galapagos.js')
 var moment = require('moment')
 
@@ -743,7 +743,7 @@ module.exports.getConversationPosts = exports.getConversationPosts = function ge
 // }
 
 // TODO test
-module.exports.getConversationsForUser = function (user, cb) {
+module.exports.getAuthoredConversations = function (user, cb) {
   return db.query(
     function (doc) {
       if (doc.author && doc.type === 'conversation') {
@@ -756,8 +756,41 @@ module.exports.getConversationsForUser = function (user, cb) {
     // response.key should === user.userId (because of the above query param)
     // response.value should === null
     // response.id should === doc._id
-    return response
+    if (response.rows) {
+      return response.rows.map(function (row) {
+        return row.doc
+      })
+    }
   }).catch(function (err) {
+    cb(err)
+  })
+}
+
+// TODO test
+module.exports.getAllConversationsForUser = function (user, cb) {
+  return db.query(
+    function (doc) {
+      if (doc.type) {
+        emit(doc.type)
+      }
+    },
+    {include_docs: true, key: 'conversation'}
+  ).then(function (response) {
+    if (response.rows) {
+      return _.filter(response.rows.map(function (row) {
+          return row.doc
+        }), function (doc) {
+        if (doc.participants) {
+          return doc.participants[user.userId] !== 'undefined'
+        } else if (doc.author) {
+          return doc.author === user.userId
+        } else {
+          return false
+        }
+      })
+    }
+  }).catch(function (err) {
+    console.log('err', err)
     cb(err)
   })
 }

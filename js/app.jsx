@@ -83,12 +83,8 @@ module.exports = React.createClass({
       }.bind(this))
     }
     if (this.props.account) {
-      schema.getConversationsForUser(this.props.account).then(function (response) {
-        if (response.rows) {
-          this.setState({conversations: response.rows.map(function (row) {
-            return row.doc
-          })})
-        }
+      schema.getAllConversationsForUser(this.props.account).then(function (response) {
+        this.setState({conversations: response})
       }.bind(this)).catch(function (err) {
         console.log('err', err)
       })
@@ -104,7 +100,7 @@ module.exports = React.createClass({
     }
 
     return (
-			<Sidebar >
+      <Sidebar >
 
         <Navbar staticPath={this.props.staticPath} account={this.props.account} />
 
@@ -158,7 +154,7 @@ module.exports = React.createClass({
         <Save /> */}
 
         <PDFUrlLink location={this.props.pdfLocation} />
-			</Sidebar>
-		)
+      </Sidebar>
+    )
   }
 })
