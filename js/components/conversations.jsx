@@ -13,11 +13,14 @@ var _ = require('lodash')
 module.exports = exports = React.createClass({
   displayName: 'Conversations',
   propTypes: {
-    conversations: React.PropTypes.array
+    conversations: React.PropTypes.array,
+    showConversation: React.PropTypes.bool,
+    setConversation: React.PropTypes.func
   },
   getInitialState: function () {
     return {
-      conversations: []
+      conversations: [],
+      showConversation: null
     }
   },
   componentWillMount: function () {
@@ -25,11 +28,19 @@ module.exports = exports = React.createClass({
   },
   componentWillReceiveProps: function (nextProps) {
     // console.log('next', nextProps.conversations)
-    this.getAvatars(nextProps.conversations)
+    if (nextProps.conversations) {
+      this.getAvatars(nextProps.conversations)
+    }
+    if (nextProps.showConversation) {
+      this.setState({showConversation: nextProps.showConversation})
+    }
   },
   // componentDidUpdate: function () {
   //   console.log('State updated', this.state.conversations)
   // },
+  handleClick: function (conversation) {
+    this.props.setConversation(conversation)
+  },
   getAvatars: function (props) {
     let dummyImage = 'http://upload.wikimedia.org/wikipedia/en/4/42/Richard_Feynman_Nobel.jpg'
     let userPromises = []
@@ -105,28 +116,39 @@ module.exports = exports = React.createClass({
 
     // console.log('conversations', this.state.conversations)
 
+    var ConversationList
+
+    if (!this.state.showConversation && this.state.conversations) {
+      var _this = this
+      ConversationList = (
+        <div>
+          {this.state.conversations.map(function (conversation) {
+            return (
+              <div style={listingStyle} onClick={_this.handleClick.bind(this, conversation)} >
+                <p style={titleStyle}>{conversation.title}</p>
+                <div style={imageWrapperStyle}>
+                {/* TODO For some reason, the avatars aren't loading console.log(conversation) */}
+                  {
+                    conversation.avatars.slice(0, 5).map(function (avatar) {
+                    return (
+                      <img style={imgStyle} key={conversation.avatars.indexOf(avatar)} src={avatar} />
+                    )
+                  }) }
+                </div>
+                <span style={dateStyle}>Updated {conversation.date} ago</span>
+                <div style={commentStyle}>
+                  <i className='fa fa-comment'></i> {(conversation.notes) ? conversation.notes.length : 0}
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      )
+    }
+
     return (
       <div>
-        {this.state.conversations.map(function (conversation) {
-          return (
-            <div style={listingStyle}>
-              <p style={titleStyle}>{conversation.title}</p>
-              <div style={imageWrapperStyle}>
-              {/* TODO For some reason, the avatars aren't loading console.log(conversation) */}
-                {
-                  conversation.avatars.slice(0, 5).map(function (avatar) {
-                  return (
-                    <img style={imgStyle} key={conversation.avatars.indexOf(avatar)} src={avatar} />
-                  )
-                }) }
-              </div>
-              <span style={dateStyle}>Updated {conversation.date} ago</span>
-              <div style={commentStyle}>
-                <i className='fa fa-comment'></i> {(conversation.notes) ? conversation.notes.length : 0}
-              </div>
-            </div>
-          )
-        })}
+        {ConversationList}
       </div>
     )
   }

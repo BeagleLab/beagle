@@ -63,6 +63,16 @@ module.exports = React.createClass({
 
   showConversation: function () {
     this.setState({
+      'conversation': null
+    })
+    this.setState({
+      'showConversation': !this.state.showConversation
+    })
+  },
+
+  setConversation: function (conversation) {
+    this.setState({
+      'conversation': conversation,
       'showConversation': !this.state.showConversation
     })
   },
@@ -96,7 +106,7 @@ module.exports = React.createClass({
     var conversationComp = null
 
     if (this.state.showConversation) {
-      conversationComp = <Conversation account={this.props.account} />
+      conversationComp = <Conversation showConversation={this.showConversation} conversation={this.state.conversation} account={this.props.account} />
     }
 
     return (
@@ -115,7 +125,7 @@ module.exports = React.createClass({
 
         <br />
         <br />
-        <Conversations conversations={this.state.conversations} />
+        <Conversations conversations={this.state.conversations} showConversation={this.state.showConversation} setConversation={this.setConversation} />
         <br />
         <br />
         <br />

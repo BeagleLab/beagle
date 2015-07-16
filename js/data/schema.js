@@ -16,6 +16,14 @@ var db = new PouchDB(PouchDBUrl)
 
 var request = require('request').defaults({jar: true})
 
+function justTheDocs (response) {
+  if (response.rows) {
+    return response.rows.map(function (row) {
+      return row.doc
+    })
+  }
+}
+
 // // Create a local DB for testing and usage offline, but use the other DB as much as possible
 // // TODO Check what happens on connection loss.
 // var local = new PouchDB('local_db')
@@ -717,14 +725,14 @@ module.exports.startBlankConversation = exports.startBlankConversation = functio
 
 // TODO Test this.
 module.exports.getConversationPosts = exports.getConversationPosts = function getConversationPosts (conversation, cb) {
-  db.query({map: function map (doc) {
-    if (doc.type && doc.type === 'note') {
-      emit(doc, null)
+  return db.query(function (doc) {
+    if (doc.conversation && doc.type && doc.type === 'note') {
+      emit(doc.conversation)
     }
-  }}, {key: conversation.id, include_docs: true}).then(function (response) {
-    cb(null, response)
+  }, {include_docs: true, key: conversation._id}).then(function (response) {
+    return justTheDocs(response)
   }).catch(function (err) {
-    cb(err)
+    return err
   })
 }
 
@@ -756,11 +764,7 @@ module.exports.getAuthoredConversations = function (user, cb) {
     // response.key should === user.userId (because of the above query param)
     // response.value should === null
     // response.id should === doc._id
-    if (response.rows) {
-      return response.rows.map(function (row) {
-        return row.doc
-      })
-    }
+    return justTheDocs(response)
   }).catch(function (err) {
     cb(err)
   })

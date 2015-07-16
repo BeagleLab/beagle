@@ -10,11 +10,35 @@ var Conversation = React.createClass({
   },
   getInitialState: function () {
     return {
-      submitted: false,
-      text: null, // this.props.conversation && this.props.conversation.text || 'Error: Text not found',
-      title: null, // this.props.conversation && this.props.conversation.title || 'No Title',
+      submitted: (this.props.conversation),
+      conversation: this.props.conversation || {title: null, text: null},
       hideButton: false,
-      shares: {}
+      shares: {} // Used for the participants object
+    }
+  },
+  getConversationPosts: function (conversation) {
+    if (conversation) {
+      schema.getConversationPosts(conversation).then(function (response) {
+        console.log('Posts', response)
+        if (response.length === 1) {
+          conversation.text = response[0].text
+          this.setState({conversation: conversation})
+        } else {
+          // TODO make notes show
+          console.log('TODO Make notes show')
+        }
+      }.bind(this)).catch(function (err) {
+        console.log('err', err)
+      })
+    }
+  },
+  componentWillMount: function () {
+    this.getConversationPosts(this.state.conversation)
+  },
+  componentWillReceiveProps: function (nextProps) {
+    if (nextProps.conversation) {
+      this.setState({conversation: nextProps.conversation})
+      this.getConversationPosts(this.state.conversation)
     }
   },
   onClick: function () {
@@ -29,8 +53,8 @@ var Conversation = React.createClass({
 
     // Save the conversation
     schema.startBlankConversation({
-      'title': this.state.title,
-      'text': this.state.text,
+      'title': this.state.conversation.title,
+      'text': this.state.conversation.text,
       'author': this.props.account,
       'participants': this.state.shares
     }, function (err, data) {
@@ -50,11 +74,15 @@ var Conversation = React.createClass({
     this.setState({hideButton: !this.state.hideButton})
   },
   handleTitle: function (event) {
-    this.setState({ title: event.target.value })
+    let conversation = this.state.conversation
+    conversation.title = event.target.value
+    this.setState({conversation: conversation})
   },
 
   handleText: function (event) {
-    this.setState({ text: event.target.value })
+    let conversation = this.state.conversation
+    conversation.text = event.target.value
+    this.setState({conversation: conversation})
   },
 
   addShares: function (shares) {
@@ -94,24 +122,30 @@ var Conversation = React.createClass({
       margin: '10px'
     }
 
-    var text = this.state.text
-    var title = this.state.title
+    var conversationComp
+
+    if (this.state.submitted) {
+      conversationComp = (
+        <div>
+            <p style={titleStyle}>{this.state.conversation.title}</p>
+            <p style={textStyle}>{this.state.conversation.text}</p>
+            <Sharing account={this.props.account} shares={this.state.shares} addShares={this.addShares} />
+        </div>
+      )
+    } else {
+      conversationComp = (
+        <div>
+            <input type='input' style={inputTitleStyle} placeholder='Conversation Title' onChange={this.handleTitle} defaultValue={this.state.conversation.title} />
+            <textarea type='input' style={inputTitleStyle} placeholder='Share an insight' onChange={this.handleText} defaultValue={this.state.conversation.text} />
+            <Sharing account={this.props.account} shares={this.state.shares} addShares={this.addShares} />
+            <button className='btn btn-default' style={submitButtonStyle} showForm={this.showForm} onClick={this.onClick}>Start new conversation</button>
+        </div>
+      )
+    }
 
     return (
       <div style={conversationStyle}>
-        { (this.state.submitted) ?
-          <p style={titleStyle}>{title}</p> :
-          <input type='input' style={inputTitleStyle} placeholder='Conversation Title' onChange={this.handleTitle} defaultValue={title} />
-        }
-
-        { (this.state.submitted) ?
-          <p style={textStyle}>{text}</p> :
-          <textarea type='input' style={inputTitleStyle} placeholder='Share an insight' onChange={this.handleText} defaultValue={text} />
-        }
-
-        <Sharing account={this.props.account} shares={this.state.shares} addShares={this.addShares} />
-
-        <button className='btn btn-default' style={submitButtonStyle} showForm={this.showForm} onClick={this.onClick}>Start new conversation</button>
+        {conversationComp}
       </div>
     )
   }
