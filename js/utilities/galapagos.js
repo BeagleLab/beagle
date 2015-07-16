@@ -10,6 +10,10 @@ var db = new PouchDB(PouchDBUrl)
 
 module.exports = exports = {
   isEntity: function (e) {
+    // TODO check for userID, too. Or make the accounts regular.
+    if (e.userId) {
+      e.id = e.userId
+    }
     if (e === null || typeof e !== 'object') throw new TypeError('Entity is not an object')
     if (e !== null && !e.id) throw new Error('Entity does not have an id')
     if (e !== null && typeof e.id !== 'string') throw new TypeError('Entity id is not a string')
