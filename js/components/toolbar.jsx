@@ -17,6 +17,7 @@ var Toolbar = React.createClass({
     // screenshot: React.PropTypes.boolean,
     // flag: React.PropTypes.boolean
   },
+  // TODO Disable actions if not logged in
   render: function () {
     return (
       <ButtonToolbar>
