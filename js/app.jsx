@@ -1,8 +1,6 @@
 var React = require('react/addons')
 var PDFJS = require('beagle-pdf')
 
-// var Accordion = require('react-bootstrap').Accordion
-// var Panel = require('react-bootstrap').Panel
 var EmailForm = require('./components/emailForm.jsx')
 var Publication = require('./components/publication.jsx')
 var Sidebar = require('./components/sidebar.jsx')
@@ -11,8 +9,24 @@ var Slack = require('./components/slack.jsx').SendSlack
 var Toolbar = require('./components/toolbar.jsx')
 var Navbar = require('./components/navbar.jsx')
 var schema = require('./data/schema.js')
-// var Note = require('./components/note.jsx')
+// var Accordion = require('react-bootstrap').Accordion
+// var Cite = require('./components/cite.jsx')
 // var Conversations = require('./components/conversationChain.jsx')
+// var Graph = require('./components/graph.jsx')
+// var Highlight = require('./components/highlight.jsx')
+// var Note = require('./components/note.jsx')
+// var Panel = require('react-bootstrap').Panel
+// var RetrieveValue = require('./components/retrieveValue.jsx')
+// var Save = require('./components/save.jsx')
+// var Screenshot = require('./components/screenshot.jsx')
+// var Tags = require('./components/tags.jsx')
+// var Toc = require('./components/toc.jsx')
+
+var Conversation = require('./components/conversation.jsx')
+var Conversations = require('./components/conversations.jsx')
+
+// Dummy Data
+// var note = require('./data/schema.js').note
 // var conversationData = [require('./data/schema.js').note, {
 //       '_id': 'hash45sf67',
 //       'text': 'Ever sincesdfs I was little, I have always loved the sound of my own voice.',
@@ -21,26 +35,9 @@ var schema = require('./data/schema.js')
 //       ],
 //       'conversation': 'asfjklsjglw'
 //     }]
-// var Highlight = require('./components/highlight.jsx')
-// var Screenshot = require('./components/screenshot.jsx')
-// var Cite = require('./components/cite.jsx')
-// var Graph = require('./components/graph.jsx')
-// var RetrieveValue = require('./components/retrieveValue.jsx')
-// var Save = require('./components/save.jsx')
-// var Tags = require('./components/tags.jsx')
-// var Toc = require('./components/toc.jsx')
-
-var Conversation = require('./components/conversation.jsx')
-// var note = require('./data/schema.js').note
-
-var Conversations = require('./components/conversations.jsx')
-// Dummy Data
 var conversationData = require('./data/schema.js').conversation
-
 // TODO Add date to the conversation schema
 conversationData.date = '9 minutes'
-
-var conversationsData = [conversationData, conversationData]
 // var account = require('./data/schema.js').account
 // var publication = require('./data/schema.js').mediaPublication
 

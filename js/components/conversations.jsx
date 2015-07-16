@@ -27,9 +27,9 @@ module.exports = exports = React.createClass({
     // console.log('next', nextProps.conversations)
     this.getAvatars(nextProps.conversations)
   },
-  componentDidUpdate: function () {
-    console.log('State updated', this.state.conversations)
-  },
+  // componentDidUpdate: function () {
+  //   console.log('State updated', this.state.conversations)
+  // },
   getAvatars: function (props) {
     let dummyImage = 'http://upload.wikimedia.org/wikipedia/en/4/42/Richard_Feynman_Nobel.jpg'
     let userPromises = []
