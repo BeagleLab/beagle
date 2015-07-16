@@ -5,13 +5,18 @@ var UserBar = require('./userBar.jsx')
 var Sharing = React.createClass({
   displayName: 'Sharing',
   propTypes: {
-    'account': React.PropTypes.object
+    'account': React.PropTypes.object,
+    'shares': React.PropTypes.object,
+    'addShares': React.PropTypes.function
   },
   getInitialState: function () {
     return {}
   },
   onClick: function () {
     // TODO Add in db.put() call here
+  },
+  handleShares: function (event) {
+    this.setState({shareInput: event.target.value})
   },
 
   render: function () {
@@ -38,9 +43,9 @@ var Sharing = React.createClass({
     return (
       <div style={conversationStyle}>
 
-        <input type='text' style={inputStyle} placeholder='Share with...' />
+        <input type='text' style={inputStyle} placeholder='Share with...' onChange={this.handleShares} />
 
-        <PermissionsDropdown />
+        <PermissionsDropdown shares={this.props.shares} shareInput={this.state.shareInput} addShares={this.props.addShares} />
 
         <button className='btn btn-primary' style={submitButtonStyle} onClick={this.onClick}>
           <i className='fa fa-plus'></i> Add

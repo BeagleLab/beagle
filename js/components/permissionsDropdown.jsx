@@ -4,12 +4,31 @@ var MenuItem = require('react-bootstrap').MenuItem
 
 var PermissionsDropdown = React.createClass({
   displayName: 'PermissionsDropdown',
+  propTypes: {
+    'shares': React.PropTypes.object,
+    'addShares': React.PropTypes.function,
+    'shareInput': React.PropTypes.object
+  },
   getInitialState: function () {
     return {
     }
   },
-  onClick: function () {
-    // TODO Change the permissions of the user being selected
+  setShares: function (type) {
+    let shares = {
+      [this.props.shareInput]: type
+    }
+    this.props.addShares(shares)
+  },
+  // Sending vars through the handlers seems to break things.
+  handleRead: function () {
+    this.setShares('read')
+  },
+  handleWrite: function () {
+    this.setShares('write')
+  },
+
+  handleShare: function () {
+    this.setShares('share')
   },
 
   render: function () {
@@ -26,9 +45,9 @@ var PermissionsDropdown = React.createClass({
 
     return (
       <DropdownButton title={title} style={style}>
-        <MenuItem eventKey={1}><i className='fa fa-eye'></i> Readers can view</MenuItem>
-        <MenuItem eventKey={2}><i className='fa fa-pencil'></i> Writers can add content</MenuItem>
-        <MenuItem eventKey={3}><i className='fa fa-user'></i> Sharers can invite others</MenuItem>
+        <MenuItem eventKey={1} onSelect={this.handleRead}><i className='fa fa-eye'></i> Readers can view</MenuItem>
+        <MenuItem eventKey={2} onSelect={this.handleWrite}><i className='fa fa-pencil'></i> Writers can add content</MenuItem>
+        <MenuItem eventKey={3} onSelect={this.handleShare}><i className='fa fa-user'></i> Sharers can invite others</MenuItem>
       </DropdownButton>
     )
   }

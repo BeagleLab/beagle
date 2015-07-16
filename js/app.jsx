@@ -60,7 +60,6 @@ module.exports = React.createClass({
     return {
       'publication': null,
       'showConversation': null,
-      'account': this.props.account,
       'conversations': []
     }
   },
@@ -104,13 +103,13 @@ module.exports = React.createClass({
     var conversationComp = null
 
     if (this.state.showConversation) {
-      conversationComp = <Conversation account={this.state.account} />
+      conversationComp = <Conversation account={this.props.account} />
     }
 
     return (
 			<Sidebar >
 
-        <Navbar staticPath={this.props.staticPath} account={this.state.account} />
+        <Navbar staticPath={this.props.staticPath} account={this.props.account} />
 
         <Toolbar location={this.props.pdfLocation} fingerprint={this.props.fingerprint} showConversation={this.showConversation} />
 

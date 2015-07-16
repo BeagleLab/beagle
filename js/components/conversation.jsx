@@ -13,16 +13,14 @@ var Conversation = React.createClass({
       submitted: false,
       text: null, // this.props.conversation && this.props.conversation.text || 'Error: Text not found',
       title: null, // this.props.conversation && this.props.conversation.title || 'No Title',
-      hideButton: false
+      hideButton: false,
+      shares: {}
     }
   },
   onClick: function () {
     // TODO Make sure that userId and id should be the same
     // Shim the author ID.
-    var author = {}
-    if (this.props.account) {
-      author.id = this.props.account.userId
-    } else {
+    if (!this.props.account) {
       // TODO Log in the user programmatically automatically
       throw new Error('You must log in before saving a conversation')
     }
@@ -33,7 +31,8 @@ var Conversation = React.createClass({
     schema.startBlankConversation({
       'title': this.state.title,
       'text': this.state.text,
-      'author': author
+      'author': this.props.account,
+      'participants': this.state.shares
     }, function (err, data) {
       if (err) {
         console.log(err)
@@ -56,6 +55,12 @@ var Conversation = React.createClass({
 
   handleText: function (event) {
     this.setState({ text: event.target.value })
+  },
+
+  addShares: function (shares) {
+    this.setState({
+      'shares': shares
+    })
   },
 
   render: function () {
@@ -104,7 +109,7 @@ var Conversation = React.createClass({
           <textarea type='input' style={inputTitleStyle} placeholder='Share an insight' onChange={this.handleText} defaultValue={text} />
         }
 
-        <Sharing account={this.props.account} />
+        <Sharing account={this.props.account} shares={this.state.shares} addShares={this.addShares} />
 
         <button className='btn btn-default' style={submitButtonStyle} showForm={this.showForm} onClick={this.onClick}>Start new conversation</button>
       </div>
