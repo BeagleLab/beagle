@@ -42,9 +42,9 @@ module.exports = exports = React.createClass({
   getAvatars: function (props) {
     let dummyImage = 'http://upload.wikimedia.org/wikipedia/en/4/42/Richard_Feynman_Nobel.jpg'
     let userPromises = []
-    let clone
+    let clone = _.cloneDeep(props.slice(), true)
     if (props) {
-      clone = _.each(props.slice(), function (conversation) {
+      clone = _.each(clone, function (conversation) {
         conversation.avatars = []
 
         _.each(conversation.notes, function (note) {
@@ -83,7 +83,7 @@ module.exports = exports = React.createClass({
     }
 
     Promise.all(userPromises).then(function () {
-      this.setState({conversations: clone})
+      this.setState({conversations: React.addons.update(this.state.conversations, {$set: clone})})
     }.bind(this)).catch(function (err) {
       console.log('Catch promise err', err)
     })
