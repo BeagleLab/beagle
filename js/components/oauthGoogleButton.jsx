@@ -20,6 +20,7 @@ var Login = React.createClass({
     }
 
     try {
+      let _this = this
       // OAauth Code goes here.
       OAuth.initialize('IHLK6uDxpnuH1S71dCwbf30bjBM')
       // Using popup
@@ -30,7 +31,7 @@ var Login = React.createClass({
 
           if (me.avatar) {
             localStorage.avatar = me.avatar
-            this.props.setAvatar(me.avatar)
+            _this.props.setAvatar(me.avatar)
           }
 
           schema.logIn({

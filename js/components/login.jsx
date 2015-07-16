@@ -7,6 +7,9 @@ var Google = require('./oauthGoogleButton.jsx')
 
 var Login = React.createClass({
   displayName: 'Login',
+  propTypes: {
+    setAvatar: React.PropTypes.func
+  },
   render: function () {
     var style = {
       margin: '20px 0px'
@@ -15,7 +18,7 @@ var Login = React.createClass({
     return (
       <div className={style}>
         {/* <GitHub /> */}
-        <Google setAvatar={this.setAvatar} />
+        <Google setAvatar={this.props.setAvatar} />
       </div>
     )
   }
