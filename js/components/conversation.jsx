@@ -91,8 +91,7 @@ var Conversation = React.createClass({
       margin: '5px 0px',
       border: '1px solid #999',
       borderLeft: '3px solid #AE8DC7',
-      borderRadius: '2px',
-      paddingBottom: '50px'
+      borderRadius: '2px'
     }
 
     var textStyle = {
@@ -133,6 +132,7 @@ var Conversation = React.createClass({
             <textarea type='input' style={inputTitleStyle} placeholder='Share an insight' onChange={this.handleText} defaultValue={this.state.conversation.text} />
             <Sharing conversation={this.state.conversation} account={this.props.account} shares={this.state.shares} addShares={this.addShares} />
             <button className='btn btn-default' style={submitButtonStyle} showForm={this.showForm} onClick={this.onClick}>Start new conversation</button>
+            <div style={{clear: 'both'}}></div>
         </div>
       )
     }
