@@ -514,12 +514,17 @@ module.exports.newConversation = exports.newConversation = function newConversat
   if (!options.title || typeof options.title !== 'string') return cb('Title is not valid')
   if (!cb) throw new TypeError('undefined is not a function')
 
+  var participants = options.participants
+  var author = options.author.userId
+  participants[author] = 'share'
+
   var conversation = {
     '_id': newID(),
     'type': 'conversation',
     'title': options.title,
     'created': moment(),
-    'author': options.author.id || options.author.userId
+    'author': author,
+    'participants': participants
   }
 
   // TODO Run through galapagos before putting
@@ -561,16 +566,18 @@ module.exports.newNote = exports.newNote = function newNote (options, cb) {
   if (!options.text || typeof options.text !== 'string') return cb('Text is not valid')
   if (!cb) { throw new Error('Callback is not defined') }
 
+  var participants = options.participants
+  var author = options.author.userId
+  participants[author] = 'share'
+
   var note = {
     '_id': newID(),
     'text': options.text,
     'type': 'note',
-    'author': options.author.id,
+    'author': author,
     'conversation': options.conversation.id,
     'created': moment(),
-    'participants': {
-      [options.author.id]: 'share'
-    }
+    'participants': participants
   }
 
   // TODO Run through galapgagos before putting
@@ -642,14 +649,16 @@ module.exports.startBlankConversation = exports.startBlankConversation = functio
   }
   var that = this
 
+  var participants = options.participants
+  var author = options.author.userId
+  participants[author] = 'share'
+
   var conversation = {
     author: options.author,
     title: options.title,
     type: 'conversation',
     created: moment(),
-    participants: (options.participants) ? options.participants : {
-      [options.author.id]: 'share'
-    }
+    participants: participants
   }
 
   // TODO Run through galapagos before putting
@@ -662,13 +671,17 @@ module.exports.startBlankConversation = exports.startBlankConversation = functio
       console.log('response', response)
       conversation.id = response.id
 
+      var participants = options.participants
+      var author = options.author.userId
+      participants[author] = 'share'
+
       var note = {
         author: options.author,
         conversation: conversation,
         text: options.text,
         type: 'note',
         created: moment(),
-        participants: options.participants
+        participants: participants
       }
 
       // TODO Run through galapagos before putting
