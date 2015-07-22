@@ -22,7 +22,7 @@ var Toolbar = React.createClass({
     return (
       <ButtonToolbar>
         <Button onClick={this.props.showConversation} >
-          Note
+          New Note
         </Button>
         <Button>
           <Highlight location={this.props.location} fingerprint={this.props.fingerprint} />
