@@ -202,9 +202,9 @@ module.exports.note = exports.note = {
   '_id': 'hash4567',
   'created': moment(),
   'type': 'note',
-  'text': 'Ever since I was little, I have always loved the sound of my own voice.',
+  'text': 'This is dummy text. Footage skyscraper boat boy towards urban Tokyo assassin office vinyl uplink assault dolphin voodoo god. Man decay dissident physical wristwatch weathered uplink camera network assault hotdog 3D-printed carbon. Nodal point computer youtube engine man uplink San Francisco geodesic media shoes warehouse sub-orbital drone corrupted bomb ablative towards. Courier futurity dissident bicycle bridge vehicle market film apophenia A.I. towards.',
   'author': [
-    'Richard Feynman'
+    'richard.littauer@gmail.com'
   ],
   'conversation': 'asfjklsjglw'
 }
