@@ -1,5 +1,6 @@
 var React = require('react/addons')
 var Sharing = require('./sharing.jsx')
+var ConversationChain = require('./conversationChain.jsx')
 var schema = require('../data/schema.js')
 
 var Conversation = React.createClass({
@@ -13,19 +14,21 @@ var Conversation = React.createClass({
       submitted: (this.props.conversation),
       conversation: this.props.conversation || {title: null, text: null},
       hideButton: false,
-      shares: {} // Used for the participants object
+      shares: {}, // Used for the participants object
+      notes: []
     }
   },
   getConversationPosts: function (conversation) {
     if (conversation) {
       schema.getConversationPosts(conversation).then(function (response) {
         console.log('Posts', response)
-        if (response.length === 1) {
+        if (response.length !== 0) {
+          // Set the first note as the conversation text.
           conversation.text = response[0].text
           this.setState({conversation: conversation})
-        } else {
-          // TODO make notes show
-          console.log('TODO Make notes show')
+
+          console.log('Notes', response.slice(1))
+          this.setState({notes: response.slice(1)})
         }
       }.bind(this)).catch(function (err) {
         console.log('err', err)
@@ -120,9 +123,12 @@ var Conversation = React.createClass({
     if (this.state.submitted) {
       conversationComp = (
         <div>
-            <p style={titleStyle}>{this.state.conversation.title}</p>
-            <p style={textStyle}>{this.state.conversation.text}</p>
-            <Sharing conversation={this.state.conversation} account={this.props.account} shares={this.state.shares} addShares={this.addShares} />
+          <div style={conversationStyle}>
+              <p style={titleStyle}>{this.state.conversation.title}</p>
+              <p style={textStyle}>{this.state.conversation.text}</p>
+              <Sharing conversation={this.state.conversation} account={this.props.account} shares={this.state.shares} addShares={this.addShares} />
+          </div>
+          <ConversationChain notes={this.state.notes} account={this.props.account} />
         </div>
       )
     } else {
@@ -138,7 +144,7 @@ var Conversation = React.createClass({
     }
 
     return (
-      <div style={conversationStyle}>
+      <div >
         {conversationComp}
       </div>
     )

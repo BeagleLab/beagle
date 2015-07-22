@@ -5,11 +5,12 @@ var Note = React.createClass({
   displayName: 'Note',
   propTypes: {
     account: React.PropTypes.object,
-    text: React.PropTypes.string
+    text: React.PropTypes.string,
+    submitted: React.PropTypes.bool
   },
   getInitialState: function () {
     return {
-      submitted: true,
+      submitted: this.props.submitted,
       text: this.props.text || null
     }
   },
@@ -71,22 +72,22 @@ var Note = React.createClass({
     if (this.state.submitted) {
       rendered = (
         <div>
-          <div style={editStyle}>
+          {/* <div style={editStyle}>
             <i style={{paddingRight: '5px'}} className='fa fa-share' onClick={this.share}></i>
             <i className='fa fa-pencil' onClick={this.onClick}></i>
             <i style={{paddingLeft: '5px'}} className='fa fa-times' onClick={this.delete}></i>
-          </div>
-          <div style={clearFix}></div>
+          </div> */}
           <p style={textStyle}>
             {text}
           </p>
+          <div style={clearFix}></div>
         </div>
       )
     } else {
       rendered = (
         <div>
           <textarea type='input' style={inputStyle} placeholder='Share an insight' onChange={this.handleChange} defaultValue={text} />
-          <button className='btn btn-default' style={submitButtonStyle} onClick={this.onClick}>Note</button>
+          <button className='btn btn-default' style={submitButtonStyle} onClick={this.onClick}>Add Note</button>
         </div>
       )
     }
@@ -94,8 +95,8 @@ var Note = React.createClass({
     return (
       <div style={commentStyle}>
 
-        {/* TODO Remove permissions icon using an option or schema field */}
-        <UserBar account={this.props.account} secondaryText='date' />
+        {/* TODO Remove permissions icon using an option or schema field
+        <UserBar account={this.props.account} secondaryText='date' /> */}
 
         {rendered}
 

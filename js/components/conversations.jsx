@@ -42,6 +42,7 @@ module.exports = exports = React.createClass({
   getAvatars: function (props) {
     let dummyImage = 'http://upload.wikimedia.org/wikipedia/en/4/42/Richard_Feynman_Nobel.jpg'
     let userPromises = []
+    console.log('typeof props', typeof props, props)
     let clone = _.cloneDeep(props.slice(), true)
     if (props) {
       clone = _.each(clone, function (conversation) {

@@ -9,6 +9,8 @@ var Slack = require('./components/slack.jsx').SendSlack
 var Toolbar = require('./components/toolbar.jsx')
 var Navbar = require('./components/navbar.jsx')
 var schema = require('./data/schema.js')
+var Button = require('react-bootstrap').Button
+
 // var Accordion = require('react-bootstrap').Accordion
 // var Cite = require('./components/cite.jsx')
 // var Conversations = require('./components/conversationChain.jsx')
@@ -57,7 +59,10 @@ module.exports = React.createClass({
     return {
       'publication': null,
       'showConversation': null,
-      'conversations': []
+      'conversations': {
+        'all': [],
+        'local': []
+      }
     }
   },
 
@@ -72,6 +77,12 @@ module.exports = React.createClass({
     this.setState({
       'conversation': conversation,
       'showConversation': (this.state.showConversation) ? null : true
+    })
+  },
+
+  handleConversations: function (type) {
+    this.setState({
+      'conversationList': type
     })
   },
 
@@ -92,11 +103,17 @@ module.exports = React.createClass({
     }
     if (this.props.account) {
       schema.getAllConversationsForUser(this.props.account).then(function (response) {
-        this.setState({conversations: response})
+        this.setState({conversations: {all: response}})
       }.bind(this)).catch(function (err) {
         console.log('err', err)
       })
     }
+    // var localObject = {}
+    // schema.getLocalConversations(localObject).then(function (response) {
+    //   this.setState({conversations: {local: response}})
+    // }.bind(this)).catch(function (err) {
+    //   console.log('Error getting local conversations: ', err)
+    // })
   },
 
   render: function () {
@@ -119,11 +136,18 @@ module.exports = React.createClass({
         <br />
         <br />
 
+        {/* <Button onClick={this.handleConversations('all')}>
+          Your conversations
+        </Button>
+        <Button onClick={this.handleConversations('doc')}>
+          Document
+        </Button> */}
+
         {conversationComp}
 
         <br />
         <br />
-        <Conversations conversations={this.state.conversations} showConversation={this.state.showConversation} setConversation={this.setConversation} />
+        <Conversations conversations={this.state.conversations.all} showConversation={this.state.showConversation} setConversation={this.setConversation} />
         <br />
         <br />
         <br />
