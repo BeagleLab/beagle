@@ -9,7 +9,8 @@ var Slack = require('./components/slack.jsx').SendSlack
 var Toolbar = require('./components/toolbar.jsx')
 var Navbar = require('./components/navbar.jsx')
 var schema = require('./data/schema.js')
-var Button = require('react-bootstrap').Button
+var Nav = require('react-bootstrap').Nav
+var NavItem = require('react-bootstrap').NavItem
 
 // var Accordion = require('react-bootstrap').Accordion
 // var Cite = require('./components/cite.jsx')
@@ -62,7 +63,8 @@ module.exports = React.createClass({
       'conversations': {
         'all': [],
         'local': []
-      }
+      },
+      'activeNavItemId': 1
     }
   },
 
@@ -80,10 +82,22 @@ module.exports = React.createClass({
     })
   },
 
-  handleConversations: function (type) {
-    this.setState({
-      'conversationList': type
-    })
+  handleConversations: function (selectedKey) {
+    console.log('selectedKey', selectedKey)
+    switch (selectedKey) {
+      case 1 :
+        this.setState({
+          'activeNavItemId': selectedKey,
+          'conversationList': 'all'
+        })
+        break
+      case 2 :
+        this.setState({
+          'activeNavItemId': selectedKey,
+          'conversationList': 'doc'
+        })
+        break
+    }
   },
 
   componentWillMount: function () {
@@ -136,12 +150,10 @@ module.exports = React.createClass({
         <br />
         <br />
 
-        {/* <Button onClick={this.handleConversations('all')}>
-          Your conversations
-        </Button>
-        <Button onClick={this.handleConversations('doc')}>
-          Document
-        </Button> */}
+        <Nav bsStyle='tabs' activeKey={this.state.activeNavItemId} onSelect={this.handleConversations}>
+          <NavItem eventKey={1} title='All'>All Conversations</NavItem>
+          <NavItem eventKey={2} title='Local'>Local</NavItem>
+        </Nav>
 
         {conversationComp}
 
