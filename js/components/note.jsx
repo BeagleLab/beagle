@@ -1,5 +1,4 @@
 var React = require('react')
-var UserBar = require('./userBar.jsx')
 
 var Note = React.createClass({
   displayName: 'Note',
