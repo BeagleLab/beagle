@@ -14,7 +14,6 @@ var NavItem = require('react-bootstrap').NavItem
 
 // var Accordion = require('react-bootstrap').Accordion
 // var Cite = require('./components/cite.jsx')
-// var Conversations = require('./components/conversationChain.jsx')
 // var Graph = require('./components/graph.jsx')
 // var Highlight = require('./components/highlight.jsx')
 // var Note = require('./components/note.jsx')

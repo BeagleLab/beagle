@@ -6,7 +6,7 @@ var Note = require('./note.jsx')
 // the initial note should have the title. This is a difficult naming area. Bring up with team.
 
 module.exports = React.createClass({
-  displayName: 'Conversation Chain',
+  displayName: 'Note Chain',
   propTypes: {
     notes: React.PropTypes.array,
     account: React.PropTypes.obj

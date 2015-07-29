@@ -1,6 +1,6 @@
 var React = require('react/addons')
 var Sharing = require('./sharing.jsx')
-var ConversationChain = require('./conversationChain.jsx')
+var NoteChain = require('./noteChain.jsx')
 var schema = require('../data/schema.js')
 
 var Conversation = React.createClass({
@@ -128,7 +128,7 @@ var Conversation = React.createClass({
               <p style={textStyle}>{this.state.conversation.text}</p>
               <Sharing conversation={this.state.conversation} account={this.props.account} shares={this.state.shares} addShares={this.addShares} />
           </div>
-          <ConversationChain notes={this.state.notes} account={this.props.account} />
+          <NoteChain notes={this.state.notes} account={this.props.account} />
         </div>
       )
     } else {
