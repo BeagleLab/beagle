@@ -87,7 +87,7 @@ module.exports = React.createClass({
         if (data) {
           console.log('data', data)
           // TODO Get metadata about shares as well as authors from an external API
-          // this.setState({publication: data})
+          this.setState({publication: data})
         }
       }.bind(this))
     }
