@@ -19,7 +19,7 @@ var Conversation = React.createClass({
   getConversationPosts: function (conversation) {
     if (conversation) {
       schema.getConversationPosts(conversation).then(function (response) {
-        console.log('Posts', response)
+        // console.log('Posts', response)
         if (response.length === 1) {
           conversation.text = response[0].text
           this.setState({conversation: conversation})
