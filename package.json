@@ -41,6 +41,7 @@
     "react": "^0.13.3",
     "react-async": "^2.1.0",
     "react-bootstrap": "^0.22.3",
+    "react-linkhandler": "^1.0.4",
     "react-router": "^0.13.3",
     "reactify": "^1.1.1",
     "tough-cookie": "^2.0.0",
